@@ -1,67 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <title>{{ page.title }} | {{ site.title }}</title>
   <meta name="description" content="{{ site.description }}">
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh Arabic:wght@400;600&display=swap" rel="stylesheet">
-  {% seo %}
-  {% feed_meta %}
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+  <link rel="alternate" type="application/atom+xml" href="{{ "/feed.xml" | relative_url }}">
 </head>
-<body class="layout-single">
+<body>
   <header class="site-header">
-    <h1 class="site-title">{{ site.title | default: "Ahle Sunnah Al Islam" }}</h1>
-    <p class="site-subtitle">{{ site.description | default: "Sharing the truth and exposing lies" }}</p>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdHWh2ODuFtzgC1xyw35UnS2SgR89KOA9tKYlntwhKttJ04aqqgc9q_OW9q9gma_vaa8gLdbZc2vWf4ubKUxygsJLRA2WtIrq_BDjS3scGuJNYgp2njyVdF7lgXod305L47cIExCOuSNsLHy59WLd4jcy9fOueCVhWpJObMYrZTu4pZ-OCwUda33W5GCM/s1600/4395.png" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+      </div>
+      <h1 class="site-title">Ahle Sunnah Al Islam</h1>
+      <p class="site-tagline">Sharing the truth and exposing lies</p>
+    </div>
+    <nav class="site-nav">
+      <a href="{{ "/" | relative_url }}">Home</a>
+      <a href="{{ "/about/" | relative_url }}">About</a>
+      <a href="{{ "/#labels" | relative_url }}">Labels</a>
+      <a href="{{ "/feed.xml" | relative_url }}">RSS</a>
+    </nav>
   </header>
 
-  <nav class="site-nav">
-    <a href="{{ '/' | relative_url }}">Home</a>
-    <a href="{{ '/about' | relative_url }}">About</a>
-    <a href="{{ '/categories' | relative_url }}">Categories</a>
-    <a href="{{ '/contact' | relative_url }}">Contact</a>
-  </nav>
-
-  <div class="container">
-    <div class="main-grid">
-      <main>
-        {{ content }}
-      </main>
-      {% if site.studio.layout == "sidebar" or "single" == "sidebar" %}
-      <aside>
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Search</h3>
-          <form class="search-box" action="{{ '/search' | relative_url }}">
-            <input type="text" name="q" placeholder="Search...">
-            <button>Go</button>
-          </form>
-        </div>
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Popular Posts</h3>
-          <ul class="sidebar-list">
-            {% for post in site.posts limit:5 %}
-            <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="sidebar-card">
-          <h3 class="sidebar-title">Labels</h3>
-          <div class="labels">
-            {% for cat in site.categories %}
-            <span class="label-pill">{{ cat[0] }}</span>
-            {% endfor %}
-          </div>
-        </div>
-      </aside>
-      {% endif %}
+  <main class="site-main">
+    <div class="container">
+      {{ content }}
     </div>
-  </div>
+  </main>
 
   <footer class="site-footer">
-    <p>© {{ site.time | date: '%Y' }} {{ site.title }} — Built with Blogger → GitHub Theme Studio</p>
-    <p style="margin-top:6px">Theme colors: primary {{ site.colors.primary }}, accent {{ site.colors.accent }}</p>
+    <div class="container">
+      <p>© {{ "now" | date: "%Y" }} {{ site.title }} — All rights reserved for the sake of Allah.</p>
+      <p class="footer-small">Built with Jekyll • Deployed on GitHub Pages</p>
+    </div>
   </footer>
 </body>
 </html>
