@@ -1,9 +1,0 @@
-title: Ahle Sunnah Al Islam
-baseurl: /ahlesunnah
-url: https://fali17.github.io/ahlesunnah/
-markdown: kramdown
-future: true
-plugins: [jekyll-feed]
-defaults:
-    - scope: { path: "", type: "posts" }
-    values: { layout: post }
