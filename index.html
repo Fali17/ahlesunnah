@@ -2,30 +2,19 @@
 layout: default
 title: Home
 ---
-
-
-<div class="home">
-  <h1 class="page-heading">Latest Articles</h1>
-
-  {% if site.posts.size > 0 %}
-    <ul class="post-list">
-      {% for post in site.posts %}
-        <li>
-          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-          <h2>
-            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h2>
-          <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No posts found. Your _posts folder may be empty or posts have future dates without future: true.</p>
-    <p>Check:</p>
-    <ul>
-      <li>Files are in <code>/_posts</code> at repo root</li>
-      <li>Filenames like <code>2024-01-01-my-post.md</code></li>
-      <li>Frontmatter starts with <code>---</code> at first character</li>
-    </ul>
-  {% endif %}
+<div class="hero">
+  <p>بسم الله الرحمن الرحيم </p>
+</div>
+<div class="posts-grid">
+{% for post in site.posts %}
+<article class="post-card">
+  <div class="post-meta">
+    <time>{{ post.date | date: "%b %d, %Y" }}</time>
+    {% for tag in post.tags %}<span class="label">{{ tag }}</span>{% endfor %}
+  </div>
+  <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+  <p class="excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+  <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
+</article>
+{% endfor %}
 </div>
