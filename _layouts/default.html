@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  {% feed_meta %}
+  {% seo %}
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Logo" class="site-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback" style="display:none">Logo<br/>4395.png</span>
+      </div>
+      <h1>Ahle Sunnah</h1>
+      <p>Spreading The Truth</p>
+    </div>
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about/' | relative_url }}">About</a>
+      <a href="{{ '/archive/' | relative_url }}">Archive</a>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>© {{ site.time | date: "%Y" }} Ahle Sunnah Al Islam — All rights reserved</p>
+      <p style="margin-top:6px; opacity:0.7; font-size:11px;">Built with sincerity for the sake of Allah</p>
+    </div>
+  </footer>
+</body>
+</html>
