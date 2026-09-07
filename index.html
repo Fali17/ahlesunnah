@@ -1,0 +1,40 @@
+---
+layout: default
+title: Home
+---
+<!-- DEBUG: Remove this after fixing -->
+<div style="background:#fef3c7;border:1px solid #f59e0b;padding:12px;border-radius:8px;margin:16px 0;font-family:monospace;font-size:13px;">
+  <strong>DEBUG:</strong> site.posts.size = {{ site.posts | size }} |
+  site.pages.size = {{ site.pages | size }} |
+  baseurl = "{{ site.baseurl }}" |
+  url = "{{ site.url }}"
+  {% if site.posts.size == 0 %}
+  <div style="color:#b45309;margin-top:6px;">⚠ No posts found – check _posts location, filename format, and frontmatter</div>
+  {% endif %}
+</div>
+
+<div class="home">
+  <h1 class="page-heading">Latest Articles</h1>
+
+  {% if site.posts.size > 0 %}
+    <ul class="post-list">
+      {% for post in site.posts %}
+        <li>
+          <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+          <h2>
+            <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts found. Your _posts folder may be empty or posts have future dates without future: true.</p>
+    <p>Check:</p>
+    <ul>
+      <li>Files are in <code>/_posts</code> at repo root</li>
+      <li>Filenames like <code>2024-01-01-my-post.md</code></li>
+      <li>Frontmatter starts with <code>---</code> at first character</li>
+    </ul>
+  {% endif %}
+</div>
