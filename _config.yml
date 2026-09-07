@@ -1,9 +1,37 @@
 title: Ahle Sunnah
-email: your-email@example.com
-description: Spreading The Truth
-baseurl: "/ahlesunnah"
-url: "https://Fali17.github.io.github.io"
+description: Sharing the truth and exposing lies
+baseurl: /ahlesunnah
+url: https://fali17.github.io/ahlesunnah/
 markdown: kramdown
-theme: minima
+highlighter: rouge
+
+# Do not use a parent theme - we ship our own CSS
+# theme: minima  # <-- commented out
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Theme Studio exports
+colors:
+  primary: "#0e4a2d"
+  accent: "#c8a415"
+  background: "#fdfbf3"
+  card: "#ffffff"
+  text: "#1e293b"
+  muted: "#64748b"
+
+fonts:
+  heading: "Amiri"
+  body: "Noto Naskh Arabic"
+
+studio:
+  layout: single
+  header: banner
+  show_date: true
+  show_labels: true
+  show_author: false
+
+permalink: /:year/:month/:day/:title/
+paginate: 6
+paginate_path: "/page:num/"
