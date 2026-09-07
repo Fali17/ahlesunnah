@@ -1,37 +1,16 @@
-title: Ahle Sunnah
+title: Ahle Sunnah Al Islam
 description: Sharing the truth and exposing lies
 baseurl: /ahlesunnah
-url: https://fali17.github.io/ahlesunnah/
+url: https://fali17.github.io
 markdown: kramdown
-highlighter: rouge
-
-# Do not use a parent theme - we ship our own CSS
-# theme: minima  # <-- commented out
+future: true
+show_drafts: false
 plugins:
   - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
-# Theme Studio exports
-colors:
-  primary: "#0e4a2d"
-  accent: "#c8a415"
-  background: "#fdfbf3"
-  card: "#ffffff"
-  text: "#1e293b"
-  muted: "#64748b"
-
-fonts:
-  heading: "Amiri"
-  body: "Noto Naskh Arabic"
-
-studio:
-  layout: single
-  header: banner
-  show_date: true
-  show_labels: true
-  show_author: false
-
-permalink: /:year/:month/:day/:title/
-paginate: 6
-paginate_path: "/page:num/"
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: post
+logo: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdHWh2ODuFtzgC1xyw35UnS2SgR89KOA9tKYlntwhKttJ04aqqgc9q_OW9q9gma_vaa8gLdbZc2vWf4ubKUxygsJLRA2WtIrq_BDjS3scGuJNYgp2njyVdF7lgXod305L47cIExCOuSNsLHy59WLd4jcy9fOueCVhWpJObMYrZTu4pZ-OCwUda33W5GCM/s1600/4395.png
