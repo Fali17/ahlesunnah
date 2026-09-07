@@ -1,16 +1,9 @@
 title: Ahle Sunnah Al Islam
-description: Sharing the truth and exposing lies
 baseurl: /ahlesunnah
-url: https://fali17.github.io
+url: https://fali17.github.io/ahlesunnah/
 markdown: kramdown
 future: true
-show_drafts: false
-plugins:
-  - jekyll-feed
+plugins: [jekyll-feed]
 defaults:
-  - scope:
-      path: ""
-      type: "posts"
-    values:
-      layout: post
-logo: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjdHWh2ODuFtzgC1xyw35UnS2SgR89KOA9tKYlntwhKttJ04aqqgc9q_OW9q9gma_vaa8gLdbZc2vWf4ubKUxygsJLRA2WtIrq_BDjS3scGuJNYgp2njyVdF7lgXod305L47cIExCOuSNsLHy59WLd4jcy9fOueCVhWpJObMYrZTu4pZ-OCwUda33W5GCM/s1600/4395.png
+    - scope: { path: "", type: "posts" }
+    values: { layout: post }
