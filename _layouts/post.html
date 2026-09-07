@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<article class="post-card post-full">
+  <h1 class="post-title">{{ page.title }}</h1>
+
+  <div class="meta">
+    {% if site.studio.show_date != false %}
+    <span><span style="opacity:.7">📅</span> {{ page.date | date: "%b %d, %Y" }}</span>
+    <span class="dot"></span>
+    {% endif %}
+    {% if site.studio.show_author != false and page.author %}
+    <span>By {{ page.author }}</span>
+    <span class="dot"></span>
+    {% endif %}
+    <span>{{ page.content | number_of_words }} words</span>
+  </div>
+
+  {% if site.studio.show_labels != false and page.categories %}
+  <div class="labels" style="margin-bottom:18px">
+    {% for cat in page.categories %}
+    <span class="label-pill">{{ cat }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <div style="margin-top:28px; padding-top:18px; border-top:1px solid rgba(0,0,0,0.08)">
+    <a href="{{ '/' | relative_url }}" class="btn">← Back to home</a>
+  </div>
+</article>
