@@ -1,0 +1,20 @@
+title: Ahle Sunnah Al Islam
+description: Teachings of Ahle Sunnah Wal Jamaah - Quran, Hadith, Fiqh
+baseurl: "/ahlesunnah" # <-- for project pages (fali17.github.io/ahlesunnah)
+# If your repo is fali17.github.io (user page), set baseurl: ""
+url: "https://fali17.github.io"
+lang: en
+future: true # show posts with future dates
+show_drafts: false
+markdown: kramdown
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .jekyll-cache
