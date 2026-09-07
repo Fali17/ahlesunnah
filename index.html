@@ -1,10 +1,22 @@
 ---
 layout: default
+title: Home
 ---
-{% for post in site.posts %}
+<div class="home-intro">
+  <h2>Latest Articles</h2>
+  <p>Sharing the truth and exposing lies — authentic Islamic knowledge from Quran and Sunnah.</p>
+</div>
+
+<div class="post-grid">
+  {% for post in site.posts %}
   <article class="post-card">
-    <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-    <div class="meta">{{ post.date | date: "%b %d, %Y" }}</div>
-    <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+    <div class="post-card-meta">
+      <span class="post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+      {% if post.categories %}<span class="post-category">{{ post.categories | first }}</span>{% endif %}
+    </div>
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+    <a class="read-more" href="{{ post.url | relative_url }}">Read more →</a>
   </article>
-{% endfor %}
+  {% endfor %}
+</div>
