@@ -95,18 +95,6 @@ body {
   padding: 24px 16px;
 }
 
-.hero {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 22px;
-  font-size: 15px;
-  color: var(--muted);
-  text-align: center; /* Centered the hero text */
-}
-
 .posts-grid {
   display: flex;
   flex-direction: column;
