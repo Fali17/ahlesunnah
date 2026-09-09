@@ -10,68 +10,7 @@ layout: default
   <div class="post-content">
     {{ content }}
   </div>
-  
-  <!-- Report Button -->
-  <div class="report-section">
-    <button class="report-btn" onclick="openReportModal()">
-      <i class="fas fa-flag"></i> Report Issue
-    </button>
-  </div>
-
-  <!-- Post Navigation (Next/Previous Posts) -->
-  {% assign post_index = nil %}
-  {% for i in (0..site.posts.size) %}
-    {% if site.posts[i].url == page.url %}
-      {% assign post_index = i %}
-      {% break %}
-    {% endif %}
-  {% endfor %}
-  
-  {% if post_index %}
-  <div class="post-nav-posts">
-    {% if post_index > 0 %}
-      {% assign prev_post = site.posts[post_index | minus: 1] %}
-      <a href="{{ prev_post.url | relative_url }}" class="nav-post-link prev-link">
-        <i class="fas fa-chevron-left"></i> {{ prev_post.title }}
-      </a>
-    {% endif %}
-    
-    {% if post_index < site.posts.size | minus: 1 %}
-      {% assign next_post = site.posts[post_index | plus: 1] %}
-      <a href="{{ next_post.url | relative_url }}" class="nav-post-link next-link">
-        {{ next_post.title }} <i class="fas fa-chevron-right"></i>
-      </a>
-    {% endif %}
-  </div>
-  {% endif %}
-
   <div class="post-nav">
     <a href="{{ '/' | relative_url }}">&larr; Back to all posts</a>
   </div>
 </article>
-
-<!-- Report Modal -->
-<div id="reportModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeReportModal()">&times;</span>
-    <h2>Report an Issue</h2>
-    <form id="reportForm">
-      <label for="reportType">Issue Type:</label>
-      <select id="reportType" required>
-        <option value="">Select...</option>
-        <option value="error">Content Error</option>
-        <option value="offensive">Offensive Content</option>
-        <option value="spam">Spam</option>
-        <option value="other">Other</option>
-      </select>
-      
-      <label for="reportMessage">Message:</label>
-      <textarea id="reportMessage" rows="5" placeholder="Describe the issue..." required></textarea>
-      
-      <label for="reportEmail">Email (optional):</label>
-      <input type="email" id="reportEmail" placeholder="your@email.com">
-      
-      <button type="submit" class="submit-btn">Submit Report</button>
-    </form>
-  </div>
-</div>
