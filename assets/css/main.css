@@ -222,25 +222,3 @@ body {
   }
 }
 
-/* Floating Report button */
-.floating-report-btn {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background-color: #145a32;   /* strong red – good for “Report” */
-  color: white;
-  padding: 12px 20px;
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  transition: all 0.2s ease;
-  font-family: 'Inter', sans-serif; /* matches your site */
-}
-
-.floating-report-btn:hover {
-  background-color:#196f3d;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
