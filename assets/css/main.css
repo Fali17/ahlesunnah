@@ -186,13 +186,15 @@ body {
 }
 
 .read-more {
-  text-align:center;
+  display: flex;            /* 👈 Add this */
+  justify-content: center;   /* 👈 Add this */
   font-size: 13px;
   font-weight: 600;
   color: var(--primary);
   text-decoration: none;
   letter-spacing: 0.02em;
 }
+
 
 .read-more:hover { color: var(--primary-dark); text-decoration: underline; }
 
