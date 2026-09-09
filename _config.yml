@@ -5,8 +5,7 @@ url: https://fali17.github.io
 markdown: kramdown
 future: true
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
+  - jekyll-paginate
 defaults:
   - scope:
       path: ""
@@ -14,4 +13,6 @@ defaults:
     values:
       layout: post
       author: Ahle Sunnah
-logo: /assets/logo.png
+logo: assets/logo.png
+paginate: 10
+paginate_path: "/page:num/"
