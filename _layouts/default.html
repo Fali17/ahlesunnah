@@ -12,15 +12,18 @@
   <header class="site-header">
     <div class="header-inner">
       <div class="logo-wrap">
-        <img src="{{ '/assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
       </div>
       <h1>{{ site.title }}</h1>
       <p class="subtitle">{{ site.description }}</p>
     </div>
     <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/tags/' | relative_url }}">Topics</a>
-      <a href="https://alsunnahalislam.blogspot.com" target="_blank">Old Blog</a>
+      <a href="{{ 'index.html'| relative_url }}">Home</a>
+      <a href="{{ 'about.html'| relative_url }}">About</a>
+       <a href="{{ 'contact.html'| relative_url }}">Contact</a>
+       <a href="{{ 'documents.html'| relative_url }}">Documents</a>
+       <a href="{{ 'priv.html'| relative_url }}">Privacy Policy</a>
+       <a href="{{ 'terms.html'| relative_url }}">Terms And Conditions</a>
     </nav>
   </header>
   <main class="site-main">
