@@ -37,35 +37,33 @@ title: Home
     <div class="pagination" style="margin: 40px 0; display: flex; align-items: center; justify-content: space-between; font-family: inherit; border-top: 1px solid #eee; padding-top: 20px;">
       
       <!-- Previous Button -->
-      <div style="flex: 1; text-align: left;">
+      <div style="flex: 1; text-align: center;">
         {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path | relative_url }}" class="prev-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
+          <a href="{{ paginator.previous_page_path | relative_url }}" class="prev-page-btn" style="text-decoration: none; color: #145a32; font-weight: bold; padding: 8px 16px; border: 1px solid #145a32; border-radius: 4px; transition: all 0.2s;">
             &laquo; Previous Page
           </a>
         {% else %}
-          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">&laquo; Previous Page</span>
+          <span style="color: #145a32; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">&laquo; Previous Page</span>
         {% endif %}
       </div>
 
       <!-- Page Status Indicator -->
-      <div style="flex: 1; text-align: center; color: #666; font-size: 0.95em;">
+      <div style="flex: 1; text-align: center; color: #145a32; font-size: 0.95em;">
         Page <strong>{{ paginator.page }}</strong> of {{ paginator.total_pages }}
       </div>
 
       <!-- Next Button -->
-      <div style="flex: 1; text-align: right;">
+      <div style="flex: 1; text-align: center;">
         {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path | relative_url }}" class="next-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
+          <a href="{{ paginator.next_page_path | relative_url }}" class="next-page-btn" style="text-decoration: none; color: #145a32; font-weight: bold; padding: 8px 16px; border: 1px solid #145a32; border-radius: 4px; transition: all 0.2s;">
             Next Page &raquo;
           </a>
         {% else %}
-          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">Next Page &raquo;</span>
+          <span style="color: #145a32; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">Next Page &raquo;</span>
         {% endif %}
       </div>
 
     </div>
     {% endif %}
 
-    <p class="rss-subscribe">subscribe <a href="{{ '/feed.xml' | relative_url }}">via RSS</a></p>
-  {%- endif -%}
-</div>
+ 
