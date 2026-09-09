@@ -1,140 +1,71 @@
 ---
 layout: default
-title: Home
+title: Home 
 ---
-<div class="hero">
-<p>بسم الله الرحمن الرحيم </p>
-</div>
-
-
-
 
 <div class="home">
-
-  {% if site.paginate %}
-
-    {% assign posts = paginator.posts %}
-
-  {% else %}
-
-    {% assign posts = site.posts %}
-
-  {% endif %}
-
-
-  {%- if posts.size > 0 -%}
-
-    {%- if page.list_title -%}
-
-      <h2 class="page-heading">{{ page.list_title }}</h2>
-
-    {%- endif -%}
-
-
-    <ul class="post-list">
-
-      {%- for post in posts -%}
-
-      <li>
-
-        {%- assign date_format = site.minima.date_format | default: "%b %d, %Y" -%}
-
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-
-        <h3>
-
-          <a class="post-link" href="{{ post.url | relative_url }}">
-
-            {{ post.title | escape }}
-
-          </a>
-
-        </h3>
-
-        {%- if site.show_excerpts -%}
-
-          {{ post.excerpt }}
-
-        {%- endif -%}
-
-      </li>
-
-      {%- endfor -%}
-
-    </ul>
-
-
-    <!-- Custom Pagination Navigation UI -->
-
-    {% if paginator.total_pages > 1 %}
-
-    <div class="pagination" style="margin: 40px 0; display: flex; align-items: center; justify-content: space-between; font-family: inherit; border-top: 1px solid #eee; padding-top: 20px;">
-
-      
-
-      <!-- Previous Button -->
-
-      <div style="flex: 1; text-align: left;">
-
-        {% if paginator.previous_page %}
-
-          <a href="{{ paginator.previous_page_path | relative_url }}" class="prev-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
-
-            &laquo; Previous Page
-
-          </a>
-
-        {% else %}
-
-          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">&laquo; Previous Page</span>
-
-        {% endif %}
-
-      </div>
-
-
-      <!-- Page Status Indicator -->
-
-      <div style="flex: 1; text-align: center; color: #666; font-size: 0.95em;">
-
-        Page <strong>{{ paginator.page }}</strong> of {{ paginator.total_pages }}
-
-      </div>
-
-
-      <!-- Next Button -->
-
-      <div style="flex: 1; text-align: right;">
-
-        {% if paginator.next_page %}
-
-          <a href="{{ paginator.next_page_path | relative_url }}" class="next-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
-
-            Next Page &raquo;
-
-          </a>
-
-        {% else %}
-
-          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">Next Page &raquo;</span>
-
-        {% endif %}
-
-      </div>
-
-
-    </div>
-
-    {% endif %}
-
-
-    
-
-
-
-  <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-  <p class="excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
-  <a class="read-more" href="{{ post.url | relative_url }}">Read more &rarr;</a>
-</article>
-{% endfor %}
+  {% if site.paginate %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+      <h2 class="page-heading">{{ page.list_title }}</h2>
+    {%- endif -%}
+
+    <ul class="post-list">
+      {%- for post in posts -%}
+      <li>
+        {%- assign date_format = site.minima.date_format | default: "%b %d, %Y" -%}
+        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <h3>
+          <a class="post-link" href="{{ post.url | relative_url }}">
+            {{ post.title | escape }}
+          </a>
+        </h3>
+        {%- if site.show_excerpts -%}
+          {{ post.excerpt }}
+        {%- endif -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    <!-- Custom Pagination Navigation UI -->
+    {% if paginator.total_pages > 1 %}
+    <div class="pagination" style="margin: 40px 0; display: flex; align-items: center; justify-content: space-between; font-family: inherit; border-top: 1px solid #eee; padding-top: 20px;">
+      
+      <!-- Previous Button -->
+      <div style="flex: 1; text-align: left;">
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | relative_url }}" class="prev-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
+            &laquo; Previous Page
+          </a>
+        {% else %}
+          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">&laquo; Previous Page</span>
+        {% endif %}
+      </div>
+
+      <!-- Page Status Indicator -->
+      <div style="flex: 1; text-align: center; color: #666; font-size: 0.95em;">
+        Page <strong>{{ paginator.page }}</strong> of {{ paginator.total_pages }}
+      </div>
+
+      <!-- Next Button -->
+      <div style="flex: 1; text-align: right;">
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | relative_url }}" class="next-page-btn" style="text-decoration: none; color: #2a7ae2; font-weight: bold; padding: 8px 16px; border: 1px solid #2a7ae2; border-radius: 4px; transition: all 0.2s;">
+            Next Page &raquo;
+          </a>
+        {% else %}
+          <span style="color: #ccc; padding: 8px 16px; border: 1px solid #eee; border-radius: 4px; cursor: not-allowed;">Next Page &raquo;</span>
+        {% endif %}
+      </div>
+
+    </div>
+    {% endif %}
+
+    <p class="rss-subscribe">subscribe <a href="{{ '/feed.xml' | relative_url }}">via RSS</a></p>
+  {%- endif -%}
 </div>
