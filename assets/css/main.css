@@ -248,3 +248,22 @@ body {
   .post-full { padding: 22px 18px; border-radius: 12px; }
   .post-full h1 { font-size: 26px; }
 }
+
+.post-nav {
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 16px;
+}
+
+.post-nav a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.post-nav a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
