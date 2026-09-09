@@ -6,9 +6,15 @@
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
 </head>
 <body>
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" class="scroll-to-top" title="Go to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <header class="site-header">
     <div class="header-inner">
       <div class="logo-wrap">
@@ -18,19 +24,45 @@
       <p class="subtitle">{{ site.description }}</p>
     </div>
     <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/tags/' | relative_url }}">Topics</a>
-      <a href="https://alsunnahalislam.blogspot.com" target="_blank">Old Blog</a>
+      <a href="{{ '/' | relative_url }}" class="nav-link">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="{{ '/about/' | relative_url }}" class="nav-link">
+        <i class="fas fa-user"></i> About
+      </a>
+      <a href="{{ '/contact/' | relative_url }}" class="nav-link">
+        <i class="fas fa-envelope"></i> Contact
+      </a>
+      <a href="{{ '/documents/' | relative_url }}" class="nav-link">
+        <i class="fas fa-file-pdf"></i> Documents
+      </a>
+      <a href="{{ '/privacy/' | relative_url }}" class="nav-link">
+        <i class="fas fa-shield-alt"></i> Privacy
+      </a>
+      <a href="{{ '/terms/' | relative_url }}" class="nav-link">
+        <i class="fas fa-file-contract"></i> Terms
+      </a>
+      <a href="https://alsunnahalislam.blogspot.com" target="_blank" class="nav-link">
+        <i class="fas fa-external-link-alt"></i> Old Blog
+      </a>
     </nav>
   </header>
+
   <main class="site-main">
     {{ content }}
   </main>
+
   <footer class="site-footer">
-    <p>© {{ 'now' | date: "%Y" }} Ahle Sunnah </p>
-     
+    <div class="footer-content">
+      <p>&copy; {{ 'now' | date: "%Y" }} Ahle Sunnah Al Islam. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="{{ '/privacy/' | relative_url }}">Privacy Policy</a> | 
+        <a href="{{ '/terms/' | relative_url }}">Terms & Conditions</a> | 
+        <a href="{{ '/contact/' | relative_url }}">Contact Us</a>
+      </div>
+    </div>
   </footer>
-  
-  </a>
+
+  <script src="{{ 'assets/js/main.js' | relative_url }}"></script>
 </body>
 </html>
