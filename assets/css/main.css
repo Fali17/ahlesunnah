@@ -184,14 +184,16 @@ body {
   font-size: 14px;
   line-height: 1.65;
 }
+
 .read-more {
-  text-align :center;
+  text-align:center;
   font-size: 13px;
   font-weight: 600;
   color: var(--primary);
   text-decoration: none;
   letter-spacing: 0.02em;
 }
+
 .read-more:hover { color: var(--primary-dark); text-decoration: underline; }
 
 /* Post full */
