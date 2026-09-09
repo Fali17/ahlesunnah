@@ -33,5 +33,26 @@
 <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
   </footer>
   <button id="backToTop" title="Go to top">&#8593;</button>
+  <script>
+  const backToTopButton = document.getElementById("backToTop");
+
+  // Show the button when user scrolls down 300px from the top
+  window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  };
+
+  // When clicked, smoothly scroll back to the top
+  backToTopButton.addEventListener("click", function() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+</script>
+
 </body>
 </html>
