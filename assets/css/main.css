@@ -267,3 +267,28 @@ body {
   color: var(--primary-dark);
   text-decoration: underline;
 }
+
+#backToTop {
+  display: none; /* Hidden by default, JavaScript will reveal it */
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: var(--accent); /* Matches your theme's gold accent */
+  color: var(--primary-dark);    /* Deep green text color for contrast */
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: var(--radius);   /* Uses your template's rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+#backToTop:hover {
+  background-color: var(--primary); /* Swaps to main green on hover */
+  color: white;
+  transform: translateY(-2px);
+}
+
