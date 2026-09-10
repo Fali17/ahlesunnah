@@ -7,6 +7,115 @@
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+  <style>
+  /* --- Modern Main Header Navigation Styles --- */
+  header, .site-header {
+    background: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  header .container, .site-header .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Logo branding link */
+  .site-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111111 !important;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+
+  /* Navigation elements */
+  .site-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .site-nav .trigger {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .site-nav a.page-link {
+    color: #555555 !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 6px 4px;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  /* Animated underline effect on desktop hover */
+  .site-nav a.page-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #2a7ae2;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .site-nav a.page-link:hover {
+    color: #2a7ae2 !important;
+  }
+
+  .site-nav a.page-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* --- Mobile Optimization (Smartphones & Tablets) --- */
+  @media (max-width: 768px) {
+    header .container, .site-header .wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 0 15px;
+    }
+
+    .site-nav {
+      width: 100%;
+    }
+
+    /* Creates a sleek swipe horizontal menu block on phone views */
+    .site-nav .trigger {
+      width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 5px;
+      gap: 16px;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Hide scrollbars for a clean look while maintaining swipe action */
+    .site-nav .trigger::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .site-nav a.page-link {
+      font-size: 0.9rem;
+      padding: 4px 0;
+    }
+  }
+</style>
+
 </head>
 <body>
   <header class="site-header">
