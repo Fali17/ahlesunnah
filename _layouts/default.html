@@ -7,8 +7,9 @@
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+  
   <style>
-  /* --- Modern Main Header Navigation Styles --- */
+  /* --- Core Base & Header Layout --- */
   header, .site-header {
     background: #145a32;
     border-bottom: 1px solid #145a32;
@@ -18,150 +19,274 @@
     z-index: 1000;
   }
   
-  header .container, .site-header .wrapper {
+  .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
   }
 
-  /* Logo branding link */
-  .site-title {
+  /* Inner Branding Alignment */
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Balances against left burger trigger space */
+    margin-right: auto;
+  }
+
+  .logo-wrap .site-logo {
+    height: 45px;
+    width: auto;
+    display: block;
+  }
+
+  .header-inner h1 {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #111111 !important;
-    text-decoration: none;
-    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
   }
 
-  /* Navigation elements */
-  .site-nav {
+  .header-inner .subtitle {
+    font-size: 0.85rem;
+    color: #d4efdf;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* --- Top-Left Hamburger Trigger Button --- */
+  .menu-toggle-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+    z-index: 1010;
+    font-family: sans-serif;
+    position: absolute;
+    left: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
   }
 
-  .site-nav .trigger {
+  .menu-toggle-btn:focus {
+    outline: none;
+  }
+
+  /* --- Pure CSS Sliding Left Sidebar Menu --- */
+  .sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Starts completely hidden on left margin fields */
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
-    gap: 20px;
-    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
   }
 
-  .site-nav a.page-link {
-    color: #555555 !important;
+  /* JavaScript Hook activation rule */
+  .sidebar-nav.is-open {
+    left: 0;
+  }
+
+  /* Sidebar Inner Header Content */
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #145a32;
+    color: #ffffff;
+  }
+
+  .sidebar-header h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .sidebar-close-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0 5px;
+    line-height: 1;
+  }
+
+  /* Sidebar Links UI Styles */
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 4px;
+  }
+
+  .sidebar-links a {
+    color: #333333 !important;
     text-decoration: none !important;
     font-weight: 500;
-    font-size: 0.95rem;
-    padding: 6px 4px;
-    position: relative;
-    transition: color 0.2s ease;
+    font-size: 1rem;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
   }
 
-  /* Animated underline effect on desktop hover */
-  .site-nav a.page-link::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
+  .sidebar-links a:hover {
+    background-color: #eaf2e8;
+    color: #145a32 !important;
+    padding-left: 20px;
+  }
+
+  /* Dark Overlay dim background layer when menu stays active */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
     left: 0;
-    background-color: #2a7ae2;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1990;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
   }
 
-  .site-nav a.page-link:hover {
-    color: #2a7ae2 !important;
+  .sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
   }
 
-  .site-nav a.page-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+  /* --- Main Content Base Layout --- */
+  .site-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 75vh;
   }
 
-  /* --- Mobile Optimization (Smartphones & Tablets) --- */
-  @media (max-width: 768px) {
-    header .container, .site-header .wrapper {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 0 15px;
-    }
-
-    .site-nav {
-      width: 100%;
-    }
-
-    /* Creates a sleek swipe horizontal menu block on phone views */
-    .site-nav .trigger {
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 5px;
-      gap: 16px;
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    /* Hide scrollbars for a clean look while maintaining swipe action */
-    .site-nav .trigger::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .site-nav a.page-link {
-      font-size: 0.9rem;
-      padding: 4px 0;
-    }
+  .site-footer {
+    text-align: center;
+    padding: 25px 0;
+    background: #fafafa;
+    border-top: 1px solid #eeeeee;
+    color: #666666;
   }
 </style>
-
 </head>
 <body>
+
+  <!-- Website Top Header Structure -->
   <header class="site-header">
-    <div class="header-inner">
-      <div class="logo-wrap">
-        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+    <div class="header-container">
+      
+      <!-- Top Left Hamburger Toggle Control Button -->
+      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
+      
+      <!-- Main Brand Text/Logo Center Wrap Layout -->
+      <div class="header-inner">
+        <div class="logo-wrap">
+          <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+        </div>
+        <div>
+          <h1>{{ site.title }}</h1>
+          <p class="subtitle">{{ site.description }}</p>
+        </div>
       </div>
-      <h1>{{ site.title }}</h1>
-      <p class="subtitle">{{ site.description }}</p>
+
     </div>
-    <nav class="site-nav">
-      <a href="{{ 'index.html'| relative_url }}">Home</a>
-      <a href="{{ 'about.html'| relative_url }}">About</a>
-       <a href="{{ 'contact.html'| relative_url }}">Contact</a>
-       <a href="{{ 'documents.html'| relative_url }}">Documents</a>
-       <a href="{{ 'priv.html'| relative_url }}">Privacy Policy</a>
-       <a href="{{ 'terms.html'| relative_url }}">Terms And Conditions</a>
-    </nav>
   </header>
+
+  <!-- Dim Shadow Backdrop Overlay Component -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Left Side Slide-out Drawer Navigation Panel Container -->
+  <nav class="sidebar-nav" id="sidebarMenu">
+    <div class="sidebar-header">
+      <h2>Menu Nav</h2>
+      <!-- The X Button inside the Sidebar -->
+      <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Close navigation menu">&times;</button>
+    </div>
+    <div class="sidebar-links">
+      <a href="{{ 'index.html' | relative_url }}">Home</a>
+      <a href="{{ 'about.html' | relative_url }}">About</a>
+      <a href="{{ 'contact.html' | relative_url }}">Contact</a>
+      <a href="{{ 'documents.html' | relative_url }}">Documents</a>
+      <a href="{{ 'priv.html' | relative_url }}">Privacy Policy</a>
+      <a href="{{ 'terms.html' | relative_url }}">Terms And Conditions</a>
+    </div>
+  </nav>
+
+  <!-- Core Content Block Wrap -->
   <main class="site-main">
     {{ content }}
   </main>
+
   <footer class="site-footer">
-<p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+    <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
   </footer>
-  <button id="backToTop" title="Go to top">&#8593;</button>
+
+  <button id="backToTop" title="Go to top">↑</button>
+
+  <!-- Integrated Menu Toggles & Back-To-Top Interaction Scripting Logic -->
   <script>
-  const backToTopButton = document.getElementById("backToTop");
+    // 1. Sidebar Panel Toggling Logic Mechanics
+    const sidebarMenu = document.getElementById("sidebarMenu");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const openMenuBtn = document.getElementById("openMenuBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
 
-  // Show the button when user scrolls down 300px from the top
-  window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
+    function openSidebar() {
+      sidebarMenu.classList.add("is-open");
+      sidebarOverlay.classList.add("is-visible");
+      openMenuBtn.style.opacity = "0"; // Smoothly hide the ☰ icon behind the opening slider sheet
     }
-  };
 
-  // When clicked, smoothly scroll back to the top
-  backToTopButton.addEventListener("click", function() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    function closeSidebar() {
+      sidebarMenu.classList.remove("is-open");
+      sidebarOverlay.classList.remove("is-visible");
+      openMenuBtn.style.opacity = "1"; // Return visibility to ☰ when drawer is dismissed
+    }
+
+    // Attach Event Triggers
+    openMenuBtn.addEventListener("click", openSidebar);
+    closeMenuBtn.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    // 2. Back to Top Scroll Logic
+    const backToTopButton = document.getElementById("backToTop");
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    };
+
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
