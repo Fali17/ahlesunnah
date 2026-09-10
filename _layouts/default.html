@@ -5,163 +5,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
-  <style>
-  /* --- Modern Main Header Navigation Styles --- */
-  header, .site-header {
-    background: #145a32;
-    border-bottom: 1px solid #145a32;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
   
-  header .container, .site-header .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
+  <!-- Google Fonts Grid Link -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5.3 CSS Link -->
+  <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
+  <!-- Theme main.css -->
+  <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
 
-  /* Logo branding link */
-  .site-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #111111 !important;
-    text-decoration: none;
-    letter-spacing: -0.5px;
-  }
-
-  /* Navigation elements */
-  .site-nav {
-    display: flex;
-    align-items: center;
-  }
-
-  .site-nav .trigger {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-
-  .site-nav a.page-link {
-    color: #555555 !important;
-    text-decoration: none !important;
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: 6px 4px;
-    position: relative;
-    transition: color 0.2s ease;
-  }
-
-  /* Animated underline effect on desktop hover */
-  .site-nav a.page-link::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #2a7ae2;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
-  }
-
-  .site-nav a.page-link:hover {
-    color: #2a7ae2 !important;
-  }
-
-  .site-nav a.page-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
-
-  /* --- Mobile Optimization (Smartphones & Tablets) --- */
-  @media (max-width: 768px) {
-    header .container, .site-header .wrapper {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 0 15px;
-    }
-
-    .site-nav {
-      width: 100%;
-    }
-
-    /* Creates a sleek swipe horizontal menu block on phone views */
-    .site-nav .trigger {
-      width: 100%;
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 5px;
-      gap: 16px;
-      -webkit-overflow-scrolling: touch;
+  <style>
+    /* Retain your custom deep green bar theme */
+    .bg-brand-green {
+      background-color: #145a32 !important;
     }
     
-    /* Hide scrollbars for a clean look while maintaining swipe action */
-    .site-nav .trigger::-webkit-scrollbar {
-      display: none;
+    /* Style layout parameters for navbar typography alignment */
+    .navbar-brand h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
     }
     
-    .site-nav a.page-link {
-      font-size: 0.9rem;
-      padding: 4px 0;
+    .navbar-brand .subtitle {
+      font-size: 0.8rem;
+      margin: 0;
+      color: #d4efdf;
+      font-weight: 400;
     }
-  }
-</style>
 
+    .navbar-light .navbar-nav .nav-link {
+      color: rgba(255, 255, 255, 0.85) !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .navbar-light .navbar-nav .nav-link:hover,
+    .navbar-light .navbar-nav .nav-link.active {
+      color: #ffffff !important;
+      text-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    /* Customized white hamburger icon toggler outlines */
+    .custom-toggler.navbar-toggler {
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .custom-toggler .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://w3.org stroke='rgba%28255, 255, 255, 0.85%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Ensure structural site elements respect top sticky heights */
+    .site-main {
+      min-height: 80vh;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="logo-wrap">
-        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+
+  <!-- Bootstrap 5 Sticky Navigation Bar -->
+  <nav class="navbar navbar-expand-xl navbar-light bg-brand-green sticky-top shadow-sm py-3">
+    <div class="container">
+      
+      <!-- Brand Heading/Logo Container Section -->
+      <a class="navbar-brand d-flex align-items-center gap-3 text-decoration-none" href="{{ '/' | relative_url }}">
+        <div class="logo-wrap" style="max-width: 45px;">
+          <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="img-fluid site-logo" style="height: auto; width: 100%;">
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <h1>{{ site.title }}</h1>
+          <p class="subtitle">{{ site.description }}</p>
+        </div>
+      </a>
+
+      <!-- Mobile Dropdown Toggler Activation Control Trigger -->
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ahleSunnahNavMenu" aria-controls="ahleSunnahNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- The Collapsible Responsive Link Layout Navigation -->
+      <div class="collapse navbar-collapse" id="ahleSunnahNavMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-2 text-end text-xl-start pt-3 pt-xl-0">
+          <li class="nav-item">
+            <a class="nav-link {% if page.url == '/' or page.url == '/index.html' %}active fw-bold{% endif %}" href="{{ 'index.html' | relative_url }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if page.url contains 'about' %}active fw-bold{% endif %}" href="{{ 'about.html' | relative_url }}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if page.url contains 'contact' %}active fw-bold{% endif %}" href="{{ 'contact.html' | relative_url }}">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if page.url contains 'documents' %}active fw-bold{% endif %}" href="{{ 'documents.html' | relative_url }}">Documents</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if page.url contains 'priv' %}active fw-bold{% endif %}" href="{{ 'priv.html' | relative_url }}">Privacy Policy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if page.url contains 'terms' %}active fw-bold{% endif %}" href="{{ 'terms.html' | relative_url }}">Terms And Conditions</a>
+          </li>
+        </ul>
       </div>
-      <h1>{{ site.title }}</h1>
-      <p class="subtitle">{{ site.description }}</p>
+
     </div>
-    <nav class="site-nav">
-      <a href="{{ 'index.html'| relative_url }}">Home</a>
-      <a href="{{ 'about.html'| relative_url }}">About</a>
-       <a href="{{ 'contact.html'| relative_url }}">Contact</a>
-       <a href="{{ 'documents.html'| relative_url }}">Documents</a>
-       <a href="{{ 'priv.html'| relative_url }}">Privacy Policy</a>
-       <a href="{{ 'terms.html'| relative_url }}">Terms And Conditions</a>
-    </nav>
-  </header>
-  <main class="site-main">
+  </nav>
+
+  <!-- Injecting Main Content Blocks via Native Grid Containers -->
+  <main class="site-main container my-5">
     {{ content }}
   </main>
-  <footer class="site-footer">
-<p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+
+  <!-- Footers -->
+  <footer class="site-footer bg-light border-top py-4 text-center text-muted">
+    <div class="container">
+      <p class="m-0">&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+    </div>
   </footer>
-  <button id="backToTop" title="Go to top">&#8593;</button>
+
+  <!-- Scroll-Back to Top Interaction Component -->
+  <button id="backToTop" title="Go to top">↑</button>
+
+  <!-- Bootstrap 5 JavaScript Bundle Core Injection -->
+  <script src="https://jsdelivr.net" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
   <script>
-  const backToTopButton = document.getElementById("backToTop");
+    const backToTopButton = document.getElementById("backToTop");
 
-  // Show the button when user scrolls down 300px from the top
-  window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
-    }
-  };
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    };
 
-  // When clicked, smoothly scroll back to the top
-  backToTopButton.addEventListener("click", function() {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
