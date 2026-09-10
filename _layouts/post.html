@@ -1,6 +1,19 @@
 ---
 layout: default
 ---
+<style>
+  /* Fixes Blogger external images overflowing on screen sides */
+  .post-content img,
+  article img,
+  .entry-content img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 20px auto !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Adds a subtle clean border to scan outlines */
+  }
+</style>
+
 <article class="post-full">
   <div class="post-meta">
     <time>{{ page.date | date: "%B %d, %Y" }}</time>
