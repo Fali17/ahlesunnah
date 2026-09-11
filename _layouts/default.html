@@ -189,6 +189,79 @@
     color: #666666;
   }
 </style>
+  <!-- Top-Right Search Icon & Sliding Overlay Container -->
+<div class="search-wrapper">
+  <!-- Interactive Trigger Icon at Top Right -->
+  <button id="searchTriggerBtn" class="search-icon-btn" aria-label="Open search">🔍</button>
+
+  <!-- Sliding Left Search Overlay Panel -->
+  <div id="searchOverlayPanel" class="search-overlay-panel">
+    <div class="search-panel-header">
+      <div class="search-input-group">
+        <input type="text" id="customSearchInput" placeholder="Search or find on page..." autocomplete="off">
+        <button id="clearSearchBtn" class="clear-search-btn" title="Clear text" style="display:none;">Clear</button>
+      </div>
+      <!-- Close Box Button -->
+      <button id="closeSearchBtn" class="close-search-btn" aria-label="Close search">&times;</button>
+    </div>
+    
+    <!-- Dynamic Matches Dropdown Container -->
+    <div id="dropdownSearchResults" class="dropdown-results-container"></div>
+  </div>
+</div>
+
+<style>
+  /* Navigation Top Right Trigger Alignment */
+  .search-icon-btn {
+    background: none; border: none; color: #ffffff;
+    font-size: 1.3rem; cursor: pointer; padding: 5px;
+  }
+  
+  /* Sliding left search panel block mechanics */
+  .search-overlay-panel {
+    position: fixed; top: 0; right: -100%; /* Hidden offscreen right */
+    width: 100%; max-width: 450px; height: 100%;
+    background: #ffffff; box-shadow: -4px 0 15px rgba(0,0,0,0.15);
+    z-index: 2500; display: flex; flex-direction: column;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .search-overlay-panel.is-active { right: 0; } /* Slides into view across the screen */
+
+  .search-panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 20px; background: #145a32; gap: 15px;
+  }
+  .search-input-group {
+    position: relative; flex-grow: 1; display: flex; align-items: center;
+  }
+  #customSearchInput {
+    width: 100%; padding: 8px 65px 8px 12px; border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.3); font-size: 0.95rem; outline: none;
+  }
+  .clear-search-btn {
+    position: absolute; right: 8px; background: #e0e0e0; border: none;
+    padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; cursor: pointer; color: #333;
+  }
+  .close-search-btn {
+    background: none; border: none; color: #ffffff; font-size: 1.8rem;
+    cursor: pointer; line-height: 1;
+  }
+
+  /* Target Post Text Highlighting Styles */
+  mark.search-highlight {
+    background-color: #ffeb3b !important; color: #000000 !important;
+    border-radius: 2px; padding: 0 2px;
+  }
+
+  /* Live dropdown link preview structures */
+  .dropdown-results-container { flex-grow: 1; overflow-y: auto; padding: 15px; }
+  .drop-res-item { display: block; padding: 12px; border-bottom: 1px solid #eee; text-decoration: none !important; }
+  .drop-res-title { font-weight: 600; color: #145a32 !important; font-size: 0.95rem; }
+  .drop-res-excerpt { font-size: 0.8rem; color: #666; margin-top: 4px; }
+  
+  @media (max-width: 576px) { .search-overlay-panel { max-width: 100%; } }
+</style>
+
 </head>
 <body>
 
@@ -287,6 +360,121 @@
       });
     });
   </script>
+
+// --- Integrated Client-Side Universal Search & Highlighter Engine ---
+const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+const searchOverlayPanel = document.getElementById('searchOverlayPanel');
+const closeSearchBtn = document.getElementById('closeSearchBtn');
+const customSearchInput = document.getElementById('customSearchInput');
+const clearSearchBtn = document.getElementById('clearSearchBtn');
+const dropdownSearchResults = document.getElementById('dropdownSearchResults');
+
+let searchDb = [];
+const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
+
+// Load database layout maps
+fetch("{{ '/search.json' | relative_url }}")
+  .then(res => res.json()).then(data => searchDb = data).catch(err => console.error(err));
+
+// Open & Close Menu Triggers
+searchTriggerBtn.addEventListener('click', () => {
+  searchOverlayPanel.classList.add('is-active');
+  setTimeout(() => customSearchInput.focus(), 150);
+});
+
+function closeSearchPanel() {
+  searchOverlayPanel.classList.remove('is-active');
+  customSearchInput.value = '';
+  clearSearchBtn.style.display = 'none';
+  dropdownSearchResults.innerHTML = '';
+  if (isPostPage) removeHighlights();
+}
+
+closeSearchBtn.addEventListener('click', closeSearchPanel);
+
+// Clear text box mechanic trigger
+clearSearchBtn.addEventListener('click', () => {
+  customSearchInput.value = '';
+  clearSearchBtn.style.display = 'none';
+  dropdownSearchResults.innerHTML = '';
+  customSearchInput.focus();
+  if (isPostPage) removeHighlights();
+});
+
+// Dynamic Query Routing Evaluators
+customSearchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
+  dropdownSearchResults.innerHTML = '';
+
+  if (query.length < 2) {
+    if (isPostPage) removeHighlights();
+    return;
+  }
+
+  // CONTEXT A: If on a single Post Page -> Perform real-time live keyword text highlighting
+  if (isPostPage) {
+    highlightTextOnPostPage(query);
+  } 
+  
+  // CONTEXT B: Generate matching post suggestions dropdown (Essential on main index page)
+  const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
+  if (matches.length > 0) {
+    matches.forEach(item => {
+      const link = document.createElement('a');
+      link.href = item.url;
+      link.className = 'drop-res-item';
+      link.innerHTML = `<div class="drop-res-title">${item.title}</div><div class="drop-res-excerpt">${item.excerpt}</div>`;
+      dropdownSearchResults.appendChild(link);
+    });
+  } else if (!isPostPage) {
+    dropdownSearchResults.innerHTML = '<div style="text-align:center;color:#888;padding:20px;">No matches found</div>';
+  }
+});
+
+// Real-time DOM Text Highlight Node Injection Loops
+function highlightTextOnPostPage(keyword) {
+  removeHighlights();
+  const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
+  if (!targetArea) return;
+
+  const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
+  const textNodes = [];
+  while (walk.nextNode()) textNodes.push(walk.currentNode);
+
+  textNodes.forEach(node => {
+    const parent = node.parentNode;
+    if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
+
+    const text = node.nodeValue;
+    const index = text.toLowerCase().indexOf(keyword);
+    
+    if (index >= 0) {
+      const span = document.createElement('span');
+      span.className = 'search-highlight-container';
+      
+      const matchText = text.substring(index, index + keyword.length);
+      const beforeText = text.substring(0, index);
+      const afterText = text.substring(index + keyword.length);
+      
+      span.innerHTML = `${escapeHtml(beforeText)}<mark class="search-highlight">${escapeHtml(matchText)}</mark>${escapeHtml(afterText)}`;
+      parent.replaceChild(span, node);
+    }
+  });
+}
+
+function removeHighlights() {
+  document.querySelectorAll('.search-highlight-container').forEach(span => {
+    const parent = span.parentNode;
+    parent.replaceChild(document.createTextNode(span.textContent), span);
+    parent.normalize();
+  });
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
 
 </body>
 </html>
