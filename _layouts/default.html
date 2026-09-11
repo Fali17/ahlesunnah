@@ -362,13 +362,14 @@
     setTimeout(() => customSearchInput.focus(), 150);
   });
 
-  function closeSearchPanel() {
+    function closeSearchPanel() {
     searchOverlayPanel.classList.remove('is-active');
     customSearchInput.value = '';
-    clearSearchBtn.style.display = 'none'; // Fixed style attribute mapping here
+    clearSearchBtn.style.display = 'none'; //  Fixed: Changed .close to .display
     dropdownSearchResults.innerHTML = '';
     removeHighlights();
   }
+
   closeSearchBtn.addEventListener('click', closeSearchPanel);
 
   clearSearchBtn.addEventListener('click', () => {
