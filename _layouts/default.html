@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-  <link href="https://googleapis.com" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
   
   <style>
@@ -22,148 +22,70 @@
   .header-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
   }
 
-  /* Left Side Burger Trigger Button */
+  /* Inner Branding Alignment */
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto; /* Balances against left burger trigger space */
+    margin-right: auto;
+  }
+
+  .logo-wrap .site-logo {
+    height: 45px;
+    width: auto;
+    display: block;
+  }
+
+  .header-inner h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .header-inner .subtitle {
+    font-size: 0.85rem;
+    color: #d4efdf;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* --- Top-Left Hamburger Trigger Button --- */
   .menu-toggle-btn {
     background: none;
     border: none;
     color: #ffffff;
     font-size: 1.8rem;
     cursor: pointer;
-    padding: 5px 0;
+    padding: 5px 10px;
     line-height: 1;
     z-index: 1010;
     font-family: sans-serif;
+    position: absolute;
+    left: 15px;
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: opacity 0.2s ease;
   }
-  .menu-toggle-btn:focus { outline: none; }
 
-  /* Inner Branding Alignment (Centered naturally between toggle and search) */
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: center;
-  }
-  .logo-wrap .site-logo {
-    height: 40px;
-    width: auto;
-    display: block;
-  }
-  .header-inner h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-  .header-inner .subtitle {
-    font-size: 0.8rem;
-    color: #d4efdf;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* --- Top-Right Search Wrapper --- */
-  .search-wrapper {
-    position: relative;
-    z-index: 1010;
-  }
-  .search-input {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 6px 15px 6px 35px;
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-family: 'Inter', sans-serif;
-    width: 200px;
-    transition: all 0.3s ease;
-  }
-  .search-input::placeholder {
-    color: #d4efdf;
-  }
-  .search-input:focus {
+  .menu-toggle-btn:focus {
     outline: none;
-    background: #ffffff;
-    color: #111111;
-    border-color: #ffffff;
-    width: 240px;
-  }
-  /* Search loupe vector icon overlay styling */
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #d4efdf;
-    pointer-events: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-  .search-input:focus + .search-icon {
-    color: #145a32;
   }
 
-  /* --- Live Dropdown Search Results --- */
-  .search-results-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    width: 320px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    display: none; /* Hidden dynamically until input entry matches strings */
-  }
-  .search-result-item {
-    display: block;
-    padding: 12px 15px;
-    text-decoration: none !important;
-    border-bottom: 1px solid #f5f5f5;
-    transition: background 0.2s;
-  }
-  .search-result-item:last-child { border-bottom: none; }
-  .search-result-item:hover { background: #f9f9f9; }
-  .search-result-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #145a32 !important;
-    margin-bottom: 3px;
-  }
-  .search-result-meta {
-    font-size: 0.75rem;
-    color: #888;
-    margin-bottom: 4px;
-  }
-  .search-result-excerpt {
-    font-size: 0.8rem;
-    color: #555;
-    line-height: 1.3;
-  }
-  .search-no-results {
-    padding: 15px;
-    text-align: center;
-    color: #777;
-    font-size: 0.9rem;
-  }
-
-  /* --- Left Sliding Sidebar Menu --- */
+  /* --- Pure CSS Sliding Left Sidebar Menu --- */
   .sidebar-nav {
     position: fixed;
     top: 0;
-    left: -280px;
+    left: -280px; /* Starts completely hidden on left margin fields */
     width: 280px;
     height: 100%;
     background-color: #ffffff;
@@ -175,7 +97,13 @@
     padding: 0;
     font-family: 'Inter', sans-serif;
   }
-  .sidebar-nav.is-open { left: 0; }
+
+  /* JavaScript Hook activation rule */
+  .sidebar-nav.is-open {
+    left: 0;
+  }
+
+  /* Sidebar Inner Header Content */
   .sidebar-header {
     display: flex;
     align-items: center;
@@ -184,53 +112,94 @@
     background-color: #145a32;
     color: #ffffff;
   }
-  .sidebar-header h2 { font-size: 1.15rem; margin: 0; font-weight: 600; }
-  .sidebar-close-btn {
-    background: none; border: none; color: #ffffff;
-    font-size: 1.5rem; cursor: pointer; font-weight: bold;
-    padding: 0 5px; line-height: 1;
+
+  .sidebar-header h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 600;
   }
-  .sidebar-links { display: flex; flex-direction: column; padding: 15px 10px; gap: 4px; }
+
+  .sidebar-close-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0 5px;
+    line-height: 1;
+  }
+
+  /* Sidebar Links UI Styles */
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    gap: 4px;
+  }
+
   .sidebar-links a {
-    color: #333333 !important; text-decoration: none !important;
-    font-weight: 500; font-size: 1rem; padding: 12px 15px; border-radius: 6px;
+    color: #333333 !important;
+    text-decoration: none !important;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 12px 15px;
+    border-radius: 6px;
     transition: all 0.2s ease;
   }
+
   .sidebar-links a:hover {
-    background-color: #eaf2e8; color: #145a32 !important; padding-left: 20px;
+    background-color: #eaf2e8;
+    color: #145a32 !important;
+    padding-left: 20px;
   }
+
+  /* Dark Overlay dim background layer when menu stays active */
   .sidebar-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4); z-index: 1990;
-    opacity: 0; visibility: hidden; transition: all 0.3s ease;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1990;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
   }
-  .sidebar-overlay.is-visible { opacity: 1; visibility: visible; }
+
+  .sidebar-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
   /* --- Main Content Base Layout --- */
-  .site-main { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 75vh; }
-  .site-footer { text-align: center; padding: 25px 0; background: #fafafa; border-top: 1px solid #eeeeee; color: #666666; }
-  #backToTop { position: fixed; bottom: 20px; right: 20px; display: none; background: #145a32; color: white; border: none; border-radius: 4px; padding: 10px 15px; cursor: pointer; z-index: 1000; }
+  .site-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 75vh;
+  }
 
-  /* Mobile Tweaks */
-  @media (max-width: 576px) {
-    .header-inner h1 { font-size: 1.1rem; }
-    .header-inner .subtitle { display: none; }
-    .search-input { width: 130px; }
-    .search-input:focus { width: 170px; }
-    .search-results-dropdown { width: 280px; }
+  .site-footer {
+    text-align: center;
+    padding: 25px 0;
+    background: #fafafa;
+    border-top: 1px solid #eeeeee;
+    color: #666666;
   }
 </style>
 </head>
 <body>
 
-  <!-- Top Header Layout bar -->
+  <!-- Website Top Header Structure -->
   <header class="site-header">
     <div class="header-container">
       
-      <!-- Top Left Hamburger Activation button -->
+      <!-- Top Left Hamburger Toggle Control Button -->
       <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
       
-      <!-- Brand Details Center Stack Wrap -->
+      <!-- Main Brand Text/Logo Center Wrap Layout -->
       <div class="header-inner">
         <div class="logo-wrap">
           <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
@@ -241,21 +210,17 @@
         </div>
       </div>
 
-      <!-- Top Right Functional Live Search Interface Components -->
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." autocomplete="off">
-        <span class="search-icon">🔍</span>
-        <div id="searchResults" class="search-results-dropdown"></div>
-      </div>
-
     </div>
   </header>
 
-  <!-- Navigation Drawer Component Modules -->
+  <!-- Dim Shadow Backdrop Overlay Component -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Left Side Slide-out Drawer Navigation Panel Container -->
   <nav class="sidebar-nav" id="sidebarMenu">
     <div class="sidebar-header">
-      <h2>Menu Nav</h2>
+      <h2>Ahle Sunnah</h2>
+      <!-- The X Button inside the Sidebar -->
       <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Close navigation menu">&times;</button>
     </div>
     <div class="sidebar-links">
@@ -268,7 +233,7 @@
     </div>
   </nav>
 
-  <!-- Core Content Block Injector Layout -->
+  <!-- Core Content Block Wrap -->
   <main class="site-main">
     {{ content }}
   </main>
@@ -279,50 +244,49 @@
 
   <button id="backToTop" title="Go to top">↑</button>
 
+  <!-- Integrated Menu Toggles & Back-To-Top Interaction Scripting Logic -->
   <script>
-    // --- 1. Pure JS Live JSON Search Core Engine Engine ---
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    let searchDatabase = [];
+    // 1. Sidebar Panel Toggling Logic Mechanics
+    const sidebarMenu = document.getElementById("sidebarMenu");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const openMenuBtn = document.getElementById("openMenuBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
 
-    // Pre-fetch search database index quietly when reader interacts near navbar input fields
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(response => response.json())
-      .then(data => { searchDatabase = data; })
-      .catch(err => console.error("Could not fetch search index file data maps:", err));
+    function openSidebar() {
+      sidebarMenu.classList.add("is-open");
+      sidebarOverlay.classList.add("is-visible");
+      openMenuBtn.style.opacity = "0"; // Smoothly hide the ☰ icon behind the opening slider sheet
+    }
 
-    searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-      searchResults.innerHTML = '';
+    function closeSidebar() {
+      sidebarMenu.classList.remove("is-open");
+      sidebarOverlay.classList.remove("is-visible");
+      openMenuBtn.style.opacity = "1"; // Return visibility to ☰ when drawer is dismissed
+    }
 
-      if (query.length < 2) {
-        searchResults.style.display = 'none';
-        return;
-      }
+    // Attach Event Triggers
+    openMenuBtn.addEventListener("click", openSidebar);
+    closeMenuBtn.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
 
-      // Filter matches within search text tokens
-      const filtered = searchDatabase.filter(item => {
-        return item.title.toLowerCase().includes(query) || 
-               item.excerpt.toLowerCase().includes(query);
-      });
+    // 2. Back to Top Scroll Logic
+    const backToTopButton = document.getElementById("backToTop");
 
-      if (filtered.length > 0) {
-        filtered.forEach(item => {
-          const resElement = document.createElement('a');
-          resElement.href = item.url;
-          resElement.className = 'search-result-item';
-          resElement.innerHTML = `
-            <div class="search-result-title">${item.title}</div>
-            <div class="search-result-meta">${item.date}</div>
-            <div class="search-result-excerpt">${item.excerpt}</div>
-          `;
-          searchResults.appendChild(resElement);
-        });
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
       } else {
-        searchResults.innerHTML = '<div class="search-no-results">No articles found matching query.</div>';
+        backToTopButton.style.display = "none";
       }
+    };
 
-                                 searchResults.style.display = 'block';});// Hide dropdown box context boundaries whenever clicking completely off input /*
-    panelsdocument.addEventListener('click', function(e) {if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {searchResults.style.display = 'none';}});// --- 2. Sidebar Navigation Management Scripts --/
-    const sidebarMenu = document.getElementById("sidebarMenu");const sidebarOverlay = document.getElementById("sidebarOverlay");const openMenuBtn = document.getElementById("openMenuBtn");const closeMenuBtn = document.getElementById("closeMenuBtn");function openSidebar() {sidebarMenu.classList.add("is-open");sidebarOverlay.classList.add("is-visible");openMenuBtn.style.opacity = "0";}function closeSidebar() {sidebarMenu.classList.remove("is-open");sidebarOverlay.classList.remove("is-visible");openMenuBtn.style.opacity = "1";}openMenuBtn.addEventListener("click", openSidebar);closeMenuBtn.addEventListener("click", closeSidebar);sidebarOverlay.addEventListener("click", closeSidebar);// --- 3. Scroll to Top Trigger System ---
-    const backToTopButton = document.getElementById("backToTop");window.onscroll = function() {if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {backToTopButton.style.display = "block";} else {backToTopButton.style.display = "none";}};backToTopButton.addEventListener("click", function() {window.scrollTo({ top: 0, behavior: "smooth" });});
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+  </script>
+
+</body>
+</html>
