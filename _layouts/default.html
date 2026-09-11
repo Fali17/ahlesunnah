@@ -361,7 +361,9 @@
     });
   </script>
 
-// --- Integrated Client-Side Universal Search & Highlighter Engine ---
+
+<style>
+/**Integrated Client-Side Universal Search & Highlighter Engine ---*/
 const searchTriggerBtn = document.getElementById('searchTriggerBtn');
 const searchOverlayPanel = document.getElementById('searchOverlayPanel');
 const closeSearchBtn = document.getElementById('closeSearchBtn');
@@ -372,11 +374,11 @@ const dropdownSearchResults = document.getElementById('dropdownSearchResults');
 let searchDb = [];
 const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-// Load database layout maps
-fetch("{{ '/search.json' | relative_url }}")
+/**Load database layout maps*/
+fetch("{{ 'search.json' | relative_url }}")
   .then(res => res.json()).then(data => searchDb = data).catch(err => console.error(err));
 
-// Open & Close Menu Triggers
+/**Open & Close Menu Triggers*/
 searchTriggerBtn.addEventListener('click', () => {
   searchOverlayPanel.classList.add('is-active');
   setTimeout(() => customSearchInput.focus(), 150);
@@ -392,7 +394,7 @@ function closeSearchPanel() {
 
 closeSearchBtn.addEventListener('click', closeSearchPanel);
 
-// Clear text box mechanic trigger
+/**Clear text box mechanic trigger*/
 clearSearchBtn.addEventListener('click', () => {
   customSearchInput.value = '';
   clearSearchBtn.style.display = 'none';
@@ -401,7 +403,7 @@ clearSearchBtn.addEventListener('click', () => {
   if (isPostPage) removeHighlights();
 });
 
-// Dynamic Query Routing Evaluators
+/**Dynamic Query Routing Evaluators*/
 customSearchInput.addEventListener('input', function() {
   const query = this.value.toLowerCase().trim();
   clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
@@ -412,12 +414,12 @@ customSearchInput.addEventListener('input', function() {
     return;
   }
 
-  // CONTEXT A: If on a single Post Page -> Perform real-time live keyword text highlighting
+  /**CONTEXT A: If on a single Post Page -> Perform real-time live keyword text highlighting*/
   if (isPostPage) {
     highlightTextOnPostPage(query);
   } 
   
-  // CONTEXT B: Generate matching post suggestions dropdown (Essential on main index page)
+  /**CONTEXT B: Generate matching post suggestions dropdown (Essential on main index page)*/
   const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
   if (matches.length > 0) {
     matches.forEach(item => {
@@ -432,7 +434,7 @@ customSearchInput.addEventListener('input', function() {
   }
 });
 
-// Real-time DOM Text Highlight Node Injection Loops
+/**Real-time DOM Text Highlight Node Injection Loops*/
 function highlightTextOnPostPage(keyword) {
   removeHighlights();
   const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
@@ -475,6 +477,8 @@ function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+       
+</style>
 
 </body>
 </html>
