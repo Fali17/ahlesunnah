@@ -340,136 +340,137 @@
     });
   </script>
 
-  <!-- Locate your existing script tag at the bottom of the file -->
   <script>
-    const searchTriggerBtn = document.getElementById('searchTriggerBtn');
-    const searchOverlayPanel = document.getElementById('searchOverlayPanel');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const customSearchInput = document.getElementById('customSearchInput');
-    const clearSearchBtn = document.getElementById('clearSearchBtn');
-    const dropdownSearchResults = document.getElementById('dropdownSearchResults');
+  // --- 1. DOM Elements & State Setup ---
+  const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+  const searchOverlayPanel = document.getElementById('searchOverlayPanel');
+  const closeSearchBtn = document.getElementById('closeSearchBtn');
+  const customSearchInput = document.getElementById('customSearchInput');
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+  const dropdownSearchResults = document.getElementById('dropdownSearchResults');
 
-    let searchDb = [];
-    const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
+  let searchDb = [];
+  const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-    // Fetch your site database index
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(res => res.json()).then(data => searchDb = data).catch(err => console.error(err));
+  // Fetch the search index database 
+  fetch("{{ 'search.json' | relative_url }}")
+    .then(res => res.json()).then(data => searchDb = data).catch(err => console.error(err));
 
-    // Open panel logic
-    searchTriggerBtn.addEventListener('click', () => {
-      searchOverlayPanel.classList.add('is-active');
-      setTimeout(() => customSearchInput.focus(), 150);
-    });
+  // --- 2. Panel Controls (Open, Close, Clear) ---
+  searchTriggerBtn.addEventListener('click', () => {
+    searchOverlayPanel.classList.add('is-active');
+    setTimeout(() => customSearchInput.focus(), 150);
+  });
 
-    // Close panel logic
-    function closeSearchPanel() {
-      searchOverlayPanel.classList.remove('is-active');
-      customSearchInput.value = '';
-      clearSearchBtn.style.display = 'none';
-      dropdownSearchResults.innerHTML = '';
+  function closeSearchPanel() {
+    searchOverlayPanel.classList.remove('is-active');
+    customSearchInput.value = '';
+    clearSearchBtn.style.display = 'none'; // Fixed style attribute mapping here
+    dropdownSearchResults.innerHTML = '';
+    removeHighlights();
+  }
+  closeSearchBtn.addEventListener('click', closeSearchPanel);
+
+  clearSearchBtn.addEventListener('click', () => {
+    customSearchInput.value = '';
+    clearSearchBtn.style.display = 'none';
+    dropdownSearchResults.innerHTML = '';
+    customSearchInput.focus();
+    removeHighlights();
+  });
+
+  // --- 3. Live Input Processing & Keyword Filtering ---
+  customSearchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
+    dropdownSearchResults.innerHTML = '';
+
+    if (query.length < 2) {
       removeHighlights();
+      return;
     }
-    closeSearchBtn.addEventListener('click', closeSearchPanel);
 
-    // Clear text button logic
-    clearSearchBtn.addEventListener('click', () => {
-      customSearchInput.value = '';
-      clearSearchBtn.style.display = 'none';
-      dropdownSearchResults.innerHTML = '';
-      customSearchInput.focus();
-      removeHighlights();
-    });
+    highlightTextOnPage(query);
 
-    // PASTE THE NEW INPUT EVENT LOOP HERE:
-    customSearchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-      clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
-      dropdownSearchResults.innerHTML = '';
+    const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
+    if (matches.length > 0 && !isPostPage) {
+      matches.forEach(item => {
+        const link = document.createElement('a');
+        link.href = item.url; link.className = 'drop-res-item';
+        link.style.display = 'block';
+        link.style.padding = '10px 15px';
+        link.style.borderBottom = '1px solid #eee';
+        link.style.textDecoration = 'none';
+        link.innerHTML = `<div style="font-weight:600;color:#145a32;">${item.title}</div>`;
+        dropdownSearchResults.appendChild(link);
+      });
+    }
+  });
 
-      if (query.length < 2) {
-        removeHighlights();
-        return;
-      }
+  // --- 4. Text Node Highlighting Engine ---
+  function highlightTextOnPage(keyword) {
+    removeHighlights();
+    const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
+    if (!targetArea) return;
 
-      highlightTextOnPage(query);
+    const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    while (walk.nextNode()) textNodes.push(walk.currentNode);
 
-      const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
-      if (matches.length > 0 && !isPostPage) {
-        matches.forEach(item => {
-          const link = document.createElement('a');
-          link.href = item.url; link.className = 'drop-res-item';
-          link.innerHTML = `<div class="drop-res-title">${item.title}</div>`;
-          dropdownSearchResults.appendChild(link);
-        });
-      }
-    });
+    textNodes.forEach(node => {
+      const parent = node.parentNode;
+      if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
 
-    // PASTE THE NEW HIGHLIGHTTEXTONPAGE FUNCTION HERE:
-    function highlightTextOnPage(keyword) {
-      removeHighlights();
-      const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
-      if (!targetArea) return;
-
-      const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
-      const textNodes = [];
-      while (walk.nextNode()) textNodes.push(walk.currentNode);
-
-      textNodes.forEach(node => {
-        const parent = node.parentNode;
-        if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
-
-        const text = node.nodeValue;
-        const lowerText = text.toLowerCase();
+      const text = node.nodeValue;
+      const lowerText = text.toLowerCase();
+      
+      if (lowerText.includes(keyword)) {
+        const span = document.createElement('span');
+        span.className = 'search-highlight-container';
         
-        if (lowerText.includes(keyword)) {
-          const span = document.createElement('span');
-          span.className = 'search-highlight-container';
-          
-          let html = '';
-          let lastIndex = 0;
-          let index = lowerText.indexOf(keyword);
-          
-          while (index !== -1) {
-            html += escapeHtml(text.substring(lastIndex, index));
-            html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
-            lastIndex = index + keyword.length;
-            index = lowerText.indexOf(keyword, lastIndex);
-          }
-          html += escapeHtml(text.substring(lastIndex));
-          
-          span.innerHTML = html;
-          parent.replaceChild(span, node);
+        let html = '';
+        let lastIndex = 0;
+        let index = lowerText.indexOf(keyword);
+        
+        while (index !== -1) {
+          html += escapeHtml(text.substring(lastIndex, index));
+          html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
+          lastIndex = index + keyword.length;
+          index = lowerText.indexOf(keyword, lastIndex);
         }
-      });
-    }
-
-    // Helper removal and sanitization filters (Keep these at the bottom)
-    function removeHighlights() {
-      document.querySelectorAll('.search-highlight-container').forEach(span => {
-        const parent = span.parentNode;
-        parent.replaceChild(document.createTextNode(span.textContent), span);
-        parent.normalize();
-      });
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    // --- Keep your existing Back-to-Top scrolling script logic here ---
-    const backToTopButton = document.getElementById("backToTop");
-    window.onscroll = function() {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopButton.style.display = "block";
-      } else {
-        backToTopButton.style.display = "none";
+        html += escapeHtml(text.substring(lastIndex));
+        
+        span.innerHTML = html;
+        parent.replaceChild(span, node);
       }
-    };
-    backToTopButton.addEventListener("click", function() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
     });
-  </script>
-  
+  }
+
+  function removeHighlights() {
+    document.querySelectorAll('.search-highlight-container').forEach(span => {
+      const parent = span.parentNode;
+      parent.replaceChild(document.createTextNode(span.textContent), span);
+      parent.normalize();
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // --- 5. Back to Top Smooth Scroll Interaction ---
+  const backToTopButton = document.getElementById("backToTop");
+  window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      backToTopButton.style.display = "block";
+    } else {
+      backToTopButton.style.display = "none";
+    }
+  };
+  backToTopButton.addEventListener("click", function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
 </body>
 </html>
