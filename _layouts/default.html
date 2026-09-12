@@ -189,57 +189,124 @@
     color: #666666;
   }
 </style>
-  <div class="search-wrapper">
-  <!-- Top Right Custom SVG Icon Trigger -->
-  <button id="searchTriggerBtn" class="search-icon-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#145a32"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+ <!-- Top-Right Search Wrapper Interface -->
+<div class="search-wrapper">
+  <!-- Top Right Styled Circular Green Trigger with White Icon -->
+  <button id="searchTriggerBtn" class="search-icon-btn" aria-label="Open search">
+    <svg xmlns="http://w3.org" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
   </button>
 
-  <!-- Sleek Left-Sliding Overlay Panel -->
+  <!-- Left-Sliding Green Theme Search Drawer Panel -->
   <div id="searchOverlayPanel" class="search-overlay-panel">
     <div class="search-panel-header">
       <div class="search-input-group">
-        <input type="text" id="customSearchInput" placeholder="Type to highlight words..." autocomplete="off">
+        <input type="text" id="customSearchInput" placeholder="Type to search & highlight..." autocomplete="off">
         <button id="clearSearchBtn" class="clear-search-btn">Clear</button>
       </div>
+      <!-- Close (X) Drawer Toggle Button -->
       <button id="closeSearchBtn" class="close-search-btn" aria-label="Close search">&times;</button>
     </div>
+    <!-- Live Results Dropdown Output Link Deck -->
     <div id="dropdownSearchResults" class="dropdown-results-container"></div>
   </div>
 </div>
 
 <style>
-  .search-icon-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; padding: 5px; }
-  
-  /* Panel Layout: Optimized to not cover the page body on mobile viewports */
-  .search-overlay-panel {
-    position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%;
-    background:#145a32; box-shadow: -4px 0 15px rgba(0,0,0,0.15); z-index: 2500;
-    display: flex; flex-direction: column; transition: right 0.25s ease-in-out;
+  /* --- Right Side Green Search Button Custom Styling --- */
+  .search-wrapper {
+    position: relative;
+    z-index: 1010;
   }
-  .search-overlay-panel.is-active { right: 0; }
-  .search-panel-header { display: flex; align-items: center; padding: 12px 15px; background: #145a32; gap: 10px; }
-  .search-input-group { position: relative; flex-grow: 1; display: flex; align-items: center; }
-  #customSearchInput { width: 100%; padding: 6px 55px 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.9rem; outline: none; }
-  .clear-search-btn { position: absolute; right: 5px; background: #e0e0e0; border: none; padding: 2px 6px; border-radius: 3px; font-size: 0.75rem; cursor: pointer; display: none; }
-  .close-search-btn { background: none; border: none; color: #ffffff; font-size: 1.6rem; cursor: pointer; line-height: 1; }
-  .dropdown-results-container { flex-grow: 1; overflow-y: auto; max-height: 250px; }
+  .search-icon-btn { 
+    background: #114627; /* Rich darker contrasting green badge background */
+    border: 1px solid rgba(255,255,255,0.15); 
+    border-radius: 50%;
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    padding: 10px; 
+    transition: background 0.2s ease;
+  }
+  .search-icon-btn:hover {
+    background: #0b301a;
+  }
   
-  /* Vivid Yellow Highlighter Rule */
-  mark.search-highlight { background-color: #ffeb3b !important; color: #000000 !important; font-weight: bold; padding: 0 1px; }
+  /* --- Smooth Leftward-Expanding Drawer Panel Configuration --- */
+  .search-overlay-panel {
+    position: fixed; 
+    top: 0; 
+    right: -100%; /* Default hidden position past the right border */
+    width: 100%; 
+    max-width: 400px; 
+    height: 100%;
+    background: #ffffff; 
+    box-shadow: -6px 0 25px rgba(0,0,0,0.18); 
+    z-index: 2500;
+    display: flex; 
+    flex-direction: column; 
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Pulls leftwards elegantly when active */
+  }
+  .search-overlay-panel.is-active { 
+    right: 0; 
+  }
+  
+  /* Panel Interior Green Title Header bar */
+  .search-panel-header { 
+    display: flex; 
+    align-items: center; 
+    padding: 16px 20px; 
+    background: #145a32; /* Primary Brand Green background block */
+    gap: 12px; 
+  }
+  .search-input-group { 
+    position: relative; 
+    flex-grow: 1; 
+    display: flex; 
+    align-items: center; 
+  }
+  #customSearchInput { 
+    width: 100%; 
+    padding: 8px 65px 8px 12px; 
+    border-radius: 6px; 
+    border: 1px solid rgba(0,0,0,0.1); 
+    font-size: 0.95rem; 
+    outline: none; 
+    font-family: 'Inter', sans-serif;
+  }
+  .clear-search-btn { 
+    position: absolute; 
+    right: 6px; 
+    background: #dfdfdf; 
+    border: none; 
+    padding: 4px 8px; 
+    border-radius: 4px; 
+    font-size: 0.75rem; 
+    font-weight: 600;
+    cursor: pointer; 
+    display: none; /* Controlled dynamically via query entry length */
+    color: #222;
+  }
+  .clear-search-btn:hover { background: #ccc; }
+  .close-search-btn { background: none; border: none; color: #ffffff; font-size: 1.8rem; cursor: pointer; line-height: 1; }
+  .dropdown-results-container { flex-grow: 1; overflow-y: auto; background: #ffffff; }
+  
+  /* Yellow Highlighter Definition rule */
+  mark.search-highlight { 
+    background-color: #ffeb3b !important; 
+    color: #000000 !important; 
+    font-weight: bold; 
+    padding: 0 2px; 
+    border-radius: 2px;
+  }
 
-  /* Mobile Fix: Shrinks the panel height to a top banner so you can see the article underneath */
-  @media (max-width: 768px) {
-    .search-overlay-panel {
-      top: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: auto;
-      transform: translateY(-100%); transition: transform 0.25s ease-in-out;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  /* Responsive screen adaptations */
+  @media (max-width: 576px) {
+    .search-overlay-panel { 
+      max-width: 85%; /* Keeps a small slice of the website visible behind it on phone screens */
     }
-    .search-overlay-panel.is-active { transform: translateY(0); }
-    .dropdown-results-container { max-height: 150px; }
   }
 </style>
-
 
 </head>
 <body>
@@ -341,7 +408,7 @@
   </script>
 
   <script>
-    // --- 1. Element Binding Setup ---
+    // --- 1. Variable Instantiations & Setup ---
   const searchTriggerBtn = document.getElementById('searchTriggerBtn');
   const searchOverlayPanel = document.getElementById('searchOverlayPanel');
   const closeSearchBtn = document.getElementById('closeSearchBtn');
@@ -352,13 +419,13 @@
   let searchDb = [];
   const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-  // Fetch your Jekyll generated database safely
+  // Fetch the post catalog manifest
   fetch("{{ '/search.json' | relative_url }}")
     .then(res => res.json())
     .then(data => { searchDb = data; })
-    .catch(err => console.error("Database connection failed: ", err));
+    .catch(err => console.error("Database fetch abort: ", err));
 
-  // --- 2. Interactive Panel Controls (Open, Close, Clear) ---
+  // --- 2. Interactive Toggle Actions ---
   if (searchTriggerBtn) {
     searchTriggerBtn.addEventListener('click', () => {
       if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
@@ -369,7 +436,7 @@
   function closeSearchPanel() {
     if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
     if (customSearchInput) customSearchInput.value = '';
-    if (clearSearchBtn) clearSearchBtn.style.display = 'none'; // Fixed: Typo resolved here (.close became .display)
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
     if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
     removeHighlights();
   }
@@ -388,7 +455,7 @@
     });
   }
 
-  // --- 3. Live Input Event & Highlighter Router ---
+  // --- 3. Parsing Input Queries ---
   if (customSearchInput) {
     customSearchInput.addEventListener('input', function() {
       const query = this.value.toLowerCase().trim();
@@ -400,10 +467,10 @@
         return;
       }
 
-      // Automatically run text-matching overlays
+      // Execute character node highlighter over the current view
       highlightTextOnPage(query);
 
-      // Populate directory items if browsing global categories
+      // Generate post directory recommendation layout links on standard index layouts
       const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
       if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
         matches.forEach(item => {
@@ -411,17 +478,17 @@
           link.href = item.url; 
           link.className = 'drop-res-item';
           link.style.display = 'block';
-          link.style.padding = '10px 15px';
-          link.style.borderBottom = '1px solid #eee';
+          link.style.padding = '12px 15px';
+          link.style.borderBottom = '1px solid #f0f0f0';
           link.style.textDecoration = 'none';
-          link.innerHTML = `<div style="font-weight:600;color:#145a32;">${item.title}</div>`;
+          link.innerHTML = `<div style="font-weight:600;color:#145a32;font-size:0.95rem;">${item.title}</div>`;
           dropdownSearchResults.appendChild(link);
         });
       }
     });
   }
 
-  // --- 4. Deep Text Node DOM Scanning Loops ---
+  // --- 4. Deep Target Text Block DOM Scanners ---
   function highlightTextOnPage(keyword) {
     removeHighlights();
     const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
@@ -474,7 +541,7 @@
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  // --- 5. Sidebar Sliding Menu Toggles ---
+  // --- 5. Sidebar Menu Framework Management Linkages ---
   const sidebarMenu = document.getElementById("sidebarMenu");
   const sidebarOverlay = document.getElementById("sidebarOverlay");
   const openMenuBtn = document.getElementById("openMenuBtn");
@@ -504,7 +571,7 @@
     });
   }
 
-  // --- 6. Back to Top Scroll Actions ---
+  // --- 6. Scroll Up Target Logic Interceptors ---
   const backToTopButton = document.getElementById("backToTop");
   window.onscroll = function() {
     if (backToTopButton) {
@@ -520,6 +587,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+
 
 </script>
 
