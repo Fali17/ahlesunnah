@@ -5,16 +5,234 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-  
-  <!-- Font assets -->
-  <link rel="preconnect" href="https://googleapis.com">
-  <link rel="preconnect" href="https://gstatic.com" crossorigin>
-  <link href="https://googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Main theme stylesheet -->
+  <link href="https://googleapis.com" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
+  
+  <style>
+  /* --- Core Base & Header Layout --- */
+  header, .site-header {
+    background: #145a32;
+    border-bottom: 1px solid #145a32;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  /* Left Side Burger Trigger Button */
+  .menu-toggle-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 5px 0;
+    line-height: 1;
+    z-index: 1010;
+    font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+  }
+  .menu-toggle-btn:focus { outline: none; }
+
+  /* Inner Branding Alignment (Centered naturally between toggle and search) */
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+  }
+  .logo-wrap .site-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+  .header-inner h1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .header-inner .subtitle {
+    font-size: 0.8rem;
+    color: #d4efdf;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* --- Top-Right Search Wrapper --- */
+  .search-wrapper {
+    position: relative;
+    z-index: 1010;
+  }
+  .search-input {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 6px 15px 6px 35px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    width: 200px;
+    transition: all 0.3s ease;
+  }
+  .search-input::placeholder {
+    color: #d4efdf;
+  }
+  .search-input:focus {
+    outline: none;
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+    width: 240px;
+  }
+  /* Search loupe vector icon overlay styling */
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #d4efdf;
+    pointer-events: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+  .search-input:focus + .search-icon {
+    color: #145a32;
+  }
+
+  /* --- Live Dropdown Search Results --- */
+  .search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    width: 320px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    display: none; /* Hidden dynamically until input entry matches strings */
+  }
+  .search-result-item {
+    display: block;
+    padding: 12px 15px;
+    text-decoration: none !important;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
+  }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover { background: #f9f9f9; }
+  .search-result-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #145a32 !important;
+    margin-bottom: 3px;
+  }
+  .search-result-meta {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .search-result-excerpt {
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.3;
+  }
+  .search-no-results {
+    padding: 15px;
+    text-align: center;
+    color: #777;
+    font-size: 0.9rem;
+  }
+
+  /* --- Left Sliding Sidebar Menu --- */
+  .sidebar-nav {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .sidebar-nav.is-open { left: 0; }
+  .sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #145a32;
+    color: #ffffff;
+  }
+  .sidebar-header h2 { font-size: 1.15rem; margin: 0; font-weight: 600; }
+  .sidebar-close-btn {
+    background: none; border: none; color: #ffffff;
+    font-size: 1.5rem; cursor: pointer; font-weight: bold;
+    padding: 0 5px; line-height: 1;
+  }
+  .sidebar-links { display: flex; flex-direction: column; padding: 15px 10px; gap: 4px; }
+  .sidebar-links a {
+    color: #333333 !important; text-decoration: none !important;
+    font-weight: 500; font-size: 1rem; padding: 12px 15px; border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  .sidebar-links a:hover {
+    background-color: #eaf2e8; color: #145a32 !important; padding-left: 20px;
+  }
+  .sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); z-index: 1990;
+    opacity: 0; visibility: hidden; transition: all 0.3s ease;
+  }
+  .sidebar-overlay.is-visible { opacity: 1; visibility: visible; }
+
+  /* --- Main Content Base Layout --- */
+  .site-main { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 75vh; }
+  .site-footer { text-align: center; padding: 25px 0; background: #fafafa; border-top: 1px solid #eeeeee; color: #666666; }
+  #backToTop { position: fixed; bottom: 20px; right: 20px; display: none; background: #145a32; color: white; border: none; border-radius: 4px; padding: 10px 15px; cursor: pointer; z-index: 1000; }
+
+  /* Mobile Tweaks */
+  @media (max-width: 576px) {
+    .header-inner h1 { font-size: 1.1rem; }
+    .header-inner .subtitle { display: none; }
+    .search-input { width: 130px; }
+    .search-input:focus { width: 170px; }
+    .search-results-dropdown { width: 280px; }
+  }
+</style>
 </head>
 <body>
+
+  <script src="https://unpkg.com"></script>
+
+<script>
+SimpleJekyllSearch({
+  searchInput: document.getElementById('search-input'),
+  resultsContainer: document.getElementById('results-container'),
+  json: '/ahlesunnah/search.json' /* Match your GitHub Pages base URL */
+})
+</script>
+
 
   <!-- Top Header Layout bar -->
   <header class="site-header">
@@ -61,92 +279,84 @@
     </div>
   </nav>
 
-  <!-- Main content wrapper -->
+  <!-- Core Content Block Injector Layout -->
   <main class="site-main">
     {{ content }}
   </main>
 
-  <!-- Footer layout block -->
   <footer class="site-footer">
-    <div class="site-footer-inner">
-      <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
-    </div>
+    <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
   </footer>
 
-  <!-- Scroll-to-top component -->
   <button id="backToTop" title="Go to top">↑</button>
 
-  <!-- Simple Jekyll Search Engine Library Code -->
-  <script src="https://unpkg.com"></script>
-
-  <!-- Core JavaScript Functionality Links -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // 1. Initialize Jekyll Live Search engine framework
-      if (document.getElementById('searchInput')) {
-        SimpleJekyllSearch({
-          searchInput: document.getElementById('searchInput'),
-          resultsContainer: document.getElementById('searchResults'),
-          json: '{{ "/search.json" | relative_url }}',
-          searchResultTemplate: '<a href="{url}" class="search-result-item"><div class="search-result-title">{title}</div><div class="search-result-meta">{date}</div><div class="search-result-excerpt">{excerpt}</div></a>',
-          noResultsText: '<div class="search-no-results">No results found</div>'
-        });
+    // --- 1. Pure JS Live JSON Search Core Engine Engine ---
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    let searchDatabase = [];
 
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        
-        // Open search view on data interaction values
-        searchInput.addEventListener('input', function() {
-          searchResults.style.display = this.value.length > 0 ? 'block' : 'none';
-        });
-        
-        // Close search selection menu when users tap away
-        document.addEventListener('click', function(e) {
-          if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-            searchResults.style.display = 'none';
-          }
-        });
+    // Pre-fetch search database index quietly when reader interacts near navbar input fields
+    fetch("{{ '/search.json' | relative_url }}")
+      .then(response => response.json())
+      .then(data => { searchDatabase = data; })
+      .catch(err => console.error("Could not fetch search index file data maps:", err));
+
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      searchResults.innerHTML = '';
+
+      if (query.length < 2) {
+        searchResults.style.display = 'none';
+        return;
       }
 
-      // 2. Sliding Burger Navigation interface functions
-      const openMenuBtn = document.getElementById('openMenuBtn');
-      const closeMenuBtn = document.getElementById('closeMenuBtn');
-      const sidebarMenu = document.getElementById('sidebarMenu');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      // Filter matches within search text tokens
+      const filtered = searchDatabase.filter(item => {
+        return item.title.toLowerCase().includes(query) || 
+               item.excerpt.toLowerCase().includes(query);
+      });
 
-      function toggleMenu(isOpen) {
-        if (isOpen) {
-          sidebarMenu.classList.add('is-open');
-          sidebarOverlay.classList.add('is-visible');
-          document.body.style.overflow = 'hidden';
-        } else {
-          sidebarMenu.classList.remove('is-open');
-          sidebarOverlay.classList.remove('is-visible');
-          document.body.style.overflow = '';
-        }
-      }
-
-      if(openMenuBtn && closeMenuBtn && sidebarMenu && sidebarOverlay) {
-        openMenuBtn.addEventListener('click', () => toggleMenu(true));
-        closeMenuBtn.addEventListener('click', () => toggleMenu(false));
-        sidebarOverlay.addEventListener('click', () => toggleMenu(false));
-      }
-
-      // 3. Back to Top Action trigger conditions
-      const backToTopBtn = document.getElementById('backToTop');
-      if (backToTopBtn) {
-        window.addEventListener('scroll', function() {
-          if (window.scrollY > 300) {
-            backToTopBtn.style.display = 'block';
-          } else {
-            backToTopBtn.style.display = 'none';
-          }
+      if (filtered.length > 0) {
+        filtered.forEach(item => {
+          const resElement = document.createElement('a');
+          resElement.href = item.url;
+          resElement.className = 'search-result-item';
+          resElement.innerHTML = `
+            <div class="search-result-title">${item.title}</div>
+            <div class="search-result-meta">${item.date}</div>
+            <div class="search-result-excerpt">${item.excerpt}</div>
+          `;
+          searchResults.appendChild(resElement);
         });
-        backToTopBtn.addEventListener('click', function() {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+      } else {
+        searchResults.innerHTML = '<div class="search-no-results">No articles found matching query.</div>';
       }
-    });
+searchResults.style.display = 'block';});
+  
+  // Hide dropdown box context boundaries whenever clicking completely off input 
+    panelsdocument.addEventListener('click', function(e) {if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {searchResults.style.display = 'none';}});
+    // --- 2. Sidebar Navigation Management Scripts ---
+const sidebarMenu = document.getElementById("sidebarMenu");const sidebarOverlay = document.getElementById("sidebarOverlay");const openMenuBtn = document.getElementById("openMenuBtn");const closeMenuBtn = document.getElementById("closeMenuBtn");function openSidebar() {sidebarMenu.classList.add("is-open");sidebarOverlay.classList.add("is-visible");openMenuBtn.style.opacity = "0";}function closeSidebar() {sidebarMenu.classList.remove("is-open");sidebarOverlay.classList.remove("is-visible");openMenuBtn.style.opacity = "1";}openMenuBtn.addEventListener("click", openSidebar);closeMenuBtn.addEventListener("click", closeSidebar);sidebarOverlay.addEventListener("click", closeSidebar);// --- 3. Scroll to Top Trigger System ---
+  const backToTopButton = document.getElementById("backToTop");window.onscroll = function() {if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {backToTopButton.style.display = "block";} else {backToTopButton.style.display = "none";}};backToTopButton.addEventListener("click", function() {window.scrollTo({ top: 0, behavior: "smooth" });});
+
   </script>
+
+  <script>
+const menuToggle = document.getElementById('menu-toggle');
+const menuClose = document.getElementById('menu-close');
+const navMenu = document.getElementById('nav-menu');
+
+menuToggle.addEventListener('click', () => {
+    navMenu.classList.add('active'); // Or change style.display = 'block'
+});
+
+menuClose.addEventListener('click', () => {
+    navMenu.classList.remove('active'); // Or change style.display = 'none'
+});
+    
+  </script>
+  
 </body>
 </html>
+    
