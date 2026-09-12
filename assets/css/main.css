@@ -293,3 +293,21 @@ body {
   transform: translateY(-2px);
 }
 
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spaces logo image and text nicely */
+}
+
+.logo-section img {
+    height: 50px; /* Restrict logo image height so it doesn't break layout */
+    width: auto;
+}
+
