@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
   
   <style>
-  /* --- Core Base & Header Layout --- */
+   /* --- Core Base Header Layout Setup --- */
   header, .site-header {
     background: #145a32;
     border-bottom: 1px solid #145a32;
-    padding: 15px 0;
+    padding: 12px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -22,186 +22,45 @@
   .header-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-    position: relative;
   }
 
-  /* Inner Branding Alignment */
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: auto; /* Balances against left burger trigger space */
-    margin-right: auto;
-  }
-
-  .logo-wrap .site-logo {
-    height: 45px;
-    width: auto;
-    display: block;
-  }
-
-  .header-inner h1 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .header-inner .subtitle {
-    font-size: 0.85rem;
-    color: #d4efdf;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* --- Top-Left Hamburger Trigger Button --- */
   .menu-toggle-btn {
     background: none;
     border: none;
     color: #ffffff;
     font-size: 1.8rem;
     cursor: pointer;
-    padding: 5px 10px;
-    line-height: 1;
-    z-index: 1010;
-    font-family: sans-serif;
-    position: absolute;
-    left: 15px;
+    padding: 5px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s ease;
   }
 
-  .menu-toggle-btn:focus {
-    outline: none;
-  }
-
-  /* --- Pure CSS Sliding Left Sidebar Menu --- */
-  .sidebar-nav {
-    position: fixed;
-    top: 0;
-    left: -280px; /* Starts completely hidden on left margin fields */
-    width: 280px;
-    height: 100%;
-    background-color: #145a32;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
-    z-index: 2000;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* JavaScript Hook activation rule */
-  .sidebar-nav.is-open {
-    left: 0;
-  }
-
-  /* Sidebar Inner Header Content */
-  .sidebar-header {
+  .header-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #145a32;
-    color: #ffffff;
+    gap: 15px; /* Creates clean inline space between logo and header text */
+    flex-grow: 1;
+    margin-left: 20px; /* Forces safety separation gap away from left ☰ icon */
   }
-
-  .sidebar-header h2 {
-    font-size: 1.15rem;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .sidebar-close-btn {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    font-weight: bold;
-    padding: 0 5px;
-    line-height: 1;
-  }
-
-  /* Sidebar Links UI Styles */
-  .sidebar-links {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 10px;
-    gap: 4px;
-  }
-
-  .sidebar-links a {
-    color: #ffffff !important;
-    text-decoration: none !important;
-    font-weight: 500;
-    font-size: 1rem;
-    padding: 12px 15px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-
-  .sidebar-links a:hover {
-    background-color:#326347;
-    color: #ffffff !important;
-    padding-left: 20px;
-  }
-
-  /* Dark Overlay dim background layer when menu stays active */
-  .sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1990;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .sidebar-overlay.is-visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* --- Main Content Base Layout --- */
-  .site-main {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-    min-height: 75vh;
-  }
-
-  .site-footer {
-    text-align: center;
-    padding: 25px 0;
-    background: #fafafa;
-    border-top: 1px solid #eeeeee;
-    color: #666666;
-  }
-</style>
- 
-  </button>
-
   
+  .logo-wrap .site-logo {
+    height: 42px;
+    width: auto;
+    display: block;
+  }
 
-<style>
-  /* --- Right Side Green Search Button Custom Styling --- */
   .search-wrapper {
     position: relative;
     z-index: 1010;
+    margin-left: auto;
   }
+
   .search-icon-btn { 
-    background: #114627; /* Rich darker contrasting green badge background */
+    background: #114627; 
     border: 1px solid rgba(255,255,255,0.15); 
     border-radius: 50%;
     cursor: pointer; 
@@ -209,17 +68,12 @@
     align-items: center; 
     justify-content: center;
     padding: 10px; 
-    transition: background 0.2s ease;
-  }
-  .search-icon-btn:hover {
-    background: #0b301a;
   }
   
-  /* --- Smooth Leftward-Expanding Drawer Panel Configuration --- */
   .search-overlay-panel {
     position: fixed; 
     top: 0; 
-    right: -100%; /* Default hidden position past the right border */
+    right: -100%; 
     width: 100%; 
     max-width: 400px; 
     height: 100%;
@@ -228,91 +82,39 @@
     z-index: 2500;
     display: flex; 
     flex-direction: column; 
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Pulls leftwards elegantly when active */
+    transition: right 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .search-overlay-panel.is-active { 
-    right: 0; 
-  }
-  
-  /* Panel Interior Green Title Header bar */
-  .search-panel-header { 
-    display: flex; 
-    align-items: center; 
-    padding: 16px 20px; 
-    background: #145a32; /* Primary Brand Green background block */
-    gap: 12px; 
-  }
-  .search-input-group { 
-    position: relative; 
-    flex-grow: 1; 
-    display: flex; 
-    align-items: center; 
-  }
-  #customSearchInput { 
-    width: 100%; 
-    padding: 8px 65px 8px 12px; 
-    border-radius: 6px; 
-    border: 1px solid rgba(0,0,0,0.1); 
-    font-size: 0.95rem; 
-    outline: none; 
-    font-family: 'Inter', sans-serif;
-  }
-  .clear-search-btn { 
-    position: absolute; 
-    right: 6px; 
-    background: #dfdfdf; 
-    border: none; 
-    padding: 4px 8px; 
-    border-radius: 4px; 
-    font-size: 0.75rem; 
-    font-weight: 600;
-    cursor: pointer; 
-    display: none; /* Controlled dynamically via query entry length */
-    color: #222;
-  }
-  .clear-search-btn:hover { background: #ccc; }
+  .search-overlay-panel.is-active { right: 0; }
+  .search-panel-header { display: flex; align-items: center; padding: 16px 20px; background: #145a32; gap: 12px; }
+  .search-input-group { position: relative; flex-grow: 1; display: flex; align-items: center; }
+  #customSearchInput { width: 100%; padding: 8px 65px 8px 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 0.95rem; outline: none; }
+  .clear-search-btn { position: absolute; right: 6px; background: #dfdfdf; border: none; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; cursor: pointer; display: none; color: #222; }
   .close-search-btn { background: none; border: none; color: #ffffff; font-size: 1.8rem; cursor: pointer; line-height: 1; }
   .dropdown-results-container { flex-grow: 1; overflow-y: auto; background: #ffffff; }
   
-  /* Yellow Highlighter Definition rule */
-  mark.search-highlight { 
-    background-color: #ffeb3b !important; 
-    color: #000000 !important; 
-    font-weight: bold; 
-    padding: 0 2px; 
-    border-radius: 2px;
-  }
+  mark.search-highlight { background-color: #ffeb3b !important; color: #000000 !important; font-weight: bold; padding: 0 2px; border-radius: 2px; }
 
-    /* --- Mobile Optimization Layout Layout --- */
+  /* --- Fixed Mobile Screen Breakpoint Layout Overrides --- */
   @media (max-width: 768px) {
-    .header-container { 
-      gap: 10px; 
-      padding: 0 15px; 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .header-container {
+      padding: 0 12px;
     }
-    
-    /* Pushes the logo wrapper to give the hamburger button clear space */
     .header-inner {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-left: 10px; /* Creates explicit breathing room from the ☰ icon */
+      margin-left: 12px; /* Maintains explicit mobile gap away from the ☰ menu icon */
+      gap: 8px;
     }
-    .header-inner h1 { font-size: 1.1rem; }
+    .header-inner h1 { font-size: 1.05rem; word-break: break-word; }
     .header-inner .subtitle { display: none; }
-    
-    /* Shrinks the panel height to a top banner so you can see the article text underneath */
+    .logo-wrap .site-logo { height: 35px; }
+
+    /* Pulls down the panel as a top action banner instead of blocking the document body view */
     .search-overlay-panel {
       top: 0; right: 0; left: 0; width: 100%; max-width: 100%; height: auto;
       transform: translateY(-100%); transition: transform 0.25s ease-in-out;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .search-overlay-panel.is-active { transform: translateY(0); }
-    .dropdown-results-container { max-height: 150px; }
-    
-    .site-main { margin: 20px auto; padding: 0 15px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+    .search-overlay-panel.is-active { transform: translateY(0); right: auto; }
+    .dropdown-results-container { max-height: 160px; }
   }
 
 </style>
@@ -433,184 +235,185 @@
     });
   </script>
 
- 
-    
-  <!-- Complete Fixed Navigation & Universal Highlight Script Block -->
   <script>
-    
-    const searchTriggerBtn = document.getElementById('searchTriggerBtn');
-    const searchOverlayPanel = document.getElementById('searchOverlayPanel');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
-    const customSearchInput = document.getElementById('customSearchInput');
-    const clearSearchBtn = document.getElementById('clearSearchBtn');
-    const dropdownSearchResults = document.getElementById('dropdownSearchResults');
-    const sidebarMenu = document.getElementById("sidebarMenu");
-    const sidebarOverlay = document.getElementById("sidebarOverlay");
-    const openMenuBtn = document.getElementById("openMenuBtn");
-    const closeMenuBtn = document.getElementById("closeMenuBtn");
-    const backToTopButton = document.getElementById("backToTop");
+      // --- 1. Variable Instantiations & Setup ---
+  const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+  const searchOverlayPanel = document.getElementById('searchOverlayPanel');
+  const closeSearchBtn = document.getElementById('closeSearchBtn');
+  const customSearchInput = document.getElementById('customSearchInput');
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+  const dropdownSearchResults = document.getElementById('dropdownSearchResults');
 
-    let searchDb = [];
-    const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
+  let searchDb = [];
+  const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-    // Fetch site database catalog safely
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(res => res.json())
-      .then(data => { searchDb = data; })
-      .catch(err => console.error("Search database failed to compile maps:", err));
+  // Load catalog maps safely
+  fetch("{{ '/search.json' | relative_url }}")
+    .then(res => res.json())
+    .then(data => { searchDb = data; })
+    .catch(err => console.error("Database initialization connection error: ", err));
 
-    // Open Panel Logic
-    if (searchTriggerBtn) {
-      searchTriggerBtn.addEventListener('click', () => {
-        if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
-        setTimeout(() => { if (customSearchInput) customSearchInput.focus(); }, 150);
-      });
-    }
+  // --- 2. Interactive Toggle Actions ---
+  if (searchTriggerBtn) {
+    searchTriggerBtn.addEventListener('click', () => {
+      if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
+      setTimeout(() => { if (customSearchInput) customSearchInput.focus(); }, 150);
+    });
+  }
 
-    // Close Panel Logic (Fixed structural syntax bug here)
-    function closeSearchPanel() {
-      if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
-      if (customSearchInput) customSearchInput.value = '';
-      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+  function closeSearchPanel() {
+    if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
+    if (customSearchInput) customSearchInput.value = '';
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none'; // Fixed structural bug: completely removed .close property
+    if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
+    removeHighlights();
+  }
+
+  if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchPanel);
+
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      if (customSearchInput) {
+        customSearchInput.value = '';
+        customSearchInput.focus();
+      }
+      clearSearchBtn.style.display = 'none';
       if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
       removeHighlights();
-    }
-    if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchPanel);
+    });
+  }
 
-    // Clear Button Logic
-    if (clearSearchBtn) {
-      clearSearchBtn.addEventListener('click', () => {
-        if (customSearchInput) {
-          customSearchInput.value = '';
-          customSearchInput.focus();
-        }
-        clearSearchBtn.style.display = 'none';
-        if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
+  // --- 3. Parsing Input Queries ---
+  if (customSearchInput) {
+    customSearchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      if (clearSearchBtn) clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
+      if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
+
+      if (query.length < 2) {
         removeHighlights();
-      });
-    }
-
-    // Live Input Realtime Search Router
-    if (customSearchInput) {
-      customSearchInput.addEventListener('input', function() {
-        const query = this.value.toLowerCase().trim();
-        if (clearSearchBtn) clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
-        if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
-
-        if (query.length < 2) {
-          removeHighlights();
-          return;
-        }
-
-        highlightTextOnPage(query);
-
-        const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
-        if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
-          matches.forEach(item => {
-            const link = document.createElement('a');
-            link.href = item.url; link.className = 'drop-res-item';
-            link.style.display = 'block';
-            link.style.padding = '10px 15px';
-            link.style.borderBottom = '1px solid #eee';
-            link.style.textDecoration = 'none';
-            link.innerHTML = `<div style="font-weight:600;color:#145a32;">${item.title}</div>`;
-            dropdownSearchResults.appendChild(link);
-          });
-        }
-      });
-    }
-
-    // Highlight text on post page function
-    function highlightTextOnPage(keyword) {
-      removeHighlights();
-      const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
-      if (!targetArea) return;
-
-      const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
-      const textNodes = [];
-      while (walk.nextNode()) textNodes.push(walk.currentNode);
-
-      textNodes.forEach(node => {
-        const parent = node.parentNode;
-        if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
-
-        const text = node.nodeValue;
-        const lowerText = text.toLowerCase();
-        
-        if (lowerText.includes(keyword)) {
-          const span = document.createElement('span');
-          span.className = 'search-highlight-container';
-          
-          let html = '';
-          let lastIndex = 0;
-          let index = lowerText.indexOf(keyword);
-          
-          while (index !== -1) {
-            html += escapeHtml(text.substring(lastIndex, index));
-            html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
-            lastIndex = index + keyword.length;
-            index = lowerText.indexOf(keyword, lastIndex);
-          }
-          html += escapeHtml(text.substring(lastIndex));
-          
-          span.innerHTML = html;
-          parent.replaceChild(span, node);
-        }
-      });
-    }
-
-    function removeHighlights() {
-      document.querySelectorAll('.search-highlight-container').forEach(span => {
-        const parent = span.parentNode;
-        if (parent) {
-          parent.replaceChild(document.createTextNode(span.textContent), span);
-          parent.normalize();
-        }
-      });
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    // Sidebar Toggles
-    if (openMenuBtn) {
-      openMenuBtn.addEventListener("click", () => {
-        if (sidebarMenu) sidebarMenu.classList.add("is-open");
-        if (sidebarOverlay) sidebarOverlay.classList.add("is-visible");
-        openMenuBtn.style.opacity = "0";
-      });
-    }
-    if (closeMenuBtn) {
-      closeMenuBtn.addEventListener("click", () => {
-        if (sidebarMenu) sidebarMenu.classList.remove("is-open");
-        if (sidebarOverlay) sidebarOverlay.classList.remove("is-visible");
-        if (openMenuBtn) openMenuBtn.style.opacity = "1";
-      });
-    }
-    if (sidebarOverlay) {
-      sidebarOverlay.addEventListener("click", () => {
-        if (sidebarMenu) sidebarMenu.classList.remove("is-open");
-        sidebarOverlay.classList.remove("is-visible");
-        if (openMenuBtn) openMenuBtn.style.opacity = "1";
-      });
-    }
-
-    // Scroll to top button
-    window.onscroll = function() {
-      if (backToTopButton) {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-          backToTopButton.style.display = "block";
-        } else {
-          backToTopButton.style.display = "none";
-        }
+        return;
       }
-    };
+
+      highlightTextOnPage(query);
+
+      const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
+      if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
+        matches.forEach(item => {
+          const link = document.createElement('a');
+          link.href = item.url; 
+          link.className = 'drop-res-item';
+          link.style.display = 'block';
+          link.style.padding = '12px 15px';
+          link.style.borderBottom = '1px solid #f0f0f0';
+          link.style.textDecoration = 'none';
+          link.innerHTML = `<div style="font-weight:600;color:#145a32;font-size:0.95rem;">${item.title}</div>`;
+          dropdownSearchResults.appendChild(link);
+        });
+      }
+    });
+  }
+
+  // --- 4. Deep Target Text Block DOM Scanners ---
+  function highlightTextOnPage(keyword) {
+    removeHighlights();
+    const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
+    if (!targetArea) return;
+
+    const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
+    const textNodes = [];
+    while (walk.nextNode()) textNodes.push(walk.currentNode);
+
+    textNodes.forEach(node => {
+      const parent = node.parentNode;
+      if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
+
+      const text = node.nodeValue;
+      const lowerText = text.toLowerCase();
+      
+      if (lowerText.includes(keyword)) {
+        const span = document.createElement('span');
+        span.className = 'search-highlight-container';
+        
+        let html = '';
+        let lastIndex = 0;
+        let index = lowerText.indexOf(keyword);
+        
+        while (index !== -1) {
+          html += escapeHtml(text.substring(lastIndex, index));
+          html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
+          lastIndex = index + keyword.length;
+          index = lowerText.indexOf(keyword, lastIndex);
+        }
+        html += escapeHtml(text.substring(lastIndex));
+        
+        span.innerHTML = html;
+        parent.replaceChild(span, node);
+      }
+    });
+  }
+
+  function removeHighlights() {
+    document.querySelectorAll('.search-highlight-container').forEach(span => {
+      const parent = span.parentNode;
+      if (parent) {
+        parent.replaceChild(document.createTextNode(span.textContent), span);
+        parent.normalize();
+      }
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // --- 5. Sidebar Menu Controls Linkage ---
+  const sidebarMenu = document.getElementById("sidebarMenu");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+  const openMenuBtn = document.getElementById("openMenuBtn");
+  const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+  if (openMenuBtn) {
+    openMenuBtn.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.add("is-open");
+      if (sidebarOverlay) sidebarOverlay.classList.add("is-visible");
+      openMenuBtn.style.opacity = "0";
+    });
+  }
+
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+      if (sidebarOverlay) sidebarOverlay.classList.remove("is-visible");
+      if (openMenuBtn) openMenuBtn.style.opacity = "1";
+    });
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+      sidebarOverlay.classList.remove("is-visible");
+      if (openMenuBtn) openMenuBtn.style.opacity = "1";
+    });
+  }
+
+  // --- 6. Scroll Up Target Logic Interceptors ---
+  const backToTopButton = document.getElementById("backToTop");
+  window.onscroll = function() {
     if (backToTopButton) {
-      backToTopButton.addEventListener("click", function() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
     }
+  };
+  if (backToTopButton) {
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   </script>
 
   
