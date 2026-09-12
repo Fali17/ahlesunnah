@@ -234,7 +234,8 @@
           searchInput: document.getElementById('searchInput'),
           resultsContainer: document.getElementById('searchResults'),
           json: '{{ "/search.json" | relative_url }}',
-          searchResultTemplate: '<a href="{url}" class="search-result-item"><div class="search-result-title">{title}</div><div class="search-result-meta">{date}</div></a>',
+          searchResultTemplate: '<a href="{url}" class="search-result-item"><div class="search-result-title">{title}</div><div class="search-result-meta">{date}</div><div class="search-result-excerpt">{excerpt}</div></a>',
+
           noResultsText: '<div class="search-no-results">No results found</div>'
         });
 
