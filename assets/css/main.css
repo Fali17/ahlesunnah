@@ -63,11 +63,12 @@ body {
   overflow: hidden;
 }
 .site-logo {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: clamp(48px, 8vw, 96px);  /* responsive scaling */
+  aspect-ratio: 1 / 1;            /* guarantees a perfect circle */
+  object-fit: cover;
   border-radius: 50%;
 }
+
 .logo-fallback {
   font-size: 11px;
   color: var(--primary);
