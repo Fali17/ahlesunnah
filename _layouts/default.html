@@ -341,7 +341,7 @@
   </script>
 
   <script>
-  // --- 1. DOM Elements & State Setup ---
+    // --- 1. Element Binding Setup ---
   const searchTriggerBtn = document.getElementById('searchTriggerBtn');
   const searchOverlayPanel = document.getElementById('searchOverlayPanel');
   const closeSearchBtn = document.getElementById('closeSearchBtn');
@@ -352,63 +352,76 @@
   let searchDb = [];
   const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-  // Fetch the search index database 
-  fetch("{{ 'search.json' | relative_url }}")
-    .then(res => res.json()).then(data => searchDb = data).catch(err => console.error(err));
+  // Fetch your Jekyll generated database safely
+  fetch("{{ '/search.json' | relative_url }}")
+    .then(res => res.json())
+    .then(data => { searchDb = data; })
+    .catch(err => console.error("Database connection failed: ", err));
 
-  // --- 2. Panel Controls (Open, Close, Clear) ---
-  searchTriggerBtn.addEventListener('click', () => {
-    searchOverlayPanel.classList.add('is-active');
-    setTimeout(() => customSearchInput.focus(), 150);
-  });
+  // --- 2. Interactive Panel Controls (Open, Close, Clear) ---
+  if (searchTriggerBtn) {
+    searchTriggerBtn.addEventListener('click', () => {
+      if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
+      setTimeout(() => { if (customSearchInput) customSearchInput.focus(); }, 150);
+    });
+  }
 
-    function closeSearchPanel() {
-    searchOverlayPanel.classList.remove('is-active');
-    customSearchInput.value = '';
-    clearSearchBtn.style.display = 'none'; //  Fixed: Changed .close to .display
-    dropdownSearchResults.innerHTML = '';
+  function closeSearchPanel() {
+    if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
+    if (customSearchInput) customSearchInput.value = '';
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none'; // Fixed: Typo resolved here (.close became .display)
+    if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
     removeHighlights();
   }
 
-  closeSearchBtn.addEventListener('click', closeSearchPanel);
+  if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchPanel);
 
-  clearSearchBtn.addEventListener('click', () => {
-    customSearchInput.value = '';
-    clearSearchBtn.style.display = 'none';
-    dropdownSearchResults.innerHTML = '';
-    customSearchInput.focus();
-    removeHighlights();
-  });
-
-  // --- 3. Live Input Processing & Keyword Filtering ---
-  customSearchInput.addEventListener('input', function() {
-    const query = this.value.toLowerCase().trim();
-    clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
-    dropdownSearchResults.innerHTML = '';
-
-    if (query.length < 2) {
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      if (customSearchInput) {
+        customSearchInput.value = '';
+        customSearchInput.focus();
+      }
+      clearSearchBtn.style.display = 'none';
+      if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
       removeHighlights();
-      return;
-    }
+    });
+  }
 
-    highlightTextOnPage(query);
+  // --- 3. Live Input Event & Highlighter Router ---
+  if (customSearchInput) {
+    customSearchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      if (clearSearchBtn) clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
+      if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
 
-    const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
-    if (matches.length > 0 && !isPostPage) {
-      matches.forEach(item => {
-        const link = document.createElement('a');
-        link.href = item.url; link.className = 'drop-res-item';
-        link.style.display = 'block';
-        link.style.padding = '10px 15px';
-        link.style.borderBottom = '1px solid #eee';
-        link.style.textDecoration = 'none';
-        link.innerHTML = `<div style="font-weight:600;color:#145a32;">${item.title}</div>`;
-        dropdownSearchResults.appendChild(link);
-      });
-    }
-  });
+      if (query.length < 2) {
+        removeHighlights();
+        return;
+      }
 
-  // --- 4. Text Node Highlighting Engine ---
+      // Automatically run text-matching overlays
+      highlightTextOnPage(query);
+
+      // Populate directory items if browsing global categories
+      const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
+      if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
+        matches.forEach(item => {
+          const link = document.createElement('a');
+          link.href = item.url; 
+          link.className = 'drop-res-item';
+          link.style.display = 'block';
+          link.style.padding = '10px 15px';
+          link.style.borderBottom = '1px solid #eee';
+          link.style.textDecoration = 'none';
+          link.innerHTML = `<div style="font-weight:600;color:#145a32;">${item.title}</div>`;
+          dropdownSearchResults.appendChild(link);
+        });
+      }
+    });
+  }
+
+  // --- 4. Deep Text Node DOM Scanning Loops ---
   function highlightTextOnPage(keyword) {
     removeHighlights();
     const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
@@ -420,7 +433,7 @@
 
     textNodes.forEach(node => {
       const parent = node.parentNode;
-      if (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
+      if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
 
       const text = node.nodeValue;
       const lowerText = text.toLowerCase();
@@ -450,8 +463,10 @@
   function removeHighlights() {
     document.querySelectorAll('.search-highlight-container').forEach(span => {
       const parent = span.parentNode;
-      parent.replaceChild(document.createTextNode(span.textContent), span);
-      parent.normalize();
+      if (parent) {
+        parent.replaceChild(document.createTextNode(span.textContent), span);
+        parent.normalize();
+      }
     });
   }
 
@@ -459,18 +474,53 @@
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  // --- 5. Back to Top Smooth Scroll Interaction ---
+  // --- 5. Sidebar Sliding Menu Toggles ---
+  const sidebarMenu = document.getElementById("sidebarMenu");
+  const sidebarOverlay = document.getElementById("sidebarOverlay");
+  const openMenuBtn = document.getElementById("openMenuBtn");
+  const closeMenuBtn = document.getElementById("closeMenuBtn");
+
+  if (openMenuBtn) {
+    openMenuBtn.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.add("is-open");
+      if (sidebarOverlay) sidebarOverlay.classList.add("is-visible");
+      openMenuBtn.style.opacity = "0";
+    });
+  }
+
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+      if (sidebarOverlay) sidebarOverlay.classList.remove("is-visible");
+      if (openMenuBtn) openMenuBtn.style.opacity = "1";
+    });
+  }
+
+  if (sidebarOverlay) {
+    sidebarOverlay.addEventListener("click", () => {
+      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+      sidebarOverlay.classList.remove("is-visible");
+      if (openMenuBtn) openMenuBtn.style.opacity = "1";
+    });
+  }
+
+  // --- 6. Back to Top Scroll Actions ---
   const backToTopButton = document.getElementById("backToTop");
   window.onscroll = function() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
+    if (backToTopButton) {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
     }
   };
-  backToTopButton.addEventListener("click", function() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+  if (backToTopButton) {
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
 </script>
 
 </body>
