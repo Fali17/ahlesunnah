@@ -420,189 +420,185 @@
     });
   </script>
 
-  <script>
-    // --- 1. Variable Instantiations & Setup ---
-  const searchTriggerBtn = document.getElementById('searchTriggerBtn');
-  const searchOverlayPanel = document.getElementById('searchOverlayPanel');
-  const closeSearchBtn = document.getElementById('closeSearchBtn');
-  const customSearchInput = document.getElementById('customSearchInput');
-  const clearSearchBtn = document.getElementById('clearSearchBtn');
-  const dropdownSearchResults = document.getElementById('dropdownSearchResults');
+   <script>
+    // --- 1. DOM Element Bindings ---
+    const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+    const searchOverlayPanel = document.getElementById('searchOverlayPanel');
+    const closeSearchBtn = document.getElementById('closeSearchBtn');
+    const customSearchInput = document.getElementById('customSearchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const dropdownSearchResults = document.getElementById('dropdownSearchResults');
+    const sidebarMenu = document.getElementById("sidebarMenu");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const openMenuBtn = document.getElementById("openMenuBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
+    const backToTopButton = document.getElementById("backToTop");
 
-  let searchDb = [];
-  const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
+    let searchDb = [];
+    const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
-  // Fetch the post catalog manifest
-  fetch("{{ '/search.json' | relative_url }}")
-    .then(res => res.json())
-    .then(data => { searchDb = data; })
-    .catch(err => console.error("Database fetch abort: ", err));
+    // Fetch the Jekyll search catalog safely
+    fetch("{{ '/search.json' | relative_url }}")
+      .then(res => res.json())
+      .then(data => { searchDb = data; })
+      .catch(err => console.error("Database failed to load: ", err));
 
-  // --- 2. Interactive Toggle Actions ---
-  if (searchTriggerBtn) {
-    searchTriggerBtn.addEventListener('click', () => {
-      if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
-      setTimeout(() => { if (customSearchInput) customSearchInput.focus(); }, 150);
-    });
-  }
+    // --- 2. Search Drawer Core Logic ---
+    if (searchTriggerBtn) {
+      searchTriggerBtn.addEventListener('click', () => {
+        if (searchOverlayPanel) searchOverlayPanel.classList.add('is-active');
+        setTimeout(() => { if (customSearchInput) customSearchInput.focus(); }, 150);
+      });
+    }
 
-  function closeSearchPanel() {
-    if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
-    if (customSearchInput) customSearchInput.value = '';
-    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
-    if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
-    removeHighlights();
-  }
-
-  if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchPanel);
-
-  if (clearSearchBtn) {
-    clearSearchBtn.addEventListener('click', () => {
-      if (customSearchInput) {
-        customSearchInput.value = '';
-        customSearchInput.focus();
-      }
-      clearSearchBtn.style.display = 'none';
+    function closeSearchPanel() {
+      if (searchOverlayPanel) searchOverlayPanel.classList.remove('is-active');
+      if (customSearchInput) customSearchInput.value = '';
+      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
       if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
       removeHighlights();
-    });
-  }
-
-  // --- 3. Parsing Input Queries ---
-  if (customSearchInput) {
-    customSearchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-      if (clearSearchBtn) clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
-      if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
-
-      if (query.length < 2) {
-        removeHighlights();
-        return;
-      }
-
-      // Execute character node highlighter over the current view
-      highlightTextOnPage(query);
-
-      // Generate post directory recommendation layout links on standard index layouts
-      const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
-      if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
-        matches.forEach(item => {
-          const link = document.createElement('a');
-          link.href = item.url; 
-          link.className = 'drop-res-item';
-          link.style.display = 'block';
-          link.style.padding = '12px 15px';
-          link.style.borderBottom = '1px solid #f0f0f0';
-          link.style.textDecoration = 'none';
-          link.innerHTML = `<div style="font-weight:600;color:#145a32;font-size:0.95rem;">${item.title}</div>`;
-          dropdownSearchResults.appendChild(link);
-        });
-      }
-    });
-  }
-
-  // --- 4. Deep Target Text Block DOM Scanners ---
-  function highlightTextOnPage(keyword) {
-    removeHighlights();
-    const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
-    if (!targetArea) return;
-
-    const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
-    const textNodes = [];
-    while (walk.nextNode()) textNodes.push(walk.currentNode);
-
-    textNodes.forEach(node => {
-      const parent = node.parentNode;
-      if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
-
-      const text = node.nodeValue;
-      const lowerText = text.toLowerCase();
-      
-      if (lowerText.includes(keyword)) {
-        const span = document.createElement('span');
-        span.className = 'search-highlight-container';
-        
-        let html = '';
-        let lastIndex = 0;
-        let index = lowerText.indexOf(keyword);
-        
-        while (index !== -1) {
-          html += escapeHtml(text.substring(lastIndex, index));
-          html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
-          lastIndex = index + keyword.length;
-          index = lowerText.indexOf(keyword, lastIndex);
-        }
-        html += escapeHtml(text.substring(lastIndex));
-        
-        span.innerHTML = html;
-        parent.replaceChild(span, node);
-      }
-    });
-  }
-
-  function removeHighlights() {
-    document.querySelectorAll('.search-highlight-container').forEach(span => {
-      const parent = span.parentNode;
-      if (parent) {
-        parent.replaceChild(document.createTextNode(span.textContent), span);
-        parent.normalize();
-      }
-    });
-  }
-
-  function escapeHtml(str) {
-    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  // --- 5. Sidebar Menu Framework Management Linkages ---
-  const sidebarMenu = document.getElementById("sidebarMenu");
-  const sidebarOverlay = document.getElementById("sidebarOverlay");
-  const openMenuBtn = document.getElementById("openMenuBtn");
-  const closeMenuBtn = document.getElementById("closeMenuBtn");
-
-  if (openMenuBtn) {
-    openMenuBtn.addEventListener("click", () => {
-      if (sidebarMenu) sidebarMenu.classList.add("is-open");
-      if (sidebarOverlay) sidebarOverlay.classList.add("is-visible");
-      openMenuBtn.style.opacity = "0";
-    });
-  }
-
-  if (closeMenuBtn) {
-    closeMenuBtn.addEventListener("click", () => {
-      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
-      if (sidebarOverlay) sidebarOverlay.classList.remove("is-visible");
-      if (openMenuBtn) openMenuBtn.style.opacity = "1";
-    });
-  }
-
-  if (sidebarOverlay) {
-    sidebarOverlay.addEventListener("click", () => {
-      if (sidebarMenu) sidebarMenu.classList.remove("is-open");
-      sidebarOverlay.classList.remove("is-visible");
-      if (openMenuBtn) openMenuBtn.style.opacity = "1";
-    });
-  }
-
-  // --- 6. Scroll Up Target Logic Interceptors ---
-  const backToTopButton = document.getElementById("backToTop");
-  window.onscroll = function() {
-    if (backToTopButton) {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopButton.style.display = "block";
-      } else {
-        backToTopButton.style.display = "none";
-      }
     }
-  };
-  if (backToTopButton) {
-    backToTopButton.addEventListener("click", function() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
 
+    if (closeSearchBtn) closeSearchBtn.addEventListener('click', closeSearchPanel);
 
-</script>
+    if (clearSearchBtn) {
+      clearSearchBtn.addEventListener('click', () => {
+        if (customSearchInput) {
+          customSearchInput.value = '';
+          customSearchInput.focus();
+        }
+        clearSearchBtn.style.display = 'none';
+        if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
+        removeHighlights();
+      });
+    }
+
+    // --- 3. Live Input Filter Scanner ---
+    if (customSearchInput) {
+      customSearchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        if (clearSearchBtn) clearSearchBtn.style.display = query.length > 0 ? 'block' : 'none';
+        if (dropdownSearchResults) dropdownSearchResults.innerHTML = '';
+
+        if (query.length < 2) {
+          removeHighlights();
+          return;
+        }
+
+        highlightTextOnPage(query);
+
+        const matches = searchDb.filter(item => item.title.toLowerCase().includes(query) || item.excerpt.toLowerCase().includes(query));
+        if (matches.length > 0 && !isPostPage && dropdownSearchResults) {
+          matches.forEach(item => {
+            const link = document.createElement('a');
+            link.href = item.url; 
+            link.className = 'drop-res-item';
+            link.style.display = 'block';
+            link.style.padding = '12px 15px';
+            link.style.borderBottom = '1px solid #f0f0f0';
+            link.style.textDecoration = 'none';
+            link.innerHTML = `<div style="font-weight:600;color:#145a32;font-size:0.95rem;">${item.title}</div>`;
+            dropdownSearchResults.appendChild(link);
+          });
+        }
+      });
+    }
+
+    // --- 4. Deep Live Highlight Injection Engine ---
+    function highlightTextOnPage(keyword) {
+      removeHighlights();
+      const targetArea = document.querySelector('.post-content') || document.querySelector('article') || document.querySelector('.site-main');
+      if (!targetArea) return;
+
+      const walk = document.createTreeWalker(targetArea, NodeFilter.SHOW_TEXT, null, false);
+      const textNodes = [];
+      while (walk.nextNode()) textNodes.push(walk.currentNode);
+
+      textNodes.forEach(node => {
+        const parent = node.parentNode;
+        if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE' || parent.classList.contains('search-highlight')) return;
+
+        const text = node.nodeValue;
+        const lowerText = text.toLowerCase();
+        
+        if (lowerText.includes(keyword)) {
+          const span = document.createElement('span');
+          span.className = 'search-highlight-container';
+          
+          let html = '';
+          let lastIndex = 0;
+          let index = lowerText.indexOf(keyword);
+          
+          while (index !== -1) {
+            html += escapeHtml(text.substring(lastIndex, index));
+            html += `<mark class="search-highlight">${escapeHtml(text.substring(index, index + keyword.length))}</mark>`;
+            lastIndex = index + keyword.length;
+            index = lowerText.indexOf(keyword, lastIndex);
+          }
+          html += escapeHtml(text.substring(lastIndex));
+          
+          span.innerHTML = html;
+          parent.replaceChild(span, node);
+        }
+      });
+    }
+
+    function removeHighlights() {
+      document.querySelectorAll('.search-highlight-container').forEach(span => {
+        const parent = span.parentNode;
+        if (parent) {
+          parent.replaceChild(document.createTextNode(span.textContent), span);
+          parent.normalize();
+        }
+      });
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // --- 5. Sidebar Menu Controls ---
+    if (openMenuBtn) {
+      openMenuBtn.addEventListener("click", () => {
+        if (sidebarMenu) sidebarMenu.classList.add("is-open");
+        if (sidebarOverlay) sidebarOverlay.classList.add("is-visible");
+        openMenuBtn.style.opacity = "0";
+      });
+    }
+
+    if (closeMenuBtn) {
+      closeMenuBtn.addEventListener("click", () => {
+        if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+        if (sidebarOverlay) sidebarOverlay.classList.remove("is-visible");
+        if (openMenuBtn) openMenuBtn.style.opacity = "1";
+      });
+    }
+
+    if (sidebarOverlay) {
+      sidebarOverlay.addEventListener("click", () => {
+        if (sidebarMenu) sidebarMenu.classList.remove("is-open");
+        sidebarOverlay.classList.remove("is-visible");
+        if (openMenuBtn) openMenuBtn.style.opacity = "1";
+      });
+    }
+
+    // --- 6. Back To Top Mechanics ---
+    window.onscroll = function() {
+      if (backToTopButton) {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          backToTopButton.style.display = "block";
+        } else {
+          backToTopButton.style.display = "none";
+        }
+      }
+    };
+    if (backToTopButton) {
+      backToTopButton.addEventListener("click", function() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
+  </script>
+
 
 </body>
 </html>
