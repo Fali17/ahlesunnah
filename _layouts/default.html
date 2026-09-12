@@ -5,243 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
-  <link href="https://googleapis.com" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}">
   
   <style>
-  /* --- Core Base & Header Layout --- */
-  header, .site-header {
-    background: #145a32;
-    border-bottom: 1px solid #145a32;
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-  }
+    /* Extra styles for new elements */
+    .report-abuse-btn {
+      display: inline-block;
+      margin: 20px auto 10px;
+      padding: 8px 18px;
+      background: #f8fafc;
+      color: #64748b;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .report-abuse-btn:hover {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+    .report-abuse-wrap {
+      text-align: center;
+      margin-top: 10px;
+    }
 
-  /* Left Side Burger Trigger Button */
-  .menu-toggle-btn {
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 1.4rem;
-    cursor: pointer;
-    padding: 5px 0;
-    line-height: 1;
-    z-index: 1010;
-    font-family: sans-serif;
-    display: flex;
-    align-items: center;
-    transition: opacity 0.2s ease;
-  }
-  .menu-toggle-btn:focus { outline: none; }
-
-  /* Inner Branding Alignment (Centered naturally between toggle and search) */
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    text-align: center;
-  }
-  .logo-wrap .site-logo {
-    height: 40px;
-    width: auto;
-    display: block;
-  }
-  .header-inner h1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-  .header-inner .subtitle {
-    font-size: 0.8rem;
-    color: #d4efdf;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* --- Top-Right Search Wrapper --- */
-  .search-wrapper {
-    position: relative;
-    z-index: 1010;
-  }
-  .search-input {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 6px 15px 6px 35px;
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-family: 'Inter', sans-serif;
-    width: 200px;
-    transition: all 0.3s ease;
-  }
-  .search-input::placeholder {
-    color: #d4efdf;
-  }
-  .search-input:focus {
-    outline: none;
-    background: #ffffff;
-    color: #111111;
-    border-color: #ffffff;
-    width: 240px;
-  }
-  /* Search loupe vector icon overlay styling */
-  .search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #d4efdf;
-    pointer-events: none;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-  .search-input:focus + .search-icon {
-    color: #145a32;
-  }
-
-  /* --- Live Dropdown Search Results --- */
-  .search-results-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    width: 320px;
-    max-height: 400px;
-    overflow-y: auto;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    display: none; /* Hidden dynamically until input entry matches strings */
-  }
-  .search-result-item {
-    display: block;
-    padding: 12px 15px;
-    text-decoration: none !important;
-    border-bottom: 1px solid #f5f5f5;
-    transition: background 0.2s;
-  }
-  .search-result-item:last-child { border-bottom: none; }
-  .search-result-item:hover { background: #f9f9f9; }
-  .search-result-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #145a32 !important;
-    margin-bottom: 3px;
-  }
-  .search-result-meta {
-    font-size: 0.75rem;
-    color: #888;
-    margin-bottom: 4px;
-  }
-  .search-result-excerpt {
-    font-size: 0.8rem;
-    color: #555;
-    line-height: 1.3;
-  }
-  .search-no-results {
-    padding: 15px;
-    text-align: center;
-    color: #777;
-    font-size: 0.9rem;
-  }
-
-  /* --- Left Sliding Sidebar Menu --- */
-  .sidebar-nav {
-    position: fixed;
-    top: 0;
-    left: -280px;
-    width: 280px;
-    height: 100%;
-    background-color: #ffffff;
-    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
-    z-index: 2000;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-  }
-  .sidebar-nav.is-open { left: 0; }
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    background-color: #145a32;
-    color: #ffffff;
-  }
-  .sidebar-header h2 { font-size: 1.15rem; margin: 0; font-weight: 600; }
-  .sidebar-close-btn {
-    background: none; border: none; color: #ffffff;
-    font-size: 1.5rem; cursor: pointer; font-weight: bold;
-    padding: 0 5px; line-height: 1;
-  }
-  .sidebar-links { display: flex; flex-direction: column; padding: 15px 10px; gap: 4px; }
-  .sidebar-links a {
-    color: #333333 !important; text-decoration: none !important;
-    font-weight: 500; font-size: 1rem; padding: 12px 15px; border-radius: 6px;
-    transition: all 0.2s ease;
-  }
-  .sidebar-links a:hover {
-    background-color: #eaf2e8; color: #145a32 !important; padding-left: 20px;
-  }
-  .sidebar-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4); z-index: 1990;
-    opacity: 0; visibility: hidden; transition: all 0.3s ease;
-  }
-  .sidebar-overlay.is-visible { opacity: 1; visibility: visible; }
-
-  /* --- Main Content Base Layout --- */
-  .site-main { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 75vh; }
-  .site-footer { text-align: center; padding: 25px 0; background: #fafafa; border-top: 1px solid #eeeeee; color: #666666; }
-  #backToTop { position: fixed; bottom: 20px; right: 20px; display: none; background: #145a32; color: white; border: none; border-radius: 4px; padding: 10px 15px; cursor: pointer; z-index: 1000; }
-
-  /* Mobile Tweaks */
-  @media (max-width: 576px) {
-    .header-inner h1 { font-size: 1.1rem; }
-    .header-inner .subtitle { display: none; }
-    .search-input { width: 130px; }
-    .search-input:focus { width: 170px; }
-    .search-results-dropdown { width: 280px; }
-  }
-</style>
+    /* Better search icon */
+    .search-wrapper {
+      position: relative;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      color: #d4efdf;
+      transition: color 0.3s ease;
+    }
+    .search-input:focus + .search-icon {
+      color: var(--primary, #0e4a2d);
+    }
+    .search-input {
+      padding-left: 38px !important;
+    }
+  </style>
 </head>
 <body>
 
-  <script src="https://unpkg.com"></script>
-
-<script>
-SimpleJekyllSearch({
-  searchInput: document.getElementById('search-input'),
-  resultsContainer: document.getElementById('results-container'),
-  json: '/ahlesunnah/search.json' /* Match your GitHub Pages base URL */
-})
-</script>
-
-
-  <!-- Top Header Layout bar -->
+  <!-- Top Header -->
   <header class="site-header">
     <div class="header-container">
       
-      <!-- Top Left Hamburger Activation button -->
+      <!-- Hamburger -->
       <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
       
-      <!-- Brand Details Center Stack Wrap -->
+      <!-- Brand -->
       <div class="header-inner">
         <div class="logo-wrap">
           <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
@@ -252,17 +74,19 @@ SimpleJekyllSearch({
         </div>
       </div>
 
-      <!-- Top Right Functional Live Search Interface Components -->
+      <!-- Search -->
       <div class="search-wrapper">
         <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." autocomplete="off">
-        <span class="search-icon">🔍</span>
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
         <div id="searchResults" class="search-results-dropdown"></div>
       </div>
 
     </div>
   </header>
 
-  <!-- Navigation Drawer Component Modules -->
+  <!-- Sidebar Overlay + Menu -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
   <nav class="sidebar-nav" id="sidebarMenu">
     <div class="sidebar-header">
@@ -270,7 +94,7 @@ SimpleJekyllSearch({
       <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Close navigation menu">&times;</button>
     </div>
     <div class="sidebar-links">
-      <a href="{{ 'index.html' | relative_url }}">Home</a>
+      <a href="{{ '/' | relative_url }}">Home</a>
       <a href="{{ 'about.html' | relative_url }}">About</a>
       <a href="{{ 'contact.html' | relative_url }}">Contact</a>
       <a href="{{ 'documents.html' | relative_url }}">Documents</a>
@@ -279,28 +103,38 @@ SimpleJekyllSearch({
     </div>
   </nav>
 
-  <!-- Core Content Block Injector Layout -->
+  <!-- Main Content -->
   <main class="site-main">
     {{ content }}
   </main>
 
+  <!-- Report Abuse (above footer) -->
+  <div class="report-abuse-wrap">
+    <a href="mailto:your-email@example.com?subject=Report%20Abuse%20-%20Ahle%20Sunnah%20Website" class="report-abuse-btn">
+      Report Abuse
+    </a>
+  </div>
+
+  <!-- Footer -->
   <footer class="site-footer">
-    <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+    <div class="site-footer-inner">
+      <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+    </div>
   </footer>
 
+  <!-- Back to Top Button -->
   <button id="backToTop" title="Go to top">↑</button>
 
   <script>
-    // --- 1. Pure JS Live JSON Search Core Engine Engine ---
+    // ========== 1. SEARCH ==========
     const searchInput = document.getElementById('searchInput');
     const searchResults = document.getElementById('searchResults');
     let searchDatabase = [];
 
-    // Pre-fetch search database index quietly when reader interacts near navbar input fields
     fetch("{{ '/search.json' | relative_url }}")
       .then(response => response.json())
       .then(data => { searchDatabase = data; })
-      .catch(err => console.error("Could not fetch search index file data maps:", err));
+      .catch(err => console.error("Could not load search index:", err));
 
     searchInput.addEventListener('input', function() {
       const query = this.value.toLowerCase().trim();
@@ -311,52 +145,80 @@ SimpleJekyllSearch({
         return;
       }
 
-      // Filter matches within search text tokens
       const filtered = searchDatabase.filter(item => {
-        return item.title.toLowerCase().includes(query) || 
-               item.excerpt.toLowerCase().includes(query);
+        return (item.title && item.title.toLowerCase().includes(query)) || 
+               (item.excerpt && item.excerpt.toLowerCase().includes(query));
       });
 
       if (filtered.length > 0) {
-        filtered.forEach(item => {
+        filtered.slice(0, 8).forEach(item => {  // limit to 8 results
           const resElement = document.createElement('a');
           resElement.href = item.url;
           resElement.className = 'search-result-item';
           resElement.innerHTML = `
-            <div class="search-result-title">${item.title}</div>
-            <div class="search-result-meta">${item.date}</div>
-            <div class="search-result-excerpt">${item.excerpt}</div>
+            <div class="search-result-title">${item.title || 'Untitled'}</div>
+            <div class="search-result-meta">${item.date || ''}</div>
+            <div class="search-result-excerpt">${item.excerpt || ''}</div>
           `;
           searchResults.appendChild(resElement);
         });
       } else {
-        searchResults.innerHTML = '<div class="search-no-results">No articles found matching query.</div>';
+        searchResults.innerHTML = '<div class="search-no-results">No articles found.</div>';
       }
-searchResults.style.display = 'block';});
-  
-  // Hide dropdown box context boundaries whenever clicking completely off input 
-    panelsdocument.addEventListener('click', function(e) {if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {searchResults.style.display = 'none';}});
-    // --- 2. Sidebar Navigation Management Scripts ---
-const sidebarMenu = document.getElementById("sidebarMenu");const sidebarOverlay = document.getElementById("sidebarOverlay");const openMenuBtn = document.getElementById("openMenuBtn");const closeMenuBtn = document.getElementById("closeMenuBtn");function openSidebar() {sidebarMenu.classList.add("is-open");sidebarOverlay.classList.add("is-visible");openMenuBtn.style.opacity = "0";}function closeSidebar() {sidebarMenu.classList.remove("is-open");sidebarOverlay.classList.remove("is-visible");openMenuBtn.style.opacity = "1";}openMenuBtn.addEventListener("click", openSidebar);closeMenuBtn.addEventListener("click", closeSidebar);sidebarOverlay.addEventListener("click", closeSidebar);// --- 3. Scroll to Top Trigger System ---
-  const backToTopButton = document.getElementById("backToTop");window.onscroll = function() {if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {backToTopButton.style.display = "block";} else {backToTopButton.style.display = "none";}};backToTopButton.addEventListener("click", function() {window.scrollTo({ top: 0, behavior: "smooth" });});
+      searchResults.style.display = 'block';
+    });
 
-  </script>
+    // Hide search results when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
 
-  <script>
-const menuToggle = document.getElementById('menu-toggle');
-const menuClose = document.getElementById('menu-close');
-const navMenu = document.getElementById('nav-menu');
+    // ========== 2. SIDEBAR ==========
+    const sidebarMenu = document.getElementById("sidebarMenu");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const openMenuBtn = document.getElementById("openMenuBtn");
+    const closeMenuBtn = document.getElementById("closeMenuBtn");
 
-menuToggle.addEventListener('click', () => {
-    navMenu.classList.add('active'); // Or change style.display = 'block'
-});
+    function openSidebar() {
+      sidebarMenu.classList.add("is-open");
+      sidebarOverlay.classList.add("is-visible");
+      openMenuBtn.style.opacity = "0";
+      document.body.style.overflow = "hidden"; // prevent background scroll
+    }
 
-menuClose.addEventListener('click', () => {
-    navMenu.classList.remove('active'); // Or change style.display = 'none'
-});
-    
+    function closeSidebar() {
+      sidebarMenu.classList.remove("is-open");
+      sidebarOverlay.classList.remove("is-visible");
+      openMenuBtn.style.opacity = "1";
+      document.body.style.overflow = "";
+    }
+
+    openMenuBtn.addEventListener("click", openSidebar);
+    closeMenuBtn.addEventListener("click", closeSidebar);
+    sidebarOverlay.addEventListener("click", closeSidebar);
+
+    // Close sidebar when clicking a link
+    document.querySelectorAll('.sidebar-links a').forEach(link => {
+      link.addEventListener('click', closeSidebar);
+    });
+
+    // ========== 3. BACK TO TOP ==========
+    const backToTopButton = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function() {
+      if (window.scrollY > 300) {
+        backToTopButton.style.display = "block";
+      } else {
+        backToTopButton.style.display = "none";
+      }
+    });
+
+    backToTopButton.addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   </script>
   
 </body>
 </html>
-    
