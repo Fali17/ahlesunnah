@@ -311,26 +311,43 @@
 </head>
 <body>
 
-  <!-- Website Top Header Structure -->
   <header class="site-header">
-    <div class="header-container">
-      
-      <!-- Top Left Hamburger Toggle Control Button -->
-      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
-      
-      <!-- Main Brand Text/Logo Center Wrap Layout -->
-      <div class="header-inner">
-        <div class="logo-wrap">
-          <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
-        </div>
-        <div>
-          <h1>{{ site.title }}</h1>
-          <p class="subtitle">{{ site.description }}</p>
-        </div>
+  <div class="header-container">
+    
+    <!-- Left Side Hamburger Menu Trigger -->
+    <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
+    
+    
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Logo" class="site-logo">
       </div>
-
+      <div>
+        <h1>{{ site.title }}</h1>
+      </div>
     </div>
-  </header>
+
+    <!-- Corrected Top-Right Green Background Search Trigger & Slider Panel Wrapper -->
+    <div class="search-wrapper">
+      <button id="searchTriggerBtn" class="search-icon-btn" aria-label="Open search">
+        <svg xmlns="http://w3.org" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+      </button>
+
+      <div id="searchOverlayPanel" class="search-overlay-panel">
+        <div class="search-panel-header">
+          <div class="search-input-group">
+            <input type="text" id="customSearchInput" placeholder="Type to search..." autocomplete="off">
+            <button id="clearSearchBtn" class="clear-search-btn">Clear</button>
+          </div>
+          <button id="closeSearchBtn" class="close-search-btn" aria-label="Close search">&times;</button>
+        </div>
+        <div id="dropdownSearchResults" class="dropdown-results-container"></div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
 
   <!-- Dim Shadow Backdrop Overlay Component -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
