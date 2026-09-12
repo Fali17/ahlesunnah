@@ -223,16 +223,59 @@
 </head>
 <body>
 
+   <!-- 1. FIXED: Added correct CDN package path and matching element IDs for search -->
   <script src="https://unpkg.com"></script>
 
-<script>
-SimpleJekyllSearch({
-  searchInput: document.getElementById('search-input'),
-  resultsContainer: document.getElementById('results-container'),
-  json: '/ahlesunnah/search.json' /* Match your GitHub Pages base URL */
-})
-</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Initialize Jekyll Search
+      if (document.getElementById('searchInput')) {
+        SimpleJekyllSearch({
+          searchInput: document.getElementById('searchInput'),
+          resultsContainer: document.getElementById('searchResults'),
+          json: '{{ "/search.json" | relative_url }}',
+          searchResultTemplate: '<a href="{url}" class="search-result-item"><div class="search-result-title">{title}</div><div class="search-result-meta">{date}</div></a>',
+          noResultsText: '<div class="search-no-results">No results found</div>'
+        });
 
+        // Show/Hide search dropdown dynamically on input focus
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        
+        searchInput.addEventListener('input', function() {
+          searchResults.style.display = this.value.length > 0 ? 'block' : 'none';
+        });
+        
+        document.addEventListener('click', function(e) {
+          if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+          }
+        });
+      }
+
+      // 2. FIXED: Added logic to handle sliding burger menu drawer interactions
+      const openMenuBtn = document.getElementById('openMenuBtn');
+      const closeMenuBtn = document.getElementById('closeMenuBtn');
+      const sidebarMenu = document.getElementById('sidebarMenu');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      function toggleMenu(isOpen) {
+        if (isOpen) {
+          sidebarMenu.classList.add('is-open');
+          sidebarOverlay.classList.add('is-visible');
+          document.body.style.overflow = 'hidden'; // Prevents background body scrolling
+        } else {
+          sidebarMenu.classList.remove('is-open');
+          sidebarOverlay.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        }
+      }
+
+      openMenuBtn.addEventListener('click', () => toggleMenu(true));
+      closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+      sidebarOverlay.addEventListener('click', () => toggleMenu(false));
+    });
+  </script>
 
   <!-- Top Header Layout bar -->
   <header class="site-header">
@@ -278,6 +321,7 @@ SimpleJekyllSearch({
       <a href="{{ 'terms.html' | relative_url }}">Terms And Conditions</a>
     </div>
   </nav>
+
 
   <!-- Core Content Block Injector Layout -->
   <main class="site-main">
