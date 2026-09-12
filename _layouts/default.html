@@ -329,6 +329,7 @@ searchResults.style.display = 'block';});
 const sidebarMenu = document.getElementById("sidebarMenu");const sidebarOverlay = document.getElementById("sidebarOverlay");const openMenuBtn = document.getElementById("openMenuBtn");const closeMenuBtn = document.getElementById("closeMenuBtn");function openSidebar() {sidebarMenu.classList.add("is-open");sidebarOverlay.classList.add("is-visible");openMenuBtn.style.opacity = "0";}function closeSidebar() {sidebarMenu.classList.remove("is-open");sidebarOverlay.classList.remove("is-visible");openMenuBtn.style.opacity = "1";}openMenuBtn.addEventListener("click", openSidebar);closeMenuBtn.addEventListener("click", closeSidebar);sidebarOverlay.addEventListener("click", closeSidebar);// --- 3. Scroll to Top Trigger System ---
   const backToTopButton = document.getElementById("backToTop");window.onscroll = function() {if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {backToTopButton.style.display = "block";} else {backToTopButton.style.display = "none";}};backToTopButton.addEventListener("click", function() {window.scrollTo({ top: 0, behavior: "smooth" });});
 
-</body>
+  <script>
+    
   
-  </html>
+    
