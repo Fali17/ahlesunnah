@@ -192,20 +192,7 @@
  
   </button>
 
-  <!-- Left-Sliding Green Theme Search Drawer Panel -->
-  <div id="searchOverlayPanel" class="search-overlay-panel">
-    <div class="search-panel-header">
-      <div class="search-input-group">
-        <input type="text" id="customSearchInput" placeholder="Type to search & highlight..." autocomplete="off">
-        <button id="clearSearchBtn" class="clear-search-btn">Clear</button>
-      </div>
-      <!-- Close (X) Drawer Toggle Button -->
-      <button id="closeSearchBtn" class="close-search-btn" aria-label="Close search">&times;</button>
-    </div>
-    <!-- Live Results Dropdown Output Link Deck -->
-    <div id="dropdownSearchResults" class="dropdown-results-container"></div>
-  </div>
-</div>
+  
 
 <style>
   /* --- Right Side Green Search Button Custom Styling --- */
@@ -438,7 +425,7 @@
     const isPostPage = window.location.pathname.includes('/202') || !!document.querySelector('.post-content, article');
 
     // Fetch the Jekyll search catalog safely
-    fetch("{{ '/search.json' | relative_url }}")
+    fetch("{{ 'search.json' | relative_url }}")
       .then(res => res.json())
       .then(data => { searchDb = data; })
       .catch(err => console.error("Database failed to load: ", err));
