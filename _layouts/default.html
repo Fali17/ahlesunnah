@@ -156,9 +156,10 @@
         </form>
     </div>
 </div>
-
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  
+<script>
+  
+document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("reportModal");
     const openBtn = document.getElementById("openReportBtn");
     const closeBtn = document.querySelector(".close-modal-btn");
@@ -214,20 +215,18 @@
                     // Option A: Clean redirect without relying on Formspree settings
                     window.location.href = "https://fali17.github.io/ahlesunnah/thank-you.html";
                     
-                  
+                    /* 
                     // Option B: If you prefer not to leave the page, swap out content inside the modal instead:
                     const modalContent = document.querySelector(".report-modal-content");
-                  
-modalContent.innerHTML = <span class="close-modal-btn" onclick="document.getElementById('reportModal').style.display='none'">&times;</span>
-  
-<div style="text-align: center; padding: 30px 10px;">
-  
- <h3 style="color: #145a32;"> Thank You! </h3>
-  
-<p>Your abuse report has been recorded successfully. Our team will review it shortly.</p>
+                    modalContent.innerHTML = `
+                        <span class="close-modal-btn" onclick="document.getElementById('reportModal').style.display='none'">&times;</span>
+                        <div style="text-align: center; padding: 30px 10px;">
+                            <h3 style="color: #145a32;">Thank You!</h3>
+                            <p>Your abuse report has been recorded successfully. Our team will review it shortly.</p>
                         </div>
-                  
-                 else {
+                    `;
+                    */
+                } else {
                     alert("Oops! There was a problem submitting your form. Please try again.");
                     if (submitBtn) {
                         submitBtn.disabled = false;
@@ -244,8 +243,7 @@ modalContent.innerHTML = <span class="close-modal-btn" onclick="document.getElem
         });
     }
 });
-
-  </script>
+</script>
     
   <!-- Footer -->
   <footer class="site-footer">
