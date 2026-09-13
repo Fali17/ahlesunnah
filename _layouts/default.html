@@ -123,10 +123,17 @@
             <p>Help us maintain the integrity of Ahle Sunnah. Select the violation below:</p>
         </div>
         
-        <!-- No-code backend connection using Formspree -->
-        <form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
-            <!-- Dynamic hidden input to automatically log the offending page URL -->
-            <input type="hidden" id="reportedUrl" name="Page URL">
+       <!-- Use your unique Formspree form ID in place of YOUR_FORMSPREE_ID -->
+<form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
+    
+    <!-- This line forces the custom redirect link -->
+    <input type="hidden" name="_next" value="https://github.io">
+    
+    <!-- Keep the rest of your form fields exactly the same as provided previously -->
+    <input type="hidden" id="reportedUrl" name="Page URL">
+    <!-- ... Rest of form options here ... -->
+</form>
+
 
             <div class="form-radio-group">
                 <label class="radio-label">
