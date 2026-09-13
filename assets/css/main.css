@@ -20,9 +20,6 @@ body {
   line-height: 1.7;
   margin: 0;
   -webkit-font-smoothing: antialiased;
- /* */
-  justify-content:center;
-  align-items:center;
   
 }
 
@@ -52,8 +49,6 @@ body {
 /* */
   max-width:90%;
   width:100%;
-  padding:30px;
-  border-left: 6px solid #145a32;
   justify-content:center;
   text-align:center;
 }
