@@ -94,7 +94,7 @@
       <button class="sidebar-close-btn" id="closeMenuBtn" aria-label="Close navigation menu">&times;</button>
     </div>
     <div class="sidebar-links">
-      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ 'index.html'| relative_url }}">Home</a>
       <a href="{{ 'about.html' | relative_url }}">About</a>
       <a href="{{ 'contact.html' | relative_url }}">Contact</a>
       <a href="{{ 'documents.html' | relative_url }}">Documents</a>
@@ -108,13 +108,89 @@
     {{ content }}
   </main>
 
-  <!-- Report Abuse (above footer) -->
-  <div class="report-abuse-wrap">
-    <a href="mailto:your-email@example.com?subject=Report%20Abuse%20-%20Ahle%20Sunnah%20Website" class="report-abuse-btn">
-      Report Abuse
-    </a>
-  </div>
+  <!-- The trigger button (Matches your current wrapper class name) -->
+<div class="report-abuse-wrap">
+    <button id="openReportBtn" class="report-abuse-btn">Report Abuse</button>
+</div>
 
+<!-- The Ahle Sunnah Custom Report Modal Overlay -->
+<div id="reportModal" class="report-modal">
+    <div class="report-modal-content">
+        <span class="close-modal-btn">&times;</span>
+        
+        <div class="modal-header">
+            <h3>Report Abuse</h3>
+            <p>Help us maintain the integrity of Ahle Sunnah. Select the violation below:</p>
+        </div>
+        
+        <!-- No-code backend connection using Formspree -->
+        <form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
+            <!-- Dynamic hidden input to automatically log the offending page URL -->
+            <input type="hidden" id="reportedUrl" name="Page URL">
+
+            <div class="form-radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="Violation Type" value="Spam / Malware" required> 
+                    <span>Spam, phishing, or malware</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="Violation Type" value="Hate Speech"> 
+                    <span>Hate speech or offensive content</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="Violation Type" value="Harassment"> 
+                    <span>Harassment or abuse</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="Violation Type" value="Copyright"> 
+                    <span>Copyright or intellectual property violation</span>
+                </label>
+            </div>
+
+            <div class="form-text-group">
+                <label for="reportComments">Additional Context:</label>
+                <textarea id="reportComments" name="Additional Details" rows="4" placeholder="Provide any details that might help our team investigate..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-report-btn">Submit Report</button>
+        </form>
+    </div>
+</div>
+
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("reportModal");
+    const openBtn = document.getElementById("openReportBtn");
+    const closeBtn = document.querySelector(".close-modal-btn");
+    const reportForm = document.getElementById("reportAbuseForm");
+    const urlInput = document.getElementById("reportedUrl");
+
+    if (openBtn && modal) {
+        // Open Interface & Auto-inject current target URL path
+        openBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.style.display = "flex";
+            if (urlInput) {
+                urlInput.value = window.location.href; 
+            }
+        });
+
+        // Close Action Hook via structural 'X' 
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Dismiss Viewport via Out-of-bounds Canvas Clicks
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+});
+
+  </script>
+    
   <!-- Footer -->
   <footer class="site-footer">
     <div class="site-footer-inner">
