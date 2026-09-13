@@ -123,12 +123,10 @@
             <p>Help us maintain the integrity of Ahle Sunnah. Select the violation below:</p>
         </div>
         
-<form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
-        
-<input type="hidden" name="_next" value="https://fali17.github.io/ahlesunnah/thank-you.html">
-
-<input type="hidden" id="reportedUrl" name="Page URL">
-
+        <!-- Fixed form layout - Formspree endpoint acts purely as a data receiver -->
+        <form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
+            <!-- Hidden field to pass current page details safely -->
+            <input type="hidden" id="reportedUrl" name="Page URL">
 
             <div class="form-radio-group">
                 <label class="radio-label">
@@ -154,18 +152,19 @@
                 <textarea id="reportComments" name="Additional Details" rows="4" placeholder="Provide any details that might help our team investigate..."></textarea>
             </div>
 
-            <button type="submit" class="submit-report-btn">Submit Report</button>
+            <button type="submit" class="submit-report-btn" id="submitReportBtn">Submit Report</button>
         </form>
     </div>
 </div>
 
   <script>
-document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("reportModal");
     const openBtn = document.getElementById("openReportBtn");
     const closeBtn = document.querySelector(".close-modal-btn");
     const reportForm = document.getElementById("reportAbuseForm");
     const urlInput = document.getElementById("reportedUrl");
+    const submitBtn = document.getElementById("submitReportBtn");
 
     if (openBtn && modal) {
         // Open Interface & Auto-inject current target URL path
@@ -186,6 +185,61 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("click", (event) => {
             if (event.target === modal) {
                 modal.style.display = "none";
+            }
+        });
+    }
+
+    // AJX Submit Handling to bypass Formspree's forced redirect screen
+    if (reportForm) {
+        reportForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Stop standard browser submission/redirect
+            
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Sending...";
+            }
+
+            const formData = new FormData(reportForm);
+
+            try {
+                const response = await fetch(reportForm.action, {
+                    method: reportForm.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Option A: Clean redirect without relying on Formspree settings
+                    window.location.href = "https://fali17.github.io/ahlesunnah/thank-you.html";
+                    
+                  
+                    // Option B: If you prefer not to leave the page, swap out content inside the modal instead:
+                    const modalContent = document.querySelector(".report-modal-content");
+                  
+modalContent.innerHTML = <span class="close-modal-btn" onclick="document.getElementById('reportModal').style.display='none'">&times;</span>
+  
+<div style="text-align: center; padding: 30px 10px;">
+  
+ <h3 style="color: #145a32;"> Thank You! </h3>
+  
+<p>Your abuse report has been recorded successfully. Our team will review it shortly.</p>
+                        </div>
+                  
+                 else {
+                    alert("Oops! There was a problem submitting your form. Please try again.");
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Submit Report";
+                    }
+                }
+            } catch (error) {
+                alert("Network error. Please check your connection and try again.");
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Submit Report";
+                }
             }
         });
     }
