@@ -233,7 +233,7 @@ body {
 
 .sidebar-links { display: flex; flex-direction: column; padding: 15px 10px; gap: 4px; }
 .sidebar-links a {
-  color: var(--text) !important; text-decoration: none !important;
+  color: var(--card) !important; text-decoration: none !important;
   font-weight: 500; font-size: 1rem; padding: 12px 15px; border-radius: 6px;
   transition: all 0.2s ease;
 }
