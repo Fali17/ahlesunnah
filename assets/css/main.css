@@ -20,14 +20,11 @@ body {
   line-height: 1.7;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-  
+ /* */
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-}
-h1 {
-  margin-top:0;
 }
 
 /* --- Clean Inline Header Framework --- */
@@ -53,7 +50,7 @@ h1 {
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
-
+/* */
   max-width:90%;
   width:100%;
   padding:30px;
