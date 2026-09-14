@@ -130,6 +130,7 @@ body {
 }
 .search-input::placeholder {
   color: #d4efdf;
+  width:320px;
 }
 .search-input:focus {
   outline: none;
