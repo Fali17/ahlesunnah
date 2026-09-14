@@ -125,7 +125,7 @@ body {
   padding: 8px 15px 8px 38px;
   color: #ffffff;
   font-size: 0.7rem;
-  width: 200px;
+  width: 150px;
   transition: all 0.3s ease;
 }
 .search-input::placeholder {
