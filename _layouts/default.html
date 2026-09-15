@@ -75,14 +75,26 @@
       </div>
 
       <!-- Search -->
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." autocomplete="off">
-        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+     <div class="search-wrapper">
+  <!-- The form wrapper intercepts the Enter key naturally across all devices -->
+  <form id="search-form" onsubmit="return false;">
+    <input type="text" id="search-input" class="search-input" placeholder="Search articles...">
+    
+    <!-- Changed from a static span to a clickable action button -->
+    <button type="submit" id="search-submit-btn" class="search-button" aria-label="Submit Search">
+     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-        <div id="searchResults" class="search-results-dropdown"></div>
-      </div>
-      
+
+    </button>
+  </form>
+
+    </button>
+  </form>
+  
+  <!-- The dropdown list container element -->
+  <ul id="results-container" class="search-results-dropdown"></ul>
+     </div>
     </div>
   </header>
 
@@ -349,6 +361,99 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
+
+  <!-- Load the search script engine -->
+<script src="https://unpkg.com"></script>
+
+<script>
+  const searchInput = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('results-container');
+  const searchForm = document.getElementById('search-form');
+  const searchSubmitBtn = document.getElementById('search-submit-btn');
+  
+  // Target the container displaying your standard home feed articles
+  const mainContentStream = document.querySelector('.posts-grid') || document.querySelector('.site-main');
+
+  if (searchInput && resultsContainer) {
+    const cacheBuster = new Date().getTime();
+
+    const sjs = SimpleJekyllSearch({
+      searchInput: searchInput,
+      resultsContainer: resultsContainer,
+      json: "{{ '/search.json' | relative_url }}?v=" + cacheBuster,
+      
+      // Formatting layout rules for output items
+      searchResultTemplate: '<li><a class="search-result-item" href="{url}"><span class="search-result-title">{title}</span><span class="search-result-meta">{date}</span><p class="search-result-excerpt">{excerpt}</p></a></li>',
+      noResultsText: '<li class="search-no-results">No articles found</li>',
+      limit: 20, // Expanded limit capacity to yield comprehensive search reviews
+      fuzzy: false
+    });
+
+    // Strategy Function: Pulls dropdown listings directly into your primary page content frame
+    function executeFullDisplaySearch() {
+      const query = searchInput.value.trim();
+      if (query.length === 0) return;
+
+      // Close the mini hovering dropdown safely
+      resultsContainer.style.display = 'none';
+
+      if (mainContentStream) {
+        // Construct a clean dedicated interface display showing exactly what matches
+        mainContentStream.innerHTML = `
+          <div class="search-results-page-header" style="margin-bottom: 24px;">
+            <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary);">Search Results for: "${query}"</h2>
+            <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 13px; padding: 0;">← Back to all posts</button>
+          </div>
+          <div class="posts-grid-results">
+            ${resultsContainer.innerHTML}
+          </div>
+        `;
+        
+        // Remove dropdown styles from items so they align beautifully inside the open main page framework
+        const items = mainContentStream.querySelectorAll('.search-result-item');
+        items.forEach(item => {
+          item.style.background = 'var(--card)';
+          item.style.marginBottom = '16px';
+          item.style.borderRadius = 'var(--radius)';
+          item.style.border = '1px solid var(--border)';
+          item.style.borderLeft = '4px solid var(--accent)';
+          item.style.padding = '22px 20px';
+          item.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
+        });
+      }
+    }
+
+    // Typing behavior logic: show standard dropdown list on user input
+    searchInput.addEventListener('input', function() {
+      if (this.value.length > 0) {
+        resultsContainer.style.display = 'block';
+      } else {
+        resultsContainer.style.display = 'none';
+      }
+    });
+
+    // Listener 1: Captures key board submissions ("Enter" / mobile "Go")
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      executeFullDisplaySearch();
+    });
+
+    // Listener 2: Captures physical button click selections on the icon
+    if (searchSubmitBtn) {
+      searchSubmitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        executeFullDisplaySearch();
+      });
+    }
+
+    // Dismiss floating menu wrapper when clicking outside the field
+    document.addEventListener('click', function(event) {
+      if (!searchForm.contains(event.target) && !resultsContainer.contains(event.target)) {
+        resultsContainer.style.display = 'none';
+      }
+    });
+  }
+</script>
 
   
 </body>
