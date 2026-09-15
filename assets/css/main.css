@@ -607,3 +607,31 @@ body {
     left: 16px !important;
   }
 }
+
+/* --- Global Mobile Layout Reset --- */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body, html {
+  overflow-x: hidden; /* Stops horizontal canvas wobble on swipe */
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container, .wrapper, header {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    max-width: 100% !important;
+  }
+}
+
+/* --- Mobile Nav Link Optimization --- */
+.navigation-menu a, 
+.overlay-content a {
+  display: block;
+  padding: 12px 20px;
+  line-height: 1.5;
+  font-size: 1rem; /* Highly legible touch target size */
+}
+
