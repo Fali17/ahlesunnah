@@ -635,3 +635,48 @@ body, html {
   font-size: 1rem; /* Highly legible touch target size */
 }
 
+#results-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0;
+  margin: 5px 0 0 0;
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 2000;
+}
+
+#results-container li {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+#results-container li:last-child {
+  border-bottom: none;
+}
+
+#results-container li a {
+  display: block;
+  padding: 10px 15px;
+  color: #333333 !important;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+#results-container li a:hover {
+  background: #f7f9fa;
+  color: var(--primary) !important;
+}
+
+#results-container .no-results {
+  padding: 12px 15px;
+  color: #777;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
