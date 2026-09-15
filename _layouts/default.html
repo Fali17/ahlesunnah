@@ -260,12 +260,16 @@ document.addEventListener("DOMContentLoaded", () => {
   <button id="backToTop" title="Go to top">↑</button>
 
   <script>
-  // ========== 1. ADVANCED WORD SEARCH ARCHITECTURE ==========
+ // ========== 1. ADVANCED WORD SEARCH WITH HIGHLIGHTING & PAGINATION ==========
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const svgSearchIcon = document.querySelector('.search-icon');
 const mainFeedContainer = document.querySelector('.site-main');
+
 let searchDatabase = [];
+let currentSearchPage = 1;
+const resultsPerPage = 10;
+let activeSearchQuery = "";
 
 // 1. Fetch search data index securely from Jekyll setup
 fetch("{{ '/search.json' | relative_url }}")
@@ -283,58 +287,129 @@ function getMatchedPosts(queryString) {
     const excerptText = (item.excerpt || '').toLowerCase();
     const bodyText = (item.content || '').toLowerCase();
 
-    // Loop through every single word in the query phrase
-    // Every single word must find a match somewhere in the post properties
     return words.every(word => {
       return titleText.includes(word) || excerptText.includes(word) || bodyText.includes(word);
     });
   });
 }
 
-// 2. Full-View Page Renderer Engine
-function renderFullPageSearch() {
+// Helper Function: Injects <mark> tags to highlight matching search words dynamically
+function highlightText(text, queryString) {
+  if (!text) return '';
+  const words = queryString.split(/\s+/).filter(word => word.length > 0);
+  if (words.length === 0) return text;
+  
+  let highlightedText = text;
+  // Sort by length descending to prevent shorter matches inside longer words from breaking HTML structures
+  words.sort((a, b) => b.length - a.length).forEach(word => {
+    // Regex matches instances of words safely outside HTML entities
+    const regex = new RegExp(`(${word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')})`, 'gi');
+    highlightedText = highlightedText.replace(regex, '<mark style="background-color: #fef08a; color: #1e293b; padding: 2px 4px; border-radius: 4px; font-weight: 600;">$1</mark>');
+  });
+  return highlightedText;
+}
+
+// 2. Full-View Page Renderer Engine with Dynamic Custom Pagination
+function displaySearchPageResults(matchedArticles, query, pageNum) {
+  currentSearchPage = pageNum;
+  activeSearchQuery = query;
+
+  const totalResults = matchedArticles.length;
+  const totalPages = Math.ceil(totalResults / resultsPerPage);
+
+  // Slice array indexes matching target pages
+  const startIndex = (pageNum - 1) * resultsPerPage;
+  const endIndex = Math.min(startIndex + resultsPerPage, totalResults);
+  const paginatedArticles = matchedArticles.slice(startIndex, endIndex);
+
+  let resultsHTML = '';
+  
+  if (paginatedArticles.length > 0) {
+    paginatedArticles.forEach(item => {
+      // Highlight terms found across title strings and excerpt summaries
+      const displayTitle = highlightText(item.title, query);
+      const displayExcerpt = highlightText(item.excerpt, query);
+
+      resultsHTML += `
+        <div class="post-card">
+          <div class="post-meta">
+            <time>${item.date || ''}</time>
+          </div>
+          <h2><a href="${item.url}">${displayTitle || 'Untitled'}</a></h2>
+          <p class="excerpt">${displayExcerpt || ''}</p>
+          <a href="${item.url}" class="read-more">Read more →</a>
+        </div>
+      `;
+    });
+
+    // Generate pagination navigation template panel if total matches break beyond 10 posts threshold
+    if (totalPages > 1) {
+      resultsHTML += `
+        <div class="pagination-search-nav" style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid var(--border);">
+          
+          <button id="searchPrevBtn" ${pageNum === 1 ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : ''} 
+            style="background: var(--primary); color: #ffffff; border: none; padding: 8px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer;">
+            ← Previous Page
+          </button>
+          
+          <span style="font-size: 14px; color: var(--muted); font-weight: 500;">
+            Page ${pageNum} of ${totalPages}
+          </span>
+          
+          <button id="searchNextBtn" ${pageNum === totalPages ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : ''} 
+            style="background: var(--primary); color: #ffffff; border: none; padding: 8px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer;">
+            Next Page →
+          </button>
+          
+        </div>
+      `;
+    }
+  } else {
+    resultsHTML = '<div class="post-card" style="text-align:center; padding: 40px;"><p class="excerpt">No articles found matching your criteria.</p></div>';
+  }
+
+  // Rewrite site-main elements feed stream structure view frame safely
+  mainFeedContainer.innerHTML = `
+    <div class="search-page-header" style="margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;">
+      <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary); margin: 0 0 10px 0;">
+        Search Results for: "${query}"
+      </h2>
+      <p style="font-size: 13px; color: var(--muted); margin: 0 0 12px 0;">Found ${totalResults} matching articles</p>
+      <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: 500; padding: 0;">
+        ← Clear search and view all articles
+      </button>
+    </div>
+    <div class="posts-grid-results">
+      ${resultsHTML}
+    </div>
+  `;
+
+  // Attach state events to newly rendered back/forth navigation control triggers
+  const prevBtn = document.getElementById('searchPrevBtn');
+  const nextBtn = document.getElementById('searchNextBtn');
+
+  if (prevBtn && pageNum > 1) {
+    prevBtn.addEventListener('click', () => {
+      displaySearchPageResults(matchedArticles, query, pageNum - 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  if (nextBtn && pageNum < totalPages) {
+    nextBtn.addEventListener('click', () => {
+      displaySearchPageResults(matchedArticles, query, pageNum + 1);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
+function initFullViewSearchSearch() {
   const rawQuery = searchInput.value.trim();
   if (rawQuery.length === 0) return;
-
-  // Clear out floating dropdown menu immediately
   searchResults.style.display = 'none';
-
   if (mainFeedContainer) {
     const matchedArticles = getMatchedPosts(rawQuery);
-    let resultsHTML = '';
-    
-    if (matchedArticles.length > 0) {
-      matchedArticles.forEach(item => {
-        resultsHTML += `
-          <div class="post-card">
-            <div class="post-meta">
-              <time>${item.date || ''}</time>
-            </div>
-            <h2><a href="${item.url}">${item.title || 'Untitled'}</a></h2>
-            <p class="excerpt">${item.excerpt || ''}</p>
-            <a href="${item.url}" class="read-more">Read more →</a>
-          </div>
-        `;
-      });
-    } else {
-      resultsHTML = '<div class="post-card" style="text-align:center; padding: 40px;"><p class="excerpt">No articles found matching your criteria.</p></div>';
-    }
-
-    // Completely replace homepage main body feed container smoothly
-    mainFeedContainer.innerHTML = `
-      <div class="search-page-header" style="margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;">
-        <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary); margin: 0 0 10px 0;">
-          Search Results for: "${rawQuery}"
-        </h2>
-        <p style="font-size: 13px; color: var(--muted); margin: 0 0 12px 0;">Found ${matchedArticles.length} matching articles</p>
-        <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: 500; padding: 0;">
-          ← Clear search and view all articles
-        </button>
-      </div>
-      <div class="posts-grid-results">
-        ${resultsHTML}
-      </div>
-    `;
+    displaySearchPageResults(matchedArticles, rawQuery, 1);
   }
 }
 
@@ -355,8 +430,12 @@ searchInput.addEventListener('input', function() {
       const resElement = document.createElement('a');
       resElement.href = item.url;
       resElement.className = 'search-result-item';
+      
+      // Inject text highlights inside layout dropdown snippets too
+      const dropTitle = highlightText(item.title, query);
+
       resElement.innerHTML = `
-        <div class="search-result-title">${item.title || 'Untitled'}</div>
+        <div class="search-result-title">${dropTitle || 'Untitled'}</div>
         <div class="search-result-meta">${item.date || ''}</div>
         <div class="search-result-excerpt">${item.excerpt || ''}</div>
       `;
@@ -372,7 +451,7 @@ searchInput.addEventListener('input', function() {
 searchInput.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
-    renderFullPageSearch();
+    initFullViewSearchSearch();
   }
 });
 
@@ -382,7 +461,7 @@ if (svgSearchIcon) {
   svgSearchIcon.style.pointerEvents = 'auto';
   svgSearchIcon.addEventListener('click', function(e) {
     e.preventDefault();
-    renderFullPageSearch();
+    initFullViewSearchSearch();
   });
 }
 
