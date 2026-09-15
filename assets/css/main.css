@@ -645,7 +645,6 @@ body, html {
 /* 1. Turns the SVG graphic area into a styled interactive box button */
 .search-icon-box {
   position: absolute;
-  left: 1px; /* Aligns precisely inside the input field border radius */
   top: 50%;
   transform: translateY(-50%);
   width: 34px;
