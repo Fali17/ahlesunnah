@@ -674,7 +674,7 @@ body, html {
 .search-icon-box .search-icon {
   position: static !important;
   transform: none !important;
-  width: 16px;
+  width: 14px;
   height: 16px;
   color: #d4efdf;
   transition: color 0.25s ease;
