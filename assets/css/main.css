@@ -572,3 +572,38 @@ body {
 .submit-report-btn:active {
     transform: scale(0.98);
 }
+
+/* search*/
+/* --- Mobile Layout Overrides --- */
+@media screen and (max-width: 768px) {
+  /* Break the layout container limits */
+  .search-wrapper {
+    width: 100% !important;
+    max-width: 90vw !important;
+    margin: 8px auto !important;
+    display: block !important;
+  }
+  
+  /* Force input box expansion */
+  .search-input {
+    width: 100% !important;
+    font-size: 0.85rem !important; /* Slightly larger text for mobile readability */
+    padding: 10px 15px 10px 42px !important; /* Balanced breathing room */
+    box-sizing: border-box !important;
+  }
+
+  /* Clear out placeholder sizing limits */
+  .search-input::placeholder {
+    width: auto !important;
+  }
+
+  /* Keep width consistent when a user taps to focus/type */
+  .search-input:focus {
+    width: 100% !important;
+  }
+  
+  /* Readjust search icon centering for mobile height */
+  .search-icon {
+    left: 16px !important;
+  }
+}
