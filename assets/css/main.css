@@ -682,5 +682,5 @@ body, html {
 
 /* 4. Pad the text input so it does not collide with your new left-side box button */
 .search-input {
-  padding-left: 48px !important; 
+  padding: 48px !important; 
 }
