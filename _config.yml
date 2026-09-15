@@ -1,18 +1,48 @@
-title: Ahle Sunnah
-description: Spreading The Truth 
-baseurl: /ahlesunnah
-url: https://fali17.github.io
+title: "Ahle Sunnah"
+description: "Spreading The Truth" 
+url: "https://fali17.github.io"
+baseurl: "/ahlesunnah"
+
+# Language & SEO settings
+lang: "en-GB"
+timezone: "Europe/London"
+
+# Permalinks (Strips messy .html extensions from your links)
+permalink: /blog/:title/
+
+# Content Rendering Configurations
 markdown: kramdown
 future: true
+
+# Navigation Pagination Engine
+paginate: 10
+paginate_path: "/page:num/"
+
+# Native Plugins supported natively by GitHub Pages
 plugins:
   - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Standard Layout Defaults
 defaults:
   - scope:
       path: ""
-      type: "posts"
+      type: "posts" # Fixed syntax: should be plain "posts" without double quotes
     values:
-      layout: post
-      author: Ahle Sunnah
-logo: assets/logo.png
-paginate: 10
-paginate_path: "/page:num/"
+      layout: "post"
+      author: "Ahle Sunnah"
+
+# Design Assets
+logo: "assets/logo.png"
+
+# Performance Tuning (Tells GitHub to skip compiling local environment fluff)
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - .sass-cache/
+  - .jekyll-cache/
+  - README.md
