@@ -768,7 +768,7 @@ body, html {
   color: var(--text) !important;
 }
 .search-form-container:focus-within .search-input::placeholder {
-  color: var(--muted);
+  color: #ffffff;
 }
 
 /* --- Mobile Media Form Alignment Rules --- */
