@@ -461,14 +461,15 @@ searchInput.addEventListener('keydown', function(event) {
   }
 });
 
-// 5. Visual Icon Action Listener: Target the new icon container box layout
-const searchBoxButton = document.querySelector('.search-icon-box');
-if (searchBoxButton) {
-  searchBoxButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    initFullViewSearchSearch(); // Executes your pagination search engine on click
+// 4 & 5. Consolidated Event Interceptor: Executes on Enter keys, mobile Go, or Boxed Icon clicks
+const searchForm = document.getElementById('searchForm');
+if (searchForm) {
+  searchForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Stop page from refreshing natively
+    initFullViewSearchSearch(); // Triggers your highlighted full-page results view
   });
 }
+
 
 
 // 6. Dismiss dropdown panels when users select areas off-canvas
