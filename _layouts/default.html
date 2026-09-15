@@ -260,54 +260,128 @@ document.addEventListener("DOMContentLoaded", () => {
   <button id="backToTop" title="Go to top">↑</button>
 
   <script>
-    // ========== 1. SEARCH ==========
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    let searchDatabase = [];
+   // ========== 1. SEARCH ARCHITECTURE ==========
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const svgSearchIcon = document.querySelector('.search-icon');
+const mainFeedContainer = document.querySelector('.site-main');
+let searchDatabase = [];
 
-    fetch("{{ '/search.json' | relative_url }}")
-      .then(response => response.json())
-      .then(data => { searchDatabase = data; })
-      .catch(err => console.error("Could not load search index:", err));
+// 1. Fetch search data index securely from Jekyll setup
+fetch("{{ '/search.json' | relative_url }}")
+  .then(response => response.json())
+  .then(data => { searchDatabase = data; })
+  .catch(err => console.error("Could not load search index:", err));
 
-    searchInput.addEventListener('input', function() {
-      const query = this.value.toLowerCase().trim();
-      searchResults.innerHTML = '';
+// 2. Shared Execution Engine: Rewrites page feed with matched items
+function renderFullPageSearch() {
+  const query = searchInput.value.toLowerCase().trim();
+  if (query.length === 0) return;
 
-      if (query.length < 2) {
-        searchResults.style.display = 'none';
-        return;
-      }
+  // Clear out floating dropdown menu immediately
+  searchResults.style.display = 'none';
 
-      const filtered = searchDatabase.filter(item => {
-        return (item.title && item.title.toLowerCase().includes(query)) || 
-               (item.excerpt && item.excerpt.toLowerCase().includes(query));
+  if (mainFeedContainer) {
+    // Perform data filtering across titles and excerpts
+    const matchedArticles = searchDatabase.filter(item => {
+      return (item.title && item.title.toLowerCase().includes(query)) || 
+             (item.excerpt && item.excerpt.toLowerCase().includes(query));
+    });
+
+    let resultsHTML = '';
+    
+    if (matchedArticles.length > 0) {
+      // Build matching post layout cards matching your home layout styles
+      matchedArticles.forEach(item => {
+        resultsHTML += `
+          <div class="post-card">
+            <div class="post-meta">
+              <time>${item.date || ''}</time>
+            </div>
+            <h2><a href="${item.url}">${item.title || 'Untitled'}</a></h2>
+            <p class="excerpt">${item.excerpt || ''}</p>
+            <a href="${item.url}" class="read-more">Read more →</a>
+          </div>
+        `;
       });
+    } else {
+      resultsHTML = '<div class="post-card" style="text-align:center; padding: 40px;"><p class="excerpt">No articles found matching your criteria.</p></div>';
+    }
 
-      if (filtered.length > 0) {
-        filtered.slice(0, 8).forEach(item => {  // limit to 8 results
-          const resElement = document.createElement('a');
-          resElement.href = item.url;
-          resElement.className = 'search-result-item';
-          resElement.innerHTML = `
-            <div class="search-result-title">${item.title || 'Untitled'}</div>
-            <div class="search-result-meta">${item.date || ''}</div>
-            <div class="search-result-excerpt">${item.excerpt || ''}</div>
-          `;
-          searchResults.appendChild(resElement);
-        });
-      } else {
-        searchResults.innerHTML = '<div class="search-no-results">No articles found.</div>';
-      }
-      searchResults.style.display = 'block';
-    });
+    // Completely replace homepage main body feed container smoothly
+    mainFeedContainer.innerHTML = `
+      <div class="search-page-header" style="margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;">
+        <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary); margin: 0 0 10px 0;">
+          Search Results for: "${searchInput.value.trim()}"
+        </h2>
+        <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: 500; padding: 0;">
+          ← Clear search and view all articles
+        </button>
+      </div>
+      <div class="posts-grid-results">
+        ${resultsHTML}
+      </div>
+    `;
+  }
+}
 
-    // Hide search results when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-        searchResults.style.display = 'none';
-      }
+// 3. Dropdown autocomplete list logic as user types text entries
+searchInput.addEventListener('input', function() {
+  const query = this.value.toLowerCase().trim();
+  searchResults.innerHTML = '';
+
+  if (query.length < 2) {
+    searchResults.style.display = 'none';
+    return;
+  }
+
+  const filtered = searchDatabase.filter(item => {
+    return (item.title && item.title.toLowerCase().includes(query)) || 
+           (item.excerpt && item.excerpt.toLowerCase().includes(query));
+  });
+
+  if (filtered.length > 0) {
+    filtered.slice(0, 8).forEach(item => {  
+      const resElement = document.createElement('a');
+      resElement.href = item.url;
+      resElement.className = 'search-result-item';
+      resElement.innerHTML = `
+        <div class="search-result-title">${item.title || 'Untitled'}</div>
+        <div class="search-result-meta">${item.date || ''}</div>
+        <div class="search-result-excerpt">${item.excerpt || ''}</div>
+      `;
+      searchResults.appendChild(resElement);
     });
+  } else {
+    searchResults.innerHTML = '<div class="search-no-results">No articles found.</div>';
+  }
+  searchResults.style.display = 'block';
+});
+
+// 4. Keyboard Action Listener: Captures physical Enter or mobile Go presses
+searchInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault(); // Stop default form reloads
+    renderFullPageSearch();
+  }
+});
+
+// 5. Visual Icon Action Listener: Captures direct mouse clicks on SVG search glass
+if (svgSearchIcon) {
+  svgSearchIcon.style.cursor = 'pointer';
+  svgSearchIcon.style.pointerEvents = 'auto'; // Allows cursor click detection on absolute elements
+  svgSearchIcon.addEventListener('click', function(e) {
+    e.preventDefault();
+    renderFullPageSearch();
+  });
+}
+
+// 6. Dismiss dropdown panels when users select areas off-canvas
+document.addEventListener('click', function(e) {
+  if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+    searchResults.style.display = 'none';
+  }
+});
 
     // ========== 2. SIDEBAR ==========
     const sidebarMenu = document.getElementById("sidebarMenu");
