@@ -635,3 +635,33 @@ body, html {
   font-size: 1rem; /* Highly legible touch target size */
 }
 
+/* Style adjustment converting the search icon element to a pointer trigger */
+.search-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 42px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  outline: none;
+}
+
+.search-button:focus-visible {
+  outline: 2px dashed var(--accent);
+  border-radius: 20px 0 0 20px;
+}
+
+/* Remove default layout conflicts from old icon mapping tags */
+.search-icon {
+  position: static !important;
+  transform: none !important;
+  color: #d4efdf;
+  font-size: 0.95rem;
+}
+
