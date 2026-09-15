@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
   <button id="backToTop" title="Go to top">↑</button>
 
   <script>
-   // ========== 1. SEARCH ARCHITECTURE ==========
+  // ========== 1. ADVANCED WORD SEARCH ARCHITECTURE ==========
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 const svgSearchIcon = document.querySelector('.search-icon');
@@ -273,25 +273,37 @@ fetch("{{ '/search.json' | relative_url }}")
   .then(data => { searchDatabase = data; })
   .catch(err => console.error("Could not load search index:", err));
 
-// 2. Shared Execution Engine: Rewrites page feed with matched items
+// Core Algorithm: Splits phrases into separate search words and scans all content keys
+function getMatchedPosts(queryString) {
+  const words = queryString.toLowerCase().split(/\s+/).filter(word => word.length > 0);
+  if (words.length === 0) return [];
+
+  return searchDatabase.filter(item => {
+    const titleText = (item.title || '').toLowerCase();
+    const excerptText = (item.excerpt || '').toLowerCase();
+    const bodyText = (item.content || '').toLowerCase();
+
+    // Loop through every single word in the query phrase
+    // Every single word must find a match somewhere in the post properties
+    return words.every(word => {
+      return titleText.includes(word) || excerptText.includes(word) || bodyText.includes(word);
+    });
+  });
+}
+
+// 2. Full-View Page Renderer Engine
 function renderFullPageSearch() {
-  const query = searchInput.value.toLowerCase().trim();
-  if (query.length === 0) return;
+  const rawQuery = searchInput.value.trim();
+  if (rawQuery.length === 0) return;
 
   // Clear out floating dropdown menu immediately
   searchResults.style.display = 'none';
 
   if (mainFeedContainer) {
-    // Perform data filtering across titles and excerpts
-    const matchedArticles = searchDatabase.filter(item => {
-      return (item.title && item.title.toLowerCase().includes(query)) || 
-             (item.excerpt && item.excerpt.toLowerCase().includes(query));
-    });
-
+    const matchedArticles = getMatchedPosts(rawQuery);
     let resultsHTML = '';
     
     if (matchedArticles.length > 0) {
-      // Build matching post layout cards matching your home layout styles
       matchedArticles.forEach(item => {
         resultsHTML += `
           <div class="post-card">
@@ -312,8 +324,9 @@ function renderFullPageSearch() {
     mainFeedContainer.innerHTML = `
       <div class="search-page-header" style="margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;">
         <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary); margin: 0 0 10px 0;">
-          Search Results for: "${searchInput.value.trim()}"
+          Search Results for: "${rawQuery}"
         </h2>
+        <p style="font-size: 13px; color: var(--muted); margin: 0 0 12px 0;">Found ${matchedArticles.length} matching articles</p>
         <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: 500; padding: 0;">
           ← Clear search and view all articles
         </button>
@@ -327,7 +340,7 @@ function renderFullPageSearch() {
 
 // 3. Dropdown autocomplete list logic as user types text entries
 searchInput.addEventListener('input', function() {
-  const query = this.value.toLowerCase().trim();
+  const query = this.value.trim();
   searchResults.innerHTML = '';
 
   if (query.length < 2) {
@@ -335,10 +348,7 @@ searchInput.addEventListener('input', function() {
     return;
   }
 
-  const filtered = searchDatabase.filter(item => {
-    return (item.title && item.title.toLowerCase().includes(query)) || 
-           (item.excerpt && item.excerpt.toLowerCase().includes(query));
-  });
+  const filtered = getMatchedPosts(query);
 
   if (filtered.length > 0) {
     filtered.slice(0, 8).forEach(item => {  
@@ -358,18 +368,18 @@ searchInput.addEventListener('input', function() {
   searchResults.style.display = 'block';
 });
 
-// 4. Keyboard Action Listener: Captures physical Enter or mobile Go presses
+// 4. Keyboard Action Listener: Enter or mobile Go buttons
 searchInput.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
-    event.preventDefault(); // Stop default form reloads
+    event.preventDefault();
     renderFullPageSearch();
   }
 });
 
-// 5. Visual Icon Action Listener: Captures direct mouse clicks on SVG search glass
+// 5. Visual Icon Action Listener: SVG clicks
 if (svgSearchIcon) {
   svgSearchIcon.style.cursor = 'pointer';
-  svgSearchIcon.style.pointerEvents = 'auto'; // Allows cursor click detection on absolute elements
+  svgSearchIcon.style.pointerEvents = 'auto';
   svgSearchIcon.addEventListener('click', function(e) {
     e.preventDefault();
     renderFullPageSearch();
@@ -382,6 +392,7 @@ document.addEventListener('click', function(e) {
     searchResults.style.display = 'none';
   }
 });
+
 
     // ========== 2. SIDEBAR ==========
     const sidebarMenu = document.getElementById("sidebarMenu");
