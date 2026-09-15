@@ -362,68 +362,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   </script>
 
-  <!-- Load the search script engine -->
+  <!-- Ensure Simple-Jekyll-Search is loaded -->
 <script src="https://unpkg.com"></script>
 
 <script>
+  // Elements must match your standard default.html IDs
   const searchInput = document.getElementById('search-input');
   const resultsContainer = document.getElementById('results-container');
-  const searchForm = document.getElementById('search-form');
-  const searchSubmitBtn = document.getElementById('search-submit-btn');
   
-  // Target the container displaying your standard home feed articles
-  const mainContentStream = document.querySelector('.posts-grid') || document.querySelector('.site-main');
+  // Dynamic element selector adapts to your template's main article area wrapper
+  const mainFeedContainer = document.querySelector('.site-main') || document.querySelector('.posts-grid');
 
   if (searchInput && resultsContainer) {
     const cacheBuster = new Date().getTime();
 
+    // 1. Maintain your highly stable dropdown array runner config
     const sjs = SimpleJekyllSearch({
       searchInput: searchInput,
       resultsContainer: resultsContainer,
       json: "{{ '/search.json' | relative_url }}?v=" + cacheBuster,
-      
-      // Formatting layout rules for output items
       searchResultTemplate: '<li><a class="search-result-item" href="{url}"><span class="search-result-title">{title}</span><span class="search-result-meta">{date}</span><p class="search-result-excerpt">{excerpt}</p></a></li>',
       noResultsText: '<li class="search-no-results">No articles found</li>',
-      limit: 20, // Expanded limit capacity to yield comprehensive search reviews
+      limit: 40, 
       fuzzy: false
     });
 
-    // Strategy Function: Pulls dropdown listings directly into your primary page content frame
-    function executeFullDisplaySearch() {
-      const query = searchInput.value.trim();
-      if (query.length === 0) return;
+    // 2. Custom function that takes matching array rows and mounts them inside the page body
+    function renderFullPageSearch() {
+      const currentQuery = searchInput.value.trim();
+      if (currentQuery.length === 0) return;
 
-      // Close the mini hovering dropdown safely
+      // Close the autocomplete dropdown layout immediately
       resultsContainer.style.display = 'none';
 
-      if (mainContentStream) {
-        // Construct a clean dedicated interface display showing exactly what matches
-        mainContentStream.innerHTML = `
-          <div class="search-results-page-header" style="margin-bottom: 24px;">
-            <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary);">Search Results for: "${query}"</h2>
-            <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 13px; padding: 0;">← Back to all posts</button>
+      if (mainFeedContainer) {
+        // Swaps standard posts list with clean, standalone full search layouts
+        mainFeedContainer.innerHTML = `
+          <div class="search-page-header" style="margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 15px;">
+            <h2 style="font-family: 'Amiri', serif; font-size: 28px; color: var(--primary); margin: 0 0 10px 0;">
+              Search Results for: "${currentQuery}"
+            </h2>
+            <button onclick="window.location.reload();" style="background: none; border: none; color: var(--muted); cursor: pointer; text-decoration: underline; font-size: 14px; font-weight: 500; padding: 0;">
+              ← Clear search and view all articles
+            </button>
           </div>
           <div class="posts-grid-results">
             ${resultsContainer.innerHTML}
           </div>
         `;
-        
-        // Remove dropdown styles from items so they align beautifully inside the open main page framework
-        const items = mainContentStream.querySelectorAll('.search-result-item');
-        items.forEach(item => {
-          item.style.background = 'var(--card)';
-          item.style.marginBottom = '16px';
-          item.style.borderRadius = 'var(--radius)';
-          item.style.border = '1px solid var(--border)';
-          item.style.borderLeft = '4px solid var(--accent)';
-          item.style.padding = '22px 20px';
-          item.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
-        });
+
+        // Restructures raw text tags into matching site-theme post cards dynamically
+        const matchingItems = mainFeedContainer.querySelectorAll('.search-result-item');
+        if (matchingItems.length > 0 && !mainFeedContainer.querySelector('.search-no-results')) {
+          matchingItems.forEach(item => {
+            item.style.background = 'var(--card)';
+            item.style.display = 'block';
+            item.style.marginBottom = '20px';
+            item.style.borderRadius = 'var(--radius)';
+            item.style.borderLeft = '4px solid var(--accent)';
+            item.style.padding = '24px 20px';
+            item.style.boxShadow = '0 2px 14px rgba(0,0,0,0.06)';
+          });
+        }
       }
     }
 
-    // Typing behavior logic: show standard dropdown list on user input
+    // 3. Normal dropdown panel controls as typing happens
     searchInput.addEventListener('input', function() {
       if (this.value.length > 0) {
         resultsContainer.style.display = 'block';
@@ -432,23 +436,27 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Listener 1: Captures key board submissions ("Enter" / mobile "Go")
-    searchForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      executeFullDisplaySearch();
+    // 4. Action Listener: Catches physical "Enter" button presses or Mobile "Go" buttons
+    searchInput.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevents blank tracking reloads
+        renderFullPageSearch();
+      }
     });
 
-    // Listener 2: Captures physical button click selections on the icon
-    if (searchSubmitBtn) {
-      searchSubmitBtn.addEventListener('click', function(e) {
+    // 5. Action Listener: Intercepts physical user clicks on the custom magnifying button
+    const clickIconTarget = document.querySelector('.search-icon') || document.querySelector('.search-button');
+    if (clickIconTarget) {
+      clickIconTarget.style.cursor = 'pointer';
+      clickIconTarget.addEventListener('click', function(e) {
         e.preventDefault();
-        executeFullDisplaySearch();
+        renderFullPageSearch();
       });
     }
 
-    // Dismiss floating menu wrapper when clicking outside the field
-    document.addEventListener('click', function(event) {
-      if (!searchForm.contains(event.target) && !resultsContainer.contains(event.target)) {
+    // Dismiss floating popups if you select areas off-canvas
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
         resultsContainer.style.display = 'none';
       }
     });
