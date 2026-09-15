@@ -76,12 +76,13 @@
 
      <!-- Search -->
       <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." autocomplete="off">
-        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search" autocomplete="off">
+        <div class="search-icon-box" title="Execute Search">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <div id="searchResults" class="search-results-dropdown"></div>
-      </div>
+        </div>
 
   
   <!-- The dropdown list container element -->
@@ -455,15 +456,15 @@ searchInput.addEventListener('keydown', function(event) {
   }
 });
 
-// 5. Visual Icon Action Listener: SVG clicks
-if (svgSearchIcon) {
-  svgSearchIcon.style.cursor = 'pointer';
-  svgSearchIcon.style.pointerEvents = 'auto';
-  svgSearchIcon.addEventListener('click', function(e) {
+// 5. Visual Icon Action Listener: Target the new icon container box layout
+const searchBoxButton = document.querySelector('.search-icon-box');
+if (searchBoxButton) {
+  searchBoxButton.addEventListener('click', function(e) {
     e.preventDefault();
-    initFullViewSearchSearch();
+    initFullViewSearchSearch(); // Executes your pagination search engine on click
   });
 }
+
 
 // 6. Dismiss dropdown panels when users select areas off-canvas
 document.addEventListener('click', function(e) {
