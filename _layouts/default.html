@@ -74,23 +74,15 @@
         </div>
       </div>
 
-      <!-- Search -->
-     <div class="search-wrapper">
-  <!-- The form wrapper intercepts the Enter key naturally across all devices -->
-  <form id="search-form" onsubmit="return false;">
-    <input type="text" id="search-input" class="search-input" placeholder="Search articles...">
-    
-    <!-- Changed from a static span to a clickable action button -->
-    <button type="submit" id="search-submit-btn" class="search-button" aria-label="Submit Search">
-     <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+     <!-- Search -->
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search articles..." autocomplete="off">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
+        <div id="searchResults" class="search-results-dropdown"></div>
+      </div>
 
-    </button>
-  </form>
-
-    </button>
-  </form>
   
   <!-- The dropdown list container element -->
   <ul id="results-container" class="search-results-dropdown"></ul>
@@ -362,32 +354,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   </script>
 
-  <!-- Ensure Simple-Jekyll-Search is loaded -->
+  <!-- Main Simple-Jekyll-Search Engine Component -->
 <script src="https://unpkg.com"></script>
 
 <script>
-  // Elements must match your standard default.html IDs
-  const searchInput = document.getElementById('search-input');
-  const resultsContainer = document.getElementById('results-container');
+  // Targeting your exact default.html IDs
+  const searchInput = document.getElementById('searchInput');
+  const resultsContainer = document.getElementById('searchResults');
+  const svgSearchIcon = document.querySelector('.search-icon');
   
-  // Dynamic element selector adapts to your template's main article area wrapper
-  const mainFeedContainer = document.querySelector('.site-main') || document.querySelector('.posts-grid');
+  // Targets the core theme stream container on your homepage
+  const mainFeedContainer = document.querySelector('.site-main');
 
   if (searchInput && resultsContainer) {
     const cacheBuster = new Date().getTime();
 
-    // 1. Maintain your highly stable dropdown array runner config
+    // 1. Initialize engine configured to map to your HTML fields
     const sjs = SimpleJekyllSearch({
       searchInput: searchInput,
       resultsContainer: resultsContainer,
       json: "{{ '/search.json' | relative_url }}?v=" + cacheBuster,
+      
+      // Formats layouts to match your existing clean item CSS tree components
       searchResultTemplate: '<li><a class="search-result-item" href="{url}"><span class="search-result-title">{title}</span><span class="search-result-meta">{date}</span><p class="search-result-excerpt">{excerpt}</p></a></li>',
       noResultsText: '<li class="search-no-results">No articles found</li>',
-      limit: 40, 
+      limit: 40, // High capacity ceiling to reveal all matched outputs
       fuzzy: false
     });
 
-    // 2. Custom function that takes matching array rows and mounts them inside the page body
+    // 2. Full-view renderer function that swaps out main screen elements
     function renderFullPageSearch() {
       const currentQuery = searchInput.value.trim();
       if (currentQuery.length === 0) return;
@@ -406,28 +401,29 @@ document.addEventListener("DOMContentLoaded", () => {
               ← Clear search and view all articles
             </button>
           </div>
-          <div class="posts-grid-results">
+          <div class="posts-grid-results" style="display: flex; flex-direction: column; gap: 0;">
             ${resultsContainer.innerHTML}
           </div>
         `;
 
-        // Restructures raw text tags into matching site-theme post cards dynamically
+        // Restructures search drop anchors into matching site-theme post cards dynamically
         const matchingItems = mainFeedContainer.querySelectorAll('.search-result-item');
         if (matchingItems.length > 0 && !mainFeedContainer.querySelector('.search-no-results')) {
           matchingItems.forEach(item => {
             item.style.background = 'var(--card)';
             item.style.display = 'block';
-            item.style.marginBottom = '20px';
+            item.style.marginBottom = '18px';
             item.style.borderRadius = 'var(--radius)';
             item.style.borderLeft = '4px solid var(--accent)';
-            item.style.padding = '24px 20px';
-            item.style.boxShadow = '0 2px 14px rgba(0,0,0,0.06)';
+            item.style.padding = '22px 20px 18px';
+            item.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)';
+            item.style.transition = 'transform .2s, box-shadow .2s';
           });
         }
       }
     }
 
-    // 3. Normal dropdown panel controls as typing happens
+    // 3. Normal dropdown panel visibility controls as typing happens
     searchInput.addEventListener('input', function() {
       if (this.value.length > 0) {
         resultsContainer.style.display = 'block';
@@ -436,25 +432,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // 4. Action Listener: Catches physical "Enter" button presses or Mobile "Go" buttons
+    // 4. Action Listener: Catches physical "Enter" presses or Mobile keyboard "Go" triggers
     searchInput.addEventListener('keydown', function(event) {
       if (event.key === 'Enter') {
-        event.preventDefault(); // Prevents blank tracking reloads
+        event.preventDefault(); // Stifles default empty page refresh loops
         renderFullPageSearch();
       }
     });
 
-    // 5. Action Listener: Intercepts physical user clicks on the custom magnifying button
-    const clickIconTarget = document.querySelector('.search-icon') || document.querySelector('.search-button');
-    if (clickIconTarget) {
-      clickIconTarget.style.cursor = 'pointer';
-      clickIconTarget.addEventListener('click', function(e) {
+    // 5. Action Listener: Intercepts physical user clicks directly on your SVG icon graphic
+    if (svgSearchIcon) {
+      svgSearchIcon.style.cursor = 'pointer';
+      svgSearchIcon.style.pointerEvents = 'auto'; // Ensures the overlay icon registers mouse click signals
+      svgSearchIcon.addEventListener('click', function(e) {
         e.preventDefault();
         renderFullPageSearch();
       });
     }
 
-    // Dismiss floating popups if you select areas off-canvas
+    // Dismiss floating dropdown if a user clicks off-canvas
     document.addEventListener('click', function(e) {
       if (!searchInput.contains(e.target) && !resultsContainer.contains(e.target)) {
         resultsContainer.style.display = 'none';
@@ -463,6 +459,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 </script>
 
-  
 </body>
 </html>
