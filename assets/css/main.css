@@ -648,7 +648,7 @@ body, html {
   left: 1px; /* Aligns precisely inside the input field border radius */
   top: 50%;
   transform: translateY(-50%);
-  width: 38px;
+  width: 34px;
   height: calc(100% - 2px); /* Spans the full height of the input bar */
   background: rgba(255, 255, 255, 0.1); /* Subtle box background */
   border-radius: 20px 0 0 20px; /* Curvature matches the input bar left edge */
@@ -674,7 +674,7 @@ body, html {
 .search-icon-box .search-icon {
   position: static !important;
   transform: none !important;
-  width: 14px;
+  width: 12px;
   height: 16px;
   color: #d4efdf;
   transition: color 0.25s ease;
