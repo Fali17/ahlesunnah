@@ -74,21 +74,26 @@
         </div>
       </div>
 
-     <!-- Search -->
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search" autocomplete="off">
-        <div class="search-icon-box" title="Execute Search">
-          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <div id="searchResults" class="search-results-dropdown"></div>
-        </div>
+   <!-- Search Area Layout Framework -->
+<div class="search-wrapper">
+  <form id="searchForm" onsubmit="return false;" class="search-form-container">
+    
+    <!-- Action Button Box Wrapper -->
+    <button type="submit" class="search-icon-box" aria-label="Execute Search">
+      <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </button>
 
+    <!-- Clear, standard text field input entry line -->
+    <input type="text" id="searchInput" class="search-input" placeholder="Search" autocomplete="off">
+    
+  </form>
   
-  <!-- The dropdown list container element -->
-  <ul id="results-container" class="search-results-dropdown"></ul>
-     </div>
-    </div>
+  <!-- Pop up drops pool results element -->
+  <div id="searchResults" class="search-results-dropdown"></div>
+</div>
+
   </header>
 
   <!-- Sidebar Overlay + Menu -->
