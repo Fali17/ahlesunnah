@@ -635,3 +635,52 @@ body, html {
   font-size: 1rem; /* Highly legible touch target size */
 }
 
+/* --- Optimized Search Icon Box Architecture --- */
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* 1. Turns the SVG graphic area into a styled interactive box button */
+.search-icon-box {
+  position: absolute;
+  left: 1px; /* Aligns precisely inside the input field border radius */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: calc(100% - 2px); /* Spans the full height of the input bar */
+  background: rgba(255, 255, 255, 0.1); /* Subtle box background */
+  border-radius: 20px 0 0 20px; /* Curvature matches the input bar left edge */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto !important; /* Forces click visibility */
+  transition: background 0.25s ease, color 0.25s ease;
+  border-right: 1px solid rgba(255, 255, 255, 0.15); /* Separator split line */
+}
+
+/* 2. Hover Event: Darkens the box background and adjusts icon contrast */
+.search-icon-box:hover {
+  background: rgba(0, 0, 0, 0.2); /* Darkens the box slice overlay smoothly */
+}
+
+.search-icon-box:hover .search-icon {
+  color: #ffffff; /* Sharpens icon visibility when hovered */
+}
+
+/* 3. Normalize inner SVG dimensions to sit centered inside the box */
+.search-icon-box .search-icon {
+  position: static !important;
+  transform: none !important;
+  width: 16px;
+  height: 16px;
+  color: #d4efdf;
+  transition: color 0.25s ease;
+}
+
+/* 4. Pad the text input so it does not collide with your new left-side box button */
+.search-input {
+  padding-left: 48px !important; 
+}
