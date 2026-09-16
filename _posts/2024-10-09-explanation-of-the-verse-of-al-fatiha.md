@@ -2,7 +2,7 @@
 layout: post
 title: "Explanation of the Verse of Al Fatiha."
 date: 2024-10-09 21:32:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Tafsir,Refutation ]
 ---
 
 "You alone we worship, You alone we ask for help"
