@@ -2,7 +2,7 @@
 layout: post
 title: "The legend of Mount Qaf (قاف) From the sources:"
 date: 2024-10-29 13:50:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Reflection,Tafsir]
 ---
 
 Abu Salih narrated from Ibn Abbas, may Allah be pleased with them. And Ikrimah also narrated from Ibn Abbas, may Allah be pleased with them, saying God created a mountain called Qaf that surrounds the lower world, and its roots are connected to the rock on which the earth stands, and it is the rock mentioned by Luqman, peace be upon him, when he said: "O my son, if it is the weight of a mustard seed and it is in a rock or in the heavens or in the earth" [the verse]. So when God Almighty wants to shake a village on earth, He orders that mountain to move the root that is next to that village, and it shakes at that moment. Mujahid said: It is a mountain that surrounds the earth and the seas. It is narrated from Al-Dahhak that it is an emerald that is green.
