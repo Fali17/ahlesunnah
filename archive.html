@@ -4,19 +4,83 @@ title: Post Archives
 permalink: archive
 ---
 <style>
-  /* --- Post Archives View Configurations --- */
+/* ==========================================================================
+   CHRONOLOGICAL NESTED ARCHIVE TIMELINE TREES
+   ========================================================================== */
 .archive-wrapper {
   margin-top: 20px;
 }
 
-.archive-item-row {
-  padding: 8px 0;
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
-  transition: padding-left 0.2s ease;
+.archive-year-block {
+  margin-bottom: 36px;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.archive-item-row:hover {
+.archive-year-title {
+  font-size: 26px; 
+  color: var(--accent); 
+  font-weight: 700; 
+  margin-bottom: 20px; 
+  border-bottom: 2px solid var(--accent); 
+  padding-bottom: 4px; 
+  display: inline-block;
+}
+
+.archive-month-group {
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.archive-month-title {
+  font-size: 18px; 
+  color: var(--primary); 
+  font-weight: 600; 
+  margin-bottom: 12px; 
   padding-left: 4px;
+}
+
+.archive-posts-list {
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+  padding-left: 16px; 
+  border-left: 2px solid var(--border);
+  margin-left: 4px;
+}
+
+.archive-item-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Subtle slide animation on item hover triggers */
+.archive-item-row:hover {
+  transform: translateX(4px);
+}
+
+.archive-item-date {
+  font-size: 13px; 
+  color: var(--muted); 
+  min-width: 45px; 
+  font-weight: 500;
+}
+
+.archive-item-title-wrap {
+  flex-grow: 1;
+}
+
+.archive-item-title-wrap a {
+  font-family: 'Amiri', serif; 
+  font-size: 17px; 
+  font-weight: 600; 
+  color: var(--text); 
+  text-decoration: none; 
+  line-height: 1.4; 
+  transition: color 0.2s;
 }
 
 .archive-item-title-wrap a:hover {
@@ -24,13 +88,26 @@ permalink: archive
   text-decoration: underline !important;
 }
 
-/* Make sure dates and titles stack cleanly on mobile layout windows */
-@media screen and (max-width: 480px) {
+/* Simple fade-in utility script animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MOBILE ARCHIVES GRID RESPONSIVENESS
+   ========================================================================== */
+@media screen and (max-width: 500px) {
+  .archive-posts-list {
+    padding-left: 10px !important; /* Maximizes horizontal breathing room on small viewports */
+  }
+  
   .archive-item-row {
-    flex-direction: column;
     gap: 4px !important;
+    flex-direction: column; /* Stack day number above the title on phones */
     padding: 10px 0;
   }
+  
   .archive-item-date {
     min-width: auto !important;
     font-size: 12px !important;
@@ -38,6 +115,8 @@ permalink: archive
 }
 
 </style>
+
+
 <div class="post-full">
   <h1 style="font-family: 'Amiri', serif; color: var(--primary); font-size: 32px; border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 24px;">
     Post Archives
@@ -45,46 +124,64 @@ permalink: archive
 
   <div class="archive-wrapper">
     {% for post in site.posts %}
-      <!-- Capture the year and month of the current post loop -->
+      <!-- Capture chronological markers -->
       {% capture current_year %}{{ post.date | date: "%Y" }}{% endcapture %}
       {% capture current_month %}{{ post.date | date: "%B" }}{% endcapture %}
 
-      <!-- Year Heading Trigger -->
+      <!-- 1. YEAR BLOCK SEPARATOR TRIGGER -->
       {% if current_year != last_year %}
-        {% unless forloop.first %}</div></div>{% endunless %}
-        <div class="archive-year-block" style="margin-bottom: 32px;">
-          <h2 class="archive-year-title" style="font-size: 24px; color: var(--accent); font-weight: 700; margin-bottom: 16px; border-bottom: 1px dashed var(--border); padding-bottom: 4px;">
+        {% unless forloop.first %}
+            </div> <!-- Close last month's list -->
+          </div> <!-- Close last year's wrapper -->
+        {% endunless %}
+        
+        <div class="archive-year-block" style="margin-bottom: 36px;">
+          <h2 class="archive-year-title" style="font-size: 26px; color: var(--accent); font-weight: 700; margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; display: inline-block;">
             {{ current_year }}
           </h2>
-          <div class="archive-posts-list" style="display: flex; flex-direction: column; gap: 14px; padding-left: 10px;">
-        {% capture last_month %}{% endcapture %}
+          
+        {% assign last_month = nil %}
       {% endif %}
 
-      <!-- Post Item Card Row -->
-      <div class="archive-item-row" style="display: flex; align-items: baseline; gap: 16px;">
-        <span class="archive-item-date" style="font-size: 13px; color: var(--muted); min-width: 90px; font-weight: 500;">
-          {{ post.date | date: "%b %d" }}
+      <!-- 2. MONTH SUB-GROUP SEPARATOR TRIGGER -->
+      {% if current_month != last_month %}
+        {% if last_month != nil %}
+          </div> <!-- Close previous month's list if it isn't the first month in the year loop -->
+        {% endif %}
+        
+        <div class="archive-month-group" style="margin-top: 16px; margin-bottom: 20px;">
+          <h3 class="archive-month-title" style="font-size: 18px; color: var(--primary); font-weight: 600; margin-bottom: 12px; padding-left: 4px;">
+            {{ current_month }}
+          </h3>
+          <div class="archive-posts-list" style="display: flex; flex-direction: column; gap: 10px; padding-left: 16px; border-left: 2px solid var(--border);">
+      {% endif %}
+
+      <!-- 3. POST ARCHIVE CONTENT ROW ITEM -->
+      <div class="archive-item-row" style="display: flex; align-items: baseline; gap: 14px; padding: 4px 0;">
+        <span class="archive-item-date" style="font-size: 13px; color: var(--muted); min-width: 45px; font-weight: 500;">
+          {{ post.date | date: "%d" }}
         </span>
         <div class="archive-item-title-wrap" style="flex-grow: 1;">
-          <a href="{{ post.url | relative_url }}" style="font-family: 'Amiri', serif; font-size: 18px; font-weight: 600; color: var(--text); text-decoration: none; line-height: 1.4; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
+          <a href="{{ post.url | relative_url }}" style="font-family: 'Amiri', serif; font-size: 17px; font-weight: 600; color: var(--text); text-decoration: none; line-height: 1.4; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
             {{ post.title }}
           </a>
-          <!-- Optional inline label flag -->
           {% if post.categories.first %}
-            <span class="label" style="font-size: 10px; padding: 1px 6px; margin-left: 6px; vertical-align: middle;">
+            <span class="label" style="font-size: 10px; padding: 1px 6px; margin-left: 8px; vertical-align: middle;">
               {{ post.categories.first }}
             </span>
           {% endif %}
         </div>
       </div>
 
-      <!-- Keep reference states updated across iteration arrays -->
+      <!-- Keep track variables updated across current loop context points -->
       {% assign last_year = current_year %}
       {% assign last_month = current_month %}
       
+      <!-- Close active remaining layout frames safely at loop termination -->
       {% if forloop.last %}
           </div>
         </div>
+      </div>
       {% endif %}
     {% endfor %}
   </div>
