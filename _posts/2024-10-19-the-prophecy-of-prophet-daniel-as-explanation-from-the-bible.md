@@ -2,7 +2,7 @@
 layout: post
 title: "The Prophecy of Prophet Daniel (AS) explanation from the Bible of the ending of the 4 kingdoms and a Solid state replacing them"
 date: 2024-10-19 19:23:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection]
 ---
 
 ”goat of the wild beast ” that defeated the ram that symbolizes the Medes and Persians.” (Daniel (8:21) ”And the fourth kingdom will be solid as iron, for iron crushes and crushes all things.” ”And as iron breaks, it shatters and breaks in pieces all these” (this is about the Roman Empire) (Daniel (2:40) Nebuchadnezzar saw a stone cut out of a great mountain without a cutter, and it struck that statue on its feet, which were of iron and clay. And the blow was so strong that the whole statue was shattered, with its gold, silver, bronze, iron, and clay, and became fragments and rubble, blown away by the wind, so that no trace of it was seen. But the stone that broke the statue became a great, high mountain, and the whole earth was filled with it. This is a prophecy of the emergence of Islam. Islam clashed at the beginning of the call with the Roman Empire and then with the Persian Empire. At that time, the Roman Empire had extended its authority over the Greek king of Alexandria and reached the peak of strength. The Persian Empire had extended its authority over Babylon, then the power of Islam struck them, and at that time iron, pottery, copper and silver were crushed together and became like chaff from the threshing floor in the summer.
