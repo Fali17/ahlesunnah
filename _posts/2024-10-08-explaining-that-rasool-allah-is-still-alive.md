@@ -2,7 +2,7 @@
 layout: post
 title: "Explaining that Rasool Allah ﷺ is still alive"
 date: 2024-10-08 22:02:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay , Fiqh , Aqeedah]
 ---
 
 Many people nowdays say that the Prophet is dead and he can't hear or see and he is not alive in his grave which is a grave sin and its kufr to say such things. And if someone lacks knowledge and says such things he is fine.
