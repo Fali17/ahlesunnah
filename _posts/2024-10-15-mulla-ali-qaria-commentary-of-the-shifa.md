@@ -2,7 +2,7 @@
 layout: post
 title: "Mulla Ali Qari’a commentary of the Shifa"
 date: 2024-10-15 19:30:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Tafsir]
 ---
 
 The text in English is translated as followed:
