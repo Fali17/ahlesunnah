@@ -4,104 +4,64 @@ title: Post Archives
 permalink: archive
 ---
 
-<!-- Core Content Card Panel Box -->
-<div class="post-full" style="background: var(--card); padding: 32px 26px; border-radius: 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); animation: archiveSlideDown 0.3s ease-in-out;">
-  
-  <!-- 1. Dedicated Search Page Header Block Area -->
-  <header class="archive-page-header" style="margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--border);">
-    <h1 style="font-family: 'Amiri', serif; color: var(--primary); font-size: 34px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.2;">
-      Post Archives
-    </h1>
-    <p style="font-size: 13px; color: var(--muted); margin: 0; font-weight: 500; letter-spacing: 0.02em;">
-      Total Articles Published: {{ site.posts | size }}
-    </p>
+<style>
+  /* Rotates nested month arrows dynamically when opened */
+.archive-month-accordion[open] .archive-month-title .month-arrow {
+  transform: rotate(180deg);
+}
+.archive-month-title::-webkit-details-marker { display: none; }
+
+</style>
+
+<div class="post-full" style="background: var(--card); padding: 32px 26px; border-radius: 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06);">
+  <header style="margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--border);">
+    <h1 style="font-family: 'Amiri', serif; color: var(--primary); font-size: 34px; margin: 0 0 6px 0;">Post Archives</h1>
+    <p style="font-size: 13px; color: var(--muted); margin: 0;">Total Articles: {{ site.posts | size }}</p>
   </header>
 
-  <!-- 2. Accordion Group Wrapper Area Layout Grid -->
-  <div class="archive-wrapper" style="margin-top: 20px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="archive-wrapper" style="display: flex; flex-direction: column; gap: 16px;">
     {% for post in site.posts %}
-      <!-- Capture chronological loop track parameters -->
       {% capture current_year %}{{ post.date | date: "%Y" }}{% endcapture %}
       {% capture current_month %}{{ post.date | date: "%B" }}{% endcapture %}
 
-      <!-- YEAR ACCORDION CONTAINER STEP SWITCH -->
+      <!-- YEAR ACCORDION -->
       {% if current_year != last_year %}
         {% unless forloop.first %}
-            </div> <!-- Close remaining inner month post list panel -->
-          </div> <!-- Close remaining inner month cluster block area -->
-          </div> <!-- Close remaining year content drawer frame pad -->
-        </details> <!-- Close current open accordion track element -->
+            </div></details></details>
         {% endunless %}
-        
-        <!-- Native Accordion Box (Automatically keeps the absolute newest year open on page landing) -->
         <details class="archive-year-accordion" {% if forloop.first %}open{% endif %}>
-          
-          <!-- Clickable Accordion Handle Label Bar -->
-          <summary class="archive-year-title">
-            <span style="display: flex; align-items: center; gap: 10px;">
-              🗓️ {{ current_year }}
-            </span>
-            <span class="accordion-arrow">▼</span>
-          </summary>
-          
-          <!-- Padded interior wrapper slot lane -->
-          <div class="archive-year-content">
+          <summary class="archive-year-title"><span>🗓️ {{ current_year }}</span><span class="accordion-arrow">▼</span></summary>
+          <div class="archive-year-content" style="padding: 10px 20px 24px; display: flex; flex-direction: column; gap: 12px;">
         {% assign last_month = nil %}
       {% endif %}
 
-      <!-- MONTH SUB-GROUP SEPARATOR CONTAINER SPLIT -->
+      <!-- NESTED MONTH ACCORDION -->
       {% if current_month != last_month %}
         {% if last_month != nil %}
-            </div> <!-- Close inner items wrapper listing array block -->
-          </div> <!-- Close outer grid lane container box area -->
+            </div></details>
         {% endif %}
-        
-        <div class="archive-month-group">
-          <!-- Month Banner Header Label -->
-          <h3 class="archive-month-title">
-            {{ current_month }}
-          </h3>
-          
-          <!-- Left side border indicator grid column -->
-          <div class="archive-posts-list">
+        <details class="archive-month-accordion" {% if forloop.first %}open{% endif %} style="margin-top: 8px;">
+          <summary class="archive-month-title" style="font-size: 18px; color: var(--accent); font-weight: 600; cursor: pointer; list-style: none; padding: 6px 0; display: flex; justify-content: space-between;">
+            <span>{{ current_month }}</span><span class="month-arrow" style="font-size: 12px;">▼</span>
+          </summary>
+          <div class="archive-posts-list" style="display: flex; flex-direction: column; gap: 8px; padding-left: 16px; border-left: 2px solid var(--border); margin-top: 8px;">
       {% endif %}
 
-      <!-- INDIVIDUAL POST LINE ITEM ARTICLE ROW CARD -->
+      <!-- POST ITEM ROW -->
       <div class="archive-item-row">
-        
-        <!-- Day calendar timeline number coordinate stamp slot -->
-        <span class="archive-item-date" title="Published Day Number">
-          {{ post.date | date: "%d" }}
-        </span>
-        
-        <!-- Article tracking navigation text links anchor frame section -->
+        <span class="archive-item-date">{{ post.date | date: "%d" }}</span>
         <div class="archive-item-title-wrap">
-          <a href="{{ post.url | relative_url }}">
-            {{ post.title }}
-          </a>
-          
-          <!-- Category label flag badges framework tag layer tracking -->
-          {% if post.categories.first %}
-            <span class="label" style="margin-left: 8px; vertical-align: middle;">
-              {{ post.categories.first }}
-            </span>
-          {% endif %}
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          {% if post.categories.first %}<span class="label" style="margin-left: 8px; vertical-align: middle;">{{ post.categories.first }}</span>{% endif %}
         </div>
-
       </div>
 
-      <!-- Keep loops tracking parameters updated across data indexes -->
       {% assign last_year = current_year %}
       {% assign last_month = current_month %}
       
-      <!-- Terminate remaining frames safely layout parameters nodes at cycle end -->
       {% if forloop.last %}
-            </div>
-          </div>
-          </div>
-        </details>
+            </div></details></div></details>
       {% endif %}
     {% endfor %}
   </div>
-
 </div>
