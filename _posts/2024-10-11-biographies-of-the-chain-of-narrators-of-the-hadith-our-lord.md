@@ -2,7 +2,7 @@
 layout: post
 title: "[Biographies of the chain of narrators of the hadith (Our Lord, God whose name is in heaven, sanctified is your name)] (3982 of Abi Dawud)"
 date: 2024-10-11 13:19:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 His saying: [Yazid bin Khalid bin Muhib Al-Ramli told us].
