@@ -2,7 +2,7 @@
 layout: post
 title: "Prophet ﷺ will be a witness for the Ummah"
 date: 2024-10-15 15:34:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Tafsir]
 ---
 
 There are 5 ayats in the Qur’an that say that the**Prophet ﷺ** will be an witness for the Ummah on the Day of Judgement. Those 4 ayats are : **Surah Baqarah 2:143 , Surah An Nisa 4:41 , Surah Ahzab 33:45-46 , Surah Al Fath 48:8 , Surah Nahl 16:84/16:89.** The other ayat about being a witness (**Surah Al Maida 5:117**) is about the Prophet Isa(Jesus) AS implying that other Prophets and Messengers will be witness for their people.
