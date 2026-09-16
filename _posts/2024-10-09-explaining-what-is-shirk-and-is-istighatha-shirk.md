@@ -2,7 +2,7 @@
 layout: post
 title: "Explaining what is Shirk and is Istighatha Shirk ?"
 date: 2024-10-09 21:17:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay, Fiqh , Aqeedah,Scans]
 ---
 
 The word Shirk means that you associate someone with Allah (SWT) or you are giving the attributes of Allah to the creation.
