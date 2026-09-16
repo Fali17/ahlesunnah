@@ -2,7 +2,7 @@
 layout: post
 title: "Ayats that are about Polytheists but are used against the wrong people"
 date: 2024-10-14 15:52:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Refutation,Essay]
 ---
 
 There are ayats in the Qur’an that are aimed at Meccan polytheists and/or disbelievers but in this day and age, some ignorants use them against believers of the religion.
