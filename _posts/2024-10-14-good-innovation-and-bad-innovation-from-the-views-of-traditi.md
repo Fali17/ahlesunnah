@@ -2,7 +2,7 @@
 layout: post
 title: "Good Innovation and Bad Innovation from the views of Traditional and the Greatest Scholars of Islam and Evidence from the Text:"
 date: 2024-10-14 15:59:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 As the scholars Ibn Hajar and An Nawawi (may Allah have mercy on them) explained in their works (**Fath Al Bari and Sharh Sahih Muslim**):"**That these two ahadith are about any act that is not in the Sunnah or from it**."
