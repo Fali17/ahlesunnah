@@ -2,7 +2,7 @@
 layout: post
 title: "Good reward for even planting a crop or a plant which will benefit the creation:"
 date: 2024-10-09 12:03:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay , Fiqh]
 ---
 
 قال محمد بن حاتم وابن أبي خلف (ر): حدثنا روح، حدثنا ابن جُرَيْج، أخبرني أبو الزبير أنه سمع جابر بن عبد الله يقول: سمعت رسول الله - صلى الله عليه وسلم - يقول: "ما من رجل مسلم يغرس غرساً أو زرعاً فيأكل منه دابة أو طير أو شيء إلا كان له فيه أجر".
