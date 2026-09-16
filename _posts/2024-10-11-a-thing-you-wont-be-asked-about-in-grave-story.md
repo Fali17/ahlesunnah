@@ -2,7 +2,7 @@
 layout: post
 title: "A thing you won't be asked about in grave - story!"
 date: 2024-10-11 23:14:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection]
 ---
 
 Here's a mini story that you should ponder over.
