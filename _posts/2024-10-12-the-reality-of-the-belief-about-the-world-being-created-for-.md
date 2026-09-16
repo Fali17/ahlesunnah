@@ -2,7 +2,7 @@
 layout: post
 title: "The Reality of the Belief about the World being created for Rasool Allah (SAW) 💚"
 date: 2024-10-12 20:18:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Aqeedah,Fiqh,Essay]
 ---
 
 Muhammad Ibn Sinan said, "Hushaim said, "Sayyar - Abu al-Hakam - said, "Yazid al-Fakir said, "Jabir bin Abdullah said, "The Messenger of Allah (peace be upon him) said, "I was given five things that were not given to any of the prophets before me. I was given victory by terror (terror in heart of his enemies) for a month's march, and "the earth was made for me" a mosque and a sanctuary, and any man of my nation who is caught in prayer should pray (he can perform tayyamum anywhere from the earth), and I was given the right to the spoils of war, and a prophet used to be sent to his own people in particular, but I was sent to all men in general, and I was given intercession."
