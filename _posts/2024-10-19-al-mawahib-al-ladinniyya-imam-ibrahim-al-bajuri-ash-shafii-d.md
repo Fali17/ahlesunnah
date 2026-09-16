@@ -2,7 +2,7 @@
 layout: post
 title: "“al-Mawāhib al-Ladinnīyyaħ”, ʾImām ʾIbrāhīm al-Bājūrī ash-Shāfiʿī does Tawassul through the rank of the Prophet ﷺ for his closing Duʿāʾ."
 date: 2024-10-19 20:32:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Scans,Fiqh]
 ---
 
 "And this compilation, may God have mercy on him, was concluded by highlighting two significant points: an encouragement to perfect the science of Hadith, increasing in it, and exerting effort in acquiring it. He concluded it with what is commonly found in most books of Hadith: 'Indeed, actions are judged by intentions.'
