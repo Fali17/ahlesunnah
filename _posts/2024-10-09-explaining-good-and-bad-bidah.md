@@ -2,7 +2,7 @@
 layout: post
 title: "Explaining good and bad Bidah"
 date: 2024-10-09 22:49:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Scans,Fiqh,Refutatio]
 ---
 
 Bid'ah Al Hasana and Bid'ah Al-Sayyi'ah
