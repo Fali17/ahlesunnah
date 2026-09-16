@@ -1,82 +1,107 @@
 ---
 layout: default
 title: Post Archives
-permalink: archive
+permalink: archive/
 ---
-<style>
-   
-   .archive-wrapper {margin-top: 20px;}.archive-year-accordion {background: var(--card);border: 1px solid var(--border);border-radius: var(--radius);margin-bottom: 16px;overflow: hidden;box-shadow: 0 2px 8px rgba(0,0,0,0.04);transition: box-shadow 0.25s ease;}.archive-year-accordion[open] {box-shadow: 0 4px 15px rgba(0,0,0,0.08);}/* The clickable trigger header box /.archive-year-title {display: flex;justify-content: space-between;align-items: center;padding: 16px 20px;font-size: 22px;font-weight: 700;color: var(--primary);background: color-mix(in srgb, var(--primary) 3%, white);cursor: pointer;list-style: none; / Hides default browser arrow on Chrome/Firefox */user-select: none;}/* Hides default browser arrow on Safari layouts */.archive-year-title::-webkit-details-marker {display: none;}/* Custom interactive gold dropdown arrow */.archive-year-title .accordion-arrow {font-size: 14px;color: var(--accent);transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);}/* Rotates your custom arrow cleanly when accordion opens */.archive-year-accordion[open] .archive-year-title .accordion-arrow {transform: rotate(180deg);}/* Content padded zone inside the open accordion drawer */.archive-year-content {padding: 10px 20px 24px;animation: archiveSlideDown 0.3s ease-in-out;}.archive-month-group {margin-top: 14px;}.archive-month-title {font-size: 18px;color: var(--accent);font-weight: 600;margin: 0 0 10px 0;}.archive-posts-list {display: flex;flex-direction: column;gap: 8px;padding-left: 16px;border-left: 2px solid var(--border);}.archive-item-row {display: flex;align-items: baseline;gap: 14px;padding: 6px 0;border-bottom: 1px solid color-mix(in srgb, var(--border) 40%, transparent);transition: transform 0.2s ease;}.archive-item-row:hover {transform: translateX(4px);}.archive-item-date {font-size: 13px;color: var(--muted);min-width: 30px;font-weight: 500;}.archive-item-title-wrap a {font-family: 'Amiri', serif;font-size: 17px;font-weight: 600;color: var(--text);text-decoration: none;line-height: 1.4;}.archive-item-title-wrap a:hover {color: var(--primary) !important;text-decoration: underline !important;}/* Dropdown drawer entrance fade-in animation framework */@keyframes archiveSlideDown {from { opacity: 0; transform: translateY(-6px); }to { opacity: 1; transform: translateY(0); }}
 
-@media screen and (max-width: 768px) {.header-container {flex-direction: column;gap: 12px;padding: 10px 15px;}.header-inner {width: 100%;justify-content: center;}.search-wrapper {max-width: 100%;width: 100%;}.search-results-dropdown {width: 100%;left: 0;right: 0;}}@media screen and (max-width: 600px) {.post-navigation-container {flex-direction: column;gap: 12px;}.nav-button-wrapper {width: 100%;}.next-wrapper .nav-direction-btn {align-items: flex-start;text-align: left;border-right: none;border-left: 4px solid var(--accent); /* Equalized left border on mobile fields */}}@media screen and (max-width: 500px) {.archive-posts-list {padding-left: 10px !important;}.archive-item-row {flex-direction: column;gap: 2px !important;padding: 8px 0;}}
-</style>
+<!-- Core Content Card Panel Box -->
+<div class="post-full" style="background: var(--card); padding: 32px 26px; border-radius: 16px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); animation: archiveSlideDown 0.3s ease-in-out;">
+  
+  <!-- 1. Dedicated Search Page Header Block Area -->
+  <header class="archive-page-header" style="margin-bottom: 28px; padding-bottom: 14px; border-bottom: 2px solid var(--border);">
+    <h1 style="font-family: 'Amiri', serif; color: var(--primary); font-size: 34px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.2;">
+      Post Archives
+    </h1>
+    <p style="font-size: 13px; color: var(--muted); margin: 0; font-weight: 500; letter-spacing: 0.02em;">
+      Total Articles Published: {{ site.posts | size }}
+    </p>
+  </header>
 
-
-<div class="post-full">
-  <h1 style="font-family: 'Amiri', serif; color: var(--primary); font-size: 32px; border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 24px;">
-    Post Archives
-  </h1>
-
-  <div class="archive-wrapper">
+  <!-- 2. Accordion Group Wrapper Area Layout Grid -->
+  <div class="archive-wrapper" style="margin-top: 20px; display: flex; flex-direction: column; gap: 16px;">
     {% for post in site.posts %}
-      <!-- Capture chronological markers -->
+      <!-- Capture chronological loop track parameters -->
       {% capture current_year %}{{ post.date | date: "%Y" }}{% endcapture %}
       {% capture current_month %}{{ post.date | date: "%B" }}{% endcapture %}
 
-      <!-- 1. YEAR BLOCK SEPARATOR TRIGGER -->
+      <!-- YEAR ACCORDION CONTAINER STEP SWITCH -->
       {% if current_year != last_year %}
         {% unless forloop.first %}
-            </div> <!-- Close last month's list -->
-          </div> <!-- Close last year's wrapper -->
+            </div> <!-- Close remaining inner month post list panel -->
+          </div> <!-- Close remaining inner month cluster block area -->
+          </div> <!-- Close remaining year content drawer frame pad -->
+        </details> <!-- Close current open accordion track element -->
         {% endunless %}
         
-        <div class="archive-year-block" style="margin-bottom: 36px;">
-          <h2 class="archive-year-title" style="font-size: 26px; color: var(--accent); font-weight: 700; margin-bottom: 20px; border-bottom: 2px solid var(--accent); padding-bottom: 4px; display: inline-block;">
-            {{ current_year }}
-          </h2>
+        <!-- Native Accordion Box (Automatically keeps the absolute newest year open on page landing) -->
+        <details class="archive-year-accordion" {% if forloop.first %}open{% endif %}>
           
+          <!-- Clickable Accordion Handle Label Bar -->
+          <summary class="archive-year-title">
+            <span style="display: flex; align-items: center; gap: 10px;">
+              🗓️ {{ current_year }}
+            </span>
+            <span class="accordion-arrow">▼</span>
+          </summary>
+          
+          <!-- Padded interior wrapper slot lane -->
+          <div class="archive-year-content">
         {% assign last_month = nil %}
       {% endif %}
 
-      <!-- 2. MONTH SUB-GROUP SEPARATOR TRIGGER -->
+      <!-- MONTH SUB-GROUP SEPARATOR CONTAINER SPLIT -->
       {% if current_month != last_month %}
         {% if last_month != nil %}
-          </div> <!-- Close previous month's list if it isn't the first month in the year loop -->
+            </div> <!-- Close inner items wrapper listing array block -->
+          </div> <!-- Close outer grid lane container box area -->
         {% endif %}
         
-        <div class="archive-month-group" style="margin-top: 16px; margin-bottom: 20px;">
-          <h3 class="archive-month-title" style="font-size: 18px; color: var(--primary); font-weight: 600; margin-bottom: 12px; padding-left: 4px;">
+        <div class="archive-month-group">
+          <!-- Month Banner Header Label -->
+          <h3 class="archive-month-title">
             {{ current_month }}
           </h3>
-          <div class="archive-posts-list" style="display: flex; flex-direction: column; gap: 10px; padding-left: 16px; border-left: 2px solid var(--border);">
+          
+          <!-- Left side border indicator grid column -->
+          <div class="archive-posts-list">
       {% endif %}
 
-      <!-- 3. POST ARCHIVE CONTENT ROW ITEM -->
-      <div class="archive-item-row" style="display: flex; align-items: baseline; gap: 14px; padding: 4px 0;">
-        <span class="archive-item-date" style="font-size: 13px; color: var(--muted); min-width: 45px; font-weight: 500;">
+      <!-- INDIVIDUAL POST LINE ITEM ARTICLE ROW CARD -->
+      <div class="archive-item-row">
+        
+        <!-- Day calendar timeline number coordinate stamp slot -->
+        <span class="archive-item-date" title="Published Day Number">
           {{ post.date | date: "%d" }}
         </span>
-        <div class="archive-item-title-wrap" style="flex-grow: 1;">
-          <a href="{{ post.url | relative_url }}" style="font-family: 'Amiri', serif; font-size: 17px; font-weight: 600; color: var(--text); text-decoration: none; line-height: 1.4; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text)'">
+        
+        <!-- Article tracking navigation text links anchor frame section -->
+        <div class="archive-item-title-wrap">
+          <a href="{{ post.url | relative_url }}">
             {{ post.title }}
           </a>
+          
+          <!-- Category label flag badges framework tag layer tracking -->
           {% if post.categories.first %}
-            <span class="label" style="font-size: 10px; padding: 1px 6px; margin-left: 8px; vertical-align: middle;">
+            <span class="label" style="margin-left: 8px; vertical-align: middle;">
               {{ post.categories.first }}
             </span>
           {% endif %}
         </div>
+
       </div>
 
-      <!-- Keep track variables updated across current loop context points -->
+      <!-- Keep loops tracking parameters updated across data indexes -->
       {% assign last_year = current_year %}
       {% assign last_month = current_month %}
       
-      <!-- Close active remaining layout frames safely at loop termination -->
+      <!-- Terminate remaining frames safely layout parameters nodes at cycle end -->
       {% if forloop.last %}
+            </div>
           </div>
-        </div>
-      </div>
+          </div>
+        </details>
       {% endif %}
     {% endfor %}
   </div>
+
 </div>
