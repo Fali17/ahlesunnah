@@ -2,7 +2,7 @@
 layout: post
 title: "What is Faith?What Power does Faith holds? The Weapon of the People of Faith is Dua (Supplication). And What is Divine Decree ?(qadr)"
 date: 2024-10-09 12:30:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 The Messenger of God, (ﷺ), said : "Whoever bears witness that there is no god except Allah, and that Muhammad (ﷺ) is His servant and sincere Messenger, will enter Paradise."**(Mujam' Al Kabir)**
