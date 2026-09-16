@@ -2,17 +2,17 @@
 layout: post
 title: "How to pray Salah?"
 date: 2024-10-25 20:22:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 **There are 5 Fard(required)prayers sinful to miss.**
-****
+
 **Fajr - 2 rakats(units)**
 **Dhuhr - 4 rakats**
 **Asr - 4 rakats**
 **Maghrib- 3 rakats**
 **Isha- 4 rakats**
-****
+
 **1.Starting Salah (Intention and Takbir)**
 Begin by forming an intention in your heart to pray a specific prayer (e.g., Dhuhr, Asr). While the intention is usually kept in the heart, some may choose to say it verbally. Start with Takbir ("Allahu Akbar"), raising hands to either the shoulders or the ears.
 
