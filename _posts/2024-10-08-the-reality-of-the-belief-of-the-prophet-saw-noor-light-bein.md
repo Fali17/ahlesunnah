@@ -2,7 +2,7 @@
 layout: post
 title: "The Reality of the Belief of the Prophet (SAW)' Noor (Light) being created before the Pen and everything else:"
 date: 2024-10-08 12:31:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Aqeedah,Fiqh]
 ---
 
 Abu Uthman Saeed bin Muhammad bin Muhammad bin Ibrahim Al-Adl told us (Trustworthy) , he said : Abu Al-Hasan Muhammad bin Mansour Al-Wa’iz told us (not known much) , he said: Abu Amr Muhammad bin Abdul Wahid Al-Zahid told us (Trustworthy) , he said: Muhammad bin Yunus Al-Kadimi told us (Not strong so weak) , he said: Ubaidullah bin A’ishah told us (Trustworthy) , he said: Hammad bin Salamah told us (Trustworthy) , on the authority of Thabit (Trusthworthy) , on the authority of Anas - may God be pleased with him - he said:
