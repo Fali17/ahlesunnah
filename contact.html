@@ -1,0 +1,210 @@
+---
+layout: default
+title: Contact Us
+permalink: contact
+---
+
+<style>
+  .contact-wrapper {
+    max-width: 620px;
+    margin: 25px auto 30px;
+    padding: 0 15px;
+  }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    padding: 28px 28px 22px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-card h2 {
+    font-family: 'Amiri', serif;
+    font-size: 1.9rem;
+    color: var(--primary);
+    text-align: center;
+    margin: 0 0 6px 0;
+  }
+
+  .contact-card > p {
+    text-align: center;
+    color: var(--text);
+    margin: 0 0 22px 0;
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+    opacity: 0.9;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Tajawal', sans-serif;
+    color: var(--text);
+    background: var(--card);
+    transition: border-color 0.25s, box-shadow 0.25s;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+  }
+
+  textarea {
+    height: 140px;
+    resize: vertical;
+    text-align: center;
+  }
+
+  .submit-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Tajawal', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 6px;
+    margin-bottom: 0 !important;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  #statusMessage {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 0;
+    font-weight: 600;
+    min-height: 0;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .contact-card form {
+    margin-bottom: 0;
+  }
+
+  #statusMessage:empty {
+    display: none;
+  }
+
+  /* Mobile Layout Control rules */
+  @media (max-width: 600px) {
+    .contact-wrapper {
+      margin: 25px auto 40px;
+    }
+    .contact-card {
+      padding: 28px 20px;
+    }
+    .contact-card h2 {
+      font-size: 1.7rem;
+    }
+  }
+</style>
+
+<div class="contact-wrapper">
+  <div class="contact-card">
+    <h2>Contact Us</h2>
+    <p>If you have any questions or suggestions, feel free to reach out to us!</p>
+
+    <form id="contactForm" action="https://formsubmit.co/aj5314340@gmail.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New message from Ahlu-Sunnah Al Islam">
+      <input type="hidden" name="_template" value="table">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Your name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="your@email.com">
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="Write your message here..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+
+    <div id="statusMessage"></div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("contactForm");
+  const statusMessage = document.getElementById("statusMessage");
+  const submitBtn = form.querySelector(".submit-btn");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+    statusMessage.innerHTML = "";
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        statusMessage.innerHTML = '<span style="color: var(--primary);">✓ Message sent successfully! Thank you.</span>';
+        form.reset();
+      } else {
+        throw new Error("Server error");
+      }
+    } catch (error) {
+      statusMessage.innerHTML = '<span style="color: #c0392b;">✗ Failed to send. Please try again later.</span>';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
+  });
+</script>
