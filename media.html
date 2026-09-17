@@ -165,11 +165,18 @@ permalink: media
 <script src="https://jsdelivr.net"></script>
 
 <script type="text/javascript">
-  // Deterministic standard hash algorithm to match keys uniformly across global layouts
+  // Unified, safe cleaning logic that extracts the base file path from URL strings
+  function getCleanPath(url) {
+    if (!url) return '';
+    let step1 = url.split('#')[0];
+    let step2 = step1.split('?')[0];
+    return step2.trim();
+  }
+
+  // Deterministic ID hash generator mapping identical keys to matching images on both layouts
   function generateCleanImageHash(rawSrc) {
-    if (!rawSrc) return 'img-null';
-    // Isolate path properties out of fragments safely
-    let cleanString = rawSrc.split('#')[0].split('?')[0].trim();
+    let cleanString = getCleanPath(rawSrc);
+    if (!cleanString) return 'img-null';
     let hash = 0;
     for (let i = 0; i < cleanString.length; i++) {
       hash = (hash << 5) - hash + cleanString.charCodeAt(i);
@@ -195,7 +202,6 @@ permalink: media
             let altText = (img.getAttribute('alt') || '').trim();
             let caption = altText ? altText : {{ post.title | jsonify }};
             
-            // Build the exact match identifier sequence string
             let targetId = img.getAttribute('id') || generateCleanImageHash(src);
             let postLink = "{{ post.url | relative_url }}#" + targetId;
 
@@ -276,16 +282,22 @@ permalink: media
   });
 </script>
 
-<!-- Dedicated engine snippet to run inside targeted post views to map scroll jumps cleanly -->
+<!-- Global Post Document Script: Injects anchor targets with fixed header offsets inside standard article files -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    // Escape layout routing inside the main catalog route path indexes
     let currentPath = window.location.pathname;
     if (currentPath.includes('/media/') || currentPath.endsWith('/media.html')) return;
     
+    function getCleanPath(url) {
+      if (!url) return '';
+      let step1 = url.split('#')[0];
+      let step2 = step1.split('?')[0];
+      return step2.trim();
+    }
+
     function generateCleanImageHash(rawSrc) {
-      if (!rawSrc) return 'img-null';
-      let cleanString = rawSrc.split('#')[0].split('?')[0].trim();
+      let cleanString = getCleanPath(rawSrc);
+      if (!cleanString) return 'img-null';
       let hash = 0;
       for (let i = 0; i < cleanString.length; i++) {
         hash = (hash << 5) - hash + cleanString.charCodeAt(i);
@@ -301,33 +313,34 @@ permalink: media
       
       let uniqueId = img.getAttribute('id') || generateCleanImageHash(src);
       
-      // Inject anchor wrapper signatures with balanced navigation offset padding attributes
+      // Inject visibility-hidden anchor elements directly prior to structural image tags
       if (!document.getElementById(uniqueId + '-anchor-tag')) {
         let anchor = document.createElement('a');
         anchor.id = uniqueId;
         anchor.className = 'media-gallery-anchor-tag';
         anchor.style.display = 'block';
         anchor.style.position = 'relative';
-        anchor.style.top = '-120px'; /* Generous header safety buffer threshold */
+        anchor.style.top = '-140px'; /* Adjusted to comfortably clear any pinned sticky site navigation bars */
         anchor.style.visibility = 'hidden';
         
         img.parentNode.insertBefore(anchor, img);
       }
     });
 
-    // Execute scroll calculation sequence mapping out custom intervals
+    // Execute scroll focus routines safely
     if (window.location.hash) {
       const targetHashId = decodeURIComponent(window.location.hash.substring(1));
       
-      // Check execution multiple times to counter lazy loaded shifts smoothly
-      for (let delay of [200, 600, 1200]) {
+      // Check multiple delay thresholds to protect positions against lazy loading layout shifts
+      const executionDelays = [200, 600, 1000, 1500];
+      executionDelays.forEach(delay => {
         setTimeout(() => {
           const targetAnchor = document.getElementById(targetHashId);
           if (targetAnchor) {
             targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }, delay);
-      }
+      });
     }
   });
 </script>
