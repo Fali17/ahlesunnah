@@ -146,6 +146,11 @@ permalink: media
       order: -1;
     }
   }
+  
+  /* Safe scrolling target properties applied directly across entry points */
+  .gallery-image-target-scroll {
+    scroll-margin-top: 140px !important;
+  }
 </style>
 
 <link href="https://jsdelivr.net" rel="stylesheet">
@@ -165,24 +170,24 @@ permalink: media
 <script src="https://jsdelivr.net"></script>
 
 <script type="text/javascript">
-  // Unified, safe cleaning logic that extracts the base file path from URL strings
+  // Safely cleans paths piece by piece without chaining breaking array methods
   function getCleanPath(url) {
     if (!url) return '';
-    let step1 = url.split('#')[0];
-    let step2 = step1.split('?')[0];
-    return step2.trim();
+    var baseParts = url.split('#');
+    var queryParts = baseParts[0].split('?');
+    return queryParts[0].trim();
   }
 
-  // Deterministic ID hash generator mapping identical keys to matching images on both layouts
+  // Pure deterministic hashing algorithm using isolated URL locations
   function generateCleanImageHash(rawSrc) {
-    let cleanString = getCleanPath(rawSrc);
-    if (!cleanString) return 'img-null';
-    let hash = 0;
-    for (let i = 0; i < cleanString.length; i++) {
+    var cleanString = getCleanPath(rawSrc);
+    if (!cleanString) return 'img-empty';
+    var hash = 0;
+    for (var i = 0; i < cleanString.length; i++) {
       hash = (hash << 5) - hash + cleanString.charCodeAt(i);
       hash |= 0;
     }
-    return 'img-pos-' + Math.abs(hash);
+    return 'img-item-' + Math.abs(hash);
   }
 
   const allImages = [
@@ -244,7 +249,7 @@ permalink: media
           <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
             <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
           </a>
-          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
+          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
         </figure>`;
       });
     }
@@ -282,65 +287,51 @@ permalink: media
   });
 </script>
 
-<!-- Global Post Document Script: Injects anchor targets with fixed header offsets inside standard article files -->
+<!-- Global Post Document Script to assign scroll target hooks natively onto actual image nodes -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    let currentPath = window.location.pathname;
-    if (currentPath.includes('/media/') || currentPath.endsWith('/media.html')) return;
+    var activePath = window.location.pathname;
+    if (activePath.includes('/media/') || activePath.endsWith('/media.html')) return;
     
     function getCleanPath(url) {
       if (!url) return '';
-      let step1 = url.split('#')[0];
-      let step2 = step1.split('?')[0];
-      return step2.trim();
+      var baseParts = url.split('#');
+      var queryParts = baseParts[0].split('?');
+      return queryParts[0].trim();
     }
 
     function generateCleanImageHash(rawSrc) {
-      let cleanString = getCleanPath(rawSrc);
-      if (!cleanString) return 'img-null';
-      let hash = 0;
-      for (let i = 0; i < cleanString.length; i++) {
+      var cleanString = getCleanPath(rawSrc);
+      if (!cleanString) return 'img-empty';
+      var hash = 0;
+      for (var i = 0; i < cleanString.length; i++) {
         hash = (hash << 5) - hash + cleanString.charCodeAt(i);
         hash |= 0;
       }
-      return 'img-pos-' + Math.abs(hash);
+      return 'img-item-' + Math.abs(hash);
     }
 
-    const postImages = document.querySelectorAll('img');
-    postImages.forEach(img => {
-      let src = img.getAttribute('src') || '';
+    var documentImages = document.querySelectorAll('img');
+    documentImages.forEach(function(img) {
+      var src = img.getAttribute('src') || '';
       if (!src) return;
       
-      let uniqueId = img.getAttribute('id') || generateCleanImageHash(src);
+      var uniqueHashId = img.getAttribute('id') || generateCleanImageHash(src);
       
-      // Inject visibility-hidden anchor elements directly prior to structural image tags
-      if (!document.getElementById(uniqueId + '-anchor-tag')) {
-        let anchor = document.createElement('a');
-        anchor.id = uniqueId;
-        anchor.className = 'media-gallery-anchor-tag';
-        anchor.style.display = 'block';
-        anchor.style.position = 'relative';
-        anchor.style.top = '-140px'; /* Adjusted to comfortably clear any pinned sticky site navigation bars */
-        anchor.style.visibility = 'hidden';
-        
-        img.parentNode.insertBefore(anchor, img);
-      }
+      // Inject identifying properties cleanly onto the elements
+      img.setAttribute('id', uniqueHashId);
+      img.classList.add('gallery-image-target-scroll');
     });
 
-    // Execute scroll focus routines safely
+    // Run safe target scrolling sequence checking if a location hash exists
     if (window.location.hash) {
-      const targetHashId = decodeURIComponent(window.location.hash.substring(1));
-      
-      // Check multiple delay thresholds to protect positions against lazy loading layout shifts
-      const executionDelays = [200, 600, 1000, 1500];
-      executionDelays.forEach(delay => {
-        setTimeout(() => {
-          const targetAnchor = document.getElementById(targetHashId);
-          if (targetAnchor) {
-            targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, delay);
-      });
+      var activeHashId = decodeURIComponent(window.location.hash.substring(1));
+      setTimeout(function() {
+        var finalTargetElement = document.getElementById(activeHashId);
+        if (finalTargetElement) {
+          finalTargetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
     }
   });
 </script>
