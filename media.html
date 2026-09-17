@@ -3,6 +3,7 @@ layout: default
 title: Media Gallery
 permalink: media
 ---
+
 <style>
   .image-gallery {
     display: grid;
@@ -67,95 +68,96 @@ permalink: media
   }
 
   #pagination-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 25px 15px;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #145a32;
-  flex-wrap: nowrap;          /* Keep everything on one line by default */
-}
-
-#pagination-controls button {
-  min-width: 130px;
-  padding: 12px 24px;
-  font-size: 1.05em;
-  border: 2px solid #145a32;
-  border-radius: 12px;
-  background: #145a32;
-  color: #ffffff;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
-  transition: all 0.3s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-#pagination-controls button:hover:not(:disabled) {
-  background: #0d2818;
-  border-color: #0d2818;
-  transform: translateY(-2px);
-}
-
-#pagination-controls button:disabled {
-  background: #c8e6c9;
-  border-color: #a5d6a7;
-  color: #a5d6a7;
-  opacity: 0.7;
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-#pageInfo {
-  white-space: nowrap;
-  flex-shrink: 1;
-  text-align: center;
-}
-
-/* ===== TABLET ONLY ===== */
-@media (max-width: 900px) and (min-width: 601px) {
-  #pagination-controls {
-    flex-wrap: wrap;
-    gap: 14px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 25px 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #145a32;
+    flex-wrap: nowrap;          /* Keep everything on one line by default */
+  }
+
+  #pagination-controls button {
+    min-width: 130px;
+    padding: 12px 24px;
+    font-size: 1.05em;
+    border: 2px solid #145a32;
+    border-radius: 12px;
+    background: #145a32;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
+    transition: all 0.3s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  #pagination-controls button:hover:not(:disabled) {
+    background: #0d2818;
+    border-color: #0d2818;
+    transform: translateY(-2px);
+  }
+
+  #pagination-controls button:disabled {
+    background: #c8e6c9;
+    border-color: #a5d6a7;
+    color: #a5d6a7;
+    opacity: 0.7;
+    box-shadow: none;
+    cursor: not-allowed;
   }
 
   #pageInfo {
-    width: 100%;
-    order: -1;               /* Page info goes on top */
-    margin-bottom: 4px;
-  }
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 600px) {
-  .image-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+    white-space: nowrap;
+    flex-shrink: 1;
+    text-align: center;
   }
 
-  #pagination-controls {
-    flex-direction: column;
-    gap: 12px;
+  /* ===== TABLET ONLY ===== */
+  @media (max-width: 900px) and (min-width: 601px) {
+    #pagination-controls {
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    #pageInfo {
+      width: 100%;
+      order: -1;               /* Page info goes on top */
+      margin-bottom: 4px;
+    }
   }
 
-  #pageInfo {
-    order: -1;
+  /* ===== MOBILE ===== */
+  @media (max-width: 600px) {
+    .image-gallery {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    #pagination-controls {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #pageInfo {
+      order: -1;
+    }
   }
-}
-  
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
 
 <p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post (scrolls to exact image if ID added)
+  Click thumbnail to enlarge • Click caption underneath to view the post webpage where the image resides.
 </p>
 
+<!-- The Main Gallery Container -->
 <div class="image-gallery" id="imageGallery"></div>
 
+<!-- Pagination Panel -->
 <div id="pagination-controls">
   <button id="prevBtn" disabled>&laquo; Previous</button>
   <span id="pageInfo"></span>
@@ -164,74 +166,57 @@ permalink: media
 
 <script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
 
-<script>
+<script type="text/javascript">
+  // Array generated via Jekyll compilation mapping images directly from markdown post contents
+  const allImages = [
+    {% for post in site.posts %}
+      {% if post.content contains '<img' or post.content contains '![' %}
+        /* Parse Jekyll HTML output to find images via a temporary sandbox template element */
+        (() => {
+          const div = document.createElement('div');
+          div.innerHTML = {{ post.content | jsonify }};
+          const imgs = div.querySelectorAll('img');
+          let parsedImages = [];
+          
+          imgs.forEach(img => {
+            let src = img.getAttribute('src') || '';
+            if (!src) return;
+            
+            // Standardize weblinks parameters for Blogger image engine sizing variations
+            let thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
+            let fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+            if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + 's400-c';
+            if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + 's1600';
+
+            let altText = (img.getAttribute('alt') || '').trim();
+            let caption = altText ? altText : {{ post.title | jsonify }};
+            let imgId = img.getAttribute('id') || '';
+            let postLink = imgId ? "{{ post.url | relative_url }}#" + imgId : "{{ post.url | relative_url }}";
+
+            parsedImages.push({
+              thumbSrc: thumbSrc,
+              fullSrc: fullSrc,
+              caption: caption,
+              postLink: postLink
+            });
+          });
+          return parsedImages;
+        })(),
+      {% endif %}
+    {% endfor %}
+  ].flat().filter(Boolean);
+
+  // Global Lightbox configuration initialization
   const lightbox = GLightbox({
     loop: true,
     descPosition: 'bottom'
-  });
-</script>
-
-<script type="text/javascript">
-//<![CDATA[
-function showAllImages(json) {
-  var entries = json.feed.entry || [];
-  var allImages = [];
-  var seen = new Set();
-
-  entries.forEach(function(entry) {
-    if (!entry.content) return;
-
-    var postTitle = entry.title ? entry.title.$t : 'Untitled Post';
-    postTitle = postTitle.replace(/"/g, '&quot;');
-
-    var postUrl = '#';
-    for (var j = 0; j < entry.link.length; j++) {
-      if (entry.link[j].rel == 'alternate') {
-        postUrl = entry.link[j].href;
-        break;
-      }
-    }
-
-    var content = entry.content.$t;
-    var tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    var imgs = tempDiv.querySelectorAll('img');
-
-    imgs.forEach(function(img) {
-      var src = img.src ? img.src.trim() : '';
-      if (!src || seen.has(src)) return;
-      if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
-
-      seen.add(src);
-
-      var altTextRaw = (img.getAttribute('alt') || '').trim();
-      var altText = altTextRaw.replace(/"/g, '&quot;');
-      var imgIdRaw = img.getAttribute('id') || '';
-      var imgId = imgIdRaw.trim();
-
-      var caption = altText || postTitle;
-      var postLink = imgId ? postUrl + '#' + imgId : postUrl;
-
-      var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
-      var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
-
-      if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
-      if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
-
-      allImages.push({
-        thumbSrc: thumbSrc,
-        fullSrc: fullSrc,
-        caption: caption,
-        postLink: postLink
-      });
-    });
   });
 
   const galleryDiv = document.getElementById('imageGallery');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const pageInfo = document.getElementById('pageInfo');
-  const imagesPerPage = 10;
+  const imagesPerPage = 12; // Adjusted to balanced layout grid rows
   let currentPage = 0;
 
   function renderGallery() {
@@ -248,7 +233,7 @@ function showAllImages(json) {
           <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
             <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
           </a>
-          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
+          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
         </figure>`;
       });
     }
@@ -262,6 +247,7 @@ function showAllImages(json) {
     nextBtn.disabled = currentPage >= totalPages - 1;
   }
 
+  // Initialize display logic execution routines
   if (allImages.length === 0) {
     galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32;">No images found.</p>';
     pageInfo.textContent = '';
@@ -273,6 +259,7 @@ function showAllImages(json) {
     if (currentPage > 0) {
       currentPage--;
       renderGallery();
+      window.scrollTo({ top: galleryDiv.offsetTop - 50, behavior: 'smooth' });
     }
   });
 
@@ -280,10 +267,7 @@ function showAllImages(json) {
     if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
       currentPage++;
       renderGallery();
+      window.scrollTo({ top: galleryDiv.offsetTop - 50, behavior: 'smooth' });
     }
   });
-}
-//]]>
 </script>
-
-<script src="_posts/"></script>
