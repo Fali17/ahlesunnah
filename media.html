@@ -165,7 +165,7 @@ permalink: media
 <script src="https://jsdelivr.net"></script>
 
 <script type="text/javascript">
-  // Simple hash generator to create deterministic unique elements IDs from image sources
+  // Unique safe hash generator using image source strings
   function generateImageHash(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -189,25 +189,28 @@ permalink: media
             if (!src) return;
             src = src.trim();
 
-            // Resilient image URL parser matching any cloud-hosted parameters safely
-            let baseSrc = src.split(/[?#]/)[0];
-            let thumbSrc = baseSrc;
-            let fullSrc = baseSrc;
+            // Clear anchors/queries cleanly without converting string types to object arrays
+            let cleanUrl = src.split('#')[0].split('?')[0];
 
-            if (src.includes('://googleusercontent.com') || src.includes('blogspot.com')) {
-              thumbSrc = baseSrc.replace(/\/s\d+(-c)?\//gi, '/s400-c/') + (src.includes('?') ? '?' + src.split('?')[1] : '');
-              fullSrc = baseSrc.replace(/\/s\d+(-c)?\//gi, '/s1600/') + (src.includes('?') ? '?' + src.split('?')[1] : '');
-              
-              if (!thumbSrc.includes('/s400-c/')) thumbSrc = baseSrc + '?=s400-c';
-              if (!fullSrc.includes('/s1600/')) fullSrc = baseSrc + '?=s1600';
+            let thumbSrc = cleanUrl;
+            let fullSrc = cleanUrl;
+
+            // Secure resizing modifiers for cloud hosted systems
+            if (cleanUrl.includes('://googleusercontent.com') || cleanUrl.includes('blogspot.com')) {
+              if (/\/s\d+(-c)?\//gi.test(cleanUrl)) {
+                thumbSrc = cleanUrl.replace(/\/s\d+(-c)?\//gi, '/s400-c/');
+                fullSrc = cleanUrl.replace(/\/s\d+(-c)?\//gi, '/s1600/');
+              } else {
+                thumbSrc = cleanUrl + '?=s400-c';
+                fullSrc = cleanUrl + '?=s1600';
+              }
             }
 
             let altText = (img.getAttribute('alt') || '').trim();
             let caption = altText ? altText : {{ post.title | jsonify }};
             
-            // Build a stable unique ID signature
-            let generatedId = img.getAttribute('id') || generateImageHash(baseSrc);
-            let postLink = "{{ post.url | relative_url }}#" + generatedId;
+            let targetId = img.getAttribute('id') || generateImageHash(cleanUrl);
+            let postLink = "{{ post.url | relative_url }}#" + targetId;
 
             parsedImages.push({
               thumbSrc: thumbSrc,
@@ -286,10 +289,11 @@ permalink: media
   });
 </script>
 
-<!-- Script running globally across all layouts to guarantee the targeted image elements exist to receive the anchor scroll -->
+<!-- Global runtime targeting specific posts structure and injecting layout anchors matching hashes -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    if (window.location.pathname === '/media/') return; // Run exclusively on standalone reading post pages
+    // Avoid running processing filters directly inside standalone gallery layout index paths
+    if (window.location.pathname.includes('/media/')) return;
     
     function generateImageHash(str) {
       let hash = 0;
@@ -300,36 +304,36 @@ permalink: media
       return 'img-' + Math.abs(hash);
     }
 
-    const postImages = document.querySelectorAll('article img, .post-content img, body img');
+    const postImages = document.querySelectorAll('img');
     postImages.forEach(img => {
       let src = img.getAttribute('src') || '';
       if (!src) return;
-      let baseSrc = src.split(/[?#]/)[0].trim();
+      let cleanUrl = src.split('#')[0].split('?')[0].trim();
       
-      if (!img.getAttribute('id')) {
-        let uniqueId = generateImageHash(baseSrc);
-        img.setAttribute('id', uniqueId);
-        
-        // Wrap or precede with a structural layout block anchor wrapper
+      let uniqueId = img.getAttribute('id') || generateImageHash(cleanUrl);
+      
+      // Inject physical anchor blocks right above target images
+      if (!document.getElementById(uniqueId)) {
         let anchor = document.createElement('a');
+        anchor.id = uniqueId;
         anchor.className = 'media-gallery-anchor';
         anchor.style.display = 'block';
         anchor.style.position = 'relative';
-        anchor.style.top = '-100px'; // Offset value ensuring page navigation bars don't block the viewpoint header context frame
-        anchor.id = uniqueId;
+        anchor.style.top = '-100px'; /* Navigation space offset safety buffer */
+        anchor.style.visibility = 'hidden';
         
         img.parentNode.insertBefore(anchor, img);
-        img.removeAttribute('id'); // Anchor receives identity mapping focus instead
       }
     });
 
-    // Handle initial cross-page incoming links
+    // Check on-load hash references
     if (window.location.hash) {
-      const targetAnchor = document.getElementById(window.location.hash.substring(1));
+      const targetHashId = decodeURIComponent(window.location.hash.substring(1));
+      const targetAnchor = document.getElementById(targetHashId);
       if (targetAnchor) {
         setTimeout(() => {
           targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
+        }, 500);
       }
     }
   });
