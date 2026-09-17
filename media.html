@@ -165,7 +165,7 @@ permalink: media
 <script src="https://jsdelivr.net"></script>
 
 <script type="text/javascript">
-  // Unique safe hash generator using image source strings
+  // Deterministic ID generator function based on resource URL structures
   function generateImageHash(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -189,22 +189,8 @@ permalink: media
             if (!src) return;
             src = src.trim();
 
-            // Clear anchors/queries cleanly without converting string types to object arrays
+            // Safe path isolation extraction routine
             let cleanUrl = src.split('#')[0].split('?')[0];
-
-            let thumbSrc = cleanUrl;
-            let fullSrc = cleanUrl;
-
-            // Secure resizing modifiers for cloud hosted systems
-            if (cleanUrl.includes('://googleusercontent.com') || cleanUrl.includes('blogspot.com')) {
-              if (/\/s\d+(-c)?\//gi.test(cleanUrl)) {
-                thumbSrc = cleanUrl.replace(/\/s\d+(-c)?\//gi, '/s400-c/');
-                fullSrc = cleanUrl.replace(/\/s\d+(-c)?\//gi, '/s1600/');
-              } else {
-                thumbSrc = cleanUrl + '?=s400-c';
-                fullSrc = cleanUrl + '?=s1600';
-              }
-            }
 
             let altText = (img.getAttribute('alt') || '').trim();
             let caption = altText ? altText : {{ post.title | jsonify }};
@@ -213,8 +199,8 @@ permalink: media
             let postLink = "{{ post.url | relative_url }}#" + targetId;
 
             parsedImages.push({
-              thumbSrc: thumbSrc,
-              fullSrc: fullSrc,
+              thumbSrc: cleanUrl,
+              fullSrc: cleanUrl,
               caption: caption,
               postLink: postLink
             });
@@ -289,11 +275,10 @@ permalink: media
   });
 </script>
 
-<!-- Global runtime targeting specific posts structure and injecting layout anchors matching hashes -->
+<!-- Script executing automatically on reading post pages to anchor the viewpoint targets smoothly -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    // Avoid running processing filters directly inside standalone gallery layout index paths
-    if (window.location.pathname.includes('/media/')) return;
+    if (window.location.pathname.endsWith('/media/') || window.location.pathname.endsWith('/media.html')) return;
     
     function generateImageHash(str) {
       let hash = 0;
@@ -309,31 +294,26 @@ permalink: media
       let src = img.getAttribute('src') || '';
       if (!src) return;
       let cleanUrl = src.split('#')[0].split('?')[0].trim();
-      
       let uniqueId = img.getAttribute('id') || generateImageHash(cleanUrl);
       
-      // Inject physical anchor blocks right above target images
-      if (!document.getElementById(uniqueId)) {
+      if (!document.getElementById(uniqueId + '-anchor')) {
         let anchor = document.createElement('a');
         anchor.id = uniqueId;
-        anchor.className = 'media-gallery-anchor';
         anchor.style.display = 'block';
         anchor.style.position = 'relative';
-        anchor.style.top = '-100px'; /* Navigation space offset safety buffer */
+        anchor.style.top = '-100px'; /* Anchor offset margin against header menus */
         anchor.style.visibility = 'hidden';
-        
         img.parentNode.insertBefore(anchor, img);
       }
     });
 
-    // Check on-load hash references
     if (window.location.hash) {
       const targetHashId = decodeURIComponent(window.location.hash.substring(1));
       const targetAnchor = document.getElementById(targetHashId);
       if (targetAnchor) {
         setTimeout(() => {
           targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 500);
+        }, 600);
       }
     }
   });
