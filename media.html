@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Media Gallery
-permalink: media
+permalink: media 
 ---
 
 <style>
@@ -18,7 +18,7 @@ permalink: media
     margin: 0;
     border-radius: 10px;
     overflow: hidden;
-    border: 3px solid var(--primary);              /* Uses your primary theme color */
+    border: 3px solid var(--primary);              /* Uses your GitHub primary theme color */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@ permalink: media
     display: block;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    border-bottom: 2px solid var(--primary);       /* Border under the thumbnail image */
+    border-bottom: 2px solid var(--primary);       /* Theme border beneath thumbnail images */
   }
 
   .image-gallery img {
@@ -149,10 +149,10 @@ permalink: media
 </style>
 
 <!-- GLightbox Asset Stylesheets -->
-<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
+<link href="https://jsdelivr.net" rel="stylesheet">
 
 <p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 20px;">
-  Click a thumbnail to enlarge (alt text displays below) • Click the caption to open the original article link.
+  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post
 </p>
 
 <!-- The Main Gallery Display Container -->
@@ -166,41 +166,85 @@ permalink: media
 </div>
 
 <!-- GLightbox Base Function Library Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
+<script src="https://jsdelivr.net"></script>
 
 <script>
-  // Build a raw array of image objects from Jekyll's compile state data model
-  const allImages = [
-    {% for post in site.posts %}
-      {% if post.content contains '<img' or post.content contains '![' %}
-        /* Parse post html elements to dynamically build accurate image nodes */
-        {% document_fragment content = post.content %}
-          {% assign images = content | img_nodes %}
-          {% for img in images %}
-            {
-              thumbSrc: "{{ img.src | relative_url }}",
-              fullSrc: "{{ img.src | relative_url }}",
-              caption: "{% if img.alt and img.alt != '' %}{{ img.alt | escape }}{% else %}{{ post.title | escape }}{% endif %}",
-              postLink: "{{ post.url | relative_url }}{% if img.id %}#{{ img.id }}{% endif %}"
-            },
-          {% endfor %}
-        {% enddocument_fragment %}
-      {% endif %}
-    {% endfor %}
-  ];
-
-  // Initialize the Lightbox controller
+  // Initialize the Lightbox controller global engine
   const lightbox = GLightbox({
     loop: true,
     descPosition: 'bottom'
   });
 
+  let allImages = [];
   const galleryDiv = document.getElementById('imageGallery');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const pageInfo = document.getElementById('pageInfo');
-  const imagesPerPage = 12; // Adjusted slightly up for cleaner 2, 3, or 4 grid columns layout balance
+  const imagesPerPage = 12; 
   let currentPage = 0;
+
+  // The Blogger callback handler processing script engine rules
+  window.showAllImages = function(json) {
+    var entries = json.feed.entry || [];
+    var seen = new Set();
+
+    entries.forEach(function(entry) {
+      if (!entry.content) return;
+
+      var postTitle = entry.title ? entry.title.\$t : 'Untitled Post';
+      postTitle = postTitle.replace(/"/g, '&quot;');
+
+      var postUrl = '#';
+      for (var j = 0; j < entry.link.length; j++) {
+        if (entry.link[j].rel == 'alternate') {
+          postUrl = entry.link[j].href;
+          break;
+        }
+      }
+
+      var content = entry.content.\$t;
+      var tempDiv = document.createElement('div');
+      tempDiv.innerHTML = content;
+      var imgs = tempDiv.querySelectorAll('img');
+
+      imgs.forEach(function(img) {
+        var src = img.src ? img.src.trim() : '';
+        if (!src || seen.has(src)) return;
+        if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
+
+        seen.add(src);
+
+        var altTextRaw = (img.getAttribute('alt') || '').trim();
+        var altText = altTextRaw.replace(/"/g, '&quot;');
+        var imgIdRaw = img.getAttribute('id') || '';
+        var imgId = imgIdRaw.trim();
+
+        var caption = altText || postTitle;
+        var postLink = imgId ? postUrl + '#' + imgId : postUrl;
+
+        var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
+        var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+
+        if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
+        if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
+
+        allImages.push({
+          thumbSrc: thumbSrc,
+          fullSrc: fullSrc,
+          caption: caption,
+          postLink: postLink
+        });
+      });
+    });
+
+    if (allImages.length === 0) {
+      galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color: var(--muted);">No images found on Blogger.</p>';
+      pageInfo.textContent = '';
+      nextBtn.disabled = true;
+    } else {
+      renderGallery();
+    }
+  };
 
   function renderGallery() {
     const start = currentPage * imagesPerPage;
@@ -208,35 +252,22 @@ permalink: media
     const pageImages = allImages.slice(start, end);
 
     let html = '';
-    if (pageImages.length === 0) {
-      html = '<p style="grid-column: 1 / -1; text-align:center; color: var(--muted);">No images found in your posts.</p>';
-    } else {
-      pageImages.forEach(function(data) {
-        html += `<figure>
-          <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
-            <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
-          </a>
-          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
-        </figure>`;
-      });
-    }
+    pageImages.forEach(function(data) {
+      html += `<figure>
+        <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
+          <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
+        </a>
+        <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
+      </figure>`;
+    });
 
     galleryDiv.innerHTML = html;
     lightbox.reload();
 
     const totalPages = Math.ceil(allImages.length / imagesPerPage);
-    pageInfo.textContent = allImages.length ? `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)` : '';
+    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)`;
     prevBtn.disabled = currentPage === 0;
     nextBtn.disabled = currentPage >= totalPages - 1;
-  }
-
-  // Initial runtime load check branch sequence execution
-  if (allImages.length === 0) {
-    galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color: var(--muted);">No images found in your posts.</p>';
-    pageInfo.textContent = '';
-    nextBtn.disabled = true;
-  } else {
-    renderGallery();
   }
 
   prevBtn.addEventListener('click', function() {
@@ -255,3 +286,6 @@ permalink: media
     }
   });
 </script>
+
+<!-- Asynchronous external asset link target fetching script data engine -->
+<script src="https://blogspot.com"></script>
