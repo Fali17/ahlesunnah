@@ -148,10 +148,10 @@ permalink: media
   }
 </style>
 
-<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
+<link href="https://jsdelivr.net" rel="stylesheet">
 
 <p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge • Click caption underneath to open the post webpage and scroll directly to that image's position.
+  Click thumbnail to enlarge • Click caption underneath to view the post webpage and jump directly to that exact image position.
 </p>
 
 <div class="image-gallery" id="imageGallery"></div>
@@ -162,17 +162,20 @@ permalink: media
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
+<script src="https://jsdelivr.net"></script>
 
 <script type="text/javascript">
-  // Unique safe hash generator function using image source strings
-  function generateImageHash(str) {
+  // Deterministic standard hash algorithm to match keys uniformly across global layouts
+  function generateCleanImageHash(rawSrc) {
+    if (!rawSrc) return 'img-null';
+    // Isolate path properties out of fragments safely
+    let cleanString = rawSrc.split('#')[0].split('?')[0].trim();
     let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = (hash << 5) - hash + str.charCodeAt(i);
+    for (let i = 0; i < cleanString.length; i++) {
+      hash = (hash << 5) - hash + cleanString.charCodeAt(i);
       hash |= 0;
     }
-    return 'img-' + Math.abs(hash);
+    return 'img-pos-' + Math.abs(hash);
   }
 
   const allImages = [
@@ -189,13 +192,11 @@ permalink: media
             if (!src) return;
             src = src.trim();
 
-            // Clear anchors/queries cleanly to safely get the base path string
-            let cleanUrl = src.split('#')[0].split('?')[0];
-
             let altText = (img.getAttribute('alt') || '').trim();
             let caption = altText ? altText : {{ post.title | jsonify }};
             
-            let targetId = img.getAttribute('id') || generateImageHash(cleanUrl);
+            // Build the exact match identifier sequence string
+            let targetId = img.getAttribute('id') || generateCleanImageHash(src);
             let postLink = "{{ post.url | relative_url }}#" + targetId;
 
             parsedImages.push({
@@ -275,48 +276,57 @@ permalink: media
   });
 </script>
 
-<!-- Injection Script to be embedded inside layout post footers dynamically -->
+<!-- Dedicated engine snippet to run inside targeted post views to map scroll jumps cleanly -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    // Exclude index layout directories
-    if (window.location.pathname.includes('/media/')) return;
+    // Escape layout routing inside the main catalog route path indexes
+    let currentPath = window.location.pathname;
+    if (currentPath.includes('/media/') || currentPath.endsWith('/media.html')) return;
     
-    function generateImageHash(str) {
+    function generateCleanImageHash(rawSrc) {
+      if (!rawSrc) return 'img-null';
+      let cleanString = rawSrc.split('#')[0].split('?')[0].trim();
       let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        hash = (hash << 5) - hash + str.charCodeAt(i);
+      for (let i = 0; i < cleanString.length; i++) {
+        hash = (hash << 5) - hash + cleanString.charCodeAt(i);
         hash |= 0;
       }
-      return 'img-' + Math.abs(hash);
+      return 'img-pos-' + Math.abs(hash);
     }
 
     const postImages = document.querySelectorAll('img');
     postImages.forEach(img => {
       let src = img.getAttribute('src') || '';
       if (!src) return;
-      let cleanUrl = src.split('#')[0].split('?')[0].trim();
-      let uniqueId = img.getAttribute('id') || generateImageHash(cleanUrl);
       
-      if (!document.getElementById(uniqueId + '-anchor')) {
+      let uniqueId = img.getAttribute('id') || generateCleanImageHash(src);
+      
+      // Inject anchor wrapper signatures with balanced navigation offset padding attributes
+      if (!document.getElementById(uniqueId + '-anchor-tag')) {
         let anchor = document.createElement('a');
         anchor.id = uniqueId;
-        anchor.className = 'media-gallery-anchor';
+        anchor.className = 'media-gallery-anchor-tag';
         anchor.style.display = 'block';
         anchor.style.position = 'relative';
-        anchor.style.top = '-90px'; /* Offset to prevent fixed headers from blocking view */
+        anchor.style.top = '-120px'; /* Generous header safety buffer threshold */
         anchor.style.visibility = 'hidden';
+        
         img.parentNode.insertBefore(anchor, img);
       }
     });
 
-    // Animate view focus scroll to elements matching targeted anchor hashes
+    // Execute scroll calculation sequence mapping out custom intervals
     if (window.location.hash) {
       const targetHashId = decodeURIComponent(window.location.hash.substring(1));
-      const targetAnchor = document.getElementById(targetHashId);
-      if (targetAnchor) {
+      
+      // Check execution multiple times to counter lazy loaded shifts smoothly
+      for (let delay of [200, 600, 1200]) {
         setTimeout(() => {
-          targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 600);
+          const targetAnchor = document.getElementById(targetHashId);
+          if (targetAnchor) {
+            targetAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, delay);
       }
     }
   });
