@@ -3,7 +3,6 @@ layout: default
 title: Media Gallery
 permalink: media
 ---
-
 <style>
   .image-gallery {
     display: grid;
@@ -68,204 +67,223 @@ permalink: media
   }
 
   #pagination-controls {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #145a32;
+  flex-wrap: nowrap;          /* Keep everything on one line by default */
+}
+
+#pagination-controls button {
+  min-width: 130px;
+  padding: 12px 24px;
+  font-size: 1.05em;
+  border: 2px solid #145a32;
+  border-radius: 12px;
+  background: #145a32;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
+  transition: all 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#pagination-controls button:hover:not(:disabled) {
+  background: #0d2818;
+  border-color: #0d2818;
+  transform: translateY(-2px);
+}
+
+#pagination-controls button:disabled {
+  background: #c8e6c9;
+  border-color: #a5d6a7;
+  color: #a5d6a7;
+  opacity: 0.7;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+#pageInfo {
+  white-space: nowrap;
+  flex-shrink: 1;
+  text-align: center;
+}
+
+/* ===== TABLET ONLY ===== */
+@media (max-width: 900px) and (min-width: 601px) {
+  #pagination-controls {
+    flex-wrap: wrap;
+    gap: 14px;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 25px 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #145a32;
-    flex-wrap: nowrap;          
-  }
-
-  #pagination-controls button {
-    min-width: 130px;
-    padding: 12px 24px;
-    font-size: 1.05em;
-    border: 2px solid #145a32;
-    border-radius: 12px;
-    background: #145a32;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
-    transition: all 0.3s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  #pagination-controls button:hover:not(:disabled) {
-    background: #0d2818;
-    border-color: #0d2818;
-    transform: translateY(-2px);
-  }
-
-  #pagination-controls button:disabled {
-    background: #c8e6c9;
-    border-color: #a5d6a7;
-    color: #a5d6a7;
-    opacity: 0.7;
-    box-shadow: none;
-    cursor: not-allowed;
   }
 
   #pageInfo {
-    white-space: nowrap;
-    flex-shrink: 1;
-    text-align: center;
+    width: 100%;
+    order: -1;               /* Page info goes on top */
+    margin-bottom: 4px;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  .image-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
   }
 
-  /* ===== TABLET ONLY ===== */
-  @media (max-width: 900px) and (min-width: 601px) {
-    #pagination-controls {
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-    }
-
-    #pageInfo {
-      width: 100%;
-      order: -1;               
-      margin-bottom: 4px;
-    }
+  #pagination-controls {
+    flex-direction: column;
+    gap: 12px;
   }
 
-  /* ===== MOBILE ===== */
-  @media (max-width: 600px) {
-    .image-gallery {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-    }
-
-    #pagination-controls {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    #pageInfo {
-      order: -1;
-    }
+  #pageInfo {
+    order: -1;
   }
+}
+  
 </style>
 
-<!-- GLightbox Library Integration CDN -->
-<link href="https://jsdelivr.net" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
 
-<p style="text-align: center; color: #145a32; font-weight: 500;">
-  Click thumbnail to enlarge • Click caption text to view the matching document article.
+<p style="text-align: center; color: #145a32;">
+  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post (scrolls to exact image if ID added)
 </p>
 
-<!-- Gallery Display Container -->
 <div class="image-gallery" id="imageGallery"></div>
 
-<!-- Pagination Panel -->
 <div id="pagination-controls">
   <button id="prevBtn" disabled>&laquo; Previous</button>
   <span id="pageInfo"></span>
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
-<!-- GLightbox Script core -->
-<script src="https://jsdelivr.net"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
 
-<script type="text/javascript">
-//<![CDATA[
-document.addEventListener("DOMContentLoaded", function() {
-  
-  // Setup Lightbox configurations
+<script>
   const lightbox = GLightbox({
     loop: true,
     descPosition: 'bottom'
   });
+</script>
 
-  // Direct configuration catalog of external assets linked within your posts folder entries
-  const allImages = [
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Quoted Darimi on Mosquito Analogy",
-      anchorId: "1000097400"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Quoted Darimi on Quranic Limit Claims",
-      anchorId: "1000097401"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Quoted Darimi on Place Limitations",
-      anchorId: "1000097402"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah on Hellfire Arguments",
-      anchorId: "1000097403"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Comments on Sayyida Aisha Context",
-      anchorId: "1000097404"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Throne Space Text Commentary",
-      anchorId: "1000097405"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Literal Interpretation (Majaz Arguments)",
-      anchorId: "1000097406"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah on the Caliphate of Sayyidina Ali",
-      anchorId: "1000097407"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Quoting Al-Juwayni on Tafwid al-Ma'na",
-      anchorId: "1000097408"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Theological Statements Commentary",
-      anchorId: "1000097409"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Spatial Creation Arguments",
-      anchorId: "1000097410"
-    },
-    {
-      url: "https://googleusercontent.com",
-      caption: "Ibn Taymiyyah Comments Regarding Al-Razi",
-      anchorId: "1000097375"
+<script type="text/javascript">
+//<![CDATA[
+function showAllImages(json) {
+  var entries = json.feed.entry || [];
+  var allImages = [];
+  var seen = new Set();
+
+  entries.forEach(function(entry) {
+    if (!entry.content) return;
+
+    var postTitle = entry.title ? entry.title.$t : 'Untitled Post';
+    postTitle = postTitle.replace(/"/g, '&quot;');
+
+    var postUrl = '#';
+    for (var j = 0; j < entry.link.length; j++) {
+      if (entry.link[j].rel == 'alternate') {
+        postUrl = entry.link[j].href;
+        break;
+      }
     }
-  ];
 
-  // Process image configurations dynamically into gallery items
-  const processedImages = allImages.map(function(item) {
-    // Generate clean thumbnails using the responsive Blogspot / s400 config logic
-    let baseSrc = item.url.trim();
-    let thumbSrc = baseSrc.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
-    let fullSrc = baseSrc.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+    var content = entry.content.$t;
+    var tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    var imgs = tempDiv.querySelectorAll('img');
 
-    if (thumbSrc === baseSrc) thumbSrc = baseSrc + (baseSrc.includes('?') ? '&' : '?') + '=s400-c';
-    if (fullSrc === baseSrc) fullSrc = baseSrc + (baseSrc.includes('?') ? '&' : '?') + '=s1600';
+    imgs.forEach(function(img) {
+      var src = img.src ? img.src.trim() : '';
+      if (!src || seen.has(src)) return;
+      if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
 
-    // Route straight down to your targeted articles page link anchors
-    const postLink = `{{ site.baseurl }}/documents.html#${item.anchorId}`;
+      seen.add(src);
 
-    return {
-      thumbSrc: thumbSrc,
-      fullSrc: fullSrc,
-      caption: item.caption,
-      postLink: postLink
-    };
+      var altTextRaw = (img.getAttribute('alt') || '').trim();
+      var altText = altTextRaw.replace(/"/g, '&quot;');
+      var imgIdRaw = img.getAttribute('id') || '';
+      var imgId = imgIdRaw.trim();
+
+      var caption = altText || postTitle;
+      var postLink = imgId ? postUrl + '#' + imgId : postUrl;
+
+      var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
+      var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+
+      if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
+      if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
+
+      allImages.push({
+        thumbSrc: thumbSrc,
+        fullSrc: fullSrc,
+        caption: caption,
+        postLink: postLink
+      });
+    });
   });
 
   const galleryDiv = document.getElementById('imageGallery');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const pageInfo = document.getElementById('pageInfo');
-  
-const imagesPerPage = 12;let currentPage = 0;function renderGallery() {const start = currentPage * imagesPerPage;const end = start + imagesPerPage;const pageImages = processedImages.slice(start, end);let html = '';if (pageImages.length === 0) {html = 'No images configured.';} else {pageImages.forEach(function(data) {html += <figure> <a href="${data.fullSrc}" class="gslide" data-description="${data.caption}"> <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy"> </a> <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption> </figure>;});}galleryDiv.innerHTML = html;lightbox.reload();const totalPages = Math.ceil(processedImages.length / imagesPerPage);pageInfo.textContent = processedImages.length ? Page ${currentPage + 1} of ${totalPages} (${processedImages.length} images total) : '';prevBtn.disabled = currentPage === 0;nextBtn.disabled = currentPage >= totalPages - 1;}if (processedImages.length === 0) {galleryDiv.innerHTML = 'No images found.';pageInfo.textContent = '';} else {renderGallery();}prevBtn.addEventListener('click', function() {if (currentPage > 0) {currentPage--;renderGallery();galleryDiv.scrollIntoView({ behavior: 'smooth' });}});nextBtn.addEventListener('click', function() {if (currentPage < Math.ceil(processedImages.length / imagesPerPage) - 1) {currentPage++;renderGallery();galleryDiv.scrollIntoView({ behavior: 'smooth' });}});})]]>
+  const imagesPerPage = 10;
+  let currentPage = 0;
+
+  function renderGallery() {
+    const start = currentPage * imagesPerPage;
+    const end = start + imagesPerPage;
+    const pageImages = allImages.slice(start, end);
+
+    let html = '';
+    if (pageImages.length === 0) {
+      html = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32;">No images found.</p>';
+    } else {
+      pageImages.forEach(function(data) {
+        html += `<figure>
+          <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
+            <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
+          </a>
+          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
+        </figure>`;
+      });
+    }
+
+    galleryDiv.innerHTML = html;
+    lightbox.reload();
+
+    const totalPages = Math.ceil(allImages.length / imagesPerPage);
+    pageInfo.textContent = allImages.length ? `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)` : '';
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+  }
+
+  if (allImages.length === 0) {
+    galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32;">No images found.</p>';
+    pageInfo.textContent = '';
+  } else {
+    renderGallery();
+  }
+
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) {
+      currentPage--;
+      renderGallery();
+    }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
+      currentPage++;
+      renderGallery();
+    }
+  });
+}
+//]]>
+</script>
+
+<script src="https://alsunnahalislam.blogspot.com/feeds/posts/default?alt=json-in-script&amp;max-results=500&amp;callback=showAllImages"></script>
