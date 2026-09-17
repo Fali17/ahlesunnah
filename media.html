@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Media Gallery
-permalink: media
+permalink:media 
 ---
 
 <style>
@@ -18,16 +18,16 @@ permalink: media
     margin: 0;
     border-radius: 10px;
     overflow: hidden;
-    border: 3px solid var(--primary);              /* Theme accent border color */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border: 3px solid #145a32;               /* Green border around the card */
+    box-shadow: 0 4px 12px rgba(20, 90, 50, 0.15);
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
-    background: var(--card);
+    background: #ffffff;
   }
 
   .image-gallery figure:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 20px rgba(20, 90, 50, 0.25);
     transform: translateY(-3px);
   }
 
@@ -35,7 +35,7 @@ permalink: media
     display: block;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    border-bottom: 2px solid var(--primary);       /* Line under the gallery image */
+    border-bottom: 2px solid #145a32;        /* Green line under the image */
   }
 
   .image-gallery img {
@@ -50,13 +50,13 @@ permalink: media
     text-align: center;
     font-size: 0.95em;
     flex-grow: 1;
-    background: var(--card);
-    color: var(--primary) !important;
-    border-top: 1px solid var(--border);
+    background: #ffffff;
+    color: #145a32 !important;               /* Green text */
+    border-top: 1px solid #d5f5e3;
   }
 
   .image-gallery figcaption a {
-    color: var(--primary) !important;
+    color: #145a32 !important;               /* Green links */
     text-decoration: none;
     display: block;
     font-weight: 600;
@@ -64,10 +64,9 @@ permalink: media
 
   .image-gallery figcaption a:hover {
     text-decoration: underline;
-    opacity: 0.8;
+    color: #0d2818 !important;
   }
 
-  /* Pagination styles tailored to your theme */
   #pagination-controls {
     display: flex;
     justify-content: center;
@@ -76,35 +75,36 @@ permalink: media
     padding: 25px 15px;
     font-size: 1.1em;
     font-weight: bold;
-    color: var(--primary);
-    flex-wrap: nowrap;
+    color: #145a32;
+    flex-wrap: nowrap;          
   }
 
   #pagination-controls button {
     min-width: 130px;
     padding: 12px 24px;
     font-size: 1.05em;
-    border: 2px solid var(--primary);
+    border: 2px solid #145a32;
     border-radius: 12px;
-    background: var(--primary);
+    background: #145a32;
     color: #ffffff;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
     transition: all 0.3s;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
   #pagination-controls button:hover:not(:disabled) {
-    opacity: 0.9;
+    background: #0d2818;
+    border-color: #0d2818;
     transform: translateY(-2px);
   }
 
   #pagination-controls button:disabled {
-    background: var(--border);
-    border-color: var(--border);
-    color: var(--muted);
-    opacity: 0.6;
+    background: #c8e6c9;
+    border-color: #a5d6a7;
+    color: #a5d6a7;
+    opacity: 0.7;
     box-shadow: none;
     cursor: not-allowed;
   }
@@ -113,157 +113,182 @@ permalink: media
     white-space: nowrap;
     flex-shrink: 1;
     text-align: center;
-    color: var(--text);
   }
 
-  /* Responsive screen sizing rules */
+  /* ===== TABLET ONLY ===== */
   @media (max-width: 900px) and (min-width: 601px) {
     #pagination-controls {
       flex-wrap: wrap;
       gap: 14px;
       justify-content: center;
     }
+
     #pageInfo {
       width: 100%;
-      order: -1;
+      order: -1;               
       margin-bottom: 4px;
     }
   }
 
+  /* ===== MOBILE ===== */
   @media (max-width: 600px) {
     .image-gallery {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 15px;
     }
+
     #pagination-controls {
       flex-direction: column;
       gap: 12px;
     }
+
     #pageInfo {
       order: -1;
     }
   }
 </style>
 
+<!-- GLightbox CSS -->
 <link href="https://jsdelivr.net" rel="stylesheet">
 
-<p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 20px;">
-  Click any image to enlarge • Click the caption underneath to jump straight to its article post.
+<p style="text-align: center; color: #145a32; font-weight: 500;">
+  Click thumbnail to enlarge • Click caption text to view the matching document article.
 </p>
 
-<!-- PURE LIQUID HOOK FOR IMAGE DISPLAY -->
-<div class="image-gallery" id="imageGallery">
-  {% assign image_count = 0 %}
-  {% for post in site.posts %}
-    {% if post.content contains '<img' %}
-      {% assign post_elements = post.content | split: '<img' %}
-      {% for element in post_elements %}
-        {% unless forloop.first %}
-          {% assign img_attributes = element | split: '>' | first %}
-          
-          <!-- Extract the clean src path string -->
-          {% assign src_part = img_attributes | split: 'src="' | last %}
-          {% assign img_src = src_part | split: '"' | first %}
-          
-          <!-- Extract the alt text caption string -->
-          {% assign img_caption = post.title %}
-          {% if img_attributes contains 'alt="' %}
-            {% assign alt_part = img_attributes | split: 'alt="' | last %}
-            {% assign alt_text = alt_part | split: '"' | first %}
-            {% if alt_text != "" %}{% assign img_caption = alt_text %}{% endif %}
-          {% endif %}
-          
-          <!-- Extract structural HTML IDs if they exist -->
-          {% assign img_id = "" %}
-          {% if img_attributes contains 'id="' %}
-            {% assign id_part = img_attributes | split: 'id="' | last %}
-            {% assign img_id = id_part | split: '"' | first %}
-          {% endif %}
+<!-- Gallery Target Container -->
+<div class="image-gallery" id="imageGallery"></div>
 
-          <div class="gallery-item-card" style="display: none;">
-            <figure>
-              <a href="{{ img_src | relative_url }}" class="glight" data-description="{{ img_caption | escape }}">
-                <img src="{{ img_src | relative_url }}" alt="{{ img_caption | escape }}" loading="lazy">
-              </a>
-              <figcaption>
-                <a href="{{ post.url | relative_url }}{% if img_id != '' %}#{{ img_id }}{% endif %}">
-                  {{ img_caption }}
-                </a>
-              </figcaption>
-            </figure>
-          </div>
-          {% assign image_count = image_count | plus: 1 %}
-        {% endunless %}
-      {% endfor %}
-    {% endif %}
-  {% endfor %}
-</div>
-
-<!-- Pagination component elements -->
+<!-- Pagination Panel -->
 <div id="pagination-controls">
   <button id="prevBtn" disabled>&laquo; Previous</button>
   <span id="pageInfo"></span>
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
+<!-- Hidden temporary element for parsing generated posts data via liquid -->
+<div id="liquid-post-data" style="display: none;">
+  {% for post in site.posts %}
+    <article data-url="{{ post.url | relative_url }}" data-title="{{ post.title | escape }}">
+      {{ post.content }}
+    </article>
+  {% endfor %}
+</div>
+
+<!-- GLightbox JS Core -->
 <script src="https://jsdelivr.net"></script>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const lightbox = GLightbox({
-      loop: true,
-      descPosition: 'bottom'
-    });
+<script type="text/javascript">
+//<![CDATA[
+document.addEventListener("DOMContentLoaded", function() {
+  
+  // Initialize Lightbox Instance
+  const lightbox = GLightbox({
+    loop: true,
+    descPosition: 'bottom'
+  });
 
-    const items = document.querySelectorAll('.gallery-item-card');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const pageInfo = document.getElementById('pageInfo');
-    
-    const imagesPerPage = 12;
-    let currentPage = 0;
-    const totalItems = items.length;
-    const totalPages = Math.ceil(totalItems / imagesPerPage);
+  const allImages = [];
+  const seen = new Set();
+  
+  // Extract images out of the rendered markdown post structures compiled by Jekyll
+  const postContainers = document.querySelectorAll('#liquid-post-data article');
+  
+  postContainers.forEach(function(article) {
+    const postUrl = article.getAttribute('data-url');
+    const postTitle = article.getAttribute('data-title');
+    const imgs = article.querySelectorAll('img');
 
-    function showPage(page) {
-      currentPage = page;
-      const start = currentPage * imagesPerPage;
-      const end = start + imagesPerPage;
+    imgs.forEach(function(img) {
+      const src = img.src ? img.src.trim() : '';
+      if (!src || seen.has(src)) return;
+      
+      // Keep track to prevent duplicate images showing up in the gallery
+      seen.add(src);
 
-      items.forEach((item, index) => {
-        if (index >= start && index < end) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
+      const altTextRaw = (img.getAttribute('alt') || '').trim();
+      const altText = altTextRaw || postTitle;
+      const imgIdRaw = img.getAttribute('id') || '';
+      const imgId = imgIdRaw.trim();
+
+      const postLink = imgId ? postUrl + '#' + imgId : postUrl;
+
+      // Handle standard Blogspot resolution transformations for responsive sizing
+      let thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
+      let fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+
+      if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
+      if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
+
+      allImages.push({
+        thumbSrc: thumbSrc,
+        fullSrc: fullSrc,
+        caption: altText,
+        postLink: postLink
       });
-
-      lightbox.reload();
-
-      pageInfo.textContent = totalItems > 0 ? `Page ${currentPage + 1} of ${totalPages} (${totalItems} images total)` : 'No images found.';
-      prevBtn.disabled = currentPage === 0;
-      nextBtn.disabled = currentPage >= totalPages - 1 || totalPages <= 1;
-    }
-
-    if (totalItems > 0) {
-      showPage(0);
-    } else {
-      pageInfo.textContent = 'No images discovered within your posts directory configuration.';
-      nextBtn.disabled = true;
-    }
-
-    prevBtn.addEventListener('click', function() {
-      if (currentPage > 0) {
-        showPage(currentPage - 1);
-        window.scrollTo({ top: document.getElementById('imageGallery').offsetTop - 40, behavior: 'smooth' });
-      }
-    });
-
-    nextBtn.addEventListener('click', function() {
-      if (currentPage < totalPages - 1) {
-        showPage(currentPage + 1);
-        window.scrollTo({ top: document.getElementById('imageGallery').offsetTop - 40, behavior: 'smooth' });
-      }
     });
   });
+
+  // Clean out the hidden template tags from DOM tree once extraction completes
+  document.getElementById('liquid-post-data').remove();
+
+  const galleryDiv = document.getElementById('imageGallery');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pageInfo = document.getElementById('pageInfo');
+  
+  const imagesPerPage = 12; 
+  let currentPage = 0;
+
+  function renderGallery() {
+    const start = currentPage * imagesPerPage;
+    const end = start + imagesPerPage;
+    const pageImages = allImages.slice(start, end);
+
+    let html = '';
+    if (pageImages.length === 0) {
+      html = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32; font-weight: bold;">No images found in your collection.</p>';
+    } else {
+      pageImages.forEach(function(data) {
+        html += `<figure>
+          <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
+            <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
+          </a>
+          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
+        </figure>`;
+      });
+    }
+
+    galleryDiv.innerHTML = html;
+    lightbox.reload();
+
+    const totalPages = Math.ceil(allImages.length / imagesPerPage);
+    pageInfo.textContent = allImages.length ? `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)` : '';
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
+  }
+
+  if (allImages.length === 0) {
+    galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32; font-weight: bold;">No images found.</p>';
+    pageInfo.textContent = '';
+  } else {
+    renderGallery();
+  }
+
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) {
+      currentPage--;
+      renderGallery();
+      galleryDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
+      currentPage++;
+      renderGallery();
+      galleryDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+//]]>
 </script>
