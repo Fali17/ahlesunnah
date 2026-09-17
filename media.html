@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Media Gallery
-permalink: media 
+permalink: media
 ---
 
 <style>
@@ -18,7 +18,7 @@ permalink: media
     margin: 0;
     border-radius: 10px;
     overflow: hidden;
-    border: 3px solid var(--primary);              /* Uses your GitHub primary theme color */
+    border: 3px solid var(--primary);              /* Theme accent border color */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@ permalink: media
     display: block;
     overflow: hidden;
     aspect-ratio: 1 / 1;
-    border-bottom: 2px solid var(--primary);       /* Theme border beneath thumbnail images */
+    border-bottom: 2px solid var(--primary);       /* Line under the gallery image */
   }
 
   .image-gallery img {
@@ -67,6 +67,7 @@ permalink: media
     opacity: 0.8;
   }
 
+  /* Pagination styles tailored to your theme */
   #pagination-controls {
     display: flex;
     justify-content: center;
@@ -115,14 +116,13 @@ permalink: media
     color: var(--text);
   }
 
-  /* ===== TABLET ONLY ===== */
+  /* Responsive screen sizing rules */
   @media (max-width: 900px) and (min-width: 601px) {
     #pagination-controls {
       flex-wrap: wrap;
       gap: 14px;
       justify-content: center;
     }
-
     #pageInfo {
       width: 100%;
       order: -1;
@@ -130,162 +130,140 @@ permalink: media
     }
   }
 
-  /* ===== MOBILE ===== */
   @media (max-width: 600px) {
     .image-gallery {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 15px;
     }
-
     #pagination-controls {
       flex-direction: column;
       gap: 12px;
     }
-
     #pageInfo {
       order: -1;
     }
   }
 </style>
 
-<!-- GLightbox Asset Stylesheets -->
 <link href="https://jsdelivr.net" rel="stylesheet">
 
 <p style="text-align: center; color: var(--muted); font-size: 14px; margin-bottom: 20px;">
-  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post
+  Click any image to enlarge • Click the caption underneath to jump straight to its article post.
 </p>
 
-<!-- The Main Gallery Display Container -->
-<div class="image-gallery" id="imageGallery"></div>
+<!-- PURE LIQUID HOOK FOR IMAGE DISPLAY -->
+<div class="image-gallery" id="imageGallery">
+  {% assign image_count = 0 %}
+  {% for post in site.posts %}
+    {% if post.content contains '<img' %}
+      {% assign post_elements = post.content | split: '<img' %}
+      {% for element in post_elements %}
+        {% unless forloop.first %}
+          {% assign img_attributes = element | split: '>' | first %}
+          
+          <!-- Extract the clean src path string -->
+          {% assign src_part = img_attributes | split: 'src="' | last %}
+          {% assign img_src = src_part | split: '"' | first %}
+          
+          <!-- Extract the alt text caption string -->
+          {% assign img_caption = post.title %}
+          {% if img_attributes contains 'alt="' %}
+            {% assign alt_part = img_attributes | split: 'alt="' | last %}
+            {% assign alt_text = alt_part | split: '"' | first %}
+            {% if alt_text != "" %}{% assign img_caption = alt_text %}{% endif %}
+          {% endif %}
+          
+          <!-- Extract structural HTML IDs if they exist -->
+          {% assign img_id = "" %}
+          {% if img_attributes contains 'id="' %}
+            {% assign id_part = img_attributes | split: 'id="' | last %}
+            {% assign img_id = id_part | split: '"' | first %}
+          {% endif %}
 
-<!-- Unified Pagination Block Component -->
+          <div class="gallery-item-card" style="display: none;">
+            <figure>
+              <a href="{{ img_src | relative_url }}" class="glight" data-description="{{ img_caption | escape }}">
+                <img src="{{ img_src | relative_url }}" alt="{{ img_caption | escape }}" loading="lazy">
+              </a>
+              <figcaption>
+                <a href="{{ post.url | relative_url }}{% if img_id != '' %}#{{ img_id }}{% endif %}">
+                  {{ img_caption }}
+                </a>
+              </figcaption>
+            </figure>
+          </div>
+          {% assign image_count = image_count | plus: 1 %}
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+<!-- Pagination component elements -->
 <div id="pagination-controls">
   <button id="prevBtn" disabled>&laquo; Previous</button>
   <span id="pageInfo"></span>
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
-<!-- GLightbox Base Function Library Scripts -->
 <script src="https://jsdelivr.net"></script>
 
 <script>
-  // Initialize the Lightbox controller global engine
-  const lightbox = GLightbox({
-    loop: true,
-    descPosition: 'bottom'
-  });
+  document.addEventListener("DOMContentLoaded", function() {
+    const lightbox = GLightbox({
+      loop: true,
+      descPosition: 'bottom'
+    });
 
-  let allImages = [];
-  const galleryDiv = document.getElementById('imageGallery');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const pageInfo = document.getElementById('pageInfo');
-  const imagesPerPage = 12; 
-  let currentPage = 0;
+    const items = document.querySelectorAll('.gallery-item-card');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageInfo = document.getElementById('pageInfo');
+    
+    const imagesPerPage = 12;
+    let currentPage = 0;
+    const totalItems = items.length;
+    const totalPages = Math.ceil(totalItems / imagesPerPage);
 
-  // The Blogger callback handler processing script engine rules
-  window.showAllImages = function(json) {
-    var entries = json.feed.entry || [];
-    var seen = new Set();
+    function showPage(page) {
+      currentPage = page;
+      const start = currentPage * imagesPerPage;
+      const end = start + imagesPerPage;
 
-    entries.forEach(function(entry) {
-      if (!entry.content) return;
-
-      var postTitle = entry.title ? entry.title.\$t : 'Untitled Post';
-      postTitle = postTitle.replace(/"/g, '&quot;');
-
-      var postUrl = '#';
-      for (var j = 0; j < entry.link.length; j++) {
-        if (entry.link[j].rel == 'alternate') {
-          postUrl = entry.link[j].href;
-          break;
+      items.forEach((item, index) => {
+        if (index >= start && index < end) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
         }
-      }
-
-      var content = entry.content.\$t;
-      var tempDiv = document.createElement('div');
-      tempDiv.innerHTML = content;
-      var imgs = tempDiv.querySelectorAll('img');
-
-      imgs.forEach(function(img) {
-        var src = img.src ? img.src.trim() : '';
-        if (!src || seen.has(src)) return;
-        if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
-
-        seen.add(src);
-
-        var altTextRaw = (img.getAttribute('alt') || '').trim();
-        var altText = altTextRaw.replace(/"/g, '&quot;');
-        var imgIdRaw = img.getAttribute('id') || '';
-        var imgId = imgIdRaw.trim();
-
-        var caption = altText || postTitle;
-        var postLink = imgId ? postUrl + '#' + imgId : postUrl;
-
-        var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
-        var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
-
-        if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
-        if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
-
-        allImages.push({
-          thumbSrc: thumbSrc,
-          fullSrc: fullSrc,
-          caption: caption,
-          postLink: postLink
-        });
       });
-    });
 
-    if (allImages.length === 0) {
-      galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color: var(--muted);">No images found on Blogger.</p>';
-      pageInfo.textContent = '';
-      nextBtn.disabled = true;
+      lightbox.reload();
+
+      pageInfo.textContent = totalItems > 0 ? `Page ${currentPage + 1} of ${totalPages} (${totalItems} images total)` : 'No images found.';
+      prevBtn.disabled = currentPage === 0;
+      nextBtn.disabled = currentPage >= totalPages - 1 || totalPages <= 1;
+    }
+
+    if (totalItems > 0) {
+      showPage(0);
     } else {
-      renderGallery();
+      pageInfo.textContent = 'No images discovered within your posts directory configuration.';
+      nextBtn.disabled = true;
     }
-  };
 
-  function renderGallery() {
-    const start = currentPage * imagesPerPage;
-    const end = start + imagesPerPage;
-    const pageImages = allImages.slice(start, end);
-
-    let html = '';
-    pageImages.forEach(function(data) {
-      html += `<figure>
-        <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
-          <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
-        </a>
-        <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
-      </figure>`;
+    prevBtn.addEventListener('click', function() {
+      if (currentPage > 0) {
+        showPage(currentPage - 1);
+        window.scrollTo({ top: document.getElementById('imageGallery').offsetTop - 40, behavior: 'smooth' });
+      }
     });
 
-    galleryDiv.innerHTML = html;
-    lightbox.reload();
-
-    const totalPages = Math.ceil(allImages.length / imagesPerPage);
-    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)`;
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage >= totalPages - 1;
-  }
-
-  prevBtn.addEventListener('click', function() {
-    if (currentPage > 0) {
-      currentPage--;
-      renderGallery();
-      window.scrollTo({ top: galleryDiv.offsetTop - 40, behavior: 'smooth' });
-    }
-  });
-
-  nextBtn.addEventListener('click', function() {
-    if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
-      currentPage++;
-      renderGallery();
-      window.scrollTo({ top: galleryDiv.offsetTop - 40, behavior: 'smooth' });
-    }
+    nextBtn.addEventListener('click', function() {
+      if (currentPage < totalPages - 1) {
+        showPage(currentPage + 1);
+        window.scrollTo({ top: document.getElementById('imageGallery').offsetTop - 40, behavior: 'smooth' });
+      }
+    });
   });
 </script>
-
-<!-- Asynchronous external asset link target fetching script data engine -->
-<script src="https://alsunnahalislam.blogspot.com"></script>
