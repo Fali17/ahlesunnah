@@ -148,10 +148,10 @@ permalink: media
   }
 </style>
 
-<link href="https://jsdelivr.net" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
 
 <p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge • Click caption underneath to view the post webpage and jump directly to that exact image position.
+  Click thumbnail to enlarge • Click caption underneath to open the post webpage and scroll directly to that image's position.
 </p>
 
 <div class="image-gallery" id="imageGallery"></div>
@@ -162,10 +162,10 @@ permalink: media
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
-<script src="https://jsdelivr.net"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
 
 <script type="text/javascript">
-  // Deterministic ID generator function based on resource URL structures
+  // Unique safe hash generator function using image source strings
   function generateImageHash(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -189,7 +189,7 @@ permalink: media
             if (!src) return;
             src = src.trim();
 
-            // Safe path isolation extraction routine
+            // Clear anchors/queries cleanly to safely get the base path string
             let cleanUrl = src.split('#')[0].split('?')[0];
 
             let altText = (img.getAttribute('alt') || '').trim();
@@ -199,8 +199,8 @@ permalink: media
             let postLink = "{{ post.url | relative_url }}#" + targetId;
 
             parsedImages.push({
-              thumbSrc: cleanUrl,
-              fullSrc: cleanUrl,
+              thumbSrc: src,
+              fullSrc: src,
               caption: caption,
               postLink: postLink
             });
@@ -237,7 +237,7 @@ permalink: media
           <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
             <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
           </a>
-          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
+          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
         </figure>`;
       });
     }
@@ -275,10 +275,11 @@ permalink: media
   });
 </script>
 
-<!-- Script executing automatically on reading post pages to anchor the viewpoint targets smoothly -->
+<!-- Injection Script to be embedded inside layout post footers dynamically -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    if (window.location.pathname.endsWith('/media/') || window.location.pathname.endsWith('/media.html')) return;
+    // Exclude index layout directories
+    if (window.location.pathname.includes('/media/')) return;
     
     function generateImageHash(str) {
       let hash = 0;
@@ -299,14 +300,16 @@ permalink: media
       if (!document.getElementById(uniqueId + '-anchor')) {
         let anchor = document.createElement('a');
         anchor.id = uniqueId;
+        anchor.className = 'media-gallery-anchor';
         anchor.style.display = 'block';
         anchor.style.position = 'relative';
-        anchor.style.top = '-100px'; /* Anchor offset margin against header menus */
+        anchor.style.top = '-90px'; /* Offset to prevent fixed headers from blocking view */
         anchor.style.visibility = 'hidden';
         img.parentNode.insertBefore(anchor, img);
       }
     });
 
+    // Animate view focus scroll to elements matching targeted anchor hashes
     if (window.location.hash) {
       const targetHashId = decodeURIComponent(window.location.hash.substring(1));
       const targetAnchor = document.getElementById(targetHashId);
