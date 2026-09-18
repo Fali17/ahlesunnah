@@ -348,5 +348,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Render controls counters
     const totalPagesCount = Math.ceil(collectedImages.length / imagesPerPage);
+pageInfo.textContent = Page ${currentPage + 1} of ${totalPagesCount} (${collectedImages.length} images total);prevBtn.disabled = (currentPage === 0);nextBtn.disabled = (currentPage >= totalPagesCount - 1);}
 
-    pageInfo.textContent = Page ${currentPage + 1} of ${totalPagesCount} (${collectedImages.length} images total);prevBtn.disabled = (currentPage === 0);nextBtn.disabled = (currentPage >= totalPagesCount - 1);}// Render initialization engine loopif (collectedImages.length > 0) {paginationControls.style.display = 'flex';displayGalleryPage();}// Event interaction navigation listenersprevBtn.addEventListener('click', function() {if (currentPage > 0) {currentPage--;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});nextBtn.addEventListener('click', function() {if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {currentPage++;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});});document.addEventListener("DOMContentLoaded", function() {// Avoid firing anchor script modifications directly on the index layout pageif (window.location.pathname.includes('/media/') || window.location.pathname.endsWith('/media.html')) return;function generateCleanImageHash(rawSrc) {if (!rawSrc) return 'img-empty';let cleanString = rawSrc.split('#')[0].split('?')[0].trim();let hash = 0;for (let i = 0; i < cleanString.length; i++) {hash = (hash << 5) - hash + cleanString.charCodeAt(i);hash |= 0;}return 'img-ref-' + Math.abs(hash);}const postImagesNodes = document.querySelectorAll('img');postImagesNodes.forEach(img => {let src = img.getAttribute('src') || '';if (!src) return;let cleanImgPath = src.split('#')[0].split('?')[0];let uniqueHashId = img.getAttribute('id') || generateCleanImageHash(cleanImgPath);// Inject identifying properties cleanly onto the elementsimg.setAttribute('id', uniqueHashId);// Apply offset layout parameters directly using CSS propertiesimg.style.scrollMarginTop = '120px';});// Animate viewport target scroll loops handling page fragments incoming links smoothlyif (window.location.hash) {const activeFragmentId = decodeURIComponent(window.location.hash.substring(1));setTimeout(() => {const targetImage = document.getElementById(activeFragmentId);if (targetImage) {targetImage.scrollIntoView({ behavior: 'smooth', block: 'start' });}}, 500); // 500ms safely maps assets offsets after browser paint rendering sequence completes}});
+// Render initialization engine loopif
+(collectedImages.length > 0) {paginationControls.style.display = 'flex';displayGalleryPage();}
+
+// Event interaction navigation
+listenersprevBtn.addEventListener('click', function() {if (currentPage > 0) {currentPage--;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});nextBtn.addEventListener('click', function() {if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {currentPage++;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});});document.addEventListener("DOMContentLoaded", function() {
+    // Avoid firing anchor script modifications directly on the index layout page
+    if (window.location.pathname.includes('/media/') || window.location.pathname.endsWith('/media.html')) return;function generateCleanImageHash(rawSrc) {if (!rawSrc) return 'img-empty';let cleanString = rawSrc.split('#')[0].split('?')[0].trim();let hash = 0;for (let i = 0; i < cleanString.length; i++) {hash = (hash << 5) - hash + cleanString.charCodeAt(i);hash |= 0;}return 'img-ref-' + Math.abs(hash);}const postImagesNodes = document.querySelectorAll('img');postImagesNodes.forEach(img => {let src = img.getAttribute('src') || '';if (!src) return;let cleanImgPath = src.split('#')[0].split('?')[0];let uniqueHashId = img.getAttribute('id') || generateCleanImageHash(cleanImgPath);
+    // Inject identifying properties cleanly onto the elements
+    img.setAttribute('id', uniqueHashId);
+    
+    // Apply offset layout parameters directly using CSS properties
+    img.style.scrollMarginTop = '120px';});
+    
+    // Animate viewport target scroll loops handling page fragments incoming links smoothly
+    
+    if (window.location.hash) {const activeFragmentId = decodeURIComponent(window.location.hash.substring(1));setTimeout(() => {const targetImage = document.getElementById(activeFragmentId);if (targetImage) {targetImage.scrollIntoView({ behavior: 'smooth', block: 'start' });}}, 500); 
+    
+    // 500ms safely maps assets offsets after browser paint rendering sequence completes}});
