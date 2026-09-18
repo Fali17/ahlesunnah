@@ -6,27 +6,34 @@ permalink: media
 
 <!-- 1. CSS VISUAL STYLES -->
 <style>
+  /* Make gallery wider than normal posts */
+  .site-main {
+    max-width: 1200px !important;
+  }
+
   .media-gallery-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding: 0 4px 20px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-  
+
   .latest-media-section {
-    background: #fbfbfd;
-    border: 1px solid #e5e5ea;
-    border-radius: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
     padding: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
-  
+
   .latest-title {
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 16px;
-    color: #1d1d1f;
-    border-bottom: 2px solid #0071e3;
+    font-family: 'Amiri', serif;
+    font-size: 1.55rem;
+    margin: 0 0 16px;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 6px;
     display: inline-block;
   }
@@ -44,7 +51,7 @@ permalink: media
     }
     .latest-img-wrapper {
       flex: 1;
-      max-width: 50%;
+      max-width: 48%;
     }
     .latest-info-wrapper {
       flex: 1;
@@ -54,71 +61,73 @@ permalink: media
   .latest-img-wrapper img {
     width: 100%;
     height: auto;
-    max-height: 400px;
+    max-height: 380px;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    background: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    background: #f8f6f0;
     cursor: pointer;
   }
 
   .media-date {
-    font-size: 0.85rem;
-    color: #86868b;
+    font-size: 0.82rem;
+    color: var(--muted);
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .caption-link {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    color: #0071e3;
+    color: var(--primary);
     text-decoration: none;
     line-height: 1.4;
     transition: color 0.2s ease;
   }
 
   .caption-link:hover {
-    color: #0051a8;
+    color: var(--primary-dark);
     text-decoration: underline;
   }
 
   .gallery-title {
+    font-family: 'Amiri', serif;
     font-size: 1.6rem;
-    color: #1d1d1f;
-    margin-bottom: 20px;
+    color: var(--text);
+    margin: 0 0 20px;
   }
 
   .media-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-    margin-bottom: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+    margin-bottom: 28px;
   }
 
   .grid-card {
-    background: #fff;
-    border: 1px solid #e5e5ea;
-    border-radius: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
     padding: 12px;
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   }
 
   .grid-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   }
 
   .grid-img-wrapper {
-    height: 200px;
+    height: 190px;
     overflow: hidden;
-    background: #f5f5f7;
+    background: #f5f3eb;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 8px;
     margin-bottom: 12px;
     cursor: pointer;
   }
@@ -130,55 +139,56 @@ permalink: media
   }
 
   .grid-card .caption-link {
-    font-size: 0.95rem;
-    color: #333;
+    font-size: 0.92rem;
+    color: var(--text);
     font-weight: 500;
   }
 
   .grid-card .caption-link:hover {
-    color: #0071e3;
+    color: var(--primary);
   }
 
-  /* 2. PAGINATION COMPONENT UI STYLES */
+  /* Pagination – matches your site buttons */
   .pagination-controls-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    padding: 20px 0;
-    margin-top: 20px;
-    font-size: 1rem;
-    color: #1d1d1f;
+    gap: 18px;
+    padding: 18px 0 10px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--text);
   }
 
   .pagination-controls-wrapper button {
     min-width: 110px;
-    padding: 10px 20px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    border: 1px solid #d2d2d7;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background: #ffffff;
-    color: #0071e3;
+    background: var(--card);
+    color: var(--primary);
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .pagination-controls-wrapper button:hover:not(:disabled) {
-    background: #f5f5f7;
-    border-color: #86868b;
+    background: color-mix(in srgb, var(--primary) 8%, white);
+    border-color: var(--primary);
   }
 
   .pagination-controls-wrapper button:disabled {
-    color: #86868b;
-    background: #f5f5f7;
-    border-color: #e5e5ea;
+    color: var(--muted);
+    background: #f5f3eb;
+    border-color: var(--border);
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.65;
   }
 
   .page-info-panel {
     font-weight: 500;
+    color: var(--muted);
   }
 </style>
 
