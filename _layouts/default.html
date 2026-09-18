@@ -527,7 +527,62 @@ document.addEventListener('click', function(e) {
     });
   </script>
 
- 
+ <script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Don't run on the media gallery itself
+  const path = window.location.pathname;
+  if (path.includes('/media/') || path.endsWith('/media.html')) return;
+
+  function getCleanPathString(url) {
+    if (!url) return '';
+    return url.split('#')[0].split('?')[0].trim();
+  }
+
+  function generateCleanImageHash(rawSrc) {
+    const cleanUrl = getCleanPathString(rawSrc);
+    if (!cleanUrl) return 'img-null';
+
+    let hash = 0;
+    for (let i = 0; i < cleanUrl.length; i++) {
+      hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
+      hash |= 0; // force 32-bit
+    }
+    return 'img-ref-' + Math.abs(hash);
+  }
+
+  // Give every image a stable ID based on its src
+  document.querySelectorAll('img').forEach(img => {
+    const src = img.getAttribute('src') || '';
+    if (!src || src.startsWith('data:')) return;
+
+    // Only set ID if it doesn't already have one
+    if (!img.id) {
+      img.id = generateCleanImageHash(src);
+    }
+
+    // Offset for sticky headers
+    img.style.scrollMarginTop = '120px';
+  });
+
+  // Scroll to the target after a short delay (gives images time to be in the DOM)
+  if (window.location.hash) {
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+
+    // Try a few times in case of lazy-loading / delayed rendering
+    const tryScroll = (attempts = 0) => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (attempts < 8) {
+        setTimeout(() => tryScroll(attempts + 1), 150);
+      }
+    };
+
+    setTimeout(() => tryScroll(), 300);
+  }
+});
+</script>
+
 
 </body>
 </html>
