@@ -45,6 +45,11 @@ permalink: media
     display: block;
   }
 
+  /* Added scroll margin target alignment class properties */
+  .post-gallery-target-image {
+    scroll-margin-top: 100px !important;
+  }
+
   .image-gallery figcaption {
     padding: 14px 10px;
     text-align: center;
@@ -146,17 +151,12 @@ permalink: media
       order: -1;
     }
   }
-  
-  /* Safe scrolling target properties applied directly across entry points */
-  .gallery-image-target-scroll {
-    scroll-margin-top: 140px !important;
-  }
 </style>
 
-<link href="https://jsdelivr.net" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
 
 <p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge • Click caption underneath to view the post webpage and jump directly to that exact image position.
+  Click thumbnail to enlarge • Click caption underneath to open the post webpage and scroll directly to that image's position.
 </p>
 
 <div class="image-gallery" id="imageGallery"></div>
@@ -167,27 +167,16 @@ permalink: media
   <button id="nextBtn">Next &raquo;</button>
 </div>
 
-<script src="https://jsdelivr.net"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
 
 <script type="text/javascript">
-  // Safely cleans paths piece by piece without chaining breaking array methods
-  function getCleanPath(url) {
-    if (!url) return '';
-    var baseParts = url.split('#');
-    var queryParts = baseParts[0].split('?');
-    return queryParts[0].trim();
-  }
-
-  // Pure deterministic hashing algorithm using isolated URL locations
-  function generateCleanImageHash(rawSrc) {
-    var cleanString = getCleanPath(rawSrc);
-    if (!cleanString) return 'img-empty';
-    var hash = 0;
-    for (var i = 0; i < cleanString.length; i++) {
-      hash = (hash << 5) - hash + cleanString.charCodeAt(i);
+  function generateImageHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i);
       hash |= 0;
     }
-    return 'img-item-' + Math.abs(hash);
+    return 'img-' + Math.abs(hash);
   }
 
   const allImages = [
@@ -204,10 +193,12 @@ permalink: media
             if (!src) return;
             src = src.trim();
 
+            let cleanUrl = src.split('#')[0].split('?')[0];
+
             let altText = (img.getAttribute('alt') || '').trim();
             let caption = altText ? altText : {{ post.title | jsonify }};
             
-            let targetId = img.getAttribute('id') || generateCleanImageHash(src);
+            let targetId = img.getAttribute('id') || generateImageHash(cleanUrl);
             let postLink = "{{ post.url | relative_url }}#" + targetId;
 
             parsedImages.push({
@@ -249,7 +240,7 @@ permalink: media
           <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
             <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
           </a>
-          <figcaption><a href="${data.postLink}">${data.caption}</a></figcaption>
+          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
         </figure>`;
       });
     }
@@ -287,51 +278,44 @@ permalink: media
   });
 </script>
 
-<!-- Global Post Document Script to assign scroll target hooks natively onto actual image nodes -->
+<!-- Complete Injection Footer Script containing full closed brackets loops -->
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    var activePath = window.location.pathname;
-    if (activePath.includes('/media/') || activePath.endsWith('/media.html')) return;
+    // Exclude running parsing configurations if on the media gallery path index directly
+    if (window.location.pathname.includes('/media') || window.location.pathname.includes('/media.html')) return;
     
-    function getCleanPath(url) {
-      if (!url) return '';
-      var baseParts = url.split('#');
-      var queryParts = baseParts[0].split('?');
-      return queryParts[0].trim();
-    }
-
-    function generateCleanImageHash(rawSrc) {
-      var cleanString = getCleanPath(rawSrc);
-      if (!cleanString) return 'img-empty';
-      var hash = 0;
-      for (var i = 0; i < cleanString.length; i++) {
-        hash = (hash << 5) - hash + cleanString.charCodeAt(i);
+    function generateImageHash(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
         hash |= 0;
       }
-      return 'img-item-' + Math.abs(hash);
+      return 'img-' + Math.abs(hash);
     }
 
-    var documentImages = document.querySelectorAll('img');
-    documentImages.forEach(function(img) {
-      var src = img.getAttribute('src') || '';
+    const postImages = document.querySelectorAll('img');
+    postImages.forEach(img => {
+      let src = img.getAttribute('src') || '';
       if (!src) return;
+      src = src.trim();
       
-      var uniqueHashId = img.getAttribute('id') || generateCleanImageHash(src);
+      let cleanUrl = src.split('#')[0].split('?')[0];
+      let uniqueId = img.getAttribute('id') || generateImageHash(cleanUrl);
       
-      // Inject identifying properties cleanly onto the elements
-      img.setAttribute('id', uniqueHashId);
-      img.classList.add('gallery-image-target-scroll');
+      // Assign identical match id parameter properties along with scroll padding styling overrides
+      img.setAttribute('id', uniqueId);
+      img.classList.add('post-gallery-target-image');
     });
 
-    // Run safe target scrolling sequence checking if a location hash exists
+    // Handle cross-page scrolling initialization transitions cleanly if active fragments are in URL
     if (window.location.hash) {
-      var activeHashId = decodeURIComponent(window.location.hash.substring(1));
-      setTimeout(function() {
-        var finalTargetElement = document.getElementById(activeHashId);
-        if (finalTargetElement) {
-          finalTargetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const parsedHashId = decodeURIComponent(window.location.hash.substring(1));
+      setTimeout(() => {
+        const targetImageNode = document.getElementById(parsedHashId);
+        if (targetImageNode) {
+          targetImageNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 500);
+      }, 500); // 500ms allows standard markdown document templates to finish paint calculations
     }
   });
 </script>
