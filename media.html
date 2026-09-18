@@ -139,7 +139,7 @@ permalink: media
     color: #0071e3;
   }
 
-  /* PAGINATION COMPONENT UI STYLES */
+  /* 2. PAGINATION COMPONENT UI STYLES */
   .pagination-controls-wrapper {
     display: flex;
     justify-content: center;
@@ -182,11 +182,11 @@ permalink: media
   }
 </style>
 
-<!-- GLightbox Plugin Assets Integration for Pop-up Modal View Expansion -->
-<link href="https://jsdelivr.net" rel="stylesheet">
-<script src="https://jsdelivr.net"></script>
+<!-- GLightbox Plugin Assets -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
-<!-- 2. LAYOUT VIEW CONTEXT -->
+<!-- 3. LAYOUT VIEW CONTEXT -->
 <div class="media-gallery-container">
   
   <!-- Latest Image Box -->
@@ -201,7 +201,7 @@ permalink: media
     Generating media library...
   </div>
 
-  <!-- Dynamic Pagination Navigation Blocks -->
+  <!-- Dynamic Pagination Navigation -->
   <div class="pagination-controls-wrapper" id="pagination-controls-element" style="display: none;">
     <button id="prevBtn" disabled>&laquo; Previous</button>
     <span class="page-info-panel" id="pageInfo"></span>
@@ -209,10 +209,13 @@ permalink: media
   </div>
 </div>
 
-<!-- 3. RAW STRUCTURAL DATA GENERATOR (HIDDEN DATA POOL) -->
+<!-- 4. RAW STRUCTURAL DATA GENERATOR (HIDDEN DATA POOL) -->
 <div id="jekyll-raw-content-vault" style="display: none;">
   {% for post in site.posts %}
-    <div class="vault-item" data-url="{{ post.url | relative_url }}" data-date="{{ post.date | date: '%B %d, %Y' }}" data-title="{{ post.title | escape }}">
+    <div class="vault-item" 
+         data-url="{{ post.url | relative_url }}" 
+         data-date="{{ post.date | date: '%B %d, %Y' }}" 
+         data-title="{{ post.title | escape }}">
       <div class="post-html-payload">
         {{ post.content }}
       </div>
@@ -220,18 +223,26 @@ permalink: media
   {% endfor %}
 </div>
 
-<!-- 4. CLIENT JAVASCRIPT SCANNER ENGINE -->
+<!-- 5. CLIENT JAVASCRIPT SCANNER ENGINE -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // Deterministic clean URL signature hash string processing rule
+
+  // Safe extraction utility to isolate base path without crashing on query hashes
+  function getCleanPathString(url) {
+    if (!url) return '';
+    let fragmentClean = url.split('#')[0];
+    let queryClean = fragmentClean.split('?')[0];
+    return queryClean.trim();
+  }
+
+  // Deterministic standard hash generator using image source strings directly
   function generateCleanImageHash(rawSrc) {
-    if (!rawSrc) return 'img-empty';
-    // Isolate arguments parameters out of extension path strings cleanly
-    let cleanUrl = rawSrc.split('#')[0].split('?')[0].trim();
+    let cleanUrl = getCleanPathString(rawSrc);
+    if (!cleanUrl) return 'img-null';
     let hash = 0;
     for (let i = 0; i < cleanUrl.length; i++) {
-      hash = (hash << 5) - hash + cleanString.charCodeAt(i);
-      hash |= 0;
+      hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
     }
     return 'img-ref-' + Math.abs(hash);
   }
@@ -245,10 +256,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const pageInfo = document.getElementById('pageInfo');
   
   let collectedImages = [];
-  const imagesPerPage = 10;
+  const imagesPerPage = 10; // Strictly 10 images per page
   let currentPage = 0;
 
-  // Process item values
+  // Process Jekyll output payload structures
   posts.forEach((postElement) => {
     const postUrl = postElement.getAttribute('data-url');
     const postDate = postElement.getAttribute('data-date');
@@ -261,15 +272,15 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!src || src.startsWith('data:')) return;
       src = src.trim();
 
-      // Ensure stable matching hash ID across layout targets
-      const cleanImgPath = src.split('#')[0].split('?')[0];
-      const deterministicId = generateCleanImageHash(cleanImgPath);
+      // Build stable unique target signature ID
+      const matchingHashId = generateCleanImageHash(src);
+      let postLink = postUrl + "#" + matchingHashId;
       
       let foundCaption = img.getAttribute('alt') || img.getAttribute('title');
       
       const nextSibling = img.nextElementSibling;
       if (nextSibling && (nextSibling.tagName === 'P' || nextSibling.tagName === 'FIGCAPTION')) {
-        if(nextSibling.textContent.trim().length > 1) {
+        if (nextSibling.textContent.trim().length > 1) {
           foundCaption = nextSibling.textContent.trim();
         }
       }
@@ -281,11 +292,15 @@ document.addEventListener("DOMContentLoaded", function() {
       collectedImages.push({
         src: src,
         caption: foundCaption,
-        deepLinkUrl: `${postUrl}#${deterministicId}`,
+        deepLinkUrl: postLink,
         dateString: postDate
       });
     });
   });
+
+  // Empty view targets prior to population
+  gridContainer.innerHTML = '';
+  latestContainer.innerHTML = '';
 
   if (collectedImages.length === 0) {
     latestContainer.innerHTML = '<p style="color: #666;">No valid image paths discovered across posts.</p>';
@@ -293,32 +308,34 @@ document.addEventListener("DOMContentLoaded", function() {
     return;
   }
 
-  // Initialize lightbox overlay view controls
+  // Initialize lightbox
   const lightbox = GLightbox({
     loop: true,
     descPosition: 'bottom'
   });
 
-  // A. RENDER LATEST IMAGE PANEL
+  // A. POPULATE LATEST UPLOAD CARD (Chronologically first item)
   const latestImg = collectedImages[0];
   latestContainer.innerHTML = `
     <div class="media-card latest-card">
       <div class="latest-img-wrapper">
-         <a href="${latestImg.src}" class="glightbox-media-call" data-description="${latestImg.caption}">
-           <img src="${latestImg.src}" alt="${latestImg.caption}">
-         </a>
+        <a href="${latestImg.src}" class="glightbox" data-description="${latestImg.caption}">
+          <img src="${latestImg.src}" alt="${latestImg.caption}">
+        </a>
       </div>
       <div class="latest-info-wrapper">
-         <span class="media-date">Published: ${latestImg.dateString}</span>
-         <a href="${latestImg.deepLinkUrl}" class="caption-link">
-           ${latestImg.caption} &rarr;
-         </a>
-         <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Tapping this caption jumps directly to where this image lives inside the article body.</p>
+        <span class="media-date">Published: ${latestImg.dateString}</span>
+        <a href="${latestImg.deepLinkUrl}" class="caption-link">
+          ${latestImg.caption} &rarr;
+        </a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+          Tapping this caption jumps directly to where this image lives inside the article body.
+        </p>
       </div>
     </div>
   `;
 
-  // B. RENDER PAGINATED IMAGES GRID PANEL
+  // B. RENDER PAGINATED GALLERY
   function displayGalleryPage() {
     gridContainer.innerHTML = '';
     
@@ -331,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function() {
       cardElement.className = 'grid-card';
       cardElement.innerHTML = `
         <div class="grid-img-wrapper">
-          <a href="${item.src}" class="glightbox-media-call" data-description="${item.caption}">
+          <a href="${item.src}" class="glightbox" data-description="${item.caption}">
             <img src="${item.src}" alt="${item.caption}" loading="lazy">
           </a>
         </div>
@@ -343,28 +360,86 @@ document.addEventListener("DOMContentLoaded", function() {
       gridContainer.appendChild(cardElement);
     });
 
-    // Refresh lightbox state rules mapping newly injected card images layout elements
+    // Refresh lightbox after injecting new elements
     lightbox.reload();
 
-    // Render controls counters
+    // Update pagination info
     const totalPagesCount = Math.ceil(collectedImages.length / imagesPerPage);
-pageInfo.textContent = Page ${currentPage + 1} of ${totalPagesCount} (${collectedImages.length} images total);prevBtn.disabled = (currentPage === 0);nextBtn.disabled = (currentPage >= totalPagesCount - 1);}
+    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPagesCount} (${collectedImages.length} images total)`;
+    
+    prevBtn.disabled = (currentPage === 0);
+    nextBtn.disabled = (currentPage >= totalPagesCount - 1);
+  }
 
-// Render initialization engine loopif
-(collectedImages.length > 0) {paginationControls.style.display = 'flex';displayGalleryPage();}
+  // Show pagination controls and render first page
+  if (collectedImages.length > 0) {
+    paginationControls.style.display = 'flex';
+    displayGalleryPage();
+  }
 
-// Event interaction navigation
-listenersprevBtn.addEventListener('click', function() {if (currentPage > 0) {currentPage--;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});nextBtn.addEventListener('click', function() {if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {currentPage++;displayGalleryPage();gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });}});});document.addEventListener("DOMContentLoaded", function() {
-    // Avoid firing anchor script modifications directly on the index layout page
-    if (window.location.pathname.includes('/media/') || window.location.pathname.endsWith('/media.html')) return;function generateCleanImageHash(rawSrc) {if (!rawSrc) return 'img-empty';let cleanString = rawSrc.split('#')[0].split('?')[0].trim();let hash = 0;for (let i = 0; i < cleanString.length; i++) {hash = (hash << 5) - hash + cleanString.charCodeAt(i);hash |= 0;}return 'img-ref-' + Math.abs(hash);}const postImagesNodes = document.querySelectorAll('img');postImagesNodes.forEach(img => {let src = img.getAttribute('src') || '';if (!src) return;let cleanImgPath = src.split('#')[0].split('?')[0];let uniqueHashId = img.getAttribute('id') || generateCleanImageHash(cleanImgPath);
-    // Inject identifying properties cleanly onto the elements
-    img.setAttribute('id', uniqueHashId);
-    
-    // Apply offset layout parameters directly using CSS properties
-    img.style.scrollMarginTop = '120px';});
-    
-    // Animate viewport target scroll loops handling page fragments incoming links smoothly
-    
-    if (window.location.hash) {const activeFragmentId = decodeURIComponent(window.location.hash.substring(1));setTimeout(() => {const targetImage = document.getElementById(activeFragmentId);if (targetImage) {targetImage.scrollIntoView({ behavior: 'smooth', block: 'start' });}}, 500); 
-    
-    // 500ms safely maps assets offsets after browser paint rendering sequence completes}});
+  // Navigation event listeners
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) {
+      currentPage--;
+      displayGalleryPage();
+      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {
+      currentPage++;
+      displayGalleryPage();
+      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Second script: Deep-link handling for individual post pages
+document.addEventListener("DOMContentLoaded", function() {
+  let currentPath = window.location.pathname;
+  if (currentPath.includes('/media/') || currentPath.endsWith('/media.html')) return;
+
+  function getCleanPathString(url) {
+    if (!url) return '';
+    let fragmentClean = url.split('#')[0];
+    let queryClean = fragmentClean.split('?')[0];
+    return queryClean.trim();
+  }
+
+  function generateCleanImageHash(rawSrc) {
+    let cleanUrl = getCleanPathString(rawSrc);
+    if (!cleanUrl) return 'img-null';
+    let hash = 0;
+    for (let i = 0; i < cleanUrl.length; i++) {
+      hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'img-ref-' + Math.abs(hash);
+  }
+
+  // Attach unique IDs and scroll margin to images on article pages
+  const articleImages = document.querySelectorAll('img');
+  articleImages.forEach(img => {
+    let src = img.getAttribute('src') || '';
+    if (!src || src.startsWith('data:')) return;
+
+    let uniqueHashSignature = img.getAttribute('id') || generateCleanImageHash(src);
+    img.setAttribute('id', uniqueHashSignature);
+
+    // Offset for sticky headers
+    img.style.scrollMarginTop = '120px';
+  });
+
+  // Scroll to hash target on load
+  if (window.location.hash) {
+    const activeFragmentId = decodeURIComponent(window.location.hash.substring(1));
+    setTimeout(() => {
+      const targetElement = document.getElementById(activeFragmentId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 550);
+  }
+});
+</script>
