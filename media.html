@@ -1,289 +1,268 @@
 ---
-layout: default
+layout: page
 title: Media Gallery
 permalink: media
 ---
 
+<!-- 1. CSS VISUAL STYLES -->
 <style>
-  .image-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    max-width: 1400px;
+  .media-gallery-container {
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  
+  .latest-media-section {
+    background: #fbfbfd;
+    border: 1px solid #e5e5ea;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 40px;
+  }
+  
+  .latest-title {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #1d1d1f;
+    border-bottom: 2px solid #0071e3;
+    padding-bottom: 6px;
+    display: inline-block;
   }
 
-  .image-gallery figure {
-    margin: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 3px solid #145a32;               /* Green border around the card */
-    box-shadow: 0 4px 12px rgba(20, 90, 50, 0.15);
+  .media-card.latest-card {
     display: flex;
     flex-direction: column;
-    transition: all 0.3s ease;
-    background: #ffffff;
+    gap: 16px;
   }
 
-  .image-gallery figure:hover {
-    box-shadow: 0 8px 20px rgba(20, 90, 50, 0.25);
-    transform: translateY(-3px);
+  @media (min-width: 768px) {
+    .media-card.latest-card {
+      flex-direction: row;
+      align-items: center;
+    }
+    .latest-img-wrapper {
+      flex: 1;
+      max-width: 50%;
+    }
+    .latest-info-wrapper {
+      flex: 1;
+    }
   }
 
-  .image-gallery a.glight {
+  .latest-img-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #f4f4f4;
+  }
+
+  .media-date {
+    font-size: 0.85rem;
+    color: #86868b;
     display: block;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
-    border-bottom: 2px solid #145a32;        /* Green line under the image */
+    margin-bottom: 4px;
   }
 
-  .image-gallery img {
+  .caption-link {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0071e3;
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .caption-link:hover {
+    color: #0051a8;
+    text-decoration: underline;
+  }
+
+  .gallery-title {
+    font-size: 1.6rem;
+    color: #1d1d1f;
+    margin-bottom: 20px;
+  }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .grid-card {
+    background: #fff;
+    border: 1px solid #e5e5ea;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .grid-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  }
+
+  .grid-img-wrapper {
+    height: 200px;
+    overflow: hidden;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .grid-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
 
-  .image-gallery figcaption {
-    padding: 14px 10px;
-    text-align: center;
-    font-size: 0.95em;
-    flex-grow: 1;
-    background: #ffffff;
-    color: #145a32 !important;               /* Green text */
-    border-top: 1px solid #d5f5e3;
+  .grid-card .caption-link {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
   }
 
-  .image-gallery figcaption a {
-    color: #145a32 !important;               /* Green links */
-    text-decoration: none;
-    display: block;
-    font-weight: 600;
+  .grid-card .caption-link:hover {
+    color: #0071e3;
   }
-
-  .image-gallery figcaption a:hover {
-    text-decoration: underline;
-    color: #0d2818 !important;
-  }
-
-  #pagination-controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 25px 15px;
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #145a32;
-  flex-wrap: nowrap;          /* Keep everything on one line by default */
-}
-
-#pagination-controls button {
-  min-width: 130px;
-  padding: 12px 24px;
-  font-size: 1.05em;
-  border: 2px solid #145a32;
-  border-radius: 12px;
-  background: #145a32;
-  color: #ffffff;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
-  transition: all 0.3s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-#pagination-controls button:hover:not(:disabled) {
-  background: #0d2818;
-  border-color: #0d2818;
-  transform: translateY(-2px);
-}
-
-#pagination-controls button:disabled {
-  background: #c8e6c9;
-  border-color: #a5d6a7;
-  color: #a5d6a7;
-  opacity: 0.7;
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-#pageInfo {
-  white-space: nowrap;
-  flex-shrink: 1;
-  text-align: center;
-}
-
-/* ===== TABLET ONLY ===== */
-@media (max-width: 900px) and (min-width: 601px) {
-  #pagination-controls {
-    flex-wrap: wrap;
-    gap: 14px;
-    justify-content: center;
-  }
-
-  #pageInfo {
-    width: 100%;
-    order: -1;               /* Page info goes on top */
-    margin-bottom: 4px;
-  }
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 600px) {
-  .image-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-  }
-
-  #pagination-controls {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  #pageInfo {
-    order: -1;
-  }
-}
-  
 </style>
 
-<link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
+<!-- 2. LAYOUT VIEW CONTEXT -->
+<div class="media-gallery-container">
+  
+  <!-- Latest Image Box -->
+  <div class="latest-media-section">
+    <h2 class="latest-title">Latest Upload</h2>
+    <div id="latest-image-target">Searching for latest file...</div>
+  </div>
 
-<p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post (scrolls to exact image if ID added)
-</p>
-
-<div class="image-gallery" id="imageGallery"></div>
-
-<div id="pagination-controls">
-  <button id="prevBtn" disabled>&laquo; Previous</button>
-  <span id="pageInfo"></span>
-  <button id="nextBtn">Next &raquo;</button>
+  <!-- Global Image Grid -->
+  <h2 class="gallery-title">All Website Media</h2>
+  <div id="media-grid-target" class="media-grid">
+    Generating media library...
+  </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
+<!-- 3. RAW STRUCTURAL DATA GENERATOR (HIDDEN DATA POOL) -->
+<!-- Jekyll loops through original files, building standard HTML parsed cleanly by JavaScript -->
+<div id="jekyll-raw-content-vault" style="display: none;">
+  {% for post in site.posts %}
+    <div class="vault-item" data-url="{{ post.url }}" data-date="{{ post.date | date: '%B %d, %Y' }}" data-title="{{ post.title | escape }}">
+      <div class="post-html-payload">
+        {{ post.content }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
 
+<!-- 4. CLIENT JAVASCRIPT SCANNER ENGINE -->
 <script>
-  const lightbox = GLightbox({
-    loop: true,
-    descPosition: 'bottom'
-  });
-</script>
+document.addEventListener("DOMContentLoaded", function() {
+  const posts = document.querySelectorAll('#jekyll-raw-content-vault .vault-item');
+  const gridContainer = document.getElementById('media-grid-target');
+  const latestContainer = document.getElementById('latest-image-target');
+  
+  let collectedImages = [];
 
-<script type="text/javascript">
-//<![CDATA[
-function showAllImages(json) {
-  var entries = json.feed.entry || [];
-  var allImages = [];
-  var seen = new Set();
+  // Scan every compiled post DOM structure
+  posts.forEach((postElement, postIdx) => {
+    const postUrl = postElement.getAttribute('data-url');
+    const postDate = postElement.getAttribute('data-date');
+    const postTitle = postElement.getAttribute('data-title');
+    const htmlPayload = postElement.querySelector('.post-html-payload');
+    
+    // Track down all image elements embedded within post links/paragraphs
+    const images = htmlPayload.querySelectorAll('img');
+    
+    images.forEach((img, imgIdx) => {
+      const src = img.getAttribute('src');
+      
+      // Filter out utility images (like base64, tracking pixels, or empty values)
+      if (!src || src.startsWith('data:')) return;
 
-  entries.forEach(function(entry) {
-    if (!entry.content) return;
-
-    var postTitle = entry.title ? entry.title.$t : 'Untitled Post';
-    postTitle = postTitle.replace(/"/g, '&quot;');
-
-    var postUrl = '#';
-    for (var j = 0; j < entry.link.length; j++) {
-      if (entry.link[j].rel == 'alternate') {
-        postUrl = entry.link[j].href;
-        break;
+      // Create a definitive scroll anchor configuration tag
+      const dynamicAnchorId = `post-img-ref-${postIdx}-${imgIdx}`;
+      img.setAttribute('id', dynamicAnchorId);
+      
+      // Auto-extract caption properties
+      let foundCaption = img.getAttribute('alt') || img.getAttribute('title');
+      
+      // Contextual check: If wrapped by a figure or followed closely by a style tag paragraph
+      const nextSibling = img.nextElementSibling;
+      if (nextSibling && (nextSibling.tagName === 'P' || nextSibling.tagName === 'FIGCAPTION')) {
+        if(nextSibling.textContent.trim().length > 1) {
+          foundCaption = nextSibling.textContent.trim();
+        }
       }
-    }
+      
+      // Fallback text if attributes are unpopulated
+      if (!foundCaption || foundCaption.trim() === "") {
+        foundCaption = `Image from post: "${postTitle}"`;
+      }
 
-    var content = entry.content.$t;
-    var tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    var imgs = tempDiv.querySelectorAll('img');
-
-    imgs.forEach(function(img) {
-      var src = img.src ? img.src.trim() : '';
-      if (!src || seen.has(src)) return;
-      if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
-
-      seen.add(src);
-
-      var altTextRaw = (img.getAttribute('alt') || '').trim();
-      var altText = altTextRaw.replace(/"/g, '&quot;');
-      var imgIdRaw = img.getAttribute('id') || '';
-      var imgId = imgIdRaw.trim();
-
-      var caption = altText || postTitle;
-      var postLink = imgId ? postUrl + '#' + imgId : postUrl;
-
-      var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
-      var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
-
-      if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
-      if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
-
-      allImages.push({
-        thumbSrc: thumbSrc,
-        fullSrc: fullSrc,
-        caption: caption,
-        postLink: postLink
+      // Compile object record
+      collectedImages.push({
+        src: src,
+        caption: foundCaption,
+        deepLinkUrl: `${postUrl}#${dynamicAnchorId}`,
+        dateString: postDate
       });
     });
   });
 
-  const galleryDiv = document.getElementById('imageGallery');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const pageInfo = document.getElementById('pageInfo');
-  const imagesPerPage = 10;
-  let currentPage = 0;
+  // Empty placeholder wrappers
+  gridContainer.innerHTML = '';
+  latestContainer.innerHTML = '';
 
-  function renderGallery() {
-    const start = currentPage * imagesPerPage;
-    const end = start + imagesPerPage;
-    const pageImages = allImages.slice(start, end);
-
-    let html = '';
-    if (pageImages.length === 0) {
-      html = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32;">No images found.</p>';
-    } else {
-      pageImages.forEach(function(data) {
-        html += `<figure>
-          <a href="${data.fullSrc}" class="glight" data-description="${data.caption}">
-            <img src="${data.thumbSrc}" alt="${data.caption}" loading="lazy">
-          </a>
-          <figcaption><a href="${data.postLink}" target="_blank">${data.caption}</a></figcaption>
-        </figure>`;
-      });
-    }
-
-    galleryDiv.innerHTML = html;
-    lightbox.reload();
-
-    const totalPages = Math.ceil(allImages.length / imagesPerPage);
-    pageInfo.textContent = allImages.length ? `Page ${currentPage + 1} of ${totalPages} (${allImages.length} images total)` : '';
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage >= totalPages - 1;
+  if (collectedImages.length === 0) {
+    latestContainer.innerHTML = '<p style="color: #666;">No valid image paths discovered across posts.</p>';
+    gridContainer.innerHTML = '<p style="color: #666;">Gallery empty.</p>';
+    return;
   }
 
-  if (allImages.length === 0) {
-    galleryDiv.innerHTML = '<p style="grid-column: 1 / -1; text-align:center; color:#145a32;">No images found.</p>';
-    pageInfo.textContent = '';
-  } else {
-    renderGallery();
-  }
+  // A. RENDER LATEST IMAGE
+  // Jekyll loops chronologically by default, so index 0 corresponds to the latest chronological file entry
+  const latestImg = collectedImages[0];
+  latestContainer.innerHTML = `
+    <div class="media-card latest-card">
+      <div class="latest-img-wrapper">
+         <img src="${latestImg.src}" alt="${latestImg.caption}">
+      </div>
+      <div class="latest-info-wrapper">
+         <span class="media-date">Published: ${latestImg.dateString}</span>
+         <a href="${latestImg.deepLinkUrl}" class="caption-link">
+           ${latestImg.caption} &rarr;
+         </a>
+         <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">Tapping this caption jumps directly to where this image lives inside the article body.</p>
+      </div>
+    </div>
+  `;
 
-  prevBtn.addEventListener('click', function() {
-    if (currentPage > 0) {
-      currentPage--;
-      renderGallery();
-    }
+  // B. RENDER ALL IMAGES IN A DYNAMIC CSS GRID
+  collectedImages.forEach(item => {
+    const cardElement = document.createElement('div');
+    cardElement.className = 'grid-card';
+    
+    cardElement.innerHTML = `
+      <div class="grid-img-wrapper">
+        <img src="${item.src}" alt="${item.caption}" loading="lazy">
+      </div>
+      <span class="media-date">${item.dateString}</span>
+      <a href="${item.deepLinkUrl}" class="caption-link" title="Jump straight to item view location">
+        ${item.caption}
+      </a>
+    `;
+    gridContainer.appendChild(cardElement);
   });
-
-  nextBtn.addEventListener('click', function() {
-    if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
-      currentPage++;
-      renderGallery();
-    }
-  });
-}
-//]]>
+});
 </script>
-
