@@ -45,11 +45,6 @@ permalink: media
     display: block;
   }
 
-  /* Added scroll margin target alignment class properties */
-  .post-gallery-target-image {
-    scroll-margin-top: 100px !important;
-  }
-
   .image-gallery figcaption {
     padding: 14px 10px;
     text-align: center;
@@ -73,90 +68,91 @@ permalink: media
   }
 
   #pagination-controls {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 15px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #145a32;
+  flex-wrap: nowrap;          /* Keep everything on one line by default */
+}
+
+#pagination-controls button {
+  min-width: 130px;
+  padding: 12px 24px;
+  font-size: 1.05em;
+  border: 2px solid #145a32;
+  border-radius: 12px;
+  background: #145a32;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
+  transition: all 0.3s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#pagination-controls button:hover:not(:disabled) {
+  background: #0d2818;
+  border-color: #0d2818;
+  transform: translateY(-2px);
+}
+
+#pagination-controls button:disabled {
+  background: #c8e6c9;
+  border-color: #a5d6a7;
+  color: #a5d6a7;
+  opacity: 0.7;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+#pageInfo {
+  white-space: nowrap;
+  flex-shrink: 1;
+  text-align: center;
+}
+
+/* ===== TABLET ONLY ===== */
+@media (max-width: 900px) and (min-width: 601px) {
+  #pagination-controls {
+    flex-wrap: wrap;
+    gap: 14px;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 25px 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #145a32;
-    flex-wrap: nowrap;
-  }
-
-  #pagination-controls button {
-    min-width: 130px;
-    padding: 12px 24px;
-    font-size: 1.05em;
-    border: 2px solid #145a32;
-    border-radius: 12px;
-    background: #145a32;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(20, 90, 50, 0.2);
-    transition: all 0.3s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  #pagination-controls button:hover:not(:disabled) {
-    background: #0d2818;
-    border-color: #0d2818;
-    transform: translateY(-2px);
-  }
-
-  #pagination-controls button:disabled {
-    background: #c8e6c9;
-    border-color: #a5d6a7;
-    color: #a5d6a7;
-    opacity: 0.7;
-    box-shadow: none;
-    cursor: not-allowed;
   }
 
   #pageInfo {
-    white-space: nowrap;
-    flex-shrink: 1;
-    text-align: center;
+    width: 100%;
+    order: -1;               /* Page info goes on top */
+    margin-bottom: 4px;
+  }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+  .image-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
   }
 
-  /* ===== TABLET ONLY ===== */
-  @media (max-width: 900px) and (min-width: 601px) {
-    #pagination-controls {
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-    }
-
-    #pageInfo {
-      width: 100%;
-      order: -1;
-      margin-bottom: 4px;
-    }
+  #pagination-controls {
+    flex-direction: column;
+    gap: 12px;
   }
 
-  /* ===== MOBILE ===== */
-  @media (max-width: 600px) {
-    .image-gallery {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
-    }
-
-    #pagination-controls {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    #pageInfo {
-      order: -1;
-    }
+  #pageInfo {
+    order: -1;
   }
+}
+  
 </style>
 
 <link href="https://cdn.jsdelivr.net/npm/glightbox@3/dist/css/glightbox.min.css" rel="stylesheet">
 
 <p style="text-align: center; color: #145a32;">
-  Click thumbnail to enlarge • Click caption underneath to open the post webpage and scroll directly to that image's position.
+  Click thumbnail to enlarge (your alt text shown below the image) • Click caption to open original post (scrolls to exact image if ID added)
 </p>
 
 <div class="image-gallery" id="imageGallery"></div>
@@ -169,61 +165,74 @@ permalink: media
 
 <script src="https://cdn.jsdelivr.net/npm/glightbox@3/dist/js/glightbox.min.js"></script>
 
-<script type="text/javascript">
-  function generateImageHash(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = (hash << 5) - hash + str.charCodeAt(i);
-      hash |= 0;
-    }
-    return 'img-' + Math.abs(hash);
-  }
-
-  const allImages = [
-    {% for post in site.posts %}
-      {% if post.content contains '<img' or post.content contains '![' %}
-        (() => {
-          const div = document.createElement('div');
-          div.innerHTML = {{ post.content | jsonify }};
-          const imgs = div.querySelectorAll('img');
-          let parsedImages = [];
-          
-          imgs.forEach(img => {
-            let src = img.getAttribute('src') || '';
-            if (!src) return;
-            src = src.trim();
-
-            let cleanUrl = src.split('#')[0].split('?')[0];
-
-            let altText = (img.getAttribute('alt') || '').trim();
-            let caption = altText ? altText : {{ post.title | jsonify }};
-            
-            let targetId = img.getAttribute('id') || generateImageHash(cleanUrl);
-            let postLink = "{{ post.url | relative_url }}#" + targetId;
-
-            parsedImages.push({
-              thumbSrc: src,
-              fullSrc: src,
-              caption: caption,
-              postLink: postLink
-            });
-          });
-          return parsedImages;
-        })(),
-      {% endif %}
-    {% endfor %}
-  ].flat().filter(Boolean);
-
+<script>
   const lightbox = GLightbox({
     loop: true,
     descPosition: 'bottom'
+  });
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+function showAllImages(json) {
+  var entries = json.feed.entry || [];
+  var allImages = [];
+  var seen = new Set();
+
+  entries.forEach(function(entry) {
+    if (!entry.content) return;
+
+    var postTitle = entry.title ? entry.title.$t : 'Untitled Post';
+    postTitle = postTitle.replace(/"/g, '&quot;');
+
+    var postUrl = '#';
+    for (var j = 0; j < entry.link.length; j++) {
+      if (entry.link[j].rel == 'alternate') {
+        postUrl = entry.link[j].href;
+        break;
+      }
+    }
+
+    var content = entry.content.$t;
+    var tempDiv = document.createElement('div');
+    tempDiv.innerHTML = content;
+    var imgs = tempDiv.querySelectorAll('img');
+
+    imgs.forEach(function(img) {
+      var src = img.src ? img.src.trim() : '';
+      if (!src || seen.has(src)) return;
+      if (!src.includes('blogspot.com') && !src.includes('googleusercontent.com')) return;
+
+      seen.add(src);
+
+      var altTextRaw = (img.getAttribute('alt') || '').trim();
+      var altText = altTextRaw.replace(/"/g, '&quot;');
+      var imgIdRaw = img.getAttribute('id') || '';
+      var imgId = imgIdRaw.trim();
+
+      var caption = altText || postTitle;
+      var postLink = imgId ? postUrl + '#' + imgId : postUrl;
+
+      var thumbSrc = src.replace(/\/s\d+-?\w*\//gi, '/s400-c/').replace(/=s\d+/g, '=s400-c');
+      var fullSrc = src.replace(/\/s\d+-?\w*\//gi, '/s1600/').replace(/=s\d+/g, '=s1600');
+
+      if (thumbSrc === src) thumbSrc = src + (src.includes('?') ? '&' : '?') + '=s400-c';
+      if (fullSrc === src) fullSrc = src + (src.includes('?') ? '&' : '?') + '=s1600';
+
+      allImages.push({
+        thumbSrc: thumbSrc,
+        fullSrc: fullSrc,
+        caption: caption,
+        postLink: postLink
+      });
+    });
   });
 
   const galleryDiv = document.getElementById('imageGallery');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const pageInfo = document.getElementById('pageInfo');
-  const imagesPerPage = 12;
+  const imagesPerPage = 10;
   let currentPage = 0;
 
   function renderGallery() {
@@ -265,7 +274,6 @@ permalink: media
     if (currentPage > 0) {
       currentPage--;
       renderGallery();
-      window.scrollTo({ top: galleryDiv.offsetTop - 50, behavior: 'smooth' });
     }
   });
 
@@ -273,49 +281,9 @@ permalink: media
     if (currentPage < Math.ceil(allImages.length / imagesPerPage) - 1) {
       currentPage++;
       renderGallery();
-      window.scrollTo({ top: galleryDiv.offsetTop - 50, behavior: 'smooth' });
     }
   });
+}
+//]]>
 </script>
 
-<!-- Complete Injection Footer Script containing full closed brackets loops -->
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function() {
-    // Exclude running parsing configurations if on the media gallery path index directly
-    if (window.location.pathname.includes('/media') || window.location.pathname.includes('/media.html')) return;
-    
-    function generateImageHash(str) {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        hash = (hash << 5) - hash + str.charCodeAt(i);
-        hash |= 0;
-      }
-      return 'img-' + Math.abs(hash);
-    }
-
-    const postImages = document.querySelectorAll('img');
-    postImages.forEach(img => {
-      let src = img.getAttribute('src') || '';
-      if (!src) return;
-      src = src.trim();
-      
-      let cleanUrl = src.split('#')[0].split('?')[0];
-      let uniqueId = img.getAttribute('id') || generateImageHash(cleanUrl);
-      
-      // Assign identical match id parameter properties along with scroll padding styling overrides
-      img.setAttribute('id', uniqueId);
-      img.classList.add('post-gallery-target-image');
-    });
-
-    // Handle cross-page scrolling initialization transitions cleanly if active fragments are in URL
-    if (window.location.hash) {
-      const parsedHashId = decodeURIComponent(window.location.hash.substring(1));
-      setTimeout(() => {
-        const targetImageNode = document.getElementById(parsedHashId);
-        if (targetImageNode) {
-          targetImageNode.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 500); // 500ms allows standard markdown document templates to finish paint calculations
-    }
-  });
-</script>
