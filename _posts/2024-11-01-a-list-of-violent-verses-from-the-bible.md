@@ -2,7 +2,7 @@
 layout: post
 title: "A List of Violent Verses from The Bible"
 date: 2024-11-01 12:21:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection]
 ---
 
 (Use against those who say Islam tells to kill dis-believers): 
