@@ -2,7 +2,7 @@
 layout: post
 title: "Question and answer regarding something"
 date: 2025-12-04 22:04:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Reflection, Tawassuf]
 ---
 
 The Question
