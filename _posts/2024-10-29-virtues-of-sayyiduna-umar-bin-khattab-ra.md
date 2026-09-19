@@ -2,7 +2,7 @@
 layout: post
 title: "Virtues of Sayyiduna Umar Bin Khattab (RA)"
 date: 2024-10-29 22:23:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 In the virtues of Sayyiduna Umar Bin Khattab (RA) by Ibn Abi al-Dunya and the one by Al Suyuti, it is mentioned that the earth quaked during the time of Umar. He struck it with his hand and said: "What is wrong with you? What is wrong with you? If it were the Day of Judgment, it would have revealed its news." I heard the Messenger of Allah ﷺ say: "On the Day of Judgment, there will not be a span or a cubit that does not speak."
