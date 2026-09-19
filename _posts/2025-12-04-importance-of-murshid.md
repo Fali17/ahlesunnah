@@ -2,7 +2,7 @@
 layout: post
 title: "Importance of murshid"
 date: 2025-12-04 22:01:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Reflection,Tawassuf]
 ---
 
 Ahmed-i Zerrûk said: 
