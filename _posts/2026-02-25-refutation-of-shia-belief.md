@@ -2,7 +2,7 @@
 layout: post
 title: "Refutation of Shia Belief"
 date: 2026-02-25 21:28:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Refutation,Deviants]
 ---
 
 As per shia belief giving power (Sultah) to someone who is not from Ahlul Bayt or someone who is a criminal and a tyrant is a huge sin (tbh lowkey impossible as they call their Imams angels)
