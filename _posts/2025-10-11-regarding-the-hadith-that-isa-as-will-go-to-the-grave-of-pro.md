@@ -2,7 +2,7 @@
 layout: post
 title: "Regarding the hadith that Isa AS will go to the grave of Prophet Muhammad ﷺ"
 date: 2025-10-11 22:32:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Tafsir,Reflection]
 ---
 
 The book of high demands [Ibn Hajar al-Asqalani]
