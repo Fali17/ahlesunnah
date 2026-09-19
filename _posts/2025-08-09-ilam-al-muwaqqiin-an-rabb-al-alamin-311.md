@@ -2,7 +2,7 @@
 layout: post
 title: "Iʿlām al-muwaqqiʿīn ʿan rabb al-ʿālamīn (311)"
 date: 2025-08-09 14:44:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Essay,Reflection]
 ---
 
 Shaykh Al Islam Ibn Qayyim (RA) said:
