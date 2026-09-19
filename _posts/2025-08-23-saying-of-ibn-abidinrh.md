@@ -2,7 +2,7 @@
 layout: post
 title: "Saying of Ibn Abidin(rh)"
 date: 2025-08-23 22:36:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Scans,Fiqh]
 ---
 
 Ibn Abidin (rh) says one should kiss the thumbs and place them on his eyes after saying ﷺ. After hearing his name in Adhan.
