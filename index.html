@@ -2,6 +2,23 @@
 layout: default
 title: Home
 ---
+
+<style>
+  .posts-grid .post-card .excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;              /* Strictly enforces exactly 4 lines of preview height on screens */
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;                   /* Balanced vertical reading row leading line height */
+  max-height: 6em;                    /* Mathematical height safety cap calculated by multiplying clamp lines by line-height */
+  color: #86868b;                     /* Slate grey color parameter settings matching theme standards */
+  margin-top: 8px;
+  margin-bottom: 14px;
+  white-space: normal;
+}
+
+</style>
 <div class="hero">
   <p>بسم الله </p>
 </div>
@@ -14,7 +31,12 @@ title: Home
     {% if post.tags %}{% for tag in post.tags limit:2 %}<span class="label">{{ tag }}</span>{% endfor %}{% endif %}
   </div>
   <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
-  <p class="excerpt">{{ post.excerpt | strip_html | truncate: 180 }}</p>
+  
+  <!-- Evaluates full text block lengths and drops layout-breaking markup flags -->
+  <p class="excerpt">
+    {{ post.content | strip_html | strip_newlines }}
+  </p>
+  
   <a class="read-more" href="{{ post.url | relative_url }}">Read more &rarr;</a>
 </article>
 {% endfor %}
@@ -46,3 +68,4 @@ title: Home
 
 </div>
 {% endif %}
+
