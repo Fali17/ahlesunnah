@@ -2,7 +2,7 @@
 layout: post
 title: "The Miraculous Verses of the Holy Quran, for which even contemporary (Modern) science cannot offer an explanation for."
 date: 2024-11-25 00:13:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Qur'an,Tafsir]
 ---
 
 **Quran (Surah At-Talaq) 65:12:**
