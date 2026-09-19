@@ -2,7 +2,7 @@
 layout: post
 title: "Saying of Imam Shafi (rh)"
 date: 2024-11-22 22:54:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh,Reflection]
 ---
 
 "Every good thing for the Muslim is through the sake of Rasool Allah ﷺ and whatever bad does not befall us is also by his ﷺ grace."
