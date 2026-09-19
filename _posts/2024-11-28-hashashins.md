@@ -2,7 +2,7 @@
 layout: post
 title: "Hashashins"
 date: 2024-11-28 22:19:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [History,Essay]
 ---
 
 The word "assassin" is actually derived from the Hashashin, and because of them, this word came into existence.
