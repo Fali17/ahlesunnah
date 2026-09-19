@@ -2,7 +2,7 @@
 layout: post
 title: "The Definition of Fiṭrah. Is Fiṭrah Islam?"
 date: 2025-10-03 00:52:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection]
 ---
 
 Fiṭrah ≠ fully-formed Islamic creed.
