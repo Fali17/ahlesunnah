@@ -2,7 +2,7 @@
 layout: post
 title: "Regarding Murshids"
 date: 2026-03-18 22:41:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Reflection,Tawassuf]
 ---
 
 The Murshid (Shaykh) is the ladder to the Heavens;
