@@ -2,7 +2,7 @@
 layout: post
 title: "The Holy Quran and Modern Science:"
 date: 2024-11-16 11:52:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Qur'an,Reflection]
 ---
 
 Cosmology and the Origin of the Universe:
