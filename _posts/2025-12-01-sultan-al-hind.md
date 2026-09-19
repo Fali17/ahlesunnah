@@ -2,7 +2,7 @@
 layout: post
 title: "Sultan Al Hind"
 date: 2025-12-01 19:10:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [History,Tawassuf]
 ---
 
 Biography of Sultan Al Hind:
