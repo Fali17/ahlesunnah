@@ -2,7 +2,7 @@
 layout: post
 title: "Difference between Akbar and Sultan Aurangzeb"
 date: 2024-11-28 14:10:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,History]
 ---
 
 Vincent Smith in Akbar the Great Mogul: “Din-i-Ilahi never succeeded in winning mass acceptance, nor was it a religion in the traditional sense, it was never a religiion thats a misconception. It was more an expression of Akbar’s eclectic personality.”
