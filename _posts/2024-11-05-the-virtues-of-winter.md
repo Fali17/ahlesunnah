@@ -2,7 +2,7 @@
 layout: post
 title: "The virtues of winter"
 date: 2024-11-05 12:34:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection,Fiqh]
 ---
 
 :
