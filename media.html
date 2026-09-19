@@ -200,7 +200,13 @@ permalink: media
     height: auto !important;
     object-fit: contain !important;
   }
-
+/* Extra safety for desktop */
+@media (min-width: 769px) {
+  .glightbox-container .gslide-image img {
+    max-width: 95% !important;
+    max-height: 90vh !important;
+  }
+}
   /* Larger, more visible X close button */
   .gclose {
     width: 44px !important;
