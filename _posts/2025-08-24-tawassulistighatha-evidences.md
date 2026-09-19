@@ -2,7 +2,7 @@
 layout: post
 title: "Tawassul/Istighatha evidences"
 date: 2025-08-24 21:51:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Scans,Fiqh]
 ---
 
 Imam Shafi (rh) would go to the grave of Imam Abu Hanifa and would seek barakh from it and would supplicate there if he ever had a need and it would be fulfilled (Manaqib Imam Al Adham Abu Hanfia)
