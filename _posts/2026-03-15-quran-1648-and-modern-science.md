@@ -2,10 +2,10 @@
 layout: post
 title: "Qur’an 16:48 and Modern Science"
 date: 2026-03-15 22:11:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Qur'an,Tafsir,Reflection]
 ---
 
-## Qur'an 16:48 and Modern Science:
+
 
 “Have they not considered how the shadows of everything Allah has created incline to the right and the left, prostrating to Allah in humility?”
 
