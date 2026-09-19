@@ -2,7 +2,7 @@
 layout: post
 title: "Explanation of free will"
 date: 2026-03-07 00:22:07 +0000
-tags: [islam, ahle-sunnah]
+tags: [Aqeedah,Fiqh]
 ---
 
 1. The Core Distinction: Creator vs. Acquirer
