@@ -2,7 +2,7 @@
 layout: post
 title: "Shaykh's statement explained"
 date: 2025-08-05 20:43:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Tafsir,Essay]
 ---
 
 Shaykh Al Islam Ibn Qudamah (RA) said:
