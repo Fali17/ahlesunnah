@@ -2,7 +2,7 @@
 layout: post
 title: "Don't mention Prophet ﷺ by his name alone."
 date: 2025-10-11 00:29:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh]
 ---
 
 The Beautiful Verse of the Holy Quran which commands us not to mention the Prophet (ﷺ) by his name alone:
