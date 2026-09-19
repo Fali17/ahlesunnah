@@ -2,7 +2,7 @@
 layout: post
 title: "Explaining the slave girl hadith"
 date: 2025-10-15 13:35:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Tafsir,Essay]
 ---
 
 Allah transcends place/direction. In dua (supplication), raising hands or facing toward the sky symbolizes exaltation and seeking Allah's lofty mercy (as heaven represents height/honor in Arabic idiom). In salah (prayer), the qiblah is the Kaaba on earth. Gazing at the sky during salah is forbidden (Sahih Bukhari, 750): eyes should focus on sujud spot). If the hadith meant literal location "above," salah's qiblah would be upward—but it's not, proving "fi al-sama'" is not spatial. This aligns with reason: rituals reflect transcendence, not confinement. 
