@@ -2,7 +2,7 @@
 layout: post
 title: "Ahadith on the Virtues of Sending Salawat upon the Prophet (S) on Friday."
 date: 2024-11-02 13:34:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh,Tafsir]
 ---
 
 Abu Bakr ibn Abi Shaybah narrated to us, Al-Husayn ibn Ali narrated to us, from Abd al-Rahman ibn Yazid ibn Jabir, from Abu al-Ash'ath al-San'ani, from Shaddad ibn Aws, who said: The Messenger of Allah (peace be upon him) said, "Indeed, among the best of your days is Friday; on it, Adam was created, on it is the blowing of the trumpet, and on it is the swoon. So increase your prayers upon me on it, for your prayers are presented to me." A man said, "O Messenger of Allah, how are our prayers presented to you when you have decayed?" He said, "Indeed, Allah has forbidden the earth to consume the bodies of the prophets."
