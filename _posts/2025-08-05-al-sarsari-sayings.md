@@ -2,7 +2,7 @@
 layout: post
 title: "Al-Ṣarṣarī sayings"
 date: 2025-08-05 20:44:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Fiqh,Reflection]
 ---
 
 Al-Ṣarṣarī (RA) said also:
