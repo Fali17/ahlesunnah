@@ -2,7 +2,7 @@
 layout: post
 title: "Imam Ibn Al Qayyim (rh) in Zaad Al Maad (/222)"
 date: 2024-11-02 21:40:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Essay,Reflection]
 ---
 
 Then he places the right hand on the back of the left hand above the wrist and forearm. There is no authentic report about their placement but the famous one is mentioned from **Ali bin Abi Talib RA** that he said:
