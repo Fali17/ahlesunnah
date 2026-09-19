@@ -2,7 +2,7 @@
 layout: post
 title: "Shafi'i position on shaving/trimming beard"
 date: 2026-09-03 00:53:51 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Essay]
 ---
 
 The Shafi‘i Position on Shaving and Trimming the Beard
