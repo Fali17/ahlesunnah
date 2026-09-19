@@ -2,7 +2,7 @@
 layout: post
 title: "Adab(manners)"
 date: 2025-08-05 20:41:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Essay]
 ---
 
 Importance of Adab (Manners):
