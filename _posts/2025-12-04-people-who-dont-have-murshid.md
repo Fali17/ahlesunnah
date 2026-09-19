@@ -2,7 +2,7 @@
 layout: post
 title: "People who don't have murshid"
 date: 2025-12-04 21:52:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Reflection,Tawassuf]
 ---
 
 Baba Feriduddin Genc-i Seker gives the following advice on this subject: "If a person does not have a spiritual guide to guide him (to show him the right path), he should read the books of great people (Ahl as-Sunnah scholars) and follow them."
