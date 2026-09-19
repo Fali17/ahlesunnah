@@ -2,7 +2,7 @@
 layout: post
 title: "Fadail Sayyidat Al Nisa Al Alamin Fatima Zahra (SA)"
 date: 2025-08-15 16:16:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Reflection]
 ---
 
 Fatima was the youngest of the daughters of the Messenger of Allah ﷺ. She was born before the mission of the Prophet ﷺ when Quraysh were rebuilding the Kabbah, and some people differed about when she was born. Most of them agreed it was before the mission. She was named Fatima because Allah inspired His Messenger to name her that, and also the name of the woman who raised the Prophet ﷺ was also Fatimah. She was the most beloved to the Prophet ﷺ. The Prophet ﷺ said: She is a part of me; what distresses her distresses me, and what harms her harms me. 
