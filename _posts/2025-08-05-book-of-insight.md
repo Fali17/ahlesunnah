@@ -2,7 +2,7 @@
 layout: post
 title: "Book of insight"
 date: 2025-08-05 20:39:00 +0000
-tags: [islam, ahle-sunnah]
+tags: [Fiqh,Tafsir]
 ---
 
 in this book (كتاب التبصرة لابن الجوزي page 494) volume 1Imam Ibn Al Jawzi (may Allah have mercy on him) narrates the Hadith of the Middle Nation and it seems he is among those scholars who believe that the Messenger (peace and blessings be upon him) is a witness over our deeds, which are presented to him, and he supports this view, even though some new creed scholars deny it because of their misguidance and not because of ignorance. 
