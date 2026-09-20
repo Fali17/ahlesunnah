@@ -91,14 +91,12 @@ permalink: test
     font-family: Amiri, serif; font-size: 1.4rem; margin: 0 0 16px; color: var(--t);
   }
 
+  /* Single column: one box, then the next box below it */
   .mg-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
     margin-bottom: 24px;
-  }
-  @media (max-width: 520px) {
-    .mg-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
 
   .mg-card {
@@ -125,12 +123,21 @@ permalink: test
   .mg-card-body .mg-date { font-size: 0.7rem; }
   .mg-card-body .mg-cap {
     font-size: 0.85rem; font-weight: 500; color: var(--t);
-    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    /* Full caption — no clamp / no ellipsis */
+    white-space: normal;
+    overflow: visible;
   }
   .mg-card-body .mg-cap:hover { color: var(--p); }
 
+  /* Pager: Previous | Page number (middle) | Next */
   .mg-pager {
-    display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 480px;
+    margin: 0 auto;
   }
   .mg-pager button {
     min-width: 100px; padding: 10px 16px; font-size: 0.9rem; font-weight: 600;
@@ -140,7 +147,10 @@ permalink: test
     border-color: var(--p); background: color-mix(in srgb, var(--p) 8%, white);
   }
   .mg-pager button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .mg-page-info { font-size: 0.9rem; color: var(--m); font-weight: 500; min-width: 140px; text-align: center; }
+  .mg-page-info {
+    font-size: 0.9rem; color: var(--m); font-weight: 500;
+    min-width: 120px; text-align: center; flex: 1;
+  }
 
   .mg-empty {
     text-align: center; padding: 40px 16px; color: var(--m);
@@ -165,13 +175,8 @@ permalink: test
   #mg-lb-cap {
     max-width: 90vw; margin-top: 12px; color: #f1f5f9; text-align: center;
     font-size: 0.9rem; background: rgba(255,255,255,0.08); padding: 8px 14px; border-radius: 10px;
+    white-space: normal; /* full caption */
   }
-  #mg-lb-actions { margin-top: 12px; }
-  #mg-lb-dl {
-    display: inline-block; padding: 10px 18px; background: var(--p); color: #fff !important;
-    border-radius: 10px; text-decoration: none !important; font-weight: 600; font-size: 0.9rem;
-  }
-  #mg-lb-dl:hover { background: #0a3721; }
   #mg-lb-x {
     position: absolute; top: 14px; right: 14px; width: 44px; height: 44px;
     border: none; border-radius: 50%; background: rgba(255,255,255,0.15);
@@ -183,7 +188,7 @@ permalink: test
 <div class="mg">
   <header class="mg-hero">
     <h1>Media Gallery</h1>
-    <p>All images from the site — open full size, download, or jump to the original post.</p>
+    <p>All images from the site — open full size or jump to the original post.</p>
     <div class="mg-stats">
       <span class="mg-stat" id="mg-total">…</span>
       <span class="mg-stat" id="mg-pages">…</span>
@@ -204,9 +209,6 @@ permalink: test
   <button type="button" id="mg-lb-x" aria-label="Close">&times;</button>
   <img id="mg-lb-img" alt="">
   <div id="mg-lb-cap"></div>
-  <div id="mg-lb-actions">
-    <a id="mg-lb-dl" href="#" download>↓ Download</a>
-  </div>
 </div>
 
 <!-- Build-time image list (no full post HTML → page stays fast) -->
@@ -279,33 +281,14 @@ document.addEventListener("DOMContentLoaded", function () {
     return "img-ref-" + Math.abs(h);
   }
 
-  function fileName(caption, src) {
-    var name = (caption || "image").trim()
-      .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
-      .replace(/\s+/g, "_")
-      .substring(0, 80) || "image";
-    var ext = "jpg";
-    if (src && src.indexOf("data:image/") === 0) {
-      var m = src.match(/^data:image\/([a-zA-Z0-9+]+);/);
-      if (m) {
-        ext = m[1].toLowerCase().replace("jpeg", "jpg");
-        if (ext === "svg+xml") ext = "svg";
-      }
-    } else {
-      var m2 = (src || "").match(/\.(jpe?g|png|gif|webp|bmp|svg)(\?|$)/i);
-      if (m2) ext = m2[1].toLowerCase();
-    }
-    return name + "." + ext;
-  }
-
-  // Normalize list
+  // Normalize list — full caption (no truncation)
   items = items.map(function (it) {
     var src = (it.src || "").trim();
     var alt = (it.alt || "").trim();
     if (!alt) alt = 'Image from "' + (it.title || "post") + '"';
     return {
       src: src,
-      caption: alt.replace(/\s+/g, " ").substring(0, 280),
+      caption: alt.replace(/\s+/g, " "),
       deep: (it.url || "") + "#" + hashSrc(src),
       date: it.date || ""
     };
@@ -334,14 +317,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var lb = document.getElementById("mg-lb");
   var lbImg = document.getElementById("mg-lb-img");
   var lbCap = document.getElementById("mg-lb-cap");
-  var lbDl = document.getElementById("mg-lb-dl");
 
   function openLb(src, caption) {
     lbImg.src = src;
     lbImg.alt = caption || "";
     lbCap.textContent = caption || "";
-    lbDl.href = src;
-    lbDl.setAttribute("download", fileName(caption, src));
     lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -417,7 +397,7 @@ document.addEventListener("DOMContentLoaded", function () {
     a.className = "mg-cap";
     a.href = it.deep;
     a.title = "Jump to this image in the post";
-    a.textContent = it.caption;
+    a.textContent = it.caption;   // full caption
     body.appendChild(d);
     body.appendChild(a);
 
