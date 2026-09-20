@@ -84,7 +84,7 @@ body {
   background: var(--primary);
   border-radius: 50%;
   padding: 3px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 2px var(--accent);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 2px var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
