@@ -81,6 +81,7 @@ permalink: test
     text-decoration: none;
     line-height: 1.4;
     transition: color 0.2s ease;
+    word-break: break-word;
   }
 
   .caption-link:hover {
@@ -100,6 +101,13 @@ permalink: test
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 22px;
     margin-bottom: 28px;
+  }
+
+  @media (max-width: 600px) {
+    .media-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 14px;
+    }
   }
 
   .grid-card {
@@ -146,7 +154,6 @@ permalink: test
     color: var(--primary);
   }
 
-  /* Pagination */
   .pagination-controls-wrapper {
     display: flex;
     justify-content: center;
@@ -156,6 +163,7 @@ permalink: test
     margin-top: 12px;
     font-size: 0.95rem;
     color: var(--text);
+    flex-wrap: wrap;
   }
 
   .pagination-controls-wrapper button {
@@ -189,7 +197,7 @@ permalink: test
     color: var(--muted);
   }
 
-  /* ========== GLIGHTBOX – fits all devices ========== */
+  /* GLightbox – fit all devices */
   .glightbox-container .gslide {
     display: flex !important;
     align-items: center !important;
@@ -207,7 +215,7 @@ permalink: test
 
   .glightbox-container .gslide-image img {
     max-width: 96vw !important;
-    max-height: 88vh !important;
+    max-height: 85vh !important;
     width: auto !important;
     height: auto !important;
     object-fit: contain !important;
@@ -215,29 +223,22 @@ permalink: test
     margin: 0 auto !important;
   }
 
-  @media (min-width: 1024px) {
-    .glightbox-container .gslide-image img {
-      max-width: 92vw !important;
-      max-height: 90vh !important;
-    }
-  }
-
   @media (max-width: 768px) {
     .glightbox-container .gslide-image img {
       max-width: 98vw !important;
-      max-height: 78vh !important;
+      max-height: 75vh !important;
     }
   }
 
   .glightbox-container .gslide-description {
     max-width: 90vw !important;
-    margin: 12px auto 0 !important;
+    margin: 10px auto 0 !important;
     text-align: center !important;
     background: rgba(0,0,0,0.7) !important;
     color: #fff !important;
-    padding: 10px 16px !important;
+    padding: 10px 14px !important;
     border-radius: 8px !important;
-    font-size: 0.95rem !important;
+    font-size: 0.9rem !important;
   }
 
   .gclose {
@@ -249,23 +250,16 @@ permalink: test
     right: 14px !important;
     opacity: 0.95 !important;
     z-index: 99999 !important;
-    transition: all 0.2s ease !important;
   }
+
   .gclose:hover {
     background: rgba(0, 0, 0, 0.9) !important;
-    transform: scale(1.1);
+    transform: scale(1.08);
   }
+
   .gclose svg {
     width: 22px !important;
     height: 22px !important;
-  }
-  @media (max-width: 768px) {
-    .gclose {
-      top: 10px !important;
-      right: 10px !important;
-      width: 42px !important;
-      height: 42px !important;
-    }
   }
 
   .glightbox-download-btn {
@@ -278,13 +272,13 @@ permalink: test
     text-decoration: none !important;
     font-size: 0.9rem;
     font-weight: 600;
-    transition: background 0.2s;
   }
+
   .glightbox-download-btn:hover {
     background: #0e4a2d;
   }
 
-  /* Prevent large images from overflowing on all devices */
+  /* Keep post images inside the content width on all devices */
 .post-full .content img,
 .post-full img,
 .site-main article img,
@@ -301,7 +295,6 @@ permalink: test
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
 <div class="media-gallery-container">
-
   <div class="latest-media-section">
     <h2 class="latest-title">Latest Upload</h2>
     <div id="latest-image-target">Searching for latest file...</div>
@@ -313,9 +306,9 @@ permalink: test
   </div>
 
   <div class="pagination-controls-wrapper" id="pagination-controls-element" style="display: none;">
-    <button id="prevBtn" disabled>&laquo; Previous</button>
+    <button type="button" id="prevBtn" disabled>&laquo; Previous</button>
     <span class="page-info-panel" id="pageInfo"></span>
-    <button id="nextBtn">Next &raquo;</button>
+    <button type="button" id="nextBtn">Next &raquo;</button>
   </div>
 </div>
 
@@ -336,82 +329,105 @@ permalink: test
 document.addEventListener("DOMContentLoaded", function () {
 
   function getCleanPathString(url) {
-    if (!url) return '';
-    return url.split('#')[0].split('?')[0].trim();
+    if (!url) return "";
+    return url.split("#")[0].split("?")[0].trim();
   }
 
   function generateCleanImageHash(rawSrc) {
+    // For huge base64 strings, only hash a stable prefix so ID stays short
     var cleanUrl = getCleanPathString(rawSrc);
-    if (!cleanUrl) return 'img-null';
+    if (!cleanUrl) return "img-null";
+    if (cleanUrl.indexOf("data:") === 0) {
+      cleanUrl = cleanUrl.substring(0, 120);
+    }
     var hash = 0;
     for (var i = 0; i < cleanUrl.length; i++) {
       hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
       hash |= 0;
     }
-    return 'img-ref-' + Math.abs(hash);
-  }
-
-  // Safe for HTML attributes and text content
-  function escapeHtml(str) {
-    return String(str || '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
+    return "img-ref-" + Math.abs(hash);
   }
 
   function makeDownloadFilename(caption, src) {
-    var name = (caption || 'image').trim()
-      .replace(/[<>:"/\\|?*\x00-\x1F]/g, '')
-      .replace(/\s+/g, '_')
-      .substring(0, 80) || 'image';
-    var ext = 'jpg';
-    var match = (src || '').match(/\.(jpe?g|png|gif|webp|bmp)(\?|$)/i);
-    if (match) ext = match[1].toLowerCase();
-    return name + '.' + ext;
+    var name = (caption || "image").trim()
+      .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
+      .replace(/\s+/g, "_")
+      .substring(0, 80) || "image";
+    var ext = "jpg";
+    if (src && src.indexOf("data:image/") === 0) {
+      var m = src.match(/^data:image\/([a-zA-Z0-9+]+);/);
+      if (m) {
+        ext = m[1].toLowerCase().replace("jpeg", "jpg");
+        if (ext === "svg+xml") ext = "svg";
+      }
+    } else {
+      var match = (src || "").match(/\.(jpe?g|png|gif|webp|bmp|svg)(\?|$)/i);
+      if (match) ext = match[1].toLowerCase();
+    }
+    return name + "." + ext;
   }
 
-  var posts = document.querySelectorAll('#jekyll-raw-content-vault .vault-item');
-  var gridContainer = document.getElementById('media-grid-target');
-  var latestContainer = document.getElementById('latest-image-target');
-  var paginationControls = document.getElementById('pagination-controls-element');
-  var prevBtn = document.getElementById('prevBtn');
-  var nextBtn = document.getElementById('nextBtn');
-  var pageInfo = document.getElementById('pageInfo');
+  function buildDescriptionHtml(caption, src) {
+    var filename = makeDownloadFilename(caption, src);
+    var wrap = document.createElement("div");
+    var text = document.createElement("div");
+    text.textContent = caption || "";
+    wrap.appendChild(text);
+    var link = document.createElement("a");
+    link.href = src;
+    link.className = "glightbox-download-btn";
+    link.setAttribute("download", filename);
+    link.textContent = "↓ Download Image";
+    link.onclick = function (e) { e.stopPropagation(); };
+    wrap.appendChild(document.createElement("br"));
+    wrap.appendChild(link);
+    return wrap.innerHTML;
+  }
+
+  var posts = document.querySelectorAll("#jekyll-raw-content-vault .vault-item");
+  var gridContainer = document.getElementById("media-grid-target");
+  var latestContainer = document.getElementById("latest-image-target");
+  var paginationControls = document.getElementById("pagination-controls-element");
+  var prevBtn = document.getElementById("prevBtn");
+  var nextBtn = document.getElementById("nextBtn");
+  var pageInfo = document.getElementById("pageInfo");
 
   var collectedImages = [];
   var imagesPerPage = 10;
   var currentPage = 0;
 
   posts.forEach(function (postElement) {
-    var postUrl = postElement.getAttribute('data-url');
-    var postDate = postElement.getAttribute('data-date');
-    var postTitle = postElement.getAttribute('data-title') || '';
-    var htmlPayload = postElement.querySelector('.post-html-payload');
+    var postUrl = postElement.getAttribute("data-url") || "";
+    var postDate = postElement.getAttribute("data-date") || "";
+    var postTitle = postElement.getAttribute("data-title") || "";
+    var htmlPayload = postElement.querySelector(".post-html-payload");
     if (!htmlPayload) return;
 
-    var images = htmlPayload.querySelectorAll('img');
+    var images = htmlPayload.querySelectorAll("img");
 
     images.forEach(function (img) {
-      var src = img.getAttribute('src');
-      if (!src || src.indexOf('data:') === 0) return;
+      var src = img.getAttribute("src");
+      if (!src) return;
       src = src.trim();
+      // Include both normal URLs and base64 data: images
 
       var matchingHashId = generateCleanImageHash(src);
-      var postLink = postUrl + '#' + matchingHashId;
+      var postLink = postUrl + "#" + matchingHashId;
 
-      var foundCaption = img.getAttribute('alt') || img.getAttribute('title') || '';
+      var foundCaption = img.getAttribute("alt") || img.getAttribute("title") || "";
 
       var nextSibling = img.nextElementSibling;
-      if (nextSibling && (nextSibling.tagName === 'P' || nextSibling.tagName === 'FIGCAPTION')) {
-        var text = nextSibling.textContent.trim();
+      if (nextSibling && (nextSibling.tagName === "P" || nextSibling.tagName === "FIGCAPTION")) {
+        var text = (nextSibling.textContent || "").trim();
         if (text.length > 1) foundCaption = text;
       }
 
-      if (!foundCaption || !foundCaption.trim()) {
+      if (!foundCaption || !String(foundCaption).trim()) {
         foundCaption = 'Image from post: "' + postTitle + '"';
       }
+
+      // Keep captions readable
+      foundCaption = String(foundCaption).replace(/\s+/g, " ").trim().substring(0, 300);
 
       collectedImages.push({
         src: src,
@@ -422,104 +438,119 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  gridContainer.innerHTML = '';
-  latestContainer.innerHTML = '';
+  gridContainer.innerHTML = "";
+  latestContainer.innerHTML = "";
 
   if (collectedImages.length === 0) {
-    latestContainer.innerHTML = '<p style="color:#666;">No images found in posts.</p>';
-    gridContainer.innerHTML = '<p style="color:#666;">Gallery empty.</p>';
+    latestContainer.textContent = "No images found in posts.";
+    gridContainer.textContent = "Gallery empty.";
     return;
   }
 
   var lightbox = GLightbox({
     loop: true,
-    descPosition: 'bottom',
+    descPosition: "bottom",
     closeButton: true,
     touchNavigation: true,
     keyboardNavigation: true,
     closeOnOutsideClick: true,
-    openEffect: 'fade',
-    closeEffect: 'fade',
+    openEffect: "fade",
+    closeEffect: "fade",
     zoomable: true,
     draggable: true,
     moreLength: 0
   });
 
-  function buildDescription(item) {
-    var filename = makeDownloadFilename(item.caption, item.src);
-    return escapeHtml(item.caption) +
-      '<br><a href="' + escapeHtml(item.src) +
-      '" class="glightbox-download-btn" download="' + escapeHtml(filename) +
-      '" onclick="event.stopPropagation();">↓ Download Image</a>';
+  function createCard(item, isLatest) {
+    var card = document.createElement("div");
+    card.className = isLatest ? "media-card latest-card" : "grid-card";
+
+    var imgWrap = document.createElement("div");
+    imgWrap.className = isLatest ? "latest-img-wrapper" : "grid-img-wrapper";
+
+    var a = document.createElement("a");
+    a.href = item.src;
+    a.className = "glightbox";
+    a.setAttribute("data-description", buildDescriptionHtml(item.caption, item.src));
+
+    var img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.caption;
+    img.loading = "lazy";
+    a.appendChild(img);
+    imgWrap.appendChild(a);
+
+    var dateEl = document.createElement("span");
+    dateEl.className = "media-date";
+    dateEl.textContent = isLatest ? ("Published: " + item.dateString) : item.dateString;
+
+    var captionA = document.createElement("a");
+    captionA.href = item.deepLinkUrl;
+    captionA.className = "caption-link";
+    captionA.title = "Jump to this image in the post";
+    captionA.textContent = item.caption + (isLatest ? " →" : "");
+
+    if (isLatest) {
+      var info = document.createElement("div");
+      info.className = "latest-info-wrapper";
+      info.appendChild(dateEl);
+      info.appendChild(captionA);
+      var hint = document.createElement("p");
+      hint.style.cssText = "margin-top:10px;font-size:0.9rem;color:#666;";
+      hint.textContent = "Tapping this caption jumps directly to where this image lives inside the article body.";
+      info.appendChild(hint);
+      card.appendChild(imgWrap);
+      card.appendChild(info);
+    } else {
+      card.appendChild(imgWrap);
+      card.appendChild(dateEl);
+      card.appendChild(captionA);
+    }
+
+    return card;
   }
 
-  // Latest image
-  var latestImg = collectedImages[0];
-  latestContainer.innerHTML =
-    '<div class="media-card latest-card">' +
-      '<div class="latest-img-wrapper">' +
-        '<a href="' + escapeHtml(latestImg.src) + '" class="glightbox" data-description="' + escapeHtml(buildDescription(latestImg)) + '">' +
-          '<img src="' + escapeHtml(latestImg.src) + '" alt="' + escapeHtml(latestImg.caption) + '">' +
-        '</a>' +
-      '</div>' +
-      '<div class="latest-info-wrapper">' +
-        '<span class="media-date">Published: ' + escapeHtml(latestImg.dateString) + '</span>' +
-        '<a href="' + escapeHtml(latestImg.deepLinkUrl) + '" class="caption-link">' +
-          escapeHtml(latestImg.caption) + ' →' +
-        '</a>' +
-        '<p style="margin-top:10px;font-size:0.9rem;color:#666;">Tapping this caption jumps directly to where this image lives inside the article body.</p>' +
-      '</div>' +
-    '</div>';
+  // Latest
+  latestContainer.appendChild(createCard(collectedImages[0], true));
 
   function displayGalleryPage() {
-    gridContainer.innerHTML = '';
+    gridContainer.innerHTML = "";
 
     var startIndex = currentPage * imagesPerPage;
     var endIndex = startIndex + imagesPerPage;
     var pageItems = collectedImages.slice(startIndex, endIndex);
 
     pageItems.forEach(function (item) {
-      var card = document.createElement('div');
-      card.className = 'grid-card';
-      card.innerHTML =
-        '<div class="grid-img-wrapper">' +
-          '<a href="' + escapeHtml(item.src) + '" class="glightbox" data-description="' + escapeHtml(buildDescription(item)) + '">' +
-            '<img src="' + escapeHtml(item.src) + '" alt="' + escapeHtml(item.caption) + '" loading="lazy">' +
-          '</a>' +
-        '</div>' +
-        '<span class="media-date">' + escapeHtml(item.dateString) + '</span>' +
-        '<a href="' + escapeHtml(item.deepLinkUrl) + '" class="caption-link" title="Jump to this image in the post">' +
-          escapeHtml(item.caption) +
-        '</a>';
-      gridContainer.appendChild(card);
+      gridContainer.appendChild(createCard(item, false));
     });
 
     lightbox.reload();
 
     var totalPages = Math.ceil(collectedImages.length / imagesPerPage);
-    pageInfo.textContent = 'Page ' + (currentPage + 1) + ' of ' + totalPages +
-      ' (' + collectedImages.length + ' images total)';
+    pageInfo.textContent =
+      "Page " + (currentPage + 1) + " of " + totalPages +
+      " (" + collectedImages.length + " images total)";
 
-    prevBtn.disabled = (currentPage === 0);
-    nextBtn.disabled = (currentPage >= totalPages - 1);
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage >= totalPages - 1;
   }
 
-  paginationControls.style.display = 'flex';
+  paginationControls.style.display = "flex";
   displayGalleryPage();
 
-  prevBtn.addEventListener('click', function () {
+  prevBtn.addEventListener("click", function () {
     if (currentPage > 0) {
       currentPage--;
       displayGalleryPage();
-      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 
-  nextBtn.addEventListener('click', function () {
+  nextBtn.addEventListener("click", function () {
     if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {
       currentPage++;
       displayGalleryPage();
-      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 });
