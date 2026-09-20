@@ -128,29 +128,51 @@ permalink: test
     overflow: visible;
   }
   .mg-card-body .mg-cap:hover { color: var(--p); }
+.mg-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: nowrap;          /* prevent stacking */
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 4px;
+}
 
-  /* Pager: Previous | Page number (middle) | Next */
-  .mg-pager {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    flex-wrap: wrap;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .mg-pager button {
-    min-width: 100px; padding: 10px 16px; font-size: 0.9rem; font-weight: 600;
-    border: 1px solid var(--b); border-radius: 10px; background: var(--c); color: var(--p); cursor: pointer;
-  }
-  .mg-pager button:hover:not(:disabled) {
-    border-color: var(--p); background: color-mix(in srgb, var(--p) 8%, white);
-  }
-  .mg-pager button:disabled { opacity: 0.4; cursor: not-allowed; }
-  .mg-page-info {
-    font-size: 0.9rem; color: var(--m); font-weight: 500;
-    min-width: 120px; text-align: center; flex: 1;
-  }
+.mg-pager button {
+  flex-shrink: 0;
+  min-width: 0;               /* allow buttons to shrink a bit on very small screens */
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--b);
+  border-radius: 10px;
+  background: var(--c);
+  color: var(--p);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mg-pager button:hover:not(:disabled) {
+  border-color: var(--p);
+  background: color-mix(in srgb, var(--p) 8%, white);
+}
+
+.mg-pager button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.mg-page-info {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--m);
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 0;
+}
 
   .mg-empty {
     text-align: center; padding: 40px 16px; color: var(--m);
