@@ -1,0 +1,565 @@
+---
+layout: page
+title: Media Gallery
+permalink: media
+---
+
+<!-- 1. CSS VISUAL STYLES -->
+<style>
+  /* Make gallery wider than normal posts */
+  .site-main {
+    max-width: 1200px !important;
+  }
+
+  .media-gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4px 20px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .latest-media-section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .latest-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.55rem;
+    margin: 0 0 16px;
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+    display: inline-block;
+  }
+
+  .media-card.latest-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .media-card.latest-card {
+      flex-direction: row;
+      align-items: center;
+    }
+    .latest-img-wrapper {
+      flex: 1;
+      max-width: 48%;
+    }
+    .latest-info-wrapper {
+      flex: 1;
+    }
+  }
+
+  .latest-img-wrapper img {
+    width: 100%;
+    height: auto;
+    max-height: 380px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    background: #f8f6f0;
+    cursor: pointer;
+  }
+
+  .media-date {
+    font-size: 0.82rem;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .caption-link {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+  }
+
+  .caption-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+  }
+
+  .gallery-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.6rem;
+    color: var(--text);
+    margin: 0 0 20px;
+  }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+    margin-bottom: 28px;
+  }
+
+  .grid-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .grid-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  }
+
+  .grid-img-wrapper {
+    height: 190px;
+    overflow: hidden;
+    background: #f5f3eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+
+  .grid-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .grid-card .caption-link {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .grid-card .caption-link:hover {
+    color: var(--primary);
+  }
+
+  /* Pagination */
+  .pagination-controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 0 10px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  .pagination-controls-wrapper button {
+    min-width: 110px;
+    padding: 10px 18px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pagination-controls-wrapper button:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--primary) 8%, white);
+    border-color: var(--primary);
+  }
+
+  .pagination-controls-wrapper button:disabled {
+    color: var(--muted);
+    background: #f5f3eb;
+    border-color: var(--border);
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+
+  .page-info-panel {
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  /* ========== GLIGHTBOX – ROBUST SIZING ========== */
+  .glightbox-container .gslide {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .glightbox-container .gslide-media,
+  .glightbox-container .gslide-image {
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 auto !important;
+  }
+
+  .glightbox-container .gslide-image img {
+    max-width: 96vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  @media (min-width: 1024px) {
+    .glightbox-container .gslide-image img {
+      max-width: 92vw !important;
+      max-height: 92vh !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .glightbox-container .gslide-image img {
+      max-width: 98vw !important;
+      max-height: 82vh !important;
+    }
+  }
+
+  .glightbox-container .gslide-description {
+    max-width: 90vw !important;
+    margin: 12px auto 0 !important;
+    text-align: center !important;
+    background: rgba(0,0,0,0.65) !important;
+    color: #fff !important;
+    padding: 8px 14px !important;
+    border-radius: 8px !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Larger close button */
+  .gclose {
+    width: 44px !important;
+    height: 44px !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 50% !important;
+    top: 14px !important;
+    right: 14px !important;
+    opacity: 0.95 !important;
+    z-index: 99999 !important;
+    transition: all 0.2s ease !important;
+  }
+  .gclose:hover {
+    background: rgba(0, 0, 0, 0.85) !important;
+    transform: scale(1.1);
+  }
+  .gclose svg {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  @media (max-width: 768px) {
+    .gclose {
+      top: 10px !important;
+      right: 10px !important;
+      width: 40px !important;
+      height: 40px !important;
+    }
+  }
+
+  /* Download button inside lightbox */
+  .glightbox-download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background: #145a32;
+    color: #fff !important;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .glightbox-download-btn:hover {
+    background: #0e4a2d;
+  }
+</style>
+
+<!-- GLightbox -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<div class="media-gallery-container">
+  
+  <!-- Latest Image -->
+  <div class="latest-media-section">
+    <h2 class="latest-title">Latest Upload</h2>
+    <div id="latest-image-target">Searching for latest file...</div>
+  </div>
+
+  <!-- Grid -->
+  <h2 class="gallery-title">All Website Media</h2>
+  <div id="media-grid-target" class="media-grid">
+    Generating media library...
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-controls-wrapper" id="pagination-controls-element" style="display: none;">
+    <button id="prevBtn" disabled>&laquo; Previous</button>
+    <span class="page-info-panel" id="pageInfo"></span>
+    <button id="nextBtn">Next &raquo;</button>
+  </div>
+</div>
+
+<!-- Hidden data vault (Jekyll injects all post HTML here) -->
+<div id="jekyll-raw-content-vault" style="display: none;">
+  {% for post in site.posts %}
+    <div class="vault-item" 
+         data-url="{{ post.url | relative_url }}" 
+         data-date="{{ post.date | date: '%B %d, %Y' }}" 
+         data-title="{{ post.title | escape }}">
+      <div class="post-html-payload">
+        {{ post.content }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  function getCleanPathString(url) {
+    if (!url) return '';
+    return url.split('#')[0].split('?')[0].trim();
+  }
+
+  function generateCleanImageHash(rawSrc) {
+    let cleanUrl = getCleanPathString(rawSrc);
+    if (!cleanUrl) return 'img-null';
+    let hash = 0;
+    for (let i = 0; i < cleanUrl.length; i++) {
+      hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'img-ref-' + Math.abs(hash);
+  }
+
+  // Make relative image paths absolute so they work on the media page
+  function resolveImageSrc(src) {
+    if (!src) return '';
+    if (src.startsWith('http') || src.startsWith('//') || src.startsWith('data:')) {
+      return src;
+    }
+    // Handle paths that start with / or are relative
+    if (src.startsWith('/')) {
+      return window.location.origin + src;
+    }
+    // Relative to site root (common in Jekyll)
+    const base = '{{ site.baseurl }}' || '';
+    return window.location.origin + base + '/' + src.replace(/^\.\//, '');
+  }
+
+  // Safe filename from alt/caption
+  function makeDownloadFilename(caption, originalSrc) {
+    let name = (caption || 'image').trim();
+    // Remove unsafe characters
+    name = name.replace(/[<>:"/\\|?*\x00-\x1F]/g, '').replace(/\s+/g, '_').substring(0, 80);
+    if (!name) name = 'image';
+
+    // Try to keep original extension
+    let ext = 'jpg';
+    const match = originalSrc.match(/\.(jpe?g|png|gif|webp|bmp|svg)(\?|$)/i);
+    if (match) ext = match[1].toLowerCase();
+    return name + '.' + ext;
+  }
+
+  const posts = document.querySelectorAll('#jekyll-raw-content-vault .vault-item');
+  const gridContainer = document.getElementById('media-grid-target');
+  const latestContainer = document.getElementById('latest-image-target');
+  const paginationControls = document.getElementById('pagination-controls-element');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pageInfo = document.getElementById('pageInfo');
+  
+  let collectedImages = [];
+  const imagesPerPage = 10;
+  let currentPage = 0;
+
+  posts.forEach((postElement) => {
+    const postUrl = postElement.getAttribute('data-url');
+    const postDate = postElement.getAttribute('data-date');
+    const postTitle = postElement.getAttribute('data-title');
+    const htmlPayload = postElement.querySelector('.post-html-payload');
+    if (!htmlPayload) return;
+
+    const images = htmlPayload.querySelectorAll('img');
+    
+    images.forEach((img) => {
+      let src = img.getAttribute('src');
+      if (!src || src.startsWith('data:')) return;
+      src = src.trim();
+
+      const resolvedSrc = resolveImageSrc(src);
+      const matchingHashId = generateCleanImageHash(src); // hash on original src for consistency with post pages
+      const postLink = postUrl + "#" + matchingHashId;
+      
+      let foundCaption = img.getAttribute('alt') || img.getAttribute('title') || '';
+      
+      const nextSibling = img.nextElementSibling;
+      if (nextSibling && (nextSibling.tagName === 'P' || nextSibling.tagName === 'FIGCAPTION')) {
+        const text = nextSibling.textContent.trim();
+        if (text.length > 1) foundCaption = text;
+      }
+      
+      if (!foundCaption) {
+        foundCaption = `Image from post: "${postTitle}"`;
+      }
+
+      collectedImages.push({
+        src: resolvedSrc,
+        originalSrc: src,
+        caption: foundCaption,
+        deepLinkUrl: postLink,
+        dateString: postDate
+      });
+    });
+  });
+
+  gridContainer.innerHTML = '';
+  latestContainer.innerHTML = '';
+
+  if (collectedImages.length === 0) {
+    latestContainer.innerHTML = '<p style="color: #666;">No valid image paths discovered across posts.</p>';
+    gridContainer.innerHTML = '<p style="color: #666;">Gallery empty.</p>';
+    return;
+  }
+
+  // GLightbox with download support
+  const lightbox = GLightbox({
+    loop: true,
+    descPosition: 'bottom',
+    closeButton: true,
+    touchNavigation: true,
+    keyboardNavigation: true,
+    closeOnOutsideClick: true,
+    openEffect: 'fade',
+    closeEffect: 'fade',
+    zoomable: true,
+    draggable: true,
+    moreLength: 0,
+    // Custom description that includes download button
+    onOpen: () => {},
+    // We inject download button via data-description HTML
+  });
+
+  // Helper to escape HTML for attributes
+  function escapeAttr(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function buildDescription(item) {
+    const filename = makeDownloadFilename(item.caption, item.originalSrc || item.src);
+    // Use a data-download approach so we can force download with custom name
+    return `
+      <div>
+        ${escapeAttr(item.caption)}
+        <br>
+        <a href="${escapeAttr(item.src)}" 
+           class="glightbox-download-btn" 
+           download="${escapeAttr(filename)}"
+           onclick="event.stopPropagation();">
+          ↓ Download Image
+        </a>
+      </div>
+    `;
+  }
+
+  // Latest card
+  const latestImg = collectedImages[0];
+  latestContainer.innerHTML = `
+    <div class="media-card latest-card">
+      <div class="latest-img-wrapper">
+        <a href="${escapeAttr(latestImg.src)}" 
+           class="glightbox" 
+           data-description="${escapeAttr(buildDescription(latestImg))}">
+          <img src="${escapeAttr(latestImg.src)}" alt="${escapeAttr(latestImg.caption)}">
+        </a>
+      </div>
+      <div class="latest-info-wrapper">
+        <span class="media-date">Published: ${latestImg.dateString}</span>
+        <a href="${escapeAttr(latestImg.deepLinkUrl)}" class="caption-link">
+          ${escapeAttr(latestImg.caption)} &rarr;
+        </a>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+          Tapping this caption jumps directly to where this image lives inside the article body.
+        </p>
+      </div>
+    </div>
+  `;
+
+  function displayGalleryPage() {
+    gridContainer.innerHTML = '';
+    
+    const startIndex = currentPage * imagesPerPage;
+    const endIndex = startIndex + imagesPerPage;
+    const currentImagesSubset = collectedImages.slice(startIndex, endIndex);
+    
+    currentImagesSubset.forEach(item => {
+      const cardElement = document.createElement('div');
+      cardElement.className = 'grid-card';
+      cardElement.innerHTML = `
+        <div class="grid-img-wrapper">
+          <a href="${escapeAttr(item.src)}" 
+             class="glightbox" 
+             data-description="${escapeAttr(buildDescription(item))}">
+            <img src="${escapeAttr(item.src)}" alt="${escapeAttr(item.caption)}" loading="lazy">
+          </a>
+        </div>
+        <span class="media-date">${item.dateString}</span>
+        <a href="${escapeAttr(item.deepLinkUrl)}" class="caption-link" title="Jump straight to this image in the post">
+          ${escapeAttr(item.caption)}
+        </a>
+      `;
+      gridContainer.appendChild(cardElement);
+    });
+
+    lightbox.reload();
+
+    const totalPagesCount = Math.ceil(collectedImages.length / imagesPerPage);
+    pageInfo.textContent = `Page ${currentPage + 1} of ${totalPagesCount} (${collectedImages.length} images total)`;
+    
+    prevBtn.disabled = (currentPage === 0);
+    nextBtn.disabled = (currentPage >= totalPagesCount - 1);
+  }
+
+  if (collectedImages.length > 0) {
+    paginationControls.style.display = 'flex';
+    displayGalleryPage();
+  }
+
+  prevBtn.addEventListener('click', function() {
+    if (currentPage > 0) {
+      currentPage--;
+      displayGalleryPage();
+      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  nextBtn.addEventListener('click', function() {
+    if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {
+      currentPage++;
+      displayGalleryPage();
+      gridContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
