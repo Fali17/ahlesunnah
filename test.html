@@ -8,441 +8,263 @@ permalink: test
   .site-main { max-width: 1280px !important; padding-top: 12px !important; }
 
   .mg {
-    --mg-primary: var(--primary, #0e4a2d);
-    --mg-accent: var(--accent, #c8a415);
-    --mg-card: var(--card, #fff);
-    --mg-text: var(--text, #1e293b);
-    --mg-muted: var(--muted, #64748b);
-    --mg-border: var(--border, #e7e5e4);
-    --mg-radius: 16px;
+    --p: var(--primary, #0e4a2d);
+    --a: var(--accent, #c8a415);
+    --c: var(--card, #fff);
+    --t: var(--text, #1e293b);
+    --m: var(--muted, #64748b);
+    --b: var(--border, #e7e5e4);
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 8px 48px;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
   }
 
-  /* Hero */
   .mg-hero {
-    background: linear-gradient(135deg, var(--mg-primary) 0%, #0a3721 100%);
-    border-radius: var(--mg-radius);
+    background: linear-gradient(135deg, var(--p) 0%, #0a3721 100%);
+    border-radius: 16px;
     padding: 28px 24px;
     margin-bottom: 28px;
     color: #fff;
-    position: relative;
-    overflow: hidden;
-    border-bottom: 3px solid var(--mg-accent);
+    border-bottom: 3px solid var(--a);
   }
-  .mg-hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 15% 40%, rgba(200,164,21,0.18) 0 2px, transparent 2.5px),
-      radial-gradient(circle at 85% 60%, rgba(255,255,255,0.08) 0 1.5px, transparent 2px);
-    background-size: 40px 40px, 56px 56px;
-    pointer-events: none;
-  }
-  .mg-hero-inner { position: relative; z-index: 1; }
   .mg-hero h1 {
-    font-family: 'Amiri', serif;
-    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    font-family: Amiri, serif;
+    font-size: clamp(1.55rem, 4vw, 2rem);
     margin: 0 0 6px;
-    font-weight: 700;
   }
-  .mg-hero p {
-    margin: 0 0 18px;
-    opacity: 0.88;
-    font-size: 0.95rem;
-  }
-  .mg-stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .mg-hero p { margin: 0 0 14px; opacity: 0.9; font-size: 0.95rem; }
+  .mg-stats { display: flex; flex-wrap: wrap; gap: 8px; }
   .mg-stat {
     background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.2);
     border-radius: 999px;
-    padding: 6px 14px;
-    font-size: 0.82rem;
+    padding: 5px 12px;
+    font-size: 0.8rem;
     font-weight: 600;
-    backdrop-filter: blur(6px);
   }
 
-  /* Featured */
   .mg-featured {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 20px;
-    background: var(--mg-card);
-    border: 1px solid var(--mg-border);
-    border-radius: var(--mg-radius);
-    padding: 16px;
-    margin-bottom: 32px;
-    box-shadow: 0 4px 24px rgba(14,74,45,0.06);
+    grid-template-columns: 1.15fr 1fr;
+    gap: 18px;
+    background: var(--c);
+    border: 1px solid var(--b);
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 28px;
+    box-shadow: 0 4px 20px rgba(14,74,45,0.06);
   }
-  @media (max-width: 768px) {
-    .mg-featured { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 768px) { .mg-featured { grid-template-columns: 1fr; } }
+
   .mg-featured-img {
-    position: relative;
     border-radius: 12px;
     overflow: hidden;
     background: #f5f3eb;
-    min-height: 220px;
     cursor: zoom-in;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16/10;
+    position: relative;
   }
   .mg-featured-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.45s ease;
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease;
   }
   .mg-featured-img:hover img { transform: scale(1.04); }
-  .mg-featured-img .mg-zoom-hint {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.65);
-    color: #fff;
-    font-size: 0.72rem;
-    padding: 4px 10px;
-    border-radius: 999px;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .mg-featured-img:hover .mg-zoom-hint { opacity: 1; }
-  .mg-featured-body { display: flex; flex-direction: column; justify-content: center; padding: 8px 4px; }
+
+  .mg-featured-body { display: flex; flex-direction: column; justify-content: center; padding: 6px; }
   .mg-badge {
-    display: inline-block;
-    width: fit-content;
-    background: color-mix(in srgb, var(--mg-accent) 22%, white);
-    color: var(--mg-primary);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 10px;
+    display: inline-block; width: fit-content;
+    background: color-mix(in srgb, var(--a) 22%, white);
+    color: var(--p); font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 8px;
   }
-  .mg-featured-body .mg-date {
-    font-size: 0.8rem;
-    color: var(--mg-muted);
-    margin-bottom: 6px;
+  .mg-date { font-size: 0.8rem; color: var(--m); margin-bottom: 6px; }
+  .mg-cap {
+    color: var(--p); font-weight: 600; text-decoration: none;
+    font-size: 1rem; line-height: 1.45; word-break: break-word;
   }
-  .mg-caption {
-    color: var(--mg-primary);
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1.05rem;
-    line-height: 1.45;
-    word-break: break-word;
-  }
-  .mg-caption:hover { text-decoration: underline; color: var(--primary-dark, #0a3721); }
-  .mg-hint {
-    margin-top: 12px;
-    font-size: 0.85rem;
-    color: var(--mg-muted);
+  .mg-cap:hover { text-decoration: underline; }
+  .mg-hint { margin-top: 10px; font-size: 0.85rem; color: var(--m); }
+
+  .mg-section {
+    font-family: Amiri, serif; font-size: 1.4rem; margin: 0 0 16px; color: var(--t);
   }
 
-  /* Section title */
-  .mg-section-title {
-    font-family: 'Amiri', serif;
-    font-size: 1.45rem;
-    margin: 0 0 18px;
-    color: var(--mg-text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .mg-section-title::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--mg-border), transparent);
-  }
-
-  /* Grid */
   .mg-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 18px;
-    margin-bottom: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
   }
   @media (max-width: 520px) {
-    .mg-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .mg-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
 
   .mg-card {
-    background: var(--mg-card);
-    border: 1px solid var(--mg-border);
+    background: var(--c);
+    border: 1px solid var(--b);
     border-radius: 14px;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
   }
   .mg-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(14,74,45,0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(14,74,45,0.1);
   }
   .mg-card-media {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    background: #f0ede4;
-    cursor: zoom-in;
-    overflow: hidden;
+    aspect-ratio: 4/3; background: #f0ede4; cursor: zoom-in; overflow: hidden; position: relative;
   }
   .mg-card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+    width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s;
   }
-  .mg-card:hover .mg-card-media img { transform: scale(1.06); }
-  .mg-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(14,74,45,0.55), transparent 55%);
-    opacity: 0;
-    transition: opacity 0.25s;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 12px;
-    pointer-events: none;
+  .mg-card:hover .mg-card-media img { transform: scale(1.05); }
+  .mg-card-body { padding: 10px 12px 12px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+  .mg-card-body .mg-date { font-size: 0.7rem; }
+  .mg-card-body .mg-cap {
+    font-size: 0.85rem; font-weight: 500; color: var(--t);
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
   }
-  .mg-card:hover .mg-card-overlay { opacity: 1; }
-  .mg-card-overlay span {
-    color: #fff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background: rgba(0,0,0,0.35);
-    padding: 5px 12px;
-    border-radius: 999px;
-    backdrop-filter: blur(4px);
-  }
-  .mg-card-body {
-    padding: 12px 14px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1;
-  }
-  .mg-card-date {
-    font-size: 0.72rem;
-    color: var(--mg-muted);
-  }
-  .mg-card-body .mg-caption {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--mg-text);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .mg-card-body .mg-caption:hover { color: var(--mg-primary); }
+  .mg-card-body .mg-cap:hover { color: var(--p); }
 
-  /* Pagination */
   .mg-pager {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding: 8px 0 4px;
+    display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
   }
   .mg-pager button {
-    min-width: 108px;
-    padding: 11px 18px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: 1px solid var(--mg-border);
-    border-radius: 10px;
-    background: var(--mg-card);
-    color: var(--mg-primary);
-    cursor: pointer;
-    transition: all 0.2s;
+    min-width: 100px; padding: 10px 16px; font-size: 0.9rem; font-weight: 600;
+    border: 1px solid var(--b); border-radius: 10px; background: var(--c); color: var(--p); cursor: pointer;
   }
   .mg-pager button:hover:not(:disabled) {
-    border-color: var(--mg-primary);
-    background: color-mix(in srgb, var(--mg-primary) 8%, white);
+    border-color: var(--p); background: color-mix(in srgb, var(--p) 8%, white);
   }
-  .mg-pager button:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  .mg-page-info {
-    font-size: 0.9rem;
-    color: var(--mg-muted);
-    font-weight: 500;
-    min-width: 160px;
-    text-align: center;
-  }
+  .mg-pager button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .mg-page-info { font-size: 0.9rem; color: var(--m); font-weight: 500; min-width: 140px; text-align: center; }
 
   .mg-empty {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--mg-muted);
-    background: var(--mg-card);
-    border-radius: var(--mg-radius);
-    border: 1px dashed var(--mg-border);
-  }
-  .mg-loading {
-    text-align: center;
-    padding: 40px;
-    color: var(--mg-muted);
+    text-align: center; padding: 40px 16px; color: var(--m);
+    border: 1px dashed var(--b); border-radius: 14px; background: var(--c);
   }
 
   /* Lightbox */
   #mg-lb {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    background: rgba(8, 20, 14, 0.94);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 16px;
-    box-sizing: border-box;
-    backdrop-filter: blur(8px);
+    display: none; position: fixed; inset: 0; z-index: 99999;
+    background: rgba(8,20,14,0.94); align-items: center; justify-content: center;
+    flex-direction: column; padding: 14px; box-sizing: border-box;
   }
-  #mg-lb.is-open { display: flex; animation: mgFade 0.2s ease; }
-  @keyframes mgFade {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+  #mg-lb.open { display: flex; }
   #mg-lb-img {
-    max-width: min(96vw, 1200px);
-    max-height: 78vh;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
-    background: #0a0a0a;
+    max-width: min(96vw, 1100px); max-height: 78vh;
+    width: auto; height: auto; object-fit: contain; border-radius: 8px;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.45);
   }
   @media (max-width: 768px) {
-    #mg-lb-img { max-height: 68vh; max-width: 98vw; }
+    #mg-lb-img { max-width: 98vw; max-height: 68vh; }
   }
-  #mg-lb-caption {
-    max-width: 90vw;
-    margin-top: 14px;
-    color: #f1f5f9;
-    text-align: center;
-    font-size: 0.92rem;
-    line-height: 1.45;
-    background: rgba(255,255,255,0.08);
-    padding: 10px 16px;
-    border-radius: 10px;
+  #mg-lb-cap {
+    max-width: 90vw; margin-top: 12px; color: #f1f5f9; text-align: center;
+    font-size: 0.9rem; background: rgba(255,255,255,0.08); padding: 8px 14px; border-radius: 10px;
   }
-  #mg-lb-actions {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
+  #mg-lb-actions { margin-top: 12px; }
+  #mg-lb-dl {
+    display: inline-block; padding: 10px 18px; background: var(--p); color: #fff !important;
+    border-radius: 10px; text-decoration: none !important; font-weight: 600; font-size: 0.9rem;
   }
-  #mg-lb-download {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 11px 20px;
-    background: var(--mg-primary);
-    color: #fff !important;
-    border-radius: 10px;
-    text-decoration: none !important;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border: 1px solid rgba(200,164,21,0.4);
+  #mg-lb-dl:hover { background: #0a3721; }
+  #mg-lb-x {
+    position: absolute; top: 14px; right: 14px; width: 44px; height: 44px;
+    border: none; border-radius: 50%; background: rgba(255,255,255,0.15);
+    color: #fff; font-size: 26px; cursor: pointer; line-height: 1;
   }
-  #mg-lb-download:hover { background: #0a3721; }
-  #mg-lb-close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 46px;
-    height: 46px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-    font-size: 28px;
-    line-height: 1;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-  }
-  #mg-lb-close:hover {
-    background: rgba(255,255,255,0.22);
-    transform: scale(1.06);
-  }
-  @media (max-width: 600px) {
-    #mg-lb-close { top: 10px; right: 10px; width: 42px; height: 42px; }
-  }
+  #mg-lb-x:hover { background: rgba(255,255,255,0.28); }
 </style>
 
 <div class="mg">
   <header class="mg-hero">
-    <div class="mg-hero-inner">
-      <h1>Media Gallery</h1>
-      <p>Every image from the site — open full size, download, or jump to the original post.</p>
-      <div class="mg-stats">
-        <span class="mg-stat" id="mg-stat-total">… images</span>
-        <span class="mg-stat" id="mg-stat-pages">… pages</span>
-      </div>
+    <h1>Media Gallery</h1>
+    <p>All images from the site — open full size, download, or jump to the original post.</p>
+    <div class="mg-stats">
+      <span class="mg-stat" id="mg-total">…</span>
+      <span class="mg-stat" id="mg-pages">…</span>
     </div>
   </header>
 
-  <div id="mg-featured-target"></div>
-
-  <h2 class="mg-section-title">All media</h2>
-  <div id="mg-grid-target" class="mg-grid">
-    <div class="mg-loading">Loading gallery…</div>
-  </div>
-
+  <div id="mg-featured"></div>
+  <h2 class="mg-section">All media</h2>
+  <div id="mg-grid" class="mg-grid"></div>
   <div class="mg-pager" id="mg-pager" style="display:none;">
     <button type="button" id="mg-prev" disabled>← Previous</button>
-    <span class="mg-page-info" id="mg-page-info"></span>
+    <span class="mg-page-info" id="mg-info"></span>
     <button type="button" id="mg-next">Next →</button>
   </div>
 </div>
 
-<!-- Lightbox -->
-<div id="mg-lb" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <button type="button" id="mg-lb-close" aria-label="Close">&times;</button>
+<div id="mg-lb" role="dialog" aria-modal="true">
+  <button type="button" id="mg-lb-x" aria-label="Close">&times;</button>
   <img id="mg-lb-img" alt="">
-  <div id="mg-lb-caption"></div>
+  <div id="mg-lb-cap"></div>
   <div id="mg-lb-actions">
-    <a id="mg-lb-download" href="#" download>↓ Download</a>
+    <a id="mg-lb-dl" href="#" download>↓ Download</a>
   </div>
 </div>
 
-<!-- Hidden post content for image extraction -->
-<div id="jekyll-raw-content-vault" style="display:none;">
-  {% for post in site.posts %}
-    <div class="vault-item"
-         data-url="{{ post.url | relative_url }}"
-         data-date="{{ post.date | date: '%b %d, %Y' }}"
-         data-title="{{ post.title | escape }}">
-      <div class="post-html-payload">{{ post.content }}</div>
-    </div>
-  {% endfor %}
-</div>
+<!-- Build-time image list (no full post HTML → page stays fast) -->
+<script type="application/json" id="mg-data">
+[
+{%- assign mg_first = true -%}
+{%- for post in site.posts -%}
+  {%- assign mg_parts = post.content | split: '<img' -%}
+  {%- for mg_part in mg_parts -%}
+    {%- unless forloop.first -%}
+      {%- assign mg_src = '' -%}
+      {%- assign mg_alt = '' -%}
+      {%- if mg_part contains 'src="' -%}
+        {%- assign mg_src = mg_part | split: 'src="' | slice: 1 | first | split: '"' | first -%}
+      {%- elsif mg_part contains "src='" -%}
+        {%- assign mg_src = mg_part | split: "src='" | slice: 1 | first | split: "'" | first -%}
+      {%- endif -%}
+      {%- if mg_part contains 'alt="' -%}
+        {%- assign mg_alt = mg_part | split: 'alt="' | slice: 1 | first | split: '"' | first -%}
+      {%- elsif mg_part contains "alt='" -%}
+        {%- assign mg_alt = mg_part | split: "alt='" | slice: 1 | first | split: "'" | first -%}
+      {%- endif -%}
+      {%- if mg_src != blank -%}
+        {%- unless mg_first -%},{%- endunless -%}
+        {%- assign mg_first = false -%}
+        {
+          "src": {{ mg_src | strip | jsonify }},
+          "alt": {{ mg_alt | strip | jsonify }},
+          "url": {{ post.url | relative_url | jsonify }},
+          "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
+          "title": {{ post.title | jsonify }}
+        }
+      {%- endif -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endfor -%}
+]
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  var PER_PAGE = 10;
-  var currentPage = 0;
-  var images = [];
+  var PER = 10;
+  var page = 0;
+  var items = [];
 
-  function cleanPath(url) {
-    if (!url) return "";
-    return url.split("#")[0].split("?")[0].trim();
+  try {
+    items = JSON.parse(document.getElementById("mg-data").textContent);
+  } catch (e) {
+    document.getElementById("mg-grid").innerHTML =
+      '<div class="mg-empty">Could not load image list.</div>';
+    return;
+  }
+
+  if (!Array.isArray(items)) items = [];
+
+  function cleanPath(u) {
+    if (!u) return "";
+    return u.split("#")[0].split("?")[0].trim();
   }
 
   function hashSrc(raw) {
@@ -457,7 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return "img-ref-" + Math.abs(h);
   }
 
-  function downloadName(caption, src) {
+  function fileName(caption, src) {
     var name = (caption || "image").trim()
       .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
       .replace(/\s+/g, "_")
@@ -476,204 +298,161 @@ document.addEventListener("DOMContentLoaded", function () {
     return name + "." + ext;
   }
 
+  // Normalize list
+  items = items.map(function (it) {
+    var src = (it.src || "").trim();
+    var alt = (it.alt || "").trim();
+    if (!alt) alt = 'Image from "' + (it.title || "post") + '"';
+    return {
+      src: src,
+      caption: alt.replace(/\s+/g, " ").substring(0, 280),
+      deep: (it.url || "") + "#" + hashSrc(src),
+      date: it.date || ""
+    };
+  }).filter(function (it) { return !!it.src; });
+
+  var totalEl = document.getElementById("mg-total");
+  var pagesEl = document.getElementById("mg-pages");
+  var featuredEl = document.getElementById("mg-featured");
+  var gridEl = document.getElementById("mg-grid");
+  var pager = document.getElementById("mg-pager");
+  var prevBtn = document.getElementById("mg-prev");
+  var nextBtn = document.getElementById("mg-next");
+  var info = document.getElementById("mg-info");
+
+  var totalPages = Math.max(1, Math.ceil(items.length / PER));
+  totalEl.textContent = items.length + " images";
+  pagesEl.textContent = totalPages + (totalPages === 1 ? " page" : " pages");
+
+  if (items.length === 0) {
+    featuredEl.innerHTML = "";
+    gridEl.innerHTML = '<div class="mg-empty">No images found in posts.</div>';
+    return;
+  }
+
   /* Lightbox */
   var lb = document.getElementById("mg-lb");
   var lbImg = document.getElementById("mg-lb-img");
-  var lbCap = document.getElementById("mg-lb-caption");
-  var lbDl = document.getElementById("mg-lb-download");
-  var lbClose = document.getElementById("mg-lb-close");
+  var lbCap = document.getElementById("mg-lb-cap");
+  var lbDl = document.getElementById("mg-lb-dl");
 
   function openLb(src, caption) {
     lbImg.src = src;
     lbImg.alt = caption || "";
     lbCap.textContent = caption || "";
     lbDl.href = src;
-    lbDl.setAttribute("download", downloadName(caption, src));
-    lb.classList.add("is-open");
+    lbDl.setAttribute("download", fileName(caption, src));
+    lb.classList.add("open");
     document.body.style.overflow = "hidden";
   }
   function closeLb() {
-    lb.classList.remove("is-open");
+    lb.classList.remove("open");
     lbImg.removeAttribute("src");
     document.body.style.overflow = "";
   }
-  lbClose.addEventListener("click", function (e) {
+  document.getElementById("mg-lb-x").addEventListener("click", function (e) {
     e.preventDefault();
-    e.stopPropagation();
     closeLb();
   });
   lb.addEventListener("click", function (e) {
     if (e.target === lb) closeLb();
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) closeLb();
+    if (e.key === "Escape" && lb.classList.contains("open")) closeLb();
   });
 
-  /* Collect images from posts */
-  var posts = document.querySelectorAll("#jekyll-raw-content-vault .vault-item");
-  posts.forEach(function (post) {
-    var postUrl = post.getAttribute("data-url") || "";
-    var postDate = post.getAttribute("data-date") || "";
-    var postTitle = post.getAttribute("data-title") || "";
-    var payload = post.querySelector(".post-html-payload");
-    if (!payload) return;
-
-    payload.querySelectorAll("img").forEach(function (img) {
-      var src = img.getAttribute("src");
-      if (!src) return;
-      src = src.trim();
-
-      var id = hashSrc(src);
-      var deep = postUrl + "#" + id;
-
-      var caption = img.getAttribute("alt") || img.getAttribute("title") || "";
-      var next = img.nextElementSibling;
-      if (next && (next.tagName === "P" || next.tagName === "FIGCAPTION")) {
-        var t = (next.textContent || "").trim();
-        if (t.length > 1) caption = t;
-      }
-      if (!caption || !String(caption).trim()) {
-        caption = 'Image from “‘ + postTitle + '”';
-      }
-      caption = String(caption).replace(/\s+/g, " ").trim().substring(0, 280);
-
-      images.push({
-        src: src,
-        caption: caption,
-        deepLink: deep,
-        date: postDate
-      });
-    });
-  });
-
-  var featuredEl = document.getElementById("mg-featured-target");
-  var gridEl = document.getElementById("mg-grid-target");
-  var pager = document.getElementById("mg-pager");
-  var prevBtn = document.getElementById("mg-prev");
-  var nextBtn = document.getElementById("mg-next");
-  var pageInfo = document.getElementById("mg-page-info");
-  var statTotal = document.getElementById("mg-stat-total");
-  var statPages = document.getElementById("mg-stat-pages");
-
-  if (images.length === 0) {
-    featuredEl.innerHTML = "";
-    gridEl.innerHTML = '<div class="mg-empty">No images found in posts yet.</div>';
-    statTotal.textContent = "0 images";
-    statPages.textContent = "0 pages";
-    return;
-  }
-
-  var totalPages = Math.ceil(images.length / PER_PAGE);
-  statTotal.textContent = images.length + " images";
-  statPages.textContent = totalPages + " page" + (totalPages === 1 ? "" : "s");
-
-  function makeFeatured(item) {
+  function makeFeatured(it) {
     var wrap = document.createElement("div");
     wrap.className = "mg-featured";
 
     var media = document.createElement("div");
     media.className = "mg-featured-img";
-    media.title = "Click to view full size";
+    media.title = "Click to enlarge";
     var img = document.createElement("img");
-    img.src = item.src;
-    img.alt = item.caption;
-    img.loading = "eager";
+    img.src = it.src;
+    img.alt = it.caption;
     media.appendChild(img);
-    var hint = document.createElement("span");
-    hint.className = "mg-zoom-hint";
-    hint.textContent = "Click to enlarge";
-    media.appendChild(hint);
-    media.addEventListener("click", function () { openLb(item.src, item.caption); });
+    media.addEventListener("click", function () { openLb(it.src, it.caption); });
 
     var body = document.createElement("div");
     body.className = "mg-featured-body";
-    var badge = document.createElement("span");
-    badge.className = "mg-badge";
-    badge.textContent = "Latest upload";
-    var date = document.createElement("div");
-    date.className = "mg-date";
-    date.textContent = item.date;
-    var cap = document.createElement("a");
-    cap.className = "mg-caption";
-    cap.href = item.deepLink;
-    cap.textContent = item.caption + " →";
-    var tip = document.createElement("p");
-    tip.className = "mg-hint";
-    tip.textContent = "Caption opens the exact place in the original post. Image opens full-screen view.";
-    body.appendChild(badge);
-    body.appendChild(date);
-    body.appendChild(cap);
-    body.appendChild(tip);
+    body.innerHTML =
+      '<span class="mg-badge">Latest upload</span>' +
+      '<div class="mg-date">' + it.date + "</div>";
+    var a = document.createElement("a");
+    a.className = "mg-cap";
+    a.href = it.deep;
+    a.textContent = it.caption + " →";
+    var hint = document.createElement("p");
+    hint.className = "mg-hint";
+    hint.textContent = "Caption jumps to the exact place in the post. Image opens full-screen.";
+    body.appendChild(a);
+    body.appendChild(hint);
 
     wrap.appendChild(media);
     wrap.appendChild(body);
     return wrap;
   }
 
-  function makeCard(item) {
+  function makeCard(it) {
     var card = document.createElement("article");
     card.className = "mg-card";
 
     var media = document.createElement("div");
     media.className = "mg-card-media";
-    media.title = "Click to view full size";
+    media.title = "Click to enlarge";
     var img = document.createElement("img");
-    img.src = item.src;
-    img.alt = item.caption;
+    img.src = it.src;
+    img.alt = it.caption;
     img.loading = "lazy";
     media.appendChild(img);
-    var overlay = document.createElement("div");
-    overlay.className = "mg-card-overlay";
-    overlay.innerHTML = "<span>View full size</span>";
-    media.appendChild(overlay);
-    media.addEventListener("click", function () { openLb(item.src, item.caption); });
+    media.addEventListener("click", function () { openLb(it.src, it.caption); });
 
     var body = document.createElement("div");
     body.className = "mg-card-body";
-    var date = document.createElement("div");
-    date.className = "mg-card-date";
-    date.textContent = item.date;
-    var cap = document.createElement("a");
-    cap.className = "mg-caption";
-    cap.href = item.deepLink;
-    cap.title = "Jump to this image in the post";
-    cap.textContent = item.caption;
-    body.appendChild(date);
-    body.appendChild(cap);
+    var d = document.createElement("div");
+    d.className = "mg-date";
+    d.textContent = it.date;
+    var a = document.createElement("a");
+    a.className = "mg-cap";
+    a.href = it.deep;
+    a.title = "Jump to this image in the post";
+    a.textContent = it.caption;
+    body.appendChild(d);
+    body.appendChild(a);
 
     card.appendChild(media);
     card.appendChild(body);
     return card;
   }
 
-  featuredEl.appendChild(makeFeatured(images[0]));
+  featuredEl.appendChild(makeFeatured(items[0]));
 
-  function renderPage() {
+  function render() {
     gridEl.innerHTML = "";
-    var start = currentPage * PER_PAGE;
-    var slice = images.slice(start, start + PER_PAGE);
-    slice.forEach(function (item) {
-      gridEl.appendChild(makeCard(item));
+    var start = page * PER;
+    items.slice(start, start + PER).forEach(function (it) {
+      gridEl.appendChild(makeCard(it));
     });
-    pageInfo.textContent = "Page " + (currentPage + 1) + " of " + totalPages;
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage >= totalPages - 1;
+    info.textContent = "Page " + (page + 1) + " of " + totalPages;
+    prevBtn.disabled = page === 0;
+    nextBtn.disabled = page >= totalPages - 1;
   }
 
   pager.style.display = "flex";
-  renderPage();
+  render();
 
   prevBtn.addEventListener("click", function () {
-    if (currentPage > 0) {
-      currentPage--;
-      renderPage();
+    if (page > 0) {
+      page--;
+      render();
       gridEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
   nextBtn.addEventListener("click", function () {
-    if (currentPage < totalPages - 1) {
-      currentPage++;
-      renderPage();
+    if (page < totalPages - 1) {
+      page++;
+      render();
       gridEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
