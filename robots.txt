@@ -1,0 +1,7 @@
+---
+layout: null
+---
+Sitemap: https://github.io
+
+User-agent: *
+Allow: /
