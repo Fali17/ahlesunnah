@@ -369,8 +369,9 @@ document.addEventListener("DOMContentLoaded", function() {
   latestContainer.innerHTML = `
     <div class="media-card latest-card">
       <div class="latest-img-wrapper">
-        <a href="${latestImg.src}" target="_blank" rel="noopener">
-          <img src="${latestImg.src}" alt="${escapeAttr(latestImg.caption)}">
+        <a href="${latestImg.src}">
+  <img src="${latestImg.src}" alt="${escapeAttr(latestImg.caption)}">
+</a>
         </a>
       </div>
       <div class="latest-info-wrapper">
@@ -397,8 +398,9 @@ document.addEventListener("DOMContentLoaded", function() {
       const card = document.createElement('figure');
       card.className = 'grid-card';
       card.innerHTML = `
-        <a href="${item.src}" class="image-link" target="_blank" rel="noopener">
-          <img src="${item.src}" alt="${escapeAttr(item.caption)}" loading="lazy">
+        <a href="${item.src}" class="image-link">
+  <img src="${item.src}" alt="${escapeAttr(item.caption)}" loading="lazy">
+</a>
         </a>
         <figcaption>
           <span class="media-date">${item.dateString}</span>
