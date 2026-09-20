@@ -5,330 +5,459 @@ permalink: test
 ---
 
 <style>
-  .site-main { max-width: 1200px !important; }
+  .site-main { max-width: 1280px !important; padding-top: 12px !important; }
 
-  .media-gallery-container {
-    max-width: 1200px;
+  .mg {
+    --mg-primary: var(--primary, #0e4a2d);
+    --mg-accent: var(--accent, #c8a415);
+    --mg-card: var(--card, #fff);
+    --mg-text: var(--text, #1e293b);
+    --mg-muted: var(--muted, #64748b);
+    --mg-border: var(--border, #e7e5e4);
+    --mg-radius: 16px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 4px 20px;
+    padding: 0 8px 48px;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
-  .latest-media-section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    border-radius: var(--radius);
-    padding: 24px;
-    margin-bottom: 36px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  }
-
-  .latest-title {
-    font-family: 'Amiri', serif;
-    font-size: 1.55rem;
-    margin: 0 0 16px;
-    color: var(--text);
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 6px;
-    display: inline-block;
-  }
-
-  .media-card.latest-card {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  @media (min-width: 768px) {
-    .media-card.latest-card {
-      flex-direction: row;
-      align-items: center;
-    }
-    .latest-img-wrapper { flex: 1; max-width: 48%; }
-    .latest-info-wrapper { flex: 1; }
-  }
-
-  .latest-img-wrapper img {
-    width: 100%;
-    height: auto;
-    max-height: 380px;
-    object-fit: contain;
-    border-radius: 10px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    background: #f8f6f0;
-    cursor: pointer;
-  }
-
-  .media-date {
-    font-size: 0.82rem;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 6px;
-  }
-
-  .caption-link {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--primary);
-    text-decoration: none;
-    line-height: 1.4;
-    word-break: break-word;
-  }
-  .caption-link:hover {
-    color: var(--primary-dark);
-    text-decoration: underline;
-  }
-
-  .gallery-title {
-    font-family: 'Amiri', serif;
-    font-size: 1.6rem;
-    color: var(--text);
-    margin: 0 0 20px;
-  }
-
-  .media-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 22px;
+  /* Hero */
+  .mg-hero {
+    background: linear-gradient(135deg, var(--mg-primary) 0%, #0a3721 100%);
+    border-radius: var(--mg-radius);
+    padding: 28px 24px;
     margin-bottom: 28px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--mg-accent);
   }
-
-  @media (max-width: 600px) {
-    .media-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 14px;
-    }
+  .mg-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 40%, rgba(200,164,21,0.18) 0 2px, transparent 2.5px),
+      radial-gradient(circle at 85% 60%, rgba(255,255,255,0.08) 0 1.5px, transparent 2px);
+    background-size: 40px 40px, 56px 56px;
+    pointer-events: none;
   }
-
-  .grid-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
+  .mg-hero-inner { position: relative; z-index: 1; }
+  .mg-hero h1 {
+    font-family: 'Amiri', serif;
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  .mg-hero p {
+    margin: 0 0 18px;
+    opacity: 0.88;
+    font-size: 0.95rem;
+  }
+  .mg-stats {
     display: flex;
-    flex-direction: column;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .grid-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  .mg-stat {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    backdrop-filter: blur(6px);
   }
 
-  .grid-img-wrapper {
-    height: 190px;
+  /* Featured */
+  .mg-featured {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 20px;
+    background: var(--mg-card);
+    border: 1px solid var(--mg-border);
+    border-radius: var(--mg-radius);
+    padding: 16px;
+    margin-bottom: 32px;
+    box-shadow: 0 4px 24px rgba(14,74,45,0.06);
+  }
+  @media (max-width: 768px) {
+    .mg-featured { grid-template-columns: 1fr; }
+  }
+  .mg-featured-img {
+    position: relative;
+    border-radius: 12px;
     overflow: hidden;
     background: #f5f3eb;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    margin-bottom: 12px;
-    cursor: pointer;
+    min-height: 220px;
+    cursor: zoom-in;
+    aspect-ratio: 16 / 10;
   }
-  .grid-img-wrapper img {
+  .mg-featured-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.45s ease;
   }
-
-  .grid-card .caption-link {
-    font-size: 0.92rem;
-    color: var(--text);
-    font-weight: 500;
+  .mg-featured-img:hover img { transform: scale(1.04); }
+  .mg-featured-img .mg-zoom-hint {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .grid-card .caption-link:hover { color: var(--primary); }
-
-  .pagination-controls-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-    padding: 18px 0 10px;
-    margin-top: 12px;
-    font-size: 0.95rem;
-    color: var(--text);
-    flex-wrap: wrap;
+  .mg-featured-img:hover .mg-zoom-hint { opacity: 1; }
+  .mg-featured-body { display: flex; flex-direction: column; justify-content: center; padding: 8px 4px; }
+  .mg-badge {
+    display: inline-block;
+    width: fit-content;
+    background: color-mix(in srgb, var(--mg-accent) 22%, white);
+    color: var(--mg-primary);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
   }
-  .pagination-controls-wrapper button {
-    min-width: 110px;
-    padding: 10px 18px;
-    font-size: 0.92rem;
+  .mg-featured-body .mg-date {
+    font-size: 0.8rem;
+    color: var(--mg-muted);
+    margin-bottom: 6px;
+  }
+  .mg-caption {
+    color: var(--mg-primary);
     font-weight: 600;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--card);
-    color: var(--primary);
-    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    word-break: break-word;
   }
-  .pagination-controls-wrapper button:hover:not(:disabled) {
-    background: color-mix(in srgb, var(--primary) 8%, white);
-    border-color: var(--primary);
+  .mg-caption:hover { text-decoration: underline; color: var(--primary-dark, #0a3721); }
+  .mg-hint {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--mg-muted);
   }
-  .pagination-controls-wrapper button:disabled {
-    color: var(--muted);
-    background: #f5f3eb;
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-  .page-info-panel { font-weight: 500; color: var(--muted); }
 
-  /* ===== Built-in lightbox (no GLightbox) ===== */
-  #media-lightbox {
+  /* Section title */
+  .mg-section-title {
+    font-family: 'Amiri', serif;
+    font-size: 1.45rem;
+    margin: 0 0 18px;
+    color: var(--mg-text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mg-section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--mg-border), transparent);
+  }
+
+  /* Grid */
+  .mg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 520px) {
+    .mg-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  }
+
+  .mg-card {
+    background: var(--mg-card);
+    border: 1px solid var(--mg-border);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .mg-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(14,74,45,0.1);
+  }
+  .mg-card-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #f0ede4;
+    cursor: zoom-in;
+    overflow: hidden;
+  }
+  .mg-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .mg-card:hover .mg-card-media img { transform: scale(1.06); }
+  .mg-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(14,74,45,0.55), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.25s;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 12px;
+    pointer-events: none;
+  }
+  .mg-card:hover .mg-card-overlay { opacity: 1; }
+  .mg-card-overlay span {
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(0,0,0,0.35);
+    padding: 5px 12px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+  }
+  .mg-card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .mg-card-date {
+    font-size: 0.72rem;
+    color: var(--mg-muted);
+  }
+  .mg-card-body .mg-caption {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--mg-text);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mg-card-body .mg-caption:hover { color: var(--mg-primary); }
+
+  /* Pagination */
+  .mg-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 8px 0 4px;
+  }
+  .mg-pager button {
+    min-width: 108px;
+    padding: 11px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--mg-border);
+    border-radius: 10px;
+    background: var(--mg-card);
+    color: var(--mg-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mg-pager button:hover:not(:disabled) {
+    border-color: var(--mg-primary);
+    background: color-mix(in srgb, var(--mg-primary) 8%, white);
+  }
+  .mg-pager button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .mg-page-info {
+    font-size: 0.9rem;
+    color: var(--mg-muted);
+    font-weight: 500;
+    min-width: 160px;
+    text-align: center;
+  }
+
+  .mg-empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--mg-muted);
+    background: var(--mg-card);
+    border-radius: var(--mg-radius);
+    border: 1px dashed var(--mg-border);
+  }
+  .mg-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--mg-muted);
+  }
+
+  /* Lightbox */
+  #mg-lb {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 99999;
-    background: rgba(0,0,0,0.92);
+    background: rgba(8, 20, 14, 0.94);
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 12px;
+    padding: 16px;
     box-sizing: border-box;
+    backdrop-filter: blur(8px);
   }
-  #media-lightbox.is-open { display: flex; }
-
-  #media-lightbox-img {
-    max-width: 96vw;
+  #mg-lb.is-open { display: flex; animation: mgFade 0.2s ease; }
+  @keyframes mgFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  #mg-lb-img {
+    max-width: min(96vw, 1200px);
     max-height: 78vh;
     width: auto;
     height: auto;
     object-fit: contain;
-    border-radius: 6px;
-    background: #111;
-  }
-
-  @media (max-width: 768px) {
-    #media-lightbox-img {
-      max-width: 98vw;
-      max-height: 70vh;
-    }
-  }
-
-  #media-lightbox-caption {
-    max-width: 90vw;
-    margin-top: 12px;
-    color: #fff;
-    text-align: center;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    background: rgba(0,0,0,0.55);
-    padding: 8px 14px;
     border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+    background: #0a0a0a;
   }
-
-  #media-lightbox-actions {
-    margin-top: 12px;
+  @media (max-width: 768px) {
+    #mg-lb-img { max-height: 68vh; max-width: 98vw; }
+  }
+  #mg-lb-caption {
+    max-width: 90vw;
+    margin-top: 14px;
+    color: #f1f5f9;
+    text-align: center;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    background: rgba(255,255,255,0.08);
+    padding: 10px 16px;
+    border-radius: 10px;
+  }
+  #mg-lb-actions {
+    margin-top: 14px;
     display: flex;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
   }
-
-  #media-lightbox-download {
-    display: inline-block;
-    padding: 10px 18px;
-    background: #145a32;
+  #mg-lb-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 20px;
+    background: var(--mg-primary);
     color: #fff !important;
-    border-radius: 6px;
+    border-radius: 10px;
     text-decoration: none !important;
     font-size: 0.9rem;
     font-weight: 600;
+    border: 1px solid rgba(200,164,21,0.4);
   }
-  #media-lightbox-download:hover { background: #0e4a2d; }
-
-  #media-lightbox-close {
+  #mg-lb-download:hover { background: #0a3721; }
+  #mg-lb-close {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 44px;
-    height: 44px;
+    top: 16px;
+    right: 16px;
+    width: 46px;
+    height: 46px;
     border: none;
     border-radius: 50%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(255,255,255,0.12);
     color: #fff;
     font-size: 28px;
     line-height: 1;
     cursor: pointer;
-    z-index: 100000;
+    transition: background 0.2s, transform 0.2s;
   }
-  #media-lightbox-close:hover { background: rgba(0,0,0,0.95); }
-
-  @media (max-width: 768px) {
-    #media-lightbox-close {
-      top: 10px;
-      right: 10px;
-      width: 42px;
-      height: 42px;
-    }
+  #mg-lb-close:hover {
+    background: rgba(255,255,255,0.22);
+    transform: scale(1.06);
+  }
+  @media (max-width: 600px) {
+    #mg-lb-close { top: 10px; right: 10px; width: 42px; height: 42px; }
   }
 </style>
 
-<div class="media-gallery-container">
-  <div class="latest-media-section">
-    <h2 class="latest-title">Latest Upload</h2>
-    <div id="latest-image-target">Searching for latest file...</div>
+<div class="mg">
+  <header class="mg-hero">
+    <div class="mg-hero-inner">
+      <h1>Media Gallery</h1>
+      <p>Every image from the site — open full size, download, or jump to the original post.</p>
+      <div class="mg-stats">
+        <span class="mg-stat" id="mg-stat-total">… images</span>
+        <span class="mg-stat" id="mg-stat-pages">… pages</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="mg-featured-target"></div>
+
+  <h2 class="mg-section-title">All media</h2>
+  <div id="mg-grid-target" class="mg-grid">
+    <div class="mg-loading">Loading gallery…</div>
   </div>
 
-  <h2 class="gallery-title">All Website Media</h2>
-  <div id="media-grid-target" class="media-grid">
-    Generating media library...
-  </div>
-
-  <div class="pagination-controls-wrapper" id="pagination-controls-element" style="display: none;">
-    <button type="button" id="prevBtn" disabled>&laquo; Previous</button>
-    <span class="page-info-panel" id="pageInfo"></span>
-    <button type="button" id="nextBtn">Next &raquo;</button>
-  </div>
-</div>
-
-<!-- Lightbox (always in the page) -->
-<div id="media-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <button type="button" id="media-lightbox-close" aria-label="Close">&times;</button>
-  <img id="media-lightbox-img" alt="">
-  <div id="media-lightbox-caption"></div>
-  <div id="media-lightbox-actions">
-    <a id="media-lightbox-download" href="#" download>↓ Download Image</a>
+  <div class="mg-pager" id="mg-pager" style="display:none;">
+    <button type="button" id="mg-prev" disabled>← Previous</button>
+    <span class="mg-page-info" id="mg-page-info"></span>
+    <button type="button" id="mg-next">Next →</button>
   </div>
 </div>
 
-<div id="jekyll-raw-content-vault" style="display: none;">
+<!-- Lightbox -->
+<div id="mg-lb" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" id="mg-lb-close" aria-label="Close">&times;</button>
+  <img id="mg-lb-img" alt="">
+  <div id="mg-lb-caption"></div>
+  <div id="mg-lb-actions">
+    <a id="mg-lb-download" href="#" download>↓ Download</a>
+  </div>
+</div>
+
+<!-- Hidden post content for image extraction -->
+<div id="jekyll-raw-content-vault" style="display:none;">
   {% for post in site.posts %}
     <div class="vault-item"
          data-url="{{ post.url | relative_url }}"
-         data-date="{{ post.date | date: '%B %d, %Y' }}"
+         data-date="{{ post.date | date: '%b %d, %Y' }}"
          data-title="{{ post.title | escape }}">
-      <div class="post-html-payload">
-        {{ post.content }}
-      </div>
+      <div class="post-html-payload">{{ post.content }}</div>
     </div>
   {% endfor %}
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  var PER_PAGE = 10;
+  var currentPage = 0;
+  var images = [];
 
-  function getCleanPathString(url) {
+  function cleanPath(url) {
     if (!url) return "";
     return url.split("#")[0].split("?")[0].trim();
   }
 
-  function generateCleanImageHash(rawSrc) {
-    var cleanUrl = getCleanPathString(rawSrc);
-    if (!cleanUrl) return "img-null";
-    if (cleanUrl.indexOf("data:") === 0) {
-      cleanUrl = cleanUrl.substring(0, 120);
+  function hashSrc(raw) {
+    var s = cleanPath(raw);
+    if (!s) return "img-null";
+    if (s.indexOf("data:") === 0) s = s.substring(0, 120);
+    var h = 0;
+    for (var i = 0; i < s.length; i++) {
+      h = ((h << 5) - h) + s.charCodeAt(i);
+      h |= 0;
     }
-    var hash = 0;
-    for (var i = 0; i < cleanUrl.length; i++) {
-      hash = ((hash << 5) - hash) + cleanUrl.charCodeAt(i);
-      hash |= 0;
-    }
-    return "img-ref-" + Math.abs(hash);
+    return "img-ref-" + Math.abs(h);
   }
 
-  function makeDownloadFilename(caption, src) {
+  function downloadName(caption, src) {
     var name = (caption || "image").trim()
       .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
       .replace(/\s+/g, "_")
@@ -341,203 +470,211 @@ document.addEventListener("DOMContentLoaded", function () {
         if (ext === "svg+xml") ext = "svg";
       }
     } else {
-      var match = (src || "").match(/\.(jpe?g|png|gif|webp|bmp|svg)(\?|$)/i);
-      if (match) ext = match[1].toLowerCase();
+      var m2 = (src || "").match(/\.(jpe?g|png|gif|webp|bmp|svg)(\?|$)/i);
+      if (m2) ext = m2[1].toLowerCase();
     }
     return name + "." + ext;
   }
 
-  /* ---------- Lightbox ---------- */
-  var lb = document.getElementById("media-lightbox");
-  var lbImg = document.getElementById("media-lightbox-img");
-  var lbCaption = document.getElementById("media-lightbox-caption");
-  var lbDownload = document.getElementById("media-lightbox-download");
-  var lbClose = document.getElementById("media-lightbox-close");
+  /* Lightbox */
+  var lb = document.getElementById("mg-lb");
+  var lbImg = document.getElementById("mg-lb-img");
+  var lbCap = document.getElementById("mg-lb-caption");
+  var lbDl = document.getElementById("mg-lb-download");
+  var lbClose = document.getElementById("mg-lb-close");
 
-  function openLightbox(src, caption) {
+  function openLb(src, caption) {
     lbImg.src = src;
     lbImg.alt = caption || "";
-    lbCaption.textContent = caption || "";
-    lbDownload.href = src;
-    lbDownload.setAttribute("download", makeDownloadFilename(caption, src));
+    lbCap.textContent = caption || "";
+    lbDl.href = src;
+    lbDl.setAttribute("download", downloadName(caption, src));
     lb.classList.add("is-open");
     document.body.style.overflow = "hidden";
   }
-
-  function closeLightbox() {
+  function closeLb() {
     lb.classList.remove("is-open");
     lbImg.removeAttribute("src");
     document.body.style.overflow = "";
   }
-
   lbClose.addEventListener("click", function (e) {
     e.preventDefault();
     e.stopPropagation();
-    closeLightbox();
+    closeLb();
   });
-
   lb.addEventListener("click", function (e) {
-    if (e.target === lb) closeLightbox();
+    if (e.target === lb) closeLb();
   });
-
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && lb.classList.contains("is-open")) {
-      closeLightbox();
-    }
+    if (e.key === "Escape" && lb.classList.contains("is-open")) closeLb();
   });
 
-  /* ---------- Collect images ---------- */
+  /* Collect images from posts */
   var posts = document.querySelectorAll("#jekyll-raw-content-vault .vault-item");
-  var gridContainer = document.getElementById("media-grid-target");
-  var latestContainer = document.getElementById("latest-image-target");
-  var paginationControls = document.getElementById("pagination-controls-element");
-  var prevBtn = document.getElementById("prevBtn");
-  var nextBtn = document.getElementById("nextBtn");
-  var pageInfo = document.getElementById("pageInfo");
+  posts.forEach(function (post) {
+    var postUrl = post.getAttribute("data-url") || "";
+    var postDate = post.getAttribute("data-date") || "";
+    var postTitle = post.getAttribute("data-title") || "";
+    var payload = post.querySelector(".post-html-payload");
+    if (!payload) return;
 
-  var collectedImages = [];
-  var imagesPerPage = 10;
-  var currentPage = 0;
-
-  posts.forEach(function (postElement) {
-    var postUrl = postElement.getAttribute("data-url") || "";
-    var postDate = postElement.getAttribute("data-date") || "";
-    var postTitle = postElement.getAttribute("data-title") || "";
-    var htmlPayload = postElement.querySelector(".post-html-payload");
-    if (!htmlPayload) return;
-
-    var images = htmlPayload.querySelectorAll("img");
-
-    images.forEach(function (img) {
+    payload.querySelectorAll("img").forEach(function (img) {
       var src = img.getAttribute("src");
       if (!src) return;
       src = src.trim();
 
-      var matchingHashId = generateCleanImageHash(src);
-      var postLink = postUrl + "#" + matchingHashId;
+      var id = hashSrc(src);
+      var deep = postUrl + "#" + id;
 
-      var foundCaption = img.getAttribute("alt") || img.getAttribute("title") || "";
-
-      var nextSibling = img.nextElementSibling;
-      if (nextSibling && (nextSibling.tagName === "P" || nextSibling.tagName === "FIGCAPTION")) {
-        var text = (nextSibling.textContent || "").trim();
-        if (text.length > 1) foundCaption = text;
+      var caption = img.getAttribute("alt") || img.getAttribute("title") || "";
+      var next = img.nextElementSibling;
+      if (next && (next.tagName === "P" || next.tagName === "FIGCAPTION")) {
+        var t = (next.textContent || "").trim();
+        if (t.length > 1) caption = t;
       }
-
-      if (!foundCaption || !String(foundCaption).trim()) {
-        foundCaption = 'Image from post: "' + postTitle + '"';
+      if (!caption || !String(caption).trim()) {
+        caption = 'Image from “‘ + postTitle + '”';
       }
+      caption = String(caption).replace(/\s+/g, " ").trim().substring(0, 280);
 
-      foundCaption = String(foundCaption).replace(/\s+/g, " ").trim().substring(0, 300);
-
-      collectedImages.push({
+      images.push({
         src: src,
-        caption: foundCaption,
-        deepLinkUrl: postLink,
-        dateString: postDate
+        caption: caption,
+        deepLink: deep,
+        date: postDate
       });
     });
   });
 
-  gridContainer.innerHTML = "";
-  latestContainer.innerHTML = "";
+  var featuredEl = document.getElementById("mg-featured-target");
+  var gridEl = document.getElementById("mg-grid-target");
+  var pager = document.getElementById("mg-pager");
+  var prevBtn = document.getElementById("mg-prev");
+  var nextBtn = document.getElementById("mg-next");
+  var pageInfo = document.getElementById("mg-page-info");
+  var statTotal = document.getElementById("mg-stat-total");
+  var statPages = document.getElementById("mg-stat-pages");
 
-  if (collectedImages.length === 0) {
-    latestContainer.textContent = "No images found in posts.";
-    gridContainer.textContent = "Gallery empty.";
+  if (images.length === 0) {
+    featuredEl.innerHTML = "";
+    gridEl.innerHTML = '<div class="mg-empty">No images found in posts yet.</div>';
+    statTotal.textContent = "0 images";
+    statPages.textContent = "0 pages";
     return;
   }
 
-  function createCard(item, isLatest) {
-    var card = document.createElement("div");
-    card.className = isLatest ? "media-card latest-card" : "grid-card";
+  var totalPages = Math.ceil(images.length / PER_PAGE);
+  statTotal.textContent = images.length + " images";
+  statPages.textContent = totalPages + " page" + (totalPages === 1 ? "" : "s");
 
-    var imgWrap = document.createElement("div");
-    imgWrap.className = isLatest ? "latest-img-wrapper" : "grid-img-wrapper";
-    imgWrap.style.cursor = "pointer";
-    imgWrap.title = "Click to view full size";
+  function makeFeatured(item) {
+    var wrap = document.createElement("div");
+    wrap.className = "mg-featured";
 
+    var media = document.createElement("div");
+    media.className = "mg-featured-img";
+    media.title = "Click to view full size";
+    var img = document.createElement("img");
+    img.src = item.src;
+    img.alt = item.caption;
+    img.loading = "eager";
+    media.appendChild(img);
+    var hint = document.createElement("span");
+    hint.className = "mg-zoom-hint";
+    hint.textContent = "Click to enlarge";
+    media.appendChild(hint);
+    media.addEventListener("click", function () { openLb(item.src, item.caption); });
+
+    var body = document.createElement("div");
+    body.className = "mg-featured-body";
+    var badge = document.createElement("span");
+    badge.className = "mg-badge";
+    badge.textContent = "Latest upload";
+    var date = document.createElement("div");
+    date.className = "mg-date";
+    date.textContent = item.date;
+    var cap = document.createElement("a");
+    cap.className = "mg-caption";
+    cap.href = item.deepLink;
+    cap.textContent = item.caption + " →";
+    var tip = document.createElement("p");
+    tip.className = "mg-hint";
+    tip.textContent = "Caption opens the exact place in the original post. Image opens full-screen view.";
+    body.appendChild(badge);
+    body.appendChild(date);
+    body.appendChild(cap);
+    body.appendChild(tip);
+
+    wrap.appendChild(media);
+    wrap.appendChild(body);
+    return wrap;
+  }
+
+  function makeCard(item) {
+    var card = document.createElement("article");
+    card.className = "mg-card";
+
+    var media = document.createElement("div");
+    media.className = "mg-card-media";
+    media.title = "Click to view full size";
     var img = document.createElement("img");
     img.src = item.src;
     img.alt = item.caption;
     img.loading = "lazy";
-    imgWrap.appendChild(img);
+    media.appendChild(img);
+    var overlay = document.createElement("div");
+    overlay.className = "mg-card-overlay";
+    overlay.innerHTML = "<span>View full size</span>";
+    media.appendChild(overlay);
+    media.addEventListener("click", function () { openLb(item.src, item.caption); });
 
-    // Click image → open lightbox
-    imgWrap.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      openLightbox(item.src, item.caption);
-    });
+    var body = document.createElement("div");
+    body.className = "mg-card-body";
+    var date = document.createElement("div");
+    date.className = "mg-card-date";
+    date.textContent = item.date;
+    var cap = document.createElement("a");
+    cap.className = "mg-caption";
+    cap.href = item.deepLink;
+    cap.title = "Jump to this image in the post";
+    cap.textContent = item.caption;
+    body.appendChild(date);
+    body.appendChild(cap);
 
-    var dateEl = document.createElement("span");
-    dateEl.className = "media-date";
-    dateEl.textContent = isLatest ? ("Published: " + item.dateString) : item.dateString;
-
-    var captionA = document.createElement("a");
-    captionA.href = item.deepLinkUrl;
-    captionA.className = "caption-link";
-    captionA.title = "Jump to this image in the post";
-    captionA.textContent = item.caption + (isLatest ? " →" : "");
-
-    if (isLatest) {
-      var info = document.createElement("div");
-      info.className = "latest-info-wrapper";
-      info.appendChild(dateEl);
-      info.appendChild(captionA);
-      var hint = document.createElement("p");
-      hint.style.cssText = "margin-top:10px;font-size:0.9rem;color:#666;";
-      hint.textContent = "Tapping this caption jumps directly to where this image lives inside the article body.";
-      info.appendChild(hint);
-      card.appendChild(imgWrap);
-      card.appendChild(info);
-    } else {
-      card.appendChild(imgWrap);
-      card.appendChild(dateEl);
-      card.appendChild(captionA);
-    }
-
+    card.appendChild(media);
+    card.appendChild(body);
     return card;
   }
 
-  latestContainer.appendChild(createCard(collectedImages[0], true));
+  featuredEl.appendChild(makeFeatured(images[0]));
 
-  function displayGalleryPage() {
-    gridContainer.innerHTML = "";
-
-    var startIndex = currentPage * imagesPerPage;
-    var endIndex = startIndex + imagesPerPage;
-    var pageItems = collectedImages.slice(startIndex, endIndex);
-
-    pageItems.forEach(function (item) {
-      gridContainer.appendChild(createCard(item, false));
+  function renderPage() {
+    gridEl.innerHTML = "";
+    var start = currentPage * PER_PAGE;
+    var slice = images.slice(start, start + PER_PAGE);
+    slice.forEach(function (item) {
+      gridEl.appendChild(makeCard(item));
     });
-
-    var totalPages = Math.ceil(collectedImages.length / imagesPerPage);
-    pageInfo.textContent =
-      "Page " + (currentPage + 1) + " of " + totalPages +
-      " (" + collectedImages.length + " images total)";
-
+    pageInfo.textContent = "Page " + (currentPage + 1) + " of " + totalPages;
     prevBtn.disabled = currentPage === 0;
     nextBtn.disabled = currentPage >= totalPages - 1;
   }
 
-  paginationControls.style.display = "flex";
-  displayGalleryPage();
+  pager.style.display = "flex";
+  renderPage();
 
   prevBtn.addEventListener("click", function () {
     if (currentPage > 0) {
       currentPage--;
-      displayGalleryPage();
-      gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      renderPage();
+      gridEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
-
   nextBtn.addEventListener("click", function () {
-    if (currentPage < Math.ceil(collectedImages.length / imagesPerPage) - 1) {
+    if (currentPage < totalPages - 1) {
       currentPage++;
-      displayGalleryPage();
-      gridContainer.scrollIntoView({ behavior: "smooth", block: "start" });
+      renderPage();
+      gridEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 });
