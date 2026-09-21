@@ -24,14 +24,12 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
-# Standard Layout Defaults
 defaults:
   - scope:
-      path: ""
-      type: "posts" # Fixed syntax: should be plain "posts" without double quotes
+      path: "_posts" # Applies to every file in your posts folder
     values:
-      layout: "post"
-      author: "Ahle Sunnah"
+      layout: "post" # Automatically wraps them in your post.html layout
+
 
 # Design Assets
 logo: "assets/logo.png"
