@@ -1038,3 +1038,36 @@ span.auto-arabic-inline {
     widows: 3;
   }
 }
+
+/* --- Print Essay Button Component --- */
+.print-essay-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 12px;
+  transition: all 0.2s ease;
+}
+
+.print-essay-btn:hover {
+  background: color-mix(in srgb, var(--primary) 6%, white);
+  color: var(--primary);
+  border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.print-essay-btn:focus {
+  outline: none;
+}
+
+/* Ensure the button hides completely on the final printed page */
+@media print {
+  .print-essay-btn {
+    display: none !important;
+  }
+}
