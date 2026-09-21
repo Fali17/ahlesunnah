@@ -779,3 +779,11 @@ body, html {
   }
 }
 
+/* --- 1. Essay Layout & Typography Improvements --- */
+.post-content, article, main p {
+    max-width: 740px;      /* Stops text from stretching too wide on big screens */
+    margin: 0 auto 1.5rem; /* Centers the content neatly */
+    line-height: 1.75;     /* Gives the text crisp breathing room */
+    font-size: 1.15rem;    /* Makes reading scholarly texts easy on the eyes */
+    color: #2c3e50;        /* Softer dark tone instead of harsh pure black */
+}
