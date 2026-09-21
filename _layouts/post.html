@@ -101,58 +101,39 @@ layout: default
 
 </style>
 
-
-<!-- This file acts as the master container for ALL your essays -->
 <article class="post-full">
-  
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-  <div class="meta">
-  <time datetime="{{ page.date | date_to_xmlschema }}">
-    {{ page.date | date: "%B %d, %Y" }}
-  </time>
-  
-  <!-- Updated academic structural isolate printing link -->
-  <button onclick="printAcademicArticle();" class="print-essay-btn">
-    <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align: text-bottom; margin-right: 4px;">
-      <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
-    </svg>
-    Print Essay / Save PDF
-  </button>
-</div>
+    <div class="meta">
+      <button onclick="printAcademicArticle();" class="print-essay-btn" style="margin-left: 0;">
+        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align: text-bottom; margin-right: 4px;">
+          <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+        </svg>
+        Print Essay / Save PDF
+      </button>
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+</article>
 
 <script>
 function printAcademicArticle() {
-  // 1. Target the pure article text container element
   const articleContent = document.querySelector('.post-full').innerHTML;
-  
-  // 2. Save the total current digital screen view state elements
   const originalBody = document.body.innerHTML;
-  
-  // 3. Temporarily isolate the page shell down strictly to your text content values
   document.body.innerHTML = '<main class="post-full" style="background:#fff!important; padding:0!important; margin:0!important; box-shadow:none!important; border:none!important;"><div class="post-content">' + articleContent + '</div></main>';
-  
-  // 4. Trigger the system engine PDF save command window
   window.print();
-  
-  // 5. Restore the site back to your layout configuration instantly
   document.body.innerHTML = originalBody;
-  
-  // Re-execute your automated Arabic script logic since the window refreshed state parameters
   if (typeof window.location.reload === 'function') {
       window.location.reload();
   }
 }
 </script>
 
+
   </header>
-
-  <!-- This tag automatically injects your plain markdown prose here and applies your typography rules -->
-  <div class="post-content">
-    {{ content }}
-  </div>
-
-</article>
 
   <!-- Chronological Post Navigation Row Framework -->
 {% if page.previous or page.next %}
@@ -186,37 +167,3 @@ function printAcademicArticle() {
   </div>
 </article>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  // 1. Locate the container holding your essay content
-  const postBody = document.querySelector(".post-content");
-  if (!postBody) return;
-
-  // 2. This regex formula instantly detects Arabic Unicode text characters
-  const arabicRegex = /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/;
-
-  // 3. Scan all paragraphs, list items, and blockquotes in your post
-  const blocks = postBody.querySelectorAll("p, li, blockquote");
-
-  blocks.forEach(block => {
-    // If a whole block is primarily Arabic, convert the whole block layout
-    if (arabicRegex.test(block.textContent) && block.textContent.trim().length < 300 && !block.textContent.includes("a") && !block.textContent.includes("e")) {
-      block.classList.add("auto-arabic");
-    } else {
-      // If it's an English sentence containing inline Arabic phrases, wrap just those words!
-      let html = block.innerHTML;
-      
-      // Matches consecutive Arabic letters, spaces, and punctuation markings
-      const inlineArabicRegex = /([\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF\s\p{P}]+)/gu;
-      
-      html = html.replace(inlineArabicRegex, function(match) {
-        if (match.trim().length > 1) {
-          return `<span class="auto-arabic-inline">${match}</span>`;
-        }
-        return match;
-      });
-      block.innerHTML = html;
-    }
-  });
-});
-</script>
