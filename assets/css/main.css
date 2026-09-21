@@ -999,8 +999,15 @@ body, html {
 @media print {
     img {
         max-width: 250px !important; /* Forces images to not exceed a reasonable width */
-        height: auto !important;     /* Keeps the aspect ratio intact */
-        display: inline-block !important; 
+        height: 100% !important;     /* Keeps the aspect ratio intact */
+      width: 100% !important;
+      
+      display: flex !important; 
+
+      align-items:center;
+
+      justify-content:center;
+  
     }
     
     /* Optional: Hide large decorative headers/logos just for the print version */
