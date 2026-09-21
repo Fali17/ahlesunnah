@@ -23,4 +23,4 @@ Abu Ayyub is reported to have said that the "**actions are presented to the dece
 
 Quran.com Mustafa Khattib Translation 
 Quran.com Ibn Kathir tafsir
-(https://seekersguidance.org/answers/islamic-belief/presentation-of-the-deeds-of-the-living-to-the-deceased-and-martyrs-and-their-ranks/)
+<https://seekersguidance.org/answers/islamic-belief/presentation-of-the-deeds-of-the-living-to-the-deceased-and-martyrs-and-their-ranks/>
