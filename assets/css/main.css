@@ -938,17 +938,22 @@ span.auto-arabic-inline {
   display: inline-block;
   padding: 0 4px;
 }
-
-/* --- Strict Academic Print/PDF Layout Override --- */
+/* --- High-Priority Strict Academic PDF Print Rules --- */
 @media print {
-  /* 1. Eliminate all color, shapes, and digital background themes */
+  /* Force the layout canvas margins to zero and hide native headers/footers */
+  @page {
+    margin: 15mm 20mm 15mm 20mm !important; /* Proper academic document margins */
+  }
+
+  /* Reset layout variables explicitly */
   :root {
     --bg: #ffffff !important;
     --card: #ffffff !important;
     --text: #000000 !important;
   }
 
-  body {
+  /* Wipe screen layout properties entirely */
+  html, body {
     background: #ffffff !important;
     color: #000000 !important;
     font-family: "Times New Roman", Times, Georgia, serif !important;
@@ -956,116 +961,100 @@ span.auto-arabic-inline {
     line-height: 1.6 !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important;
+    -webkit-print-color-adjust: economy !important;
+    print-color-adjust: economy !important;
   }
 
-  /* 2. COMPLETELY REMOVE website title, headers, sidebars, buttons, and site graphics */
-  .site-header,
-  .header-container,
-  .header-inner,
-  .site-header h1,
-  .subtitle,
-  .logo-wrap,
-  .menu-toggle-btn,
-  .search-wrapper,
-  .sidebar-nav,
-  .sidebar-overlay,
-  .print-essay-btn,
-  .read-more,
-  .hero,
-  footer,
-  .report-abuse,
-  #results-container {
+  /* CRITICAL: Strict target destruction of ALL structural components outside text content */
+  header, footer, nav, aside, 
+  .site-header, .header-container, .header-inner, .logo-wrap, .subtitle,
+  .menu-toggle-btn, .search-wrapper, .sidebar-nav, .sidebar-overlay,
+  .print-essay-btn, .read-more, .hero, .report-abuse, #results-container {
     display: none !important;
     visibility: hidden !important;
+    opacity: 0 !important;
     height: 0 !important;
+    width: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-    opacity: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
   }
 
-  /* 3. Strip away the card frames, boxes, borders, backgrounds, and drop-shadow squares */
-  .site-main, 
-  .post-full,
-  .post-card {
+  /* Dissolve structural background border squares, cards, and box shadows completely */
+  main, .site-main, .post-full, .post-card {
+    display: block !important;
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
-    box-shadow: none !important;
     border: none !important;
     background: transparent !important;
     background-image: none !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 
-  /* 4. Format headings as raw text on paper */
+  /* Raw Academic Post Headlines */
   .post-full h1 {
-    font-size: 22pt !important;
+    font-size: 24pt !important;
     font-weight: bold !important;
+    color: #000000 !important;
     margin-top: 0 !important;
-    margin-bottom: 12pt !important;
-    color: #000000 !important;
+    margin-bottom: 10pt !important;
+    line-height: 1.2 !important;
     page-break-after: avoid;
   }
 
-  .post-content h2, 
-  .post-content h3,
-  .post-content h4 {
-    color: #000000 !important;
-    font-family: "Times New Roman", Times, Georgia, serif !important;
-    font-weight: bold !important;
-    background: transparent !important;
-    border: none !important; /* Strips underline accent rules */
-    margin-top: 18pt !important;
-    margin-bottom: 6pt !important;
-    padding: 0 !important;
-    page-break-after: avoid;
-  }
-  
-  .post-content h2 { font-size: 15pt !important; }
-  .post-content h3 { font-size: 13pt !important; }
-
-  /* 5. Minimalist meta data line */
   .post-full .meta {
     font-size: 10pt !important;
     color: #444444 !important;
-    border: none !important;
     border-bottom: 1px solid #000000 !important;
-    margin-bottom: 18pt !important;
-    padding-bottom: 4pt !important;
+    margin-bottom: 20pt !important;
+    padding-bottom: 5pt !important;
   }
 
-  /* 6. Traditional Academic Blockquotes (No heavy tint squares) */
+  /* Structural headings inside essays */
+  .post-content h2, .post-content h3, .post-content h4 {
+    color: #000000 !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin-top: 20pt !important;
+    margin-bottom: 6pt !important;
+    page-break-after: avoid;
+  }
+  .post-content h2 { font-size: 16pt !important; }
+  .post-content h3 { font-size: 13pt !important; }
+
+  /* Traditional Text-Only Citation Quotes */
   .post-content blockquote {
-    border-left: 2pt solid #000000 !important;
+    border-left: 2.5pt solid #000000 !important;
     border-right: none !important;
     border-top: none !important;
     border-bottom: none !important;
-    background: transparent !important; /* Discards the gray box shadow background */
+    background: transparent !important;
     color: #111111 !important;
     padding: 0 0 0 12pt !important;
-    margin: 12pt 0 12pt 12pt !important;
+    margin: 14pt 0 14pt 14pt !important;
     page-break-inside: avoid;
   }
 
-  /* 7. Crisp Right-to-Left Arabic text formatting for pure paper */
-  .auto-arabic,
-  .post-content [lang="ar"] {
+  /* Beautiful Right-to-Left Arabic Display */
+  .auto-arabic, .post-content [lang="ar"] {
     font-family: 'Amiri', 'Traditional Arabic', serif !important;
     font-size: 16pt !important;
     line-height: 2.2 !important;
     margin: 14pt 0 !important;
     color: #000000 !important;
     background: transparent !important;
-    border: none !important;
     box-shadow: none !important;
+    direction: rtl !important;
+    text-align: right !important;
     page-break-inside: avoid;
   }
-
-  span.auto-arabic-inline,
-  .post-content p [lang="ar"] {
-    font-size: 13pt !important;
-    line-height: 1 !important;
-  }
+}
 
   /* 8. Text boundaries to prevent chopped words near edges */
   p, li {
