@@ -982,3 +982,16 @@ body, html {
     padding: 0 !important;
   }
 }
+
+@media print {
+    /* Keeps elements side-by-side if you are using flexbox columns */
+    .row, .container, .post-content {
+        display: block !important;
+    }
+    
+    /* Makes sure specific article or essay images scale down nicely */
+    picture, figure, .image-wrapper {
+        max-width: 100% !important;
+        page-break-inside: avoid; /* Prevents an image from cutting in half across pages */
+    }
+}
