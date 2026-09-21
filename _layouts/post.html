@@ -107,19 +107,43 @@ layout: default
   
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
-   <div class="meta">
+  <div class="meta">
   <time datetime="{{ page.date | date_to_xmlschema }}">
     {{ page.date | date: "%B %d, %Y" }}
   </time>
   
-  <!-- Add this elegant Print Button link -->
-  <button onclick="window.print();" class="print-essay-btn">
+  <!-- Updated academic structural isolate printing link -->
+  <button onclick="printAcademicArticle();" class="print-essay-btn">
     <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="vertical-align: text-bottom; margin-right: 4px;">
       <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
     </svg>
     Print Essay / Save PDF
   </button>
 </div>
+
+<script>
+function printAcademicArticle() {
+  // 1. Target the pure article text container element
+  const articleContent = document.querySelector('.post-full').innerHTML;
+  
+  // 2. Save the total current digital screen view state elements
+  const originalBody = document.body.innerHTML;
+  
+  // 3. Temporarily isolate the page shell down strictly to your text content values
+  document.body.innerHTML = '<main class="post-full" style="background:#fff!important; padding:0!important; margin:0!important; box-shadow:none!important; border:none!important;"><div class="post-content">' + articleContent + '</div></main>';
+  
+  // 4. Trigger the system engine PDF save command window
+  window.print();
+  
+  // 5. Restore the site back to your layout configuration instantly
+  document.body.innerHTML = originalBody;
+  
+  // Re-execute your automated Arabic script logic since the window refreshed state parameters
+  if (typeof window.location.reload === 'function') {
+      window.location.reload();
+  }
+}
+</script>
 
   </header>
 
