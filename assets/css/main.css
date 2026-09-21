@@ -777,44 +777,47 @@ body, html {
     max-width: 100%;
     width: 100%;
   }
+/* ==========================================================================
+   1. ISOLATED ESSAY READING LAYER (TARGETS MAIN BODY TEXT ONLY)
+   ========================================================================== */
+
+/* Clamps and centers text ONLY inside post bodies so headers/menus stay normal */
+.post-content, .entry-content, article .body, .markdown-body p {
+    max-width: 740px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    line-height: 1.85 !important;
+    font-size: 1.18rem !important;
+    color: #2c3e50 !important;
 }
-/* ==========================================================================
-   1. REGULAR TEXT CONTAINER FIX
-   ========================================================================== */
-
-/* Centers reading column and makes long essays look professional on desktops */
-article, .post-content, main, p {
-    max-width: 760px !important;          
-    margin: 30px auto !important;         
-    padding: 0 20px !important;           
 
 /* ==========================================================================
-   2. AUTOMATED ARABIC TEXT DETECTOR (NO POST EDITING REQUIRED)
+   2. AUTOMATED ARABIC TEXT ISOLATION (NO CODE COLLISION)
    ========================================================================== */
 
-/* Load a beautiful traditional Arabic academic typeface from Google Fonts */
+/* Load fonts cleanly from Google */
 @import url('https://googleapis.com');
 
-/* Forces any string of Arabic text on your entire website to flow elegantly */
-:lang(ar), [dir="rtl"], p:not(:empty) {
-    unicode-bidi: plaintext !important; /* Automatically detects Arabic blocks and flips layout direction right-to-left */
-}
-
-/* Applies typography formatting globally to Arabic scripts found inside your 60 posts */
+/* Font-face mapping for automatic character detection */
 @font-face {
     font-family: 'AutomatedArabic';
     src: local('Amiri'), local('Traditional Arabic');
-    unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Targets all Arabic script Unicode blocks */
+    unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF;
 }
 
-/* Upgrades the font scale and spacing whenever the browser detects the Arabic range */
-article, .post-content, p {
-    font-family: 'AutomatedArabic', inherit !important; 
+/* Apply detection ONLY inside post text content elements */
+.post-content, .entry-content, .markdown-body {
+    font-family: 'AutomatedArabic', inherit !important;
 }
 
-/* Target elements displaying Arabic script directly to give them adequate script spacing */
+/* Formats the layout behavior when Arabic script is actively found inside paragraphs */
+.post-content p:lang(ar), .entry-content p[dir="rtl"], .markdown-body p:not(:empty) {
+    unicode-bidi: plaintext !important;
+}
+
+/* Explicitly pads and spaces the letters out beautifully */
 *[lang="ar"], .arabic-text {
-    font-size: 1.55rem !important; /* Enlarged so fine diacritics / harakat vowel marks are perfectly clear */
-    line-height: 2.4 !important;    /* Spreads lines apart so vertical text markings never overlap */
+    font-size: 1.6rem !important; 
+    line-height: 2.5 !important; /* Massive height to stop accent marks from breaking */
     font-family: 'Amiri', serif !important;
 }
