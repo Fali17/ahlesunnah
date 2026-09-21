@@ -777,22 +777,9 @@ body, html {
     max-width: 100%;
     width: 100%;
   }
-/* ==========================================================================
-   1. ISOLATED ESSAY READING LAYER (TARGETS MAIN BODY TEXT ONLY)
-   ========================================================================== */
-
-/* Clamps and centers text ONLY inside post bodies so headers/menus stay normal */
-.post-content, .entry-content, article .body, .markdown-body p {
-    max-width: 740px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    line-height: 1.85 !important;
-    font-size: 1.18rem !important;
-    color: #2c3e50 !important;
-}
 
 /* ==========================================================================
-   2. AUTOMATED ARABIC TEXT ISOLATION (NO CODE COLLISION)
+   1. AUTOMATED ARABIC TEXT ISOLATION (NO CODE COLLISION)
    ========================================================================== */
 
 /* Load fonts cleanly from Google */
