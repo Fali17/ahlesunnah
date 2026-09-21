@@ -938,3 +938,103 @@ span.auto-arabic-inline {
   display: inline-block;
   padding: 0 4px;
 }
+
+/* --- High-Quality Academic Print/PDF Layout --- */
+@media print {
+  /* 1. Reset page defaults and force a clean white background */
+  :root {
+    --bg: #ffffff !important;
+    --card: #ffffff !important;
+    --text: #000000 !important;
+    --primary-dark: #000000 !important;
+    --accent: #555555 !important; /* Neutral dark grey for decorative bars */
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important; /* Classic scholarly serif */
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  /* 2. Hide all digital interface components */
+  .site-header,
+  .menu-toggle-btn,
+  .search-wrapper,
+  .sidebar-nav,
+  .sidebar-overlay,
+  .read-more,
+  footer,
+  .report-abuse,
+  #results-container {
+    display: none !important;
+  }
+
+  /* 3. Expand the main wrapper to use the full paper width */
+  .site-main, 
+  .post-full {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* 4. Format headings cleanly for paper */
+  .post-full h1 {
+    font-size: 24pt !important;
+    margin-bottom: 8pt !important;
+    color: #000000 !important;
+    page-break-after: avoid; /* Prevent headings from separating from their content */
+  }
+
+  .post-content h2, 
+  .post-content h3 {
+    color: #000000 !important;
+    page-break-after: avoid;
+    margin-top: 20pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .post-full .meta {
+    font-size: 9pt !important;
+    color: #555555 !important;
+    border-bottom: 1px solid #cccccc !important;
+    margin-bottom: 20pt !important;
+  }
+
+  /* 5. Clean layout for academic blockquotes */
+  .post-content blockquote {
+    border-left: 3px solid #666666 !important;
+    background: #f9f9f9 !important;
+    color: #222222 !important;
+    padding: 8pt 14pt !important;
+    margin: 14pt 0 !important;
+    page-break-inside: avoid; /* Don't split a quote across two pages */
+  }
+
+  /* 6. Precision styling for Arabic text scripts on paper */
+  .auto-arabic,
+  .post-content [lang="ar"] {
+    font-family: 'Amiri', 'Traditional Arabic', serif !important;
+    font-size: 15pt !important;
+    line-height: 2 !important;
+    margin: 12pt 0 !important;
+    color: #000000 !important;
+    page-break-inside: avoid;
+  }
+
+  span.auto-arabic-inline,
+  .post-content p [lang="ar"] {
+    font-size: 13pt !important;
+    line-height: 1 !important;
+  }
+
+  /* 7. Prevent awkward orphan lines at page borders */
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+}
