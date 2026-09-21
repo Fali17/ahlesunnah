@@ -939,90 +939,125 @@ span.auto-arabic-inline {
   padding: 0 4px;
 }
 
-/* --- High-Quality Academic Print/PDF Layout --- */
+/* --- Strict Academic Print/PDF Layout Override --- */
 @media print {
-  /* 1. Reset page defaults and force a clean white background */
+  /* 1. Eliminate all color, shapes, and digital background themes */
   :root {
     --bg: #ffffff !important;
     --card: #ffffff !important;
     --text: #000000 !important;
-    --primary-dark: #000000 !important;
-    --accent: #555555 !important; /* Neutral dark grey for decorative bars */
   }
 
   body {
     background: #ffffff !important;
     color: #000000 !important;
-    font-family: "Times New Roman", Times, Georgia, serif !important; /* Classic scholarly serif */
+    font-family: "Times New Roman", Times, Georgia, serif !important;
     font-size: 11pt !important;
-    line-height: 1.5 !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* 2. Hide all digital interface components */
+  /* 2. COMPLETELY REMOVE website title, headers, sidebars, buttons, and site graphics */
   .site-header,
+  .header-container,
+  .header-inner,
+  .site-header h1,
+  .subtitle,
+  .logo-wrap,
   .menu-toggle-btn,
   .search-wrapper,
   .sidebar-nav,
   .sidebar-overlay,
+  .print-essay-btn,
   .read-more,
+  .hero,
   footer,
   .report-abuse,
   #results-container {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
   }
 
-  /* 3. Expand the main wrapper to use the full paper width */
+  /* 3. Strip away the card frames, boxes, borders, backgrounds, and drop-shadow squares */
   .site-main, 
-  .post-full {
+  .post-full,
+  .post-card {
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     box-shadow: none !important;
+    border: none !important;
     background: transparent !important;
+    background-image: none !important;
   }
 
-  /* 4. Format headings cleanly for paper */
+  /* 4. Format headings as raw text on paper */
   .post-full h1 {
-    font-size: 24pt !important;
-    margin-bottom: 8pt !important;
+    font-size: 22pt !important;
+    font-weight: bold !important;
+    margin-top: 0 !important;
+    margin-bottom: 12pt !important;
     color: #000000 !important;
-    page-break-after: avoid; /* Prevent headings from separating from their content */
+    page-break-after: avoid;
   }
 
   .post-content h2, 
-  .post-content h3 {
+  .post-content h3,
+  .post-content h4 {
     color: #000000 !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+    font-weight: bold !important;
+    background: transparent !important;
+    border: none !important; /* Strips underline accent rules */
+    margin-top: 18pt !important;
+    margin-bottom: 6pt !important;
+    padding: 0 !important;
     page-break-after: avoid;
-    margin-top: 20pt !important;
-    margin-bottom: 8pt !important;
   }
+  
+  .post-content h2 { font-size: 15pt !important; }
+  .post-content h3 { font-size: 13pt !important; }
 
+  /* 5. Minimalist meta data line */
   .post-full .meta {
-    font-size: 9pt !important;
-    color: #555555 !important;
-    border-bottom: 1px solid #cccccc !important;
-    margin-bottom: 20pt !important;
+    font-size: 10pt !important;
+    color: #444444 !important;
+    border: none !important;
+    border-bottom: 1px solid #000000 !important;
+    margin-bottom: 18pt !important;
+    padding-bottom: 4pt !important;
   }
 
-  /* 5. Clean layout for academic blockquotes */
+  /* 6. Traditional Academic Blockquotes (No heavy tint squares) */
   .post-content blockquote {
-    border-left: 3px solid #666666 !important;
-    background: #f9f9f9 !important;
-    color: #222222 !important;
-    padding: 8pt 14pt !important;
-    margin: 14pt 0 !important;
-    page-break-inside: avoid; /* Don't split a quote across two pages */
+    border-left: 2pt solid #000000 !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    background: transparent !important; /* Discards the gray box shadow background */
+    color: #111111 !important;
+    padding: 0 0 0 12pt !important;
+    margin: 12pt 0 12pt 12pt !important;
+    page-break-inside: avoid;
   }
 
-  /* 6. Precision styling for Arabic text scripts on paper */
+  /* 7. Crisp Right-to-Left Arabic text formatting for pure paper */
   .auto-arabic,
   .post-content [lang="ar"] {
     font-family: 'Amiri', 'Traditional Arabic', serif !important;
-    font-size: 15pt !important;
-    line-height: 2 !important;
-    margin: 12pt 0 !important;
+    font-size: 16pt !important;
+    line-height: 2.2 !important;
+    margin: 14pt 0 !important;
     color: #000000 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     page-break-inside: avoid;
   }
 
@@ -1032,7 +1067,7 @@ span.auto-arabic-inline {
     line-height: 1 !important;
   }
 
-  /* 7. Prevent awkward orphan lines at page borders */
+  /* 8. Text boundaries to prevent chopped words near edges */
   p, li {
     orphans: 3;
     widows: 3;
