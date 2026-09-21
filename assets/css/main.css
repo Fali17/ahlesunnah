@@ -1095,3 +1095,38 @@ span.auto-arabic-inline {
     display: none !important;
   }
 }
+
+/* --- High-Priority Universal Print/PDF Formatting Engine --- */
+@media print {
+  /* Force the browser to eliminate default web frame shapes entirely */
+  html, body, main, div, article, section {
+    background: #ffffff !important;
+    background-image: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    color: #000000 !important;
+    font-family: "Times New Roman", Times, Georgia, serif !important;
+    font-size: 11pt !important;
+  }
+
+  /* Strip the gold accent rules and gray boxes out of blockquotes for physical paper layout sheets */
+  .post-content blockquote {
+    background: transparent !important;
+    border-left: 2.5pt solid #000000 !important;
+    box-shadow: none !important;
+    margin: 14pt 0 14pt 14pt !important;
+    padding: 0 0 0 10pt !important;
+  }
+
+  /* Ensure the print action link selector disappears from output papers */
+  .print-essay-btn, .report-abuse, footer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+}
