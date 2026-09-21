@@ -995,3 +995,18 @@ body, html {
         page-break-inside: avoid; /* Prevents an image from cutting in half across pages */
     }
 }
+
+@media print {
+    img {
+        max-width: 250px !important; /* Forces images to not exceed a reasonable width */
+        height: auto !important;     /* Keeps the aspect ratio intact */
+        display: inline-block !important; 
+    }
+    
+    /* Optional: Hide large decorative headers/logos just for the print version */
+    .logo-container img, 
+    header img {
+        max-width: 120px !important;
+    }
+}
+
