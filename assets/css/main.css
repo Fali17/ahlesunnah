@@ -917,3 +917,24 @@ span.arabic-inline,
   }
 }
 
+/* --- Automated Global Arabic Formatting --- */
+.auto-arabic {
+  font-family: 'Amiri', 'Traditional Arabic', serif !important;
+  font-size: 1.65rem !important;
+  line-height: 2.2 !important;
+  direction: rtl !important;
+  text-align: right !important;
+  display: block;
+  margin: 1.5rem 0;
+  color: var(--primary-dark);
+}
+
+/* For short Arabic phrases sitting directly inside English paragraphs */
+span.auto-arabic-inline {
+  font-family: 'Amiri', 'Traditional Arabic', serif !important;
+  font-size: 1.35rem !important;
+  line-height: 1 !important;
+  direction: rtl !important;
+  display: inline-block;
+  padding: 0 4px;
+}
