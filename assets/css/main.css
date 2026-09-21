@@ -778,13 +778,28 @@ body, html {
     width: 100%;
   }
 }
-
-/* --- 1. Balanced Article Containers --- */
+/* --- 1. Fix the Presentation Container for all Posts --- */
 article, .post-content, main, .essay-body {
-    max-width: 760px;          /* Stops text from stretching infinitely on wide screens */
-    margin: 40px auto;         /* Perfectly centers the reading column */
-    padding: 0 24px;           /* Prevents text from hitting mobile screen edges */
-    line-height: 1.8;          /* Gives the sentences optimal breathing room */
-    font-size: 1.15rem;        /* Highly readable sizing for text studies */
-    color: #2c3e50;            /* Soft dark gray for less eye strain */
+    max-width: 760px;          /* Stops text from stretching too wide on desktops */
+    margin: 40px auto;         /* Centers the article layout cleanly */
+    padding: 0 24px;           /* Mobile side padding */
+    line-height: 1.8;          /* Gives reading sentences breathing room */
+    font-size: 1.15rem;        /* Clear academic font size scale */
+    color: #2c3e50;            /* Softer dark text color to reduce eye strain */
+}
+
+/* --- 2. Automatic Arabic Layout Rule --- */
+/* This targets any block quotes containing Arabic characters across all 60 posts */
+blockquote:has([lang="ar"]), blockquote:has(.arabic-text), p:has([lang="ar"]) {
+    font-family: 'Amiri', 'Traditional Arabic', serif;
+    font-size: 1.6rem;         /* Enlarged so diacritics / harakat are readable */
+    line-height: 2.4;          /* Stops vowel markings overlapping between lines */
+    text-align: right !important; /* Pulls text to the right for natural RTL reading */
+    direction: rtl !important; /* Sets logical right-to-left punctuation punctuation layouts */
+    background-color: #fbfbfa; /* Off-white block container paper background */
+    padding: 20px 30px;
+    border-right: 5px solid #c5a059; /* Traditional gold-accented vertical margin stripe */
+    border-left: none !important;
+    margin: 30px 0;
+    border-radius: 4px;
 }
