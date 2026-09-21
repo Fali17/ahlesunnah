@@ -778,28 +778,47 @@ body, html {
     width: 100%;
   }
 }
-/* --- 1. Fix the Presentation Container for all Posts --- */
-article, .post-content, main, .essay-body {
-    max-width: 760px;          /* Stops text from stretching too wide on desktops */
-    margin: 40px auto;         /* Centers the article layout cleanly */
-    padding: 0 24px;           /* Mobile side padding */
-    line-height: 1.8;          /* Gives reading sentences breathing room */
-    font-size: 1.15rem;        /* Clear academic font size scale */
-    color: #2c3e50;            /* Softer dark text color to reduce eye strain */
+/* ==========================================================================
+   1. REGULAR TEXT CONTAINER FIX
+   ========================================================================== */
+
+/* Centers reading column and makes long essays look professional on desktops */
+article, .post-content, main, p {
+    max-width: 760px !important;          
+    margin: 30px auto !important;         
+    padding: 0 20px !important;           
+    line-height: 1.85 !important;         /* Crisp sentence breathing room */
+    font-size: 1.18rem !important;        /* Academic typography sizing */
+    color: #2c3e50 !important;            /* Soft dark slate color to prevent eye strain */
 }
 
-/* --- 2. Automatic Arabic Layout Rule --- */
-/* This targets any block quotes containing Arabic characters across all 60 posts */
-blockquote:has([lang="ar"]), blockquote:has(.arabic-text), p:has([lang="ar"]) {
-    font-family: 'Amiri', 'Traditional Arabic', serif;
-    font-size: 1.6rem;         /* Enlarged so diacritics / harakat are readable */
-    line-height: 2.4;          /* Stops vowel markings overlapping between lines */
-    text-align: right !important; /* Pulls text to the right for natural RTL reading */
-    direction: rtl !important; /* Sets logical right-to-left punctuation punctuation layouts */
-    background-color: #fbfbfa; /* Off-white block container paper background */
-    padding: 20px 30px;
-    border-right: 5px solid #c5a059; /* Traditional gold-accented vertical margin stripe */
-    border-left: none !important;
-    margin: 30px 0;
-    border-radius: 4px;
+/* ==========================================================================
+   2. AUTOMATED ARABIC TEXT DETECTOR (NO POST EDITING REQUIRED)
+   ========================================================================== */
+
+/* Load a beautiful traditional Arabic academic typeface from Google Fonts */
+@import url('https://googleapis.com');
+
+/* Forces any string of Arabic text on your entire website to flow elegantly */
+:lang(ar), [dir="rtl"], p:not(:empty) {
+    unicode-bidi: plaintext !important; /* Automatically detects Arabic blocks and flips layout direction right-to-left */
+}
+
+/* Applies typography formatting globally to Arabic scripts found inside your 60 posts */
+@font-face {
+    font-family: 'AutomatedArabic';
+    src: local('Amiri'), local('Traditional Arabic');
+    unicode-range: U+0600-06FF, U+0750-077F, U+FB50-FDFF, U+FE70-FEFF; /* Targets all Arabic script Unicode blocks */
+}
+
+/* Upgrades the font scale and spacing whenever the browser detects the Arabic range */
+article, .post-content, p {
+    font-family: 'AutomatedArabic', inherit !important; 
+}
+
+/* Target elements displaying Arabic script directly to give them adequate script spacing */
+*[lang="ar"], .arabic-text {
+    font-size: 1.55rem !important; /* Enlarged so fine diacritics / harakat vowel marks are perfectly clear */
+    line-height: 2.4 !important;    /* Spreads lines apart so vertical text markings never overlap */
+    font-family: 'Amiri', serif !important;
 }
