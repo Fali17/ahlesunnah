@@ -787,7 +787,7 @@ article, .post-content, main, p {
     max-width: 760px !important;          
     margin: 30px auto !important;         
     padding: 0 20px !important;           
-    line-height: 1.85 !important;         /* Crisp sentence breathing room */
+    line-height: 1.5 !important;         /* Crisp sentence breathing room */
     font-size: 1.18rem !important;        /* Academic typography sizing */
     color: #2c3e50 !important;            /* Soft dark slate color to prevent eye strain */
 }
