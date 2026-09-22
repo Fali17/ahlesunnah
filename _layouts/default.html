@@ -32,72 +32,168 @@
       text-align: center;
       margin-top: 10px;
     }
-/* ==========================================================================
-   NAVIGATION RIGID ALIGNMENT OVERRIDES (SEARCH RIGID RIGHT ANCHOR)
+
+    /* ==========================================================================
+   AHLE SUNNAH BALANCED BAR DESIGN OVERRIDES
    ========================================================================== */
 
-/* 1. Absolute positioning constraint to force it opposite the hamburger menu */
-.search-wrapper.search-right-anchor {
-    position: absolute !important;
-    top: 24px !important;              /* Adjust this layout value to match your navbar vertical center line */
-    right: 25px !important;            /* Safe padding gap from the right edge of the screen */
-    left: auto !important;
-    display: inline-block !important;
-    z-index: 9999 !important;
+/* 1. Header structural framework wrapping your navigation elements */
+.header-navigation-wrapper {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 15px 24px !important;
+    box-sizing: border-box !important;
 }
 
-/* 2. Style alignment for the circular form shape base layout */
-.search-wrapper.search-right-anchor .search-form-container {
+/* Menu icon balancing structure matching original sizing styles */
+.menu-toggle-btn {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 28px !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* 2. Anchor search wrapper tight to the right grid wall boundary */
+.search-wrapper.search-align-right {
+    position: relative !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+
+/* 3. Base Capsule Styling - Renders a clean circle until activated */
+.search-wrapper.search-align-right .search-form-container {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    width: 42px !important;
-    height: 42px !important;
+    width: 44px !important;
+    height: 44px !important;
     padding: 0 !important;
+    margin: 0 !important;
     background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
     border-radius: 50px !important;
     overflow: hidden !important;
-    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-sizing: border-box !important;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* 3. Handle expanding leftward action states seamlessly */
+/* 4. Click Trigger Sizing Configuration Overrides */
+.search-icon-box {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    width: 42px !important;
+    height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+}
+
+.search-icon {
+    width: 18px !important;
+    height: 18px !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* 5. Zero down typing visibility parameters until active classes run */
+#searchInput.search-input {
+    width: 0 !important;
+    opacity: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    transition: width 0.3s ease, opacity 0.15s ease !important;
+}
+
+/* ==========================================================================
+   EXPANDED LAYOUT ACTIONS (Rolls outward leftward seamlessly)
+   ========================================================================== */
+
+/* Slide open footprint container boundaries */
 .search-wrapper.is-active .search-form-container {
-    width: 260px !important;           /* Width of the search bar when fully open */
-    padding: 0 4px 0 16px !important;  /* Inner left breathing space margin */
+    width: 280px !important;
+    padding: 0 4px 0 16px !important; /* Allocates left internal margin buffers */
 }
 
+/* Opens input field smoothly */
 .search-wrapper.is-active #searchInput.search-input {
-    width: 100% !important;
+    width: 210px !important;
     opacity: 1 !important;
     padding: 4px 0 !important;
 }
 
-/* 4. Keep the results tray flush against the right edge */
+/* 6. Floating Search Result Panel */
 .search-dropdown-results {
     position: absolute !important;
     top: 100% !important;
-    right: 0 !important;
+    right: 0 !important;                    /* Forces box flush to the right edge */
     left: auto !important;
-    width: 260px !important;
-    margin-top: 10px !important;
-    background: rgba(14, 30, 20, 0.98) !important;
+    width: 280px !important;                /* Perfectly matches open bar width */
+    margin: 10px 0 0 0 !important;
+    padding: 6px 0 !important;
+    list-style: none !important;
+    background: rgba(14, 30, 20, 0.98) !important; /* Custom theme premium emerald shade */
+    backdrop-filter: blur(15px) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 12px !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    max-height: 250px !important;
+    overflow-y: auto !important;
+    z-index: 999999 !important;
 }
 
-/* Mobile viewport adjustments to keep layout elements from colliding */
+.search-dropdown-results li a {
+    display: block !important;
+    padding: 10px 16px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    text-align: left !important;
+}
+
+.search-dropdown-results li a:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+}
+
+.search-dropdown-results .no-results {
+    padding: 12px 16px !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 13px !important;
+    text-align: center !important;
+}
+
+/* Responsive Scaling for Narrow Mobile Displays */
 @media (max-width: 480px) {
-    .search-wrapper.search-right-anchor {
-        top: 20px !important;          /* Adjust mobile height to match your header elements */
-        right: 15px !important;
+    .header-navigation-wrapper {
+        padding: 10px 16px !important;
     }
     .search-wrapper.is-active .search-form-container,
     .search-dropdown-results {
-        width: 180px !important;       /* Scales down slightly narrower on phone displays */
+        width: 200px !important;
+    }
+    .search-wrapper.is-active #searchInput.search-input {
+        width: 140px !important;
     }
 }
 
@@ -109,8 +205,7 @@
   <header class="site-header">
     <div class="header-container">
       
-      <!-- Hamburger -->
-      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
+     
       
       <!-- Brand -->
       <div class="header-inner">
@@ -122,28 +217,34 @@
           <p class="subtitle">{{ site.description }}</p>
         </div>
   
-    </div>
-<!-- Main responsive navigation wrapper locked to the right side -->
-<div id="searchWrapper" class="search-wrapper search-right-anchor">
-  <form id="searchForm" onsubmit="return false;" class="search-form-container">
-    
-    <!-- Text input box expanding leftwards -->
-    <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
-    
-    <!-- Pinned trigger button on the absolute right edge -->
-    <button type="button" id="searchTriggerBtn" class="search-icon-box" aria-label="Toggle Search">
-      <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
-    </button>
+    </div><!-- Independent Fixed Header Container to Balance Layout -->
+<div class="header-navigation-wrapper">
+  <!-- Left Column: The Sidebar Menu Trigger -->
+  <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Open Navigation">☰</button>
 
-  </form>
+  <!-- Right Column: Premium Expandable Search Bar Component -->
+  <div id="searchWrapper" class="search-wrapper search-align-right">
+    <form id="searchForm" onsubmit="return false;" class="search-form-container">
+      
+      <!-- Clear, standard text field input entry line -->
+      <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
+      
+      <!-- Action Button Box Wrapper (Pinned right edge toggle) -->
+      <button type="button" id="searchTriggerBtn" class="search-icon-box" aria-label="Toggle Search">
+        <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
 
-  <!-- Suggestion Dropdown Tray -->
-  <ul id="searchDropdownList" class="search-dropdown-results" style="display: none;"></ul>
+    </form>
+
+    <!-- Dropdown tray for matching live typing suggestions -->
+    <ul id="searchDropdownList" class="search-dropdown-results" style="display: none;"></ul>
+  </div>
 </div>
 
-<!-- REAL-TIME INTERACTIVE SEARCH JAVASCRIPT ENGINE -->
+<!-- REAL-TIME INTERACTIVE SEARCH ENGINE ENGINE -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const searchWrapper = document.getElementById("searchWrapper");
@@ -152,27 +253,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const dropdownList = document.getElementById("searchDropdownList");
     let searchIndex = [];
 
-    // Pre-fetch your Jekyll site search index file asynchronously
+    // Asynchronously pull your Jekyll search index json file
     fetch('{{ "/search.json" | relative_url }}')
         .then(response => response.json())
         .then(data => { searchIndex = data; })
-        .catch(err => console.error("Could not load search data:", err));
+        .catch(err => console.error("Could not load search index:", err));
 
-    // Handle opening/closing when tapping the icon button
+    // Open/Close toggle engine when tapping the search icon circle
     searchTriggerBtn.addEventListener("click", function(e) {
         e.stopPropagation();
-        const isOpen = searchWrapper.classList.contains("is-active");
+        const isActive = searchWrapper.classList.contains("is-active");
         
-        if (!isOpen) {
+        if (!isActive) {
             searchWrapper.classList.add("is-active");
-            searchInput.focus(); 
+            searchInput.focus(); // Force mobile software keyboard view
         } else if (searchInput.value.trim() === "") {
             searchWrapper.classList.remove("is-active");
             dropdownList.style.display = "none";
         }
     });
 
-    // Process real-time results inside the field as user types
+    // Real-time keyword filter evaluation as you type characters
     searchInput.addEventListener("input", function() {
         const query = searchInput.value.toLowerCase().trim();
         dropdownList.innerHTML = "";
@@ -194,6 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Render matching rows up to 5 elements max
         matches.slice(0, 5).forEach(post => {
             const li = document.createElement("li");
             li.innerHTML = `<a href="${post.url}">${post.title}</a>`;
@@ -201,16 +303,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Close everything instantly if user touches outside the element area
+    // Collapse everything safely if the reader clicks out of the input grid
     document.addEventListener("click", function(e) {
         if (!searchWrapper.contains(e.target)) {
             searchWrapper.classList.remove("is-active");
             dropdownList.style.display = "none";
-            searchInput.value = ""; 
         }
     });
 });
 </script>
+
 
 
 
