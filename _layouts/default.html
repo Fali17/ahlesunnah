@@ -32,7 +32,27 @@
       text-align: center;
       margin-top: 10px;
     }
-
+ /* Better search icon */
+    .search-wrapper {
+      position: relative;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      pointer-events: none;
+      color: #d4efdf;
+      transition: color 0.3s ease;
+    }
+    .search-input:focus + .search-icon {
+      color: var(--primary, #0e4a2d);
+    }
+    .search-input {
+      padding-left: 40px !important;
+    }
     
   </style>
 </head>
