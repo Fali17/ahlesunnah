@@ -205,7 +205,10 @@
   <header class="site-header">
     <div class="header-container">
       
-     
+     <!-- Independent Fixed Header Container to Balance Layout -->
+<div class="header-navigation-wrapper">
+  <!-- Left Column: The Sidebar Menu Trigger -->
+  <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Open Navigation">☰</button>
       
       <!-- Brand -->
       <div class="header-inner">
@@ -217,10 +220,7 @@
           <p class="subtitle">{{ site.description }}</p>
         </div>
   
-    </div><!-- Independent Fixed Header Container to Balance Layout -->
-<div class="header-navigation-wrapper">
-  <!-- Left Column: The Sidebar Menu Trigger -->
-  <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="Open Navigation">☰</button>
+    </div>
 
   <!-- Right Column: Premium Expandable Search Bar Component -->
   <div id="searchWrapper" class="search-wrapper search-align-right">
