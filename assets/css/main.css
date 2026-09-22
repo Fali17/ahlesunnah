@@ -1154,3 +1154,80 @@ body, html {
     }
 }
 
+/* ==========================================================================
+   AHLE SUNNAH POST LAYOUT & ARABIC TYPOGRAPHY ENHANCEMENT
+   ========================================================================== */
+
+/* 1. Base Container & Content Centering */
+.post-content, 
+article, 
+.main-content {
+    max-width: 850px;          /* Clean, standard reading document grid */
+    margin: 0 auto !important; /* Centers the whole post column on the screen */
+    padding: 20px;
+    text-align: center !important; 
+}
+
+/* 2. Title & Heading Centering */
+.post-title,
+h1, h2, h3, h4 {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    line-height: 1.4;
+}
+
+/* 3. Global Typography & Paragraph Centering */
+.post-content p,
+.post-content li {
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    font-size: 17px;           /* Crisp, modern reading font size */
+    line-height: 1.75;
+    color: #2c3e50;
+    text-align: center !important;
+    text-align-last: center !important; /* Forces final short paragraph lines to center */
+    margin-bottom: 1.5rem;
+}
+
+/* 4. Flawless Live Arabic Script Processing */
+/* Automatically applies to tags with a right-to-left attribute, blockquotes, or Arabic fragments */
+*[dir="rtl"], 
+.arabic,
+blockquote {
+    direction: rtl !important;
+    text-align: center !important;
+    text-align-last: center !important;
+    
+    /* Premium fallback engines for connected cursive script rendering */
+    font-family: "Amiri", "Traditional Arabic", "Sakkal Majalla", "Noto Naskh Arabic", serif !important;
+    font-size: 24px !important;       /* Scaled larger so short vowels/tashkeel are distinct */
+    line-height: 2.2 !important;      /* Extra vertical clearance stops overlapping characters */
+    
+    /* Critical browser rendering overrides */
+    letter-spacing: normal !important; /* Prevents text engines from breaking beautiful ligatures */
+    word-spacing: 1px !important;
+    text-rendering: optimizeLegibility !important;
+}
+
+/* 5. Center and Constrain Live Blog Images */
+.post-content img {
+    display: block !important;
+    margin: 30px auto !important;    /* Perfectly margins and centers inline figures */
+    max-width: 100% !important;      /* Guarantees images scale down smoothly on mobile */
+    height: auto !important;
+    border-radius: 4px;              /* Subtle styling anchor */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* 6. Stylized Traditional Quotes (« ... ») */
+blockquote {
+    display: block !important;
+    max-width: 90%;
+    margin: 25px auto !important;
+    padding: 15px 25px !important;
+    background-color: #fcfcfc !important;
+    border-top: 1px solid #eeeeee !important;
+    border-bottom: 1px solid #eeeeee !important;
+    border-left: none !important;
+    border-right: none !important;
+}
