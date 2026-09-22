@@ -33,47 +33,50 @@
       margin-top: 10px;
     }
 /* ==========================================================================
-   ANIMATED SLIDE-EXPANDABLE SEARCH BAR 
+   PRODUCTION READY RIGHT-ANCHORED EXPANDABLE SEARCH COMPONENT
    ========================================================================== */
 
-/* The main layout wrapper box constraints */
-.search-wrapper {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
+/* 1. Base Structural Positioning Core */
+.search-wrapper.search-align-right {
+    position: relative !important;
+    display: inline-block !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    vertical-align: middle !important;
 }
 
-/* Base form shape: starts as a clean circular icon capsule button */
-.search-form-container {
+/* 2. Form Capsule Shape - Encapsulates items into a perfect uniform circle */
+.search-wrapper.search-align-right .search-form-container {
     display: flex !important;
     align-items: center !important;
-    width: 42px !important;                 /* Equal to height to make a perfect circle */
+    justify-content: flex-end !important;
+    width: 42px !important;                 /* Forces the circular collapsed baseline */
     height: 42px !important;
     padding: 0 !important;
+    margin: 0 !important;
     background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
     border: 1px solid rgba(255, 255, 255, 0.16) !important;
     border-radius: 50px !important;
-    overflow: hidden;
-    cursor: pointer;
-    
-    /* Hardware acceleration for ultra-smooth slide transitions */
+    overflow: hidden !important;
+    box-sizing: border-box !important;
     transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    will-change: width;
 }
 
-/* Centering the icon button when collapsed */
+/* 3. The Pinned Icon Trigger Button Override rules */
 .search-icon-box {
     background: transparent !important;
     border: none !important;
-    width: 40px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 40px !important;                 /* Keeps sizing tight within borders */
     height: 40px !important;
-    flex-shrink: 0;
+    flex-shrink: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    cursor: pointer;
+    cursor: pointer !important;
     padding: 0 !important;
     margin: 0 !important;
 }
@@ -82,61 +85,70 @@
     width: 18px !important;
     height: 18px !important;
     color: rgba(255, 255, 255, 0.65) !important;
+    display: block !important;
 }
 
-/* Hides input text fully while collapsed to preserve alignment grids */
+/* 4. Native Hidden Form Input Resets */
 #searchInput.search-input {
-    width: 0 !important;
+    width: 0 !important;                     /* Fully zeroed out initially */
     opacity: 0 !important;
     background: transparent !important;
     border: none !important;
     outline: none !important;
+    box-shadow: none !important;
     color: #ffffff !important;
     font-size: 15px !important;
     padding: 0 !important;
-    transition: width 0.35s, opacity 0.2s !important;
+    margin: 0 !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    transition: width 0.35s ease, opacity 0.2s ease !important;
+}
+
+#searchInput.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
 }
 
 /* ==========================================================================
-   ACTIVE OPEN STATES (Triggered on click/touch parameters)
+   ACTIVE TRIGGER CONFIGURATIONS (Slides smoothly to the Left)
    ========================================================================== */
 
-/* Smoothly expands into a readable horizontal text capsule field */
+/* Slide open container adjustments */
 .search-wrapper.is-active .search-form-container {
-    width: 260px !important;              /* Custom desktop width configuration */
-    padding: 0 16px 0 0 !important;       /* Left breathing space padding */
+    width: 260px !important;                /* Total horizontal footprint width */
+    padding: 0 4px 0 16px !important;       /* Left interior padding room */
 }
 
-/* Reveals text input fields smoothly */
+/* Expands input bar fields smoothly inside the framework */
 .search-wrapper.is-active #searchInput.search-input {
-    width: 100% !important;
+    width: 200px !important;                /* Dedicates space for typing strings */
     opacity: 1 !important;
     padding: 4px 0 !important;
-    margin-left: 4px !important;
 }
 
-/* Typographic drops adjustments */
-#searchInput.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.5) !important;
-}
-
-/* The floating matching suggestions tray layout styling */
+/* 5. Dropdown Matching Suggestions Layout Profile */
 .search-dropdown-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 10px !important;
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;                    /* Forces box flush to the right navbar edge */
+    left: auto !important;
+    width: 260px !important;                /* Mirrors open capsule dimension width */
+    margin: 10px 0 0 0 !important;
     padding: 6px 0 !important;
     list-style: none !important;
-    background: rgba(14, 30, 20, 0.96) !important;
+    background: rgba(14, 30, 20, 0.98) !important; /* Premium custom deep green shade */
     backdrop-filter: blur(15px) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 12px !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-    max-height: 300px;
-    overflow-y: auto;
+    max-height: 280px !important;
+    overflow-y: auto !important;
     z-index: 99999 !important;
+}
+
+.search-dropdown-results li {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .search-dropdown-results li a {
@@ -146,6 +158,7 @@
     font-size: 14px !important;
     text-decoration: none !important;
     text-align: left !important;
+    transition: background 0.2s ease !important;
 }
 
 .search-dropdown-results li a:hover {
@@ -160,14 +173,17 @@
     text-align: center !important;
 }
 
-/* Clean mobile viewport sizing adjustment override rules */
+/* Mobile Layout Scaling Guards */
 @media (max-width: 480px) {
-    .search-wrapper.is-active .search-form-container {
-        width: 190px !important;          /* Scales slightly narrower to match mobile devices */
+    .search-wrapper.is-active .search-form-container,
+    .search-dropdown-results {
+        width: 190px !important;
+    }
+    .search-wrapper.is-active #searchInput.search-input {
+        width: 135px !important;
     }
 }
 
-    
   </style>
 </head>
 <body>
@@ -190,15 +206,14 @@
         </div>
   
     </div>
-
-   <!-- Main responsive wrapper locked to the right side -->
+<!-- Main responsive wrapper container -->
 <div id="searchWrapper" class="search-wrapper search-align-right">
   <form id="searchForm" onsubmit="return false;" class="search-form-container">
     
     <!-- Clear, standard text field input entry line -->
     <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
     
-    <!-- Action Button Box Wrapper (Acts as the anchored right-side trigger) -->
+    <!-- Action Button Box Wrapper (Acts as the anchored right-side trigger button) -->
     <button type="button" id="searchTriggerBtn" class="search-icon-box" aria-label="Toggle Search">
       <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -211,7 +226,7 @@
   <ul id="searchDropdownList" class="search-dropdown-results" style="display: none;"></ul>
 </div>
 
-<!-- SCRIPT TO HANDLE TOUCH EXPANSION AND LIVE SEARCH -->
+<!-- REAL-TIME INTERACTIVE SEARCH JAVASCRIPT ENGINE -->
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const searchWrapper = document.getElementById("searchWrapper");
@@ -226,21 +241,21 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => { searchIndex = data; })
         .catch(err => console.error("Could not load search data:", err));
 
-    // Handle opening/closing when tapping the icon
+    // Handle opening/closing when tapping the icon button
     searchTriggerBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         const isOpen = searchWrapper.classList.contains("is-active");
         
         if (!isOpen) {
             searchWrapper.classList.add("is-active");
-            searchInput.focus(); // Pull touch keyboard focus up instantly
+            searchInput.focus(); 
         } else if (searchInput.value.trim() === "") {
             searchWrapper.classList.remove("is-active");
             dropdownList.style.display = "none";
         }
     });
 
-    // Process real-time results inside the field
+    // Process real-time results inside the field as user types
     searchInput.addEventListener("input", function() {
         const query = searchInput.value.toLowerCase().trim();
         dropdownList.innerHTML = "";
@@ -279,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+
 
 
   </header>
