@@ -33,154 +33,71 @@
       margin-top: 10px;
     }
 /* ==========================================================================
-   PRODUCTION READY RIGHT-ANCHORED EXPANDABLE SEARCH COMPONENT
+   NAVIGATION RIGID ALIGNMENT OVERRIDES (SEARCH RIGID RIGHT ANCHOR)
    ========================================================================== */
 
-/* 1. Base Structural Positioning Core */
-.search-wrapper.search-align-right {
-    position: relative !important;
+/* 1. Absolute positioning constraint to force it opposite the hamburger menu */
+.search-wrapper.search-right-anchor {
+    position: absolute !important;
+    top: 24px !important;              /* Adjust this layout value to match your navbar vertical center line */
+    right: 25px !important;            /* Safe padding gap from the right edge of the screen */
+    left: auto !important;
     display: inline-block !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    vertical-align: middle !important;
+    z-index: 9999 !important;
 }
 
-/* 2. Form Capsule Shape - Encapsulates items into a perfect uniform circle */
-.search-wrapper.search-align-right .search-form-container {
+/* 2. Style alignment for the circular form shape base layout */
+.search-wrapper.search-right-anchor .search-form-container {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    width: 42px !important;                 /* Forces the circular collapsed baseline */
+    width: 42px !important;
     height: 42px !important;
     padding: 0 !important;
-    margin: 0 !important;
     background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
     border: 1px solid rgba(255, 255, 255, 0.16) !important;
     border-radius: 50px !important;
     overflow: hidden !important;
-    box-sizing: border-box !important;
     transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* 3. The Pinned Icon Trigger Button Override rules */
-.search-icon-box {
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    width: 40px !important;                 /* Keeps sizing tight within borders */
-    height: 40px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.search-icon {
-    width: 18px !important;
-    height: 18px !important;
-    color: rgba(255, 255, 255, 0.65) !important;
-    display: block !important;
-}
-
-/* 4. Native Hidden Form Input Resets */
-#searchInput.search-input {
-    width: 0 !important;                     /* Fully zeroed out initially */
-    opacity: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-    color: #ffffff !important;
-    font-size: 15px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    text-align: left !important;
-    box-sizing: border-box !important;
-    transition: width 0.35s ease, opacity 0.2s ease !important;
-}
-
-#searchInput.search-input::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
-}
-
-/* ==========================================================================
-   ACTIVE TRIGGER CONFIGURATIONS (Slides smoothly to the Left)
-   ========================================================================== */
-
-/* Slide open container adjustments */
+/* 3. Handle expanding leftward action states seamlessly */
 .search-wrapper.is-active .search-form-container {
-    width: 260px !important;                /* Total horizontal footprint width */
-    padding: 0 4px 0 16px !important;       /* Left interior padding room */
+    width: 260px !important;           /* Width of the search bar when fully open */
+    padding: 0 4px 0 16px !important;  /* Inner left breathing space margin */
 }
 
-/* Expands input bar fields smoothly inside the framework */
 .search-wrapper.is-active #searchInput.search-input {
-    width: 200px !important;                /* Dedicates space for typing strings */
+    width: 100% !important;
     opacity: 1 !important;
     padding: 4px 0 !important;
 }
 
-/* 5. Dropdown Matching Suggestions Layout Profile */
+/* 4. Keep the results tray flush against the right edge */
 .search-dropdown-results {
     position: absolute !important;
     top: 100% !important;
-    right: 0 !important;                    /* Forces box flush to the right navbar edge */
+    right: 0 !important;
     left: auto !important;
-    width: 260px !important;                /* Mirrors open capsule dimension width */
-    margin: 10px 0 0 0 !important;
-    padding: 6px 0 !important;
-    list-style: none !important;
-    background: rgba(14, 30, 20, 0.98) !important; /* Premium custom deep green shade */
-    backdrop-filter: blur(15px) !important;
+    width: 260px !important;
+    margin-top: 10px !important;
+    background: rgba(14, 30, 20, 0.98) !important;
     border: 1px solid rgba(255, 255, 255, 0.12) !important;
     border-radius: 12px !important;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-    max-height: 280px !important;
-    overflow-y: auto !important;
-    z-index: 99999 !important;
 }
 
-.search-dropdown-results li {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.search-dropdown-results li a {
-    display: block !important;
-    padding: 10px 16px !important;
-    color: rgba(255, 255, 255, 0.85) !important;
-    font-size: 14px !important;
-    text-decoration: none !important;
-    text-align: left !important;
-    transition: background 0.2s ease !important;
-}
-
-.search-dropdown-results li a:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    color: #ffffff !important;
-}
-
-.search-dropdown-results .no-results {
-    padding: 12px 16px !important;
-    color: rgba(255, 255, 255, 0.4) !important;
-    font-size: 13px !important;
-    text-align: center !important;
-}
-
-/* Mobile Layout Scaling Guards */
+/* Mobile viewport adjustments to keep layout elements from colliding */
 @media (max-width: 480px) {
+    .search-wrapper.search-right-anchor {
+        top: 20px !important;          /* Adjust mobile height to match your header elements */
+        right: 15px !important;
+    }
     .search-wrapper.is-active .search-form-container,
     .search-dropdown-results {
-        width: 190px !important;
-    }
-    .search-wrapper.is-active #searchInput.search-input {
-        width: 135px !important;
+        width: 180px !important;       /* Scales down slightly narrower on phone displays */
     }
 }
 
@@ -206,14 +123,14 @@
         </div>
   
     </div>
-<!-- Main responsive wrapper container -->
-<div id="searchWrapper" class="search-wrapper search-align-right">
+<!-- Main responsive navigation wrapper locked to the right side -->
+<div id="searchWrapper" class="search-wrapper search-right-anchor">
   <form id="searchForm" onsubmit="return false;" class="search-form-container">
     
-    <!-- Clear, standard text field input entry line -->
+    <!-- Text input box expanding leftwards -->
     <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
     
-    <!-- Action Button Box Wrapper (Acts as the anchored right-side trigger button) -->
+    <!-- Pinned trigger button on the absolute right edge -->
     <button type="button" id="searchTriggerBtn" class="search-icon-box" aria-label="Toggle Search">
       <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -222,7 +139,7 @@
 
   </form>
 
-  <!-- Dropdown element for presenting active live typing results -->
+  <!-- Suggestion Dropdown Tray -->
   <ul id="searchDropdownList" class="search-dropdown-results" style="display: none;"></ul>
 </div>
 
