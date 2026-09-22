@@ -1044,3 +1044,63 @@ body, html {
     }
 }
 
+@media print {
+    /* 1. Global Document Setup */
+    body {
+        font-family: "Segoe UI", Arial, sans-serif !important;
+        font-size: 11pt !important;
+        line-height: 1.6 !important;
+        color: #111111 !important;
+        background: #ffffff !important;
+    }
+
+    /* 2. Center Post Title and Meta Information */
+    h1, h1.title, .post-title, .post-header {
+        text-align: center !important;
+        font-size: 24pt !important;
+        font-weight: bold !important;
+        margin-top: 20pt !important;
+        margin-bottom: 15pt !important;
+        clear: both;
+    }
+    
+    .post-meta, .post-date {
+        text-align: center !important;
+        font-size: 10pt !important;
+        color: #555555 !important;
+        margin-bottom: 25pt !important;
+    }
+
+    /* 3. Article Content & Paragraph Formatting */
+    p, .post-content p {
+        text-align: justify !important; /* Elegant book style alignment */
+        font-size: 11pt !important;
+        margin-bottom: 12pt !important;
+    }
+
+    /* 4. Flawless Arabic Text Rendering Fix */
+    /* Targets quotes, Arabic blocks, or spans */
+    *[dir="rtl"], 
+    .arabic, 
+    blockquote,
+    span:contains("«") {
+        direction: rtl !important;
+        text-align: right !important;
+        /* Employs highly reliable system fonts natively built for Arabic ligatures */
+        font-family: "Amiri", "Traditional Arabic", "Sakkal Majalla", "Microsoft Uighur", serif !important;
+        font-size: 15pt !important; /* Arabic requires larger scaling to stay readable */
+        line-height: 2.2 !important; /* Prevents stacked vowels/diacritics from overlapping */
+        word-spacing: 1px !important;
+        letter-spacing: normal !important; /* Critical: forces browser print engine to link characters */
+    }
+
+    /* Keep inline quote markers uniform */
+    q, blockquote {
+        display: block !important;
+        margin: 15pt auto !important;
+        padding: 10pt 15pt !important;
+        border-right: 3px solid #cccccc !important;
+        border-left: none !important;
+        background: #fdfdfd !important;
+    }
+}
