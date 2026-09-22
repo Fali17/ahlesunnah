@@ -32,28 +32,142 @@
       text-align: center;
       margin-top: 10px;
     }
+/* ==========================================================================
+   ANIMATED SLIDE-EXPANDABLE SEARCH BAR 
+   ========================================================================== */
 
-    /* Better search icon */
-    .search-wrapper {
-      position: relative;
+/* The main layout wrapper box constraints */
+.search-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Base form shape: starts as a clean circular icon capsule button */
+.search-form-container {
+    display: flex !important;
+    align-items: center !important;
+    width: 42px !important;                 /* Equal to height to make a perfect circle */
+    height: 42px !important;
+    padding: 0 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.16) !important;
+    border-radius: 50px !important;
+    overflow: hidden;
+    cursor: pointer;
+    
+    /* Hardware acceleration for ultra-smooth slide transitions */
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    will-change: width;
+}
+
+/* Centering the icon button when collapsed */
+.search-icon-box {
+    background: transparent !important;
+    border: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.search-icon {
+    width: 18px !important;
+    height: 18px !important;
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Hides input text fully while collapsed to preserve alignment grids */
+#searchInput.search-input {
+    width: 0 !important;
+    opacity: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: #ffffff !important;
+    font-size: 15px !important;
+    padding: 0 !important;
+    transition: width 0.35s, opacity 0.2s !important;
+}
+
+/* ==========================================================================
+   ACTIVE OPEN STATES (Triggered on click/touch parameters)
+   ========================================================================== */
+
+/* Smoothly expands into a readable horizontal text capsule field */
+.search-wrapper.is-active .search-form-container {
+    width: 260px !important;              /* Custom desktop width configuration */
+    padding: 0 16px 0 0 !important;       /* Left breathing space padding */
+}
+
+/* Reveals text input fields smoothly */
+.search-wrapper.is-active #searchInput.search-input {
+    width: 100% !important;
+    opacity: 1 !important;
+    padding: 4px 0 !important;
+    margin-left: 4px !important;
+}
+
+/* Typographic drops adjustments */
+#searchInput.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* The floating matching suggestions tray layout styling */
+.search-dropdown-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 10px !important;
+    padding: 6px 0 !important;
+    list-style: none !important;
+    background: rgba(14, 30, 20, 0.96) !important;
+    backdrop-filter: blur(15px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 99999 !important;
+}
+
+.search-dropdown-results li a {
+    display: block !important;
+    padding: 10px 16px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+    text-align: left !important;
+}
+
+.search-dropdown-results li a:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #ffffff !important;
+}
+
+.search-dropdown-results .no-results {
+    padding: 12px 16px !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    font-size: 13px !important;
+    text-align: center !important;
+}
+
+/* Clean mobile viewport sizing adjustment override rules */
+@media (max-width: 480px) {
+    .search-wrapper.is-active .search-form-container {
+        width: 190px !important;          /* Scales slightly narrower to match mobile devices */
     }
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      pointer-events: none;
-      color: #d4efdf;
-      transition: color 0.3s ease;
-    }
-    .search-input:focus + .search-icon {
-      color: var(--primary, #0e4a2d);
-    }
-    .search-input {
-      padding-left: 38px !important;
-    }
+}
+
+    
   </style>
 </head>
 <body>
@@ -74,27 +188,98 @@
           <h1>{{ site.title }}</h1>
           <p class="subtitle">{{ site.description }}</p>
         </div>
-      </div>
+  
+    </div>
 
-   <!-- Search Area Layout Framework -->
-<div class="search-wrapper">
+   <!-- Main responsive wrapper locked to the right side -->
+<div id="searchWrapper" class="search-wrapper search-align-right">
   <form id="searchForm" onsubmit="return false;" class="search-form-container">
     
-    <!-- Action Button Box Wrapper -->
-    <button type="submit" class="search-icon-box" aria-label="Execute Search">
+    <!-- Clear, standard text field input entry line -->
+    <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
+    
+    <!-- Action Button Box Wrapper (Acts as the anchored right-side trigger) -->
+    <button type="button" id="searchTriggerBtn" class="search-icon-box" aria-label="Toggle Search">
       <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </button>
 
-    <!-- Clear, standard text field input entry line -->
-    <input type="text" id="searchInput" class="search-input" placeholder="  Search" autocomplete="off">
-    
   </form>
-  
-  <!-- Pop up drops pool results element -->
-  <div id="searchResults" class="search-results-dropdown"></div>
+
+  <!-- Dropdown element for presenting active live typing results -->
+  <ul id="searchDropdownList" class="search-dropdown-results" style="display: none;"></ul>
 </div>
+
+<!-- SCRIPT TO HANDLE TOUCH EXPANSION AND LIVE SEARCH -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchWrapper = document.getElementById("searchWrapper");
+    const searchTriggerBtn = document.getElementById("searchTriggerBtn");
+    const searchInput = document.getElementById("searchInput");
+    const dropdownList = document.getElementById("searchDropdownList");
+    let searchIndex = [];
+
+    // Pre-fetch your Jekyll site search index file asynchronously
+    fetch('{{ "/search.json" | relative_url }}')
+        .then(response => response.json())
+        .then(data => { searchIndex = data; })
+        .catch(err => console.error("Could not load search data:", err));
+
+    // Handle opening/closing when tapping the icon
+    searchTriggerBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const isOpen = searchWrapper.classList.contains("is-active");
+        
+        if (!isOpen) {
+            searchWrapper.classList.add("is-active");
+            searchInput.focus(); // Pull touch keyboard focus up instantly
+        } else if (searchInput.value.trim() === "") {
+            searchWrapper.classList.remove("is-active");
+            dropdownList.style.display = "none";
+        }
+    });
+
+    // Process real-time results inside the field
+    searchInput.addEventListener("input", function() {
+        const query = searchInput.value.toLowerCase().trim();
+        dropdownList.innerHTML = "";
+        
+        if (query.length < 2) { 
+            dropdownList.style.display = "none";
+            return; 
+        }
+
+        const matches = searchIndex.filter(post => {
+            return (post.title && post.title.toLowerCase().includes(query)) || 
+                   (post.content && post.content.toLowerCase().includes(query));
+        });
+
+        dropdownList.style.display = "block";
+
+        if (matches.length === 0) {
+            dropdownList.innerHTML = `<li class="no-results">No essays found</li>`;
+            return;
+        }
+
+        matches.slice(0, 5).forEach(post => {
+            const li = document.createElement("li");
+            li.innerHTML = `<a href="${post.url}">${post.title}</a>`;
+            dropdownList.appendChild(li);
+        });
+    });
+
+    // Close everything instantly if user touches outside the element area
+    document.addEventListener("click", function(e) {
+        if (!searchWrapper.contains(e.target)) {
+            searchWrapper.classList.remove("is-active");
+            dropdownList.style.display = "none";
+            searchInput.value = ""; 
+        }
+    });
+});
+</script>
+
 
   </header>
 
