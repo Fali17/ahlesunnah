@@ -1104,3 +1104,53 @@ body, html {
         background: #fdfdfd !important;
     }
 }
+
+@media print {
+    /* 1. Center the entire layout container and all structural elements */
+    .post-content, 
+    .main-content, 
+    article, 
+    body {
+        text-align: center !important;
+        display: block !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+
+    /* 2. Center-align the headings */
+    h1, h2, h3, h4, .post-title {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+
+    /* 3. Center-align every single paragraph, blockquote, and list item */
+    p, 
+    blockquote, 
+    li, 
+    div {
+        text-align: center !important;
+        text-align-last: center !important; /* Forces the very last line of a paragraph to center */
+    }
+
+    /* 4. Keep your Arabic formatting correct, but centered */
+    *[dir="rtl"], 
+    .arabic {
+        direction: rtl !important;
+        text-align: center !important; /* Overrides the standard right-alignment for Arabic text */
+        text-align-last: center !important;
+        font-family: "Amiri", "Traditional Arabic", "Sakkal Majalla", serif !important;
+        font-size: 15pt !important;
+        line-height: 2.2 !important;
+    }
+    
+    /* 5. Center images perfectly within the text stream */
+    img {
+        display: block !important;
+        margin: 15pt auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
