@@ -33,44 +33,26 @@
       margin-top: 10px;
     }
  /* Better search icon */
-.search-wrapper {
-  position: relative;
-  display: flex;          /* optional but helpful for alignment */
-  align-items: center;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-  color: #d4efdf;                    /* or var(--muted, #d4efdf) */
-  transition: color 0.25s ease, transform 0.25s ease;
-  /* Ensure SVG inherits the color */
-  fill: currentColor;                /* or stroke: currentColor; depending on your icon */
-}
-
-.search-wrapper:focus-within .search-icon {
-  color: var(--primary, #0e4a2d);
-  /* optional nice micro-interaction */
-  transform: translateY(-50%) scale(1.05);
-}
-
-.search-input {
-  padding-left: 40px !important;     /* slightly more breathing room */
-  /* recommended extras */
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Optional but recommended: focus styles on the input itself */
-.search-input:focus {
-  outline: none;
-  border-color: var(--primary, #0e4a2d);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary, #0e4a2d) 25%, transparent);
-}
+    .search-wrapper {
+      position: relative;
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      color: #d4efdf;
+      transition: color 0.3s ease;
+    }
+    .search-input:focus + .search-icon {
+      color: var(--primary, #0e4a2d);
+    }
+    .search-input {
+      padding-left: 42px !important;
+    }
     
   </style>
 </head>
