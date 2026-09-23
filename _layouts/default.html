@@ -100,8 +100,13 @@
         </div>
       </div>
 
-  
-<form id="searchForm" onsubmit="return false;" class="search-form-container" style="transform: rotate(0deg) scale(1.15) translateX(16px) translateY(0px) skew(0deg); font-size: 28px; gap: 16px; padding: 17px; margin: 0px;">
+  <form id="searchForm" onsubmit="return false;" class="search-form-container" style="font-size: 28px; gap: 16px; padding: 17px; margin: 0px; display: flex; align-items: center; justify-content: center;">
+    
+    <!-- The input is now safely nested inside the form -->
+    <input type="text" id="searchInput" class="search-input" placeholder="Search" style="width: 100%; max-width: 500px;" autocomplete="off">
+    
+</form>
+
     
     <!-- Action Button Box Wrapper -->
     <button type="submit" class="search-icon-box" aria-label="Execute Search">
@@ -109,18 +114,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
     </button>
-
-    <!-- Clear, standard text field input entry line -->
-    
-   
-  </form>
-
-
-   <input type="text" id="searchInput" class="search-input" placeholder="  Search" style="width: 85vw; max-width: 500px; transform: rotate(0deg) scale(1.14) translateX(3px) translateY(0px) skew(0deg);" autocomplete="off">
-
-
-   
-  </form>
+      
   
   <!-- Pop up drops pool results element -->
   <div id="searchResults" class="search-results-dropdown"></div>
