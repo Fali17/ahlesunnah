@@ -55,7 +55,19 @@
       padding-left: 42px !important;
     }
 
-   
+   /* Step 1: Make the outer wrapper container wider */
+.search-form-container {
+    width: 100%;
+    max-width: 500px; /* Change 500px to your preferred length */
+    display: flex;    /* Keeps the icon and input field on the same line */
+}
+
+/* Step 2: Make the text input field expand to fill that container */
+.search-input {
+    width: 100%; 
+    flex-grow: 1;    /* Tells the text box to stretch out completely */
+}
+
     
   </style>
 </head>
