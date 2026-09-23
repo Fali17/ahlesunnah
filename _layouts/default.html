@@ -86,8 +86,10 @@
   <header class="site-header">
     <div class="header-container">
       
-      <!-- Hamburger -->
-      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
+       <!-- Hamburger Menu Button -->
+  <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu" style="background: none; border: none; font-size: 24px; cursor: pointer;">☰</button>
+</div>
+
       
       <!-- Brand -->
       <div class="header-inner">
@@ -100,19 +102,16 @@
         </div>
       </div>
 
-   <!-- Search Area Layout Framework -->
-<div class="search-wrapper">
-  <form id="searchForm" onsubmit="return false;" class="search-form-container">
-    
-    <!-- Action Button Box Wrapper -->
-    <button type="submit" class="search-icon-box" aria-label="Execute Search">
-      <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+   <button type="submit" class="search-icon-box" aria-label="Execute Search" style="background: none; border: none; cursor: pointer;">
+      <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
       </svg>
     </button>
+    <!-- Form wraps both the input and the button for proper submission and alignment -->
+  <form id="searchForm" onsubmit="return false;" class="search-form-container" style="display: flex; align-items: center; flex-grow: 1; border: 1px solid #ccc; border-radius: 4px; padding: 4px 8px;">
 
-    <!-- Clear, standard text field input entry line -->
-    <input type="text" id="searchInput" class="search-input" placeholder="  Search" style="width: 85vw; max-width: 500px;"autocomplete="off">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search" autocomplete="off" style="flex-grow: 1; border: none; outline: none; font-size: 16px; padding: 8px;">
+
    
   </form>
   
