@@ -56,7 +56,13 @@
       width:400px;
       
     }
-
+/* This target devices with screen widths of 768px or smaller (phones and tablets) */
+@media (max-width: 768px) {
+  .search-input {
+    width: 90% !important; /* Forces the bar to take up 90% of the screen width */
+    max-width: 100%;       /* Ensures it doesn't spill over the edges */
+    font-size: 16px;       /* Prevents iOS from automatically zooming in when tapped */
+  }
   
     
   </style>
