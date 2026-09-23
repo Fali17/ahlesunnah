@@ -56,13 +56,29 @@
       width:400px;
       
     }
-/* This target devices with screen widths of 768px or smaller (phones and tablets) */
+
+/* Target layouts on screens 768px wide or smaller */
 @media (max-width: 768px) {
-  .search-input {
-    width: 90% !important; /* Forces the bar to take up 90% of the screen width */
-    max-width: 100%;       /* Ensures it doesn't spill over the edges */
-    font-size: 16px;       /* Prevents iOS from automatically zooming in when tapped */
+  /* Forces the input field to stretch across the available container room */
+  input[type="search"], 
+  .search-input,
+  #search-box {
+    width: 100% !important;
+    max-width: 90vw !important; /* Prevents container bleeding on narrow phones */
+    box-sizing: border-box !important;
+    display: block !important;
   }
+
+  /* Fixes parent elements that might be restricting the width */
+  .search-container,
+  .nav-search,
+  form[action="/search"] {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
   
     
   </style>
