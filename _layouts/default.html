@@ -61,8 +61,7 @@
 @media (max-width: 768px) {
   /* Forces the input field to stretch across the available container room */
   input[type="search"], 
-  .search-input,
-  #search-box {
+  .search-input {
     width: 100% !important;
     max-width: 90vw !important; /* Prevents container bleeding on narrow phones */
     box-sizing: border-box !important;
@@ -70,9 +69,7 @@
   }
 
   /* Fixes parent elements that might be restricting the width */
-  .search-container,
-  .nav-search,
-  form[action="/search"] {
+  .search-input {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
@@ -115,8 +112,8 @@
     </button>
 
     <!-- Clear, standard text field input entry line -->
-    <input type="text" id="searchInput" class="search-input" placeholder="  Search" style="width: 100%; max-width: 500px;"autocomplete="off">
-    
+    <input type="text" id="searchInput" class="search-input" placeholder="  Search" style="width: 85vw; max-width: 500px;"autocomplete="off">
+   
   </form>
   
   <!-- Pop up drops pool results element -->
