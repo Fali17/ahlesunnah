@@ -99,13 +99,32 @@
           <p class="subtitle">{{ site.description }}</p>
         </div>
       </div>
+<!-- The Form Container -->
+<form id="searchForm" onsubmit="return false;" class="search-form-container" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 10px;
+    gap: 12px;
+">
+    
+    <!-- The Input Field (Now safely nested inside the form) -->
+    <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off" style="
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 18px;
+        border: 2px solid #ccc;
+        border-radius: 30px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+    ">
 
-  <form id="searchForm" onsubmit="return false;" class="search-form-container" style="font-size: 28px; gap: 16px; padding: 17px; margin: 0px; display: flex; align-items: center; justify-content: center;">
-    
-    <!-- The input is now safely nested inside the form -->
-    <input type="text" id="searchInput" class="search-input" placeholder="Search" style="width: 100%; max-width: 500px;" autocomplete="off">
-    
 </form>
+
 
     
     <!-- Action Button Box Wrapper -->
