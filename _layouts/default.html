@@ -83,41 +83,36 @@
 <body>
 
  <!-- Top Header -->
-<header class="site-header" style="width: 100%; box-sizing: border-box;">
-  <div class="header-container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 15px; padding: 10px 20px;">
-    
-    <!-- Left Section: Menu Toggle Button -->
-    <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu" style="background: none; border: none; font-size: 24px; color: inherit; cursor: pointer; padding: 0;">☰</button>
-
-    
-    <div class="header-inner" style="display: flex; align-items: center; gap: 12px; text-align: center;">
-      <div class="logo-wrap">
-        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;">
-      </div>
-      <div style="display: flex; flex-direction: column; align-items: flex-start; text-align: left;">
-        <h1 style="margin: 0; font-size: 20px; line-height: 1.2;">{{ site.title }}</h1>
-        <p class="subtitle" style="margin: 0; font-size: 12px; opacity: 0.8;">{{ site.description }}</p>
-      </div>
-    </div>
-
-    <!-- Right Section: Search Engine Wrapper -->
-    <form id="searchForm" onsubmit="return false;" class="search-form-container" style="position: relative; display: flex; align-items: center; width: 100%; max-width: 240px; margin: 0;">
+  <header class="site-header">
+    <div class="header-container">
       
-      <!-- Safe Input Field Setup -->
-      <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off" style="width: 100%; padding: 8px 40px 8px 16px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.5); background: rgba(255, 255, 255, 0.1); color: inherit; box-sizing: border-box; outline: none;">
+      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu" style="transform: rotate(0deg) scale(1.36) translateX(-16px) translateY(0px) skew(0deg);">☰</button>
+
       
-      <!-- Absolute Placed Action Button Box Wrapper -->
-      <button type="submit" class="search-icon-box" aria-label="Execute Search" style="position: absolute; right: 12px; background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;">
-        <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; opacity: 0.7;">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-        </svg>
-      </button>
+      <!-- Brand -->
+      <div class="header-inner">
+        <div class="logo-wrap">
+          <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+        </div>
+        <div>
+          <h1>{{ site.title }}</h1>
+          <p class="subtitle">{{ site.description }}</p>
+        </div>
+      </div>
+<!-- The Form Container -->
+<form id="searchForm" onsubmit="return false;" class="search-form-container" style="display: flex; align-items: center; justify-content: center; width: 100%; max-width: 500px; margin: 0px; padding: 0px; gap: 12px;">
+  
+  <!-- Action Button Box Wrapper -->
+  <button type="submit" class="search-icon-box" aria-label="Execute Search" style="display: flex; align-items: center; background: none; border: none; padding: 0; cursor: pointer;">
+    <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+  </button>
 
-    </form>
-    
-  </div>
-</header>
+  <!-- The Input Field -->
+  <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off" style="flex-grow: 1; padding: 8px; box-sizing: border-box;">
 
+</form>
 
   
   <!-- Pop up drops pool results element -->
