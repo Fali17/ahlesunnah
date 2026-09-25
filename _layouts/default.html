@@ -369,7 +369,84 @@
     font-size: 16px !important; /* no iOS zoom */
   }
 }
-    
+
+    /* ===== Mobile header: stop crushing the search bar ===== */
+@media (max-width: 768px) {
+  .header-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 10px 12px !important;
+    padding: 10px 12px !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Menu + brand on first row */
+  .menu-toggle-btn {
+    flex: 0 0 auto !important;
+    transform: none !important;
+    font-size: 1.35rem !important;
+    padding: 4px !important;
+  }
+
+  .header-inner {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    gap: 10px !important;
+  }
+
+  .header-inner h1 {
+    font-size: 1.15rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-inner .subtitle {
+    display: none !important;
+  }
+
+  .logo-wrap {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  /* Search full width on second row */
+  .search-wrapper {
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    order: 3; /* ensures it sits under menu + brand */
+  }
+
+  .search-form-container {
+    width: 100% !important;
+    height: 42px !important;
+  }
+
+  .search-input {
+    width: auto !important;
+    max-width: none !important;
+    font-size: 16px !important; /* prevents iOS zoom */
+    padding: 0 12px 0 8px !important;
+  }
+
+  .search-icon-box {
+    width: 44px !important; /* easier tap target */
+    height: 100% !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  .search-results-dropdown {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -402,6 +479,7 @@
   </form>
   <div id="searchResults" class="search-results-dropdown"></div>
 </div>
+    </div>
   </header>
 
   <!-- Sidebar Overlay + Menu -->
