@@ -56,6 +56,24 @@
       width:400px;
       
     }
+/* Responsive adjustments for mobile screens */
+@media screen and (max-width: 768px) {
+  .search-form-container {
+    width: 90%; /* Extends the form's overall width on mobile */
+    max-width: 100%;
+    margin: 0 auto; /* Centers the container */
+  }
+
+  .search-input {
+    width: 100%; /* Tells the text input box to stretch completely inside its container */
+    font-size: 16px; /* Prevents iOS Safari from auto-zooming when tapping the field */
+  }
+
+  .search-icon-box {
+    /* Keeps the button scale stable while the container expands around it */
+    flex-shrink: 0; 
+  }
+}
 
 
   
