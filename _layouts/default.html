@@ -57,6 +57,161 @@
       
     }
 
+/* ==========================================================================
+   FIX: Responsive Header and Search Bar Styles
+   ========================================================================== */
+
+/* Outer Header Frame */
+.site-header {
+  width: 100% !important;
+  display: block !important;
+  clear: both !important;
+  background-color: #0f4c3a; /* Deep emerald background signature look */
+  box-sizing: border-box;
+}
+
+/* Inner Layout Flex container */
+.header-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  max-width: 1200px;
+  margin: 0 auto !important;
+  padding: 10px 20px !important;
+  gap: 15px !important;
+  box-sizing: border-box;
+}
+
+/* Forces structural alignment for Menu + Brand identity */
+.header-left {
+  display: flex !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+
+/* Cleans up the absolute floating offsets on the hamburger menu icon */
+.menu-toggle-btn {
+  transform: none !important; /* Forces removal of layout skewing rules */
+  background: none !important;
+  border: none !important;
+  font-size: 24px !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+/* Brand Group: Logo Image + Text side by side */
+.header-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  transform: none !important;
+}
+
+.site-logo {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+.brand-text h1 {
+  margin: 0 !important;
+  font-size: 18px !important;
+  color: #ffffff !important;
+  line-height: 1.2 !important;
+}
+
+.brand-text .subtitle {
+  margin: 0 !important;
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* --- Search Engine Rules --- */
+.search-wrapper {
+  flex-grow: 1;
+  max-width: 250px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search-form-container {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: none !important;
+}
+
+/* Input design adjustments */
+.search-input {
+  width: 100% !important;
+  padding: 8px 40px 8px 14px !important; /* Extra right padding guards the text space */
+  font-size: 14px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+  outline: none !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Floating overlay positioning for the glass icon button wrapper */
+.search-icon-box {
+  position: absolute !important;
+  right: 12px !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important; /* Erases old translation offsets pushing it away */
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.search-icon {
+  width: 18px !important;
+  height: 18px !important;
+  display: block;
+}
+
+/* ==========================================================================
+   Mobile Display Layout Adjustments
+   ========================================================================== */
+@media (max-width: 650px) {
+  .header-container {
+    flex-direction: column !important; /* Drops elements to individual rows gracefully */
+    align-items: stretch !important;
+    gap: 12px !important;
+    padding: 12px 15px !important;
+  }
+
+  .header-left {
+    justify-content: space-between !important;
+    width: 100% !important;
+  }
+
+  .search-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
 
   
     
@@ -65,36 +220,39 @@
 <body>
 
  <!-- Top Header -->
-  <header class="site-header">
-    <div class="header-container">
+<header class="site-header">
+  <div class="header-container">
+    
+    <!-- Left Group: Toggle and Branding together keeps them aligned -->
+    <div class="header-left">
+      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu">☰</button>
       
-      <button class="menu-toggle-btn" id="openMenuBtn" aria-label="Open navigation menu" style="transform: rotate(0deg) scale(1.36) translateX(-16px) translateY(0px) skew(0deg);">☰</button>
-
-      
-      <!-- Brand -->
       <div class="header-inner">
         <div class="logo-wrap">
           <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
         </div>
-        <div>
+        <div class="brand-text">
           <h1>{{ site.title }}</h1>
           <p class="subtitle">{{ site.description }}</p>
         </div>
       </div>
-<!-- The Form Container -->
-<form id="searchForm" onsubmit="return false;" class="search-form-container">
-  
-  <!-- Action Button Box Wrapper -->
-  <button type="submit" class="search-icon-box" aria-label="Execute Search">
-    <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-    </svg>
-  </button>
+    </div>
 
-  <!-- The Input Field -->
-  <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
+    <!-- Right Group: Search Form Engine Wrapper -->
+    <div class="search-wrapper">
+      <form id="searchForm" onsubmit="return false;" class="search-form-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
+        
+        <button type="submit" class="search-icon-box" aria-label="Execute Search">
+          <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
 
-</form>
+  </div>
+</header>
 
   
   <!-- Pop up drops pool results element -->
