@@ -57,24 +57,6 @@
       
     }
 
-/* Target layouts on screens 768px wide or smaller */
-@media (max-width: 768px) {
-  /* Forces the input field to stretch across the available container room */
-  input[type="search"], 
-  .search-input {
-    width: 100% !important;
-    max-width: 90vw !important; /* Prevents container bleeding on narrow phones */
-    box-sizing: border-box !important;
-    display: block !important;
-  }
-
-  /* Fixes parent elements that might be restricting the width */
-  .search-input {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-}
 
   
     
@@ -100,17 +82,17 @@
         </div>
       </div>
 <!-- The Form Container -->
-<form id="searchForm" onsubmit="return false;" class="search-form-container" style="display: flex; align-items: center; justify-content: center; width: 100%; max-width: 500px; margin: 0px; padding: 0px; gap: 12px;">
+<form id="searchForm" onsubmit="return false;" class="search-form-container">
   
   <!-- Action Button Box Wrapper -->
-  <button type="submit" class="search-icon-box" aria-label="Execute Search" style="display: flex; align-items: center; background: none; border: none; padding: 0; cursor: pointer;">
+  <button type="submit" class="search-icon-box" aria-label="Execute Search">
     <svg class="search-icon" xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
       <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
     </svg>
   </button>
 
   <!-- The Input Field -->
-  <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off" style="flex-grow: 1; padding: 8px; box-sizing: border-box;">
+  <input type="text" id="searchInput" class="search-input" placeholder="Search..." autocomplete="off">
 
 </form>
 
