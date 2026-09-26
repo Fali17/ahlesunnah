@@ -432,10 +432,10 @@ body {
   .header-inner h1 { font-size: 1.25rem; }
   .header-inner .subtitle { display: none; }
   .logo-wrap { width: 40px; height: 40px; }
-  .search-input { width: 120px; padding: 6px 12px 6px 32px; font-size: 0.85rem; }
+ /* .search-input { width: 120px; padding: 6px 12px 6px 32px; font-size: 0.85rem; } 
   .search-icon { left: 10px; }
 .search-input:focus { width: 160px; }
-  .search-results-dropdown { width: 280px; }
+  .search-results-dropdown { width: 280px; } */
 .site-header { padding: 12px 0; }
   .site-main { padding: 18px 12px 32px; }
   .post-card { padding: 18px 16px 16px; border-radius: 12px; }
@@ -574,9 +574,9 @@ body {
 }
 
 /* search*/
-/* --- Mobile Layout Overrides --- */
+/* --- Mobile Layout Overrides --- 
 @media screen and (max-width: 768px) {
-  /* Break the layout container limits */
+  /* Break the layout container limits 
   .search-wrapper {
     width: 100% !important;
     max-width: 90vw !important;
@@ -584,39 +584,40 @@ body {
     display: block !important;
   }
   
-  /* Force input box expansion */
+   Force input box expansion 
   .search-input {
     width: 100% !important;
-    font-size: 0.85rem !important; /* Slightly larger text for mobile readability */
-    padding: 10px 15px 10px 42px !important; /* Balanced breathing room */
+    font-size: 0.85rem !important; Slightly larger text for mobile readability 
+    padding: 10px 15px 10px 42px !important;  Balanced breathing room 
     box-sizing: border-box !important;
   }
 
-  /* Clear out placeholder sizing limits */
+   Clear out placeholder sizing limits 
   .search-input::placeholder {
     width: auto !important;
   }
 
-  /* Keep width consistent when a user taps to focus/type */
+   Keep width consistent when a user taps to focus/type 
   .search-input:focus {
     width: 100% !important;
   }
   
-  /* Readjust search icon centering for mobile height */
+   Readjust search icon centering for mobile height 
   .search-icon {
     left: 16px !important;
   }
 }
 
-/* --- Global Mobile Layout Reset --- */
+ Global Mobile Layout Reset --- 
 *, *:before, *:after {
   box-sizing: border-box;
 }
 
 body, html {
-  overflow-x: hidden; /* Stops horizontal canvas wobble on swipe */
+  overflow-x: hidden; /* Stops horizontal canvas wobble on swipe 
   width: 100%;
 }
+*/
 
 @media screen and (max-width: 768px) {
   .container, .wrapper, header {
@@ -1232,11 +1233,11 @@ blockquote {
     border-right: none !important;
 }
 
-/* 1. Remove the vertical line divider next to the magnifying glass */
+/* 1. Remove the vertical line divider next to the magnifying glass 
 .search-container *, [class*="search"] * {
     border-right: none !important;
     border-left: none !important;
-}
+} >/
 
 /* 2. Style the outer container capsule into a clean frosted pill */
 .search-container, div:has(> #search-input) {
