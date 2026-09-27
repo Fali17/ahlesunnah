@@ -3,6 +3,9 @@ description: "Spreading The Truth"
 url: "https://fali17.github.io"
 baseurl: "/ahlesunnah"
 
+sitemap:
+  filename: /sitemap_index.xml
+
 # Language & SEO settings
 lang: "en-GB"
 timezone: "Europe/London"
