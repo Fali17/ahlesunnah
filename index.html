@@ -39,7 +39,9 @@ description: "Read authentic Ahle Sunnah articles on fiqh, aqidah, tafsir, and t
     {{ post.content | strip_html | strip_newlines }}
   </p>
   
-  <a class="read-more" href="{{ post.url | relative_url }}">Read more &rarr;</a>
+ <a class="read-more" href="{{ post.url | relative_url }}">
+  Read: {{ post.title | truncate: 40 }} →
+ </a>
 </article>
 {% endfor %}
 </div>
