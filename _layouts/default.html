@@ -341,6 +341,44 @@
       font-size: 1.15rem !important;
     }
   }
+    /* Dropdown base */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-height: 360px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--border, #e7e5e4);
+  display: none;
+  z-index: 9999; /* above sticky header */
+}
+
+/* Don’t clip the dropdown */
+.site-header,
+.header-container,
+.search-wrapper {
+  overflow: visible !important;
+}
+
+/* Mobile: fixed full-width panel under the search bar */
+@media (max-width: 768px) {
+  .search-results-dropdown {
+    position: fixed !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+    max-height: 50vh !important;
+    z-index: 9999 !important;
+    /* top is set by JS below */
+  }
+}
   </style>
 </head>
 <body>
@@ -912,6 +950,97 @@ document.addEventListener('click', function (e) {
   }
 });
 </script>
+  
+<script>
+  function positionSearchDropdown() {
+  if (!searchResults || !searchInput) return;
+  const rect = searchInput.getBoundingClientRect();
+  // Place just under the input
+  searchResults.style.top = (rect.bottom + 8) + 'px';
+  searchResults.style.left = '10px';
+  searchResults.style.right = '10px';
+  searchResults.style.width = 'auto';
+}
 
+function showSearchDropdown() {
+  if (!searchResults) return;
+  positionSearchDropdown();
+  searchResults.style.display = 'block';
+}
+
+function hideSearchDropdown() {
+  if (!searchResults) return;
+  searchResults.style.display = 'none';
+}
+
+// Live suggestions while typing
+searchInput.addEventListener('input', function () {
+  const query = this.value.trim();
+  searchResults.innerHTML = '';
+
+  if (query.length < 2) {
+    hideSearchDropdown();
+    return;
+  }
+
+  const filtered = getMatchedPosts(query);
+
+  if (filtered.length > 0) {
+    filtered.slice(0, 8).forEach(item => {
+      const a = document.createElement('a');
+      a.href = item.url;
+      a.className = 'search-result-item';
+      a.innerHTML = `
+        <div class="search-result-title">${highlightText(item.title, query)}</div>
+        <div class="search-result-meta">${item.date || ''}</div>
+        <div class="search-result-excerpt">${item.excerpt || ''}</div>
+      `;
+      searchResults.appendChild(a);
+    });
+  } else {
+    searchResults.innerHTML = '<div class="search-no-results">No articles found.</div>';
+  }
+
+  showSearchDropdown();
+});
+
+// Keep position correct when scrolling / rotating
+window.addEventListener('scroll', function () {
+  if (searchResults && searchResults.style.display === 'block') {
+    positionSearchDropdown();
+  }
+}, { passive: true });
+
+window.addEventListener('resize', function () {
+  if (searchResults && searchResults.style.display === 'block') {
+    positionSearchDropdown();
+  }
+});
+
+// Close when tapping outside (don’t close when tapping the input or results)
+document.addEventListener('click', function (e) {
+  if (
+    !searchInput.contains(e.target) &&
+    !searchResults.contains(e.target) &&
+    !e.target.closest('.search-icon-box')
+  ) {
+    hideSearchDropdown();
+  }
+});
+
+// Close on Escape
+searchInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    hideSearchDropdown();
+    searchInput.blur();
+  }
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    hideSearchDropdown();
+    initFullViewSearchSearch();
+  }
+});
+  
+</script>
 </body>
 </html>
