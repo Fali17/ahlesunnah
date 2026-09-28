@@ -99,6 +99,41 @@ layout: default
   }
 }
 
+  .related-posts {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.related-posts h2 {
+  font-family: 'Amiri', serif;
+  font-size: 1.35rem;
+  margin: 0 0 14px;
+  color: var(--primary);
+}
+.related-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.related-list li {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.related-list a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+.related-list a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.related-list time {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
 </style>
 
 <article class="post-full">
@@ -170,3 +205,35 @@ function printAcademicArticle() {
   
 </article>
 
+{% assign max_related = 3 %}
+{% assign related_count = 0 %}
+
+{% if page.tags.size > 0 or page.categories.size > 0 %}
+<section class="related-posts">
+  <h2>Related articles</h2>
+  <ul class="related-list">
+    {% for post in site.posts %}
+      {% if post.url != page.url %}
+        {% assign match = false %}
+        {% for tag in page.tags %}
+          {% if post.tags contains tag %}
+            {% assign match = true %}
+          {% endif %}
+        {% endfor %}
+        {% for cat in page.categories %}
+          {% if post.categories contains cat %}
+            {% assign match = true %}
+          {% endif %}
+        {% endfor %}
+        {% if match and related_count < max_related %}
+          <li>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+          </li>
+          {% assign related_count = related_count | plus: 1 %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
