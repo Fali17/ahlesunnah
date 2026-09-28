@@ -1,4 +1,5 @@
-<script>
+
+ 
  // ========== 1. ADVANCED WORD SEARCH WITH HIGHLIGHTING & PAGINATION ==========
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
@@ -270,9 +271,9 @@ document.addEventListener('click', function(e) {
     backToTopButton.addEventListener("click", function() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-  </script>
+  
 
- <script>
+
 document.addEventListener("DOMContentLoaded", function () {
   // Don't run on the media gallery itself
   const path = window.location.pathname;
@@ -326,8 +327,8 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => tryScroll(), 300);
   }
 });
-</script>
-<script>
+
+
   // Close dropdown on Escape
 searchInput.addEventListener('keydown', function (event) {
   if (event.key === 'Escape') {
@@ -469,6 +470,6 @@ searchInput.addEventListener('keydown', function (event) {
   }
 });
   
-</script>
+
 
 
