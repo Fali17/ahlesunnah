@@ -39,7 +39,22 @@
     text-align: center;
     margin-top: 10px;
   }
-
+.close-modal-btn {
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #64748b;
+  background: none;
+  border: none;
+  line-height: 1;
+  padding: 4px 8px;
+}
+.close-modal-btn:hover,
+.close-modal-btn:focus {
+  color: #1e293b;
+}
   /* ========== Header container ========== */
   .header-container {
     display: flex;
@@ -487,14 +502,20 @@
 </div>
 
 <!-- The Ahle Sunnah Custom Report Modal Overlay -->
-<div id="reportModal" class="report-modal">
-    <div class="report-modal-content">
-        <span class="close-modal-btn">&times;</span>
-        
-        <div class="modal-header">
-            <h3>Report Abuse</h3>
-            <p>Help us maintain the integrity of Ahle Sunnah. Select the violation below:</p>
-        </div>
+<div id="reportModal"
+     class="report-modal"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="reportModalTitle"
+     hidden>
+  <div class="report-modal-content">
+    <button type="button" class="close-modal-btn" aria-label="Close dialog">&times;</button>
+
+    <div class="modal-header">
+      <h3 id="reportModalTitle">Report Abuse</h3>
+      <p>Help us maintain the integrity of Ahle Sunnah. Select the violation below:</p>
+    </div>
+    
         
         <!-- Fixed form layout - Formspree endpoint acts purely as a data receiver -->
         <form id="reportAbuseForm" action="https://formspree.io/f/mbgjvjzl" method="POST">
@@ -626,7 +647,7 @@ document.addEventListener("DOMContentLoaded", () => {
   </footer>
 
   <!-- Back to Top Button -->
-  <button id="backToTop" title="Go to top">↑</button>
+  <button id="backToTop" type="button" aria-label="Back to top" title="Go to top">↑</button>
 
   <script>
  // ========== 1. ADVANCED WORD SEARCH WITH HIGHLIGHTING & PAGINATION ==========
