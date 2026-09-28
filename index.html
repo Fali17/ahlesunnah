@@ -50,7 +50,8 @@ description: "Read authentic Ahle Sunnah articles on fiqh, aqidah, tafsir, and t
   </p>
   
  <a class="read-more" href="{{ post.url | relative_url }}">
-  Read: {{ post.title | truncate: 40 }} →
+  Read more<span class="visually-hidden">: {{ post.title }}</span> →
+ </a>
  </a>
 </article>
 {% endfor %}
