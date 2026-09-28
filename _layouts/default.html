@@ -4,18 +4,30 @@
   <meta name="google-site-verification" content="6CREPysKv3kkylfCXyiStzCV1tmpTPGkuTn0bO0rxQA" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
- <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta name="description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | truncate: 155 }}">
- <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
-  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
-<link rel="canonical" href="{{ page.url | absolute_url }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}" />
+
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | truncate: 155 }}">
+
+  <!-- One canonical only -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+  <!-- Open Graph -->
   <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-<meta property="og:description" content="{{ page.description | default: site.description | strip_html | truncate: 155 }}">
-<meta property="og:url" content="{{ page.url | absolute_url }}">
-<meta property="og:type" content="website">
-<meta property="og:image" content="{{ '/assets/logo.png' | absolute_url }}">
-<meta name="twitter:card" content="summary">
+  <meta property="og:description" content="{{ page.description | default: site.description | strip_html | truncate: 155 }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="{{ '/assets/logo.png' | absolute_url }}">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Fonts (optional — skip this block if you prefer system fonts only) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ONE stylesheet only -->
+  <link rel="stylesheet" href="{{ 'assets/css/main.css' | relative_url }}?v=2">
+
+  <!-- your existing <style>...</style> for search/header can stay here -->
   <style>
   /* Report abuse button */
   .report-abuse-btn {
