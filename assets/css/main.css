@@ -28,6 +28,10 @@
   /* rest unchanged */
 }
 
+.post-card h2 a {
+  color: #1e293b;   /* or var(--text) */
+}
+
 /* Base Style overrides */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
