@@ -632,10 +632,24 @@ const resultsPerPage = 10;
 let activeSearchQuery = "";
 
 // 1. Fetch search data index securely from Jekyll setup
-fetch("{{ '/search.json' | relative_url }}")
-  .then(response => response.json())
-  .then(data => { searchDatabase = data; })
-  .catch(err => console.error("Could not load search index:", err));
+let searchDatabase = [];
+let searchLoaded = false;
+
+function loadSearchIndex() {
+  if (searchLoaded) return Promise.resolve();
+  searchLoaded = true;
+  return fetch("{{ '/search.json' | relative_url }}")
+    .then(function (response) { return response.json(); })
+    .then(function (data) { searchDatabase = data; })
+    .catch(function (err) { console.error("Could not load search index:", err); });
+}
+
+// Load when user focuses the search box
+if (searchInput) {
+  searchInput.addEventListener('focus', function () {
+    loadSearchIndex();
+  }, { once: true });
+}
 
 // Core Algorithm: Splits phrases into separate search words and scans all content keys
 function getMatchedPosts(queryString) {
