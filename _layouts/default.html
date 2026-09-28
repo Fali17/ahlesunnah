@@ -453,6 +453,22 @@
   left: 8px;
   top: 8px;
 }
+    .footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 20px;
+  margin-bottom: 12px;
+}
+.footer-nav a {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.footer-nav a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
   </style>
   
 </head>
@@ -658,11 +674,18 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
     
   <!-- Footer -->
-  <footer class="site-footer">
-    <div class="site-footer-inner">
-      <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
-    </div>
-  </footer>
+ <footer class="site-footer">
+  <div class="site-footer-inner">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="{{ '/about.html' | relative_url }}">About</a>
+      <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+      <a href="{{ '/priv.html' | relative_url }}">Privacy</a>
+      <a href="{{ '/terms.html' | relative_url }}">Terms</a>
+      <a href="{{ '/archive.html' | relative_url }}">Archives</a>
+    </nav>
+    <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+  </div>
+ </footer>
 
   <!-- Back to Top Button -->
   <button id="backToTop" type="button" aria-label="Back to top" title="Go to top">↑</button>
