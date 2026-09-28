@@ -417,7 +417,15 @@
 
     <div class="header-inner">
       <div class="logo-wrap">
-        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+        <img
+  src="{{ 'assets/logo.png' | relative_url }}"
+  alt="Ahle Sunnah Al Islam Logo"
+  class="site-logo"
+  width="50"
+  height="50"
+  decoding="async"
+  fetchpriority="high"
+>
       </div>
      <div class="brand-text">
   <p class="site-brand-title">{{ site.title }}</p>
