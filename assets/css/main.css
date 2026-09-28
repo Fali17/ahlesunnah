@@ -22,6 +22,11 @@
   color: #3f4b5b;
 }
 
+.label {
+  background: color-mix(in srgb, var(--primary) 12%, white);
+  color: #0a3721;   /* darker green text */
+  /* rest unchanged */
+}
 
 /* Base Style overrides */
 * { box-sizing: border-box; }
