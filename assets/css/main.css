@@ -5,10 +5,23 @@
   --bg: #fdfbf3;
   --card: #ffffff;
   --text: #1e293b;
-  --muted: #475569;
+  --muted: #3f4b5b;
   --border: #e7e5e4;
   --radius: 14px;
 }
+
+.excerpt {
+  margin: 0 0 14px;
+  color: #3f4b5b;     /* or: color: var(--muted); */
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.post-meta,
+.post-meta time {
+  color: #3f4b5b;
+}
+
 
 /* Base Style overrides */
 * { box-sizing: border-box; }
