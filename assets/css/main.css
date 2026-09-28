@@ -1268,3 +1268,13 @@ blockquote {
     outline: none !important;
     color: #ffffff !important;
 }
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.site-brand-title,
+.post-card h2,
+.post-full h1,
+.hero p {
+  font-family: 'Amiri', 'Times New Roman', serif;
+}
