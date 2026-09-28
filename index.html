@@ -46,7 +46,7 @@ description: "Read authentic Ahle Sunnah articles on fiqh, aqidah, tafsir, and t
   
   <!-- Evaluates full text block lengths and drops layout-breaking markup flags -->
   <p class="excerpt">
-   {{ post.excerpt | default: post.content | strip_html }}
+   {{ post.content | strip_html | strip_newlines|truncate:160}}
   </p>
   
  <a class="read-more" href="{{ post.url | relative_url }}">
