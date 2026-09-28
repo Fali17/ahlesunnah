@@ -32,6 +32,16 @@
   color: #1e293b;   /* or var(--text) */
 }
 
+:root {
+  --muted: #3f4b5b;
+}
+
+.excerpt,
+.post-meta,
+.post-meta time {
+  color: #3f4b5b !important;
+}
+
 /* Base Style overrides */
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
