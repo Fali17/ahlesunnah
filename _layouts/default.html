@@ -437,11 +437,29 @@
 .search-form-container:focus-within .search-input::placeholder {
   color: #64748b !important;
 }
+
+    .skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10000;
+  padding: 8px 16px;
+  background: #0e4a2d;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
   </style>
   
 </head>
 <body>
-
+  
+<a class="skip-link" href="#main-content">Skip to main content</a>
+  
  <header class="site-header">
   <div class="header-container">
 
@@ -492,9 +510,9 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="site-main">
-    {{ content }}
-  </main>
+ <main class="site-main" id="main-content">
+  {{ content }}
+ </main>
 
   <!-- The trigger button (Matches your current wrapper class name) -->
 <div class="report-abuse-wrap">
