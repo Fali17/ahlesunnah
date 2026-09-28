@@ -608,7 +608,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 </script>
-    <script>
+    
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Go to top">↑</button>
+
+  <script>
  // ========== 1. ADVANCED WORD SEARCH WITH HIGHLIGHTING & PAGINATION ==========
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
@@ -621,24 +632,10 @@ const resultsPerPage = 10;
 let activeSearchQuery = "";
 
 // 1. Fetch search data index securely from Jekyll setup
-let searchDatabase = [];
-let searchLoaded = false;
-
-function loadSearchIndex() {
-  if (searchLoaded) return Promise.resolve();
-  searchLoaded = true;
-  return fetch("{{ '/search.json' | relative_url }}")
-    .then(function (response) { return response.json(); })
-    .then(function (data) { searchDatabase = data; })
-    .catch(function (err) { console.error("Could not load search index:", err); });
-}
-
-// Load when user focuses the search box
-if (searchInput) {
-  searchInput.addEventListener('focus', function () {
-    loadSearchIndex();
-  }, { once: true });
-}
+fetch("{{ '/search.json' | relative_url }}")
+  .then(response => response.json())
+  .then(data => { searchDatabase = data; })
+  .catch(err => console.error("Could not load search index:", err));
 
 // Core Algorithm: Splits phrases into separate search words and scans all content keys
 function getMatchedPosts(queryString) {
@@ -1080,20 +1077,5 @@ searchInput.addEventListener('keydown', function (event) {
 });
   
 </script>
-</body>
-</html>
-
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="site-footer-inner">
-      <p>&copy; {{ 'now' | date: '%Y' }} Ahle Sunnah. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Back to Top Button -->
-  <button id="backToTop" title="Go to top">↑</button>
-  
-  
-
 </body>
 </html>
