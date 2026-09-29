@@ -970,7 +970,7 @@ body, html {
 
 /* Ensure the button hides completely on the final printed page */
 @media print {
-  .print-essay-btn,.share-btn ,.share-label,.share-icon{
+  .print-essay-btn,.share-btn,.share-label,.share-icon{
     display: none !important;
   }
 }
