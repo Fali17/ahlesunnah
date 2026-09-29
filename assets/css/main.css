@@ -849,7 +849,7 @@ body, html {
   header, footer, nav, aside, 
   .site-header, .header-container, .header-inner, .logo-wrap, .subtitle,
   .menu-toggle-btn, .search-wrapper, .sidebar-nav, .sidebar-overlay,
-  .print-essay-btn, .read-more, .hero, .report-abuse, #results-container,.share-btn,.share-label,.share-icon,.share-bar{
+  .print-essay-btn, .read-more, .hero, .report-abuse, #results-container,.share-btn,.share-label,.share-icon,.share-bar,#copyLinkBtn{
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -970,7 +970,7 @@ body, html {
 
 /* Ensure the button hides completely on the final printed page */
 @media print {
-  .print-essay-btn,.share-btn,.share-label,.share-icon,.share-bar{
+  .print-essay-btn,.share-btn,.share-label,.share-icon,.share-bar,#copyLinkBtn{
     display: none !important;
   }
 }
