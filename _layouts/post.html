@@ -136,44 +136,46 @@ layout: default
 }
 
   .share-bar {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   gap: 8px;
-  margin: 12px 0 24px;
+  margin: 16px auto 24px;
+  width: 100%;
+  text-align: left; /* stop global center from splitting the row */
 }
 
 .share-label {
   font-size: 0.85rem;
   font-weight: 600;
-  color:var(--muted);
-  margin-right: 2px;
+  color: var(--muted);
+  margin: 0 4px 0 0;
+  flex: 0 0 auto;
 }
 
 .share-btn {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   width: 40px;
   height: 40px;
+  min-width: 40px;
   padding: 0;
+  margin: 0;
+  flex: 0 0 auto;
   background: var(--primary);
   color: #fff !important;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none !important;
-  transition: background 0.2s ease, transform 0.15s ease;
+  line-height: 1;
 }
 
 .share-btn:hover {
   background: var(--primary-dark);
-  transform: translateY(-1px);
-}
-
-.share-btn:focus-visible {
-  outline: 2px solid #c8a415;
-  outline-offset: 2px;
 }
 
 .share-icon {
@@ -186,8 +188,9 @@ layout: default
 .share-status {
   font-size: 0.85rem;
   color: var(--muted);
+  flex: 0 0 auto;
 }
-
+  
   .share-btn[aria-label="Share on WhatsApp"]:hover { background: #25d366; }
 .share-btn[aria-label="Share on X"]:hover { background: #111; }
 .share-btn[aria-label="Share on Facebook"]:hover { background: #1877f2; }
