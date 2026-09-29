@@ -469,6 +469,59 @@
   text-decoration: underline;
   color: #fff;
 }
+
+   .share-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 24px;
+}
+
+.share-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--muted);
+  margin-right: 2px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: var(--primary);
+  color: #fff !important;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.share-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.share-btn:focus-visible {
+  outline: 2px solid #c8a415;
+  outline-offset: 2px;
+}
+
+.share-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.share-status {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
   </style>
   
 </head>
