@@ -135,31 +135,7 @@ layout: default
   color: var(--muted);
 }
 
-  .share-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;  
-  gap: 10px;
-  margin: 12px 0 20px;
-}
-.share-copy-btn {
-  align-items:center;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-.share-copy-btn:hover {
-  background: var(--primary-dark);
-}
-.share-status {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
+  
 </style>
 
 <article class="post-full">
@@ -175,12 +151,6 @@ layout: default
     </div>
   </header>
   
-<div class="share-bar">
-  <button type="button" class="share-copy-btn" id="copyLinkBtn" data-url="{{ page.url | absolute_url }}">
-    Copy link
-  </button>
-  <span id="copyLinkStatus" class="share-status" aria-live="polite"></span>
-</div>
   
   <div class="post-content">
     {{ content }}
