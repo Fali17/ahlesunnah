@@ -138,21 +138,27 @@ layout: default
   .share-bar {
   display: flex !important;
   flex-direction: row !important;
-  flex-wrap: wrap;
+  flex-wrap: nowrap !important;   /* force one line */
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin: 16px auto 24px;
   width: 100%;
-  text-align: left; /* stop global center from splitting the row */
+  max-width: 100%;
+  overflow-x: auto;               /* swipe if still tight */
+  -webkit-overflow-scrolling: touch;
+  text-align: left;
+  padding: 0 4px;
+  box-sizing: border-box;
 }
 
 .share-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--muted);
-  margin: 0 4px 0 0;
+  margin: 0 2px 0 0;
   flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .share-btn {
@@ -162,9 +168,9 @@ layout: default
   width: 40px;
   height: 40px;
   min-width: 40px;
+  flex: 0 0 auto;
   padding: 0;
   margin: 0;
-  flex: 0 0 auto;
   background: var(--primary);
   color: #fff !important;
   border: none;
@@ -172,10 +178,6 @@ layout: default
   cursor: pointer;
   text-decoration: none !important;
   line-height: 1;
-}
-
-.share-btn:hover {
-  background: var(--primary-dark);
 }
 
 .share-icon {
@@ -186,11 +188,47 @@ layout: default
 }
 
 .share-status {
-  font-size: 0.85rem;
-  color: var(--muted);
   flex: 0 0 auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
-  
+
+/* Mobile: smaller icons so all fit on one line */
+@media (max-width: 480px) {
+  .share-bar {
+    gap: 5px;
+  }
+
+  .share-label {
+    font-size: 0.75rem;
+  }
+
+  .share-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 9px;
+  }
+
+  .share-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .share-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+
+  .share-icon {
+    width: 15px;
+    height: 15px;
+  }
+}
   .share-btn[aria-label="Share on WhatsApp"]:hover { background: #25d366; }
 .share-btn[aria-label="Share on X"]:hover { background: #111; }
 .share-btn[aria-label="Share on Facebook"]:hover { background: #1877f2; }
