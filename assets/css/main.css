@@ -849,7 +849,7 @@ body, html {
   header, footer, nav, aside, 
   .site-header, .header-container, .header-inner, .logo-wrap, .subtitle,
   .menu-toggle-btn, .search-wrapper, .sidebar-nav, .sidebar-overlay,
-  .print-essay-btn, .read-more, .hero, .report-abuse, #results-container {
+  .print-essay-btn, .read-more, .hero, .report-abuse, #results-container,.share-copy-btn{
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
