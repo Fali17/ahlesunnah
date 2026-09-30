@@ -13,80 +13,59 @@
 }
 
 html[data-theme="dark"] {
-  --primary: #1a6b45;
-  --primary-dark: #0f3d28;
-  --accent: #d4af37;
-  --bg: #0f1419;
-  --card: #1a2332;
-  --text: #e8eef4;
-  --muted: #9aa8b8;
+  --text: #e8eef4;    /* main body / titles */
+  --muted: #9aa8b8;   /* excerpts, dates, labels */
+  --bg: #0f1419;      /* page background */
+  --card: #1a2332;    /* cards / post surface */
   --border: #2a3544;
-  --header-text: #ffffff;
-  --header-muted: #c8e6c9;
+  --primary: #1a6b45;
+  --accent: #d4af37;
 }
 
-html[data-theme="dark"] body {
-  background: var(--border);
-  color: :#ffffff;
-  font-color:#ffffff;
+html[data-theme="dark"] .post-content {
+  color: #f0f4f8; /* custom body text */
 }
 
-html[data-theme="dark"] .site-header {
-  background: #121212;
+html[data-theme="dark"] .post-full h1 {
+  color: #ffffff; /* brighter titles */
 }
 
-html[data-theme="dark"] .post-card,
-html[data-theme="dark"] .post-full,
-html[data-theme="dark"] .report-modal-content {
-  background: var(--card);
+html[data-theme="dark"] .excerpt {
+  color: #a8b5c4; /* softer excerpts */
+}
+
+html[data-theme="dark"] a {
+  color: #7dcea0; /* links */
+}
+
+html[data-theme="dark"] a:hover {
+  color: #a8e6c1;
+}
+
+html[data-theme="dark"] .site-brand-title {
   color: #ffffff;
 }
 
-html[data-theme="dark"] p { font-color:#ffffff}
-
-html[data-theme="dark"] .search-results-dropdown {
-  background: var(--card);
-  border-color: var(--border);
+html[data-theme="dark"] .subtitle {
+  color: #c8e6c9;
 }
-
-html[data-theme="dark"] .search-result-item:hover {
-  background: #243044;
-}
-
-html[data-theme="dark"] .share-btn {
-  background: var(--primary);
-}
-
-.excerpt {
-  margin: 0 0 14px;
-  color: #3f4b5b;     /* or: color: var(--muted); */
-  font-size: 14px;
-  line-height: 1.65;
-}
-
-.post-meta,
-.post-meta time {
-  color: #3f4b5b;
-}
-
-.label {
-  background: color-mix(in srgb, var(--primary) 12%, white);
-  color: #0a3721;   /* darker green text */
-  /* rest unchanged */
-}
-
-.post-card h2 a {
-  color: #1e293b;   /* or var(--text) */
-}
-
-:root {
-  --muted: #3f4b5b;
+body {
+  background: var(--bg);
+  color: var(--text);
 }
 
 .excerpt,
 .post-meta,
-.post-meta time {
-  color: #3f4b5b !important;
+.muted,
+.share-label,
+.reader-label {
+  color: var(--muted);
+}
+
+.post-card h2 a,
+.post-full h1,
+.post-content {
+  color: var(--text);
 }
 
 /* Base Style overrides */
