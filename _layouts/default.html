@@ -706,80 +706,7 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
     height: 34px;
   }
 
-  /* Hide long subtitle on small screens so title isn’t crushed */
-  .subtitle {
-    display: none;
-  }
-
-  .site-brand-title {
-    font-size: 1.05rem;
-  }
-
-  /* Give search a fixed share of the row */
-  .header-inner {
-    flex: 1 1 auto;
-    min-width: 0;
-    max-width: 42%;
-  }
-
-  .search-wrapper {
-    flex: 1 1 auto;
-    min-width: 100px;
-    max-width: none;
-  }
-
-  .search-form-container {
-    height: 34px;
-  }
-}
-
-/* Very narrow phones: slightly smaller title */
-@media (max-width: 380px) {
-  .site-brand-title {
-    font-size: 0.95rem;
-  }
-
-  .header-inner {
-    max-width: 38%;
-  }
-}
-
-    .subtitle {
-  margin: 2px 0 0;
-  font-size: 0.75rem;
-  color: #e8f5e9;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Hide on mobile so the header isn’t cramped */
-@media (max-width: 768px) {
-  .subtitle {
-    display: none;
-  }
-}
-
-/* Show again on desktop */
-@media (min-width: 769px) {
-  .subtitle {
-    display: block;
-    font-size: 0.8rem;
-  }
-}
-    .brand-short {
-  display: none;
-}
-
-@media (max-width: 380px) {
-  .brand-full {
-    display: none;
-  }
-  .brand-short {
-    display: inline;
-  }
-}
-    
+  
   </style>
   
 </head>
@@ -805,9 +732,8 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
       <div class="logo-wrap">
         <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah" class="site-logo" width="40" height="40">
       </div>
-      <p class="site-brand-title">
-  <span class="brand-full">{{ site.title }}</span>
-  <span class="brand-short">Ahle Sunnah</span>
+      <div class="brand-text">
+  <span class="site-brand-title">{{ site.title }}</span>
       </p>
         <p class="subtitle">{{ site.description }}</p>
       </div>
