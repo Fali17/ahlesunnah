@@ -744,6 +744,41 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
   }
 }
 
+    .subtitle {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: #e8f5e9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Hide on mobile so the header isn’t cramped */
+@media (max-width: 768px) {
+  .subtitle {
+    display: none;
+  }
+}
+
+/* Show again on desktop */
+@media (min-width: 769px) {
+  .subtitle {
+    display: block;
+    font-size: 0.8rem;
+  }
+}
+    .brand-short {
+  display: none;
+}
+
+@media (max-width: 380px) {
+  .brand-full {
+    display: none;
+  }
+  .brand-short {
+    display: inline;
+  }
+}
     
   </style>
   
@@ -770,11 +805,14 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
       <div class="logo-wrap">
         <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah" class="site-logo" width="40" height="40">
       </div>
-      <div class="brand-text">
-        <p class="site-brand-title">{{ site.title }}</p>
+      <p class="site-brand-title">
+  <span class="brand-full">{{ site.title }}</span>
+  <span class="brand-short">Ahle Sunnah</span>
+      </p>
         <p class="subtitle">{{ site.description }}</p>
       </div>
     </div>
+
     
     <div class="search-wrapper">
       <form id="searchForm" onsubmit="return false;" class="search-form-container" role="search">
