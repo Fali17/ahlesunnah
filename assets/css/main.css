@@ -1482,3 +1482,17 @@ html[data-theme="dark"] time {
     color: #000000 !important;
   }
 }
+
+@media print {
+  html[data-theme="dark"] .post-full h1,
+  html[data-theme="dark"] .post-title,
+  html[data-theme="dark"] h1,
+  .post-full h1,
+  .post-title,
+  h1.post-title,
+  article h1 {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    background: transparent !important;
+  }
+}
