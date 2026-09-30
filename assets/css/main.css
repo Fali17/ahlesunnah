@@ -64,7 +64,7 @@ html[data-theme="dark"] .share-btn {
 }
 
 html[data-theme=”dark”] 
-.pagination-status { background: var(--accent); }
+.pagination-status,.site-intro,.hero { background: var(--accent); }
 
 
 
