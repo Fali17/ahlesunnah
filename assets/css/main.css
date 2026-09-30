@@ -1469,3 +1469,16 @@ html[data-theme="dark"] time {
     display: none !important;
   }
 }
+
+@media print {
+  html {
+    data-theme: none; /* invalid in CSS — use color overrides instead */
+  }
+
+  html[data-theme="dark"] body,
+  html[data-theme="dark"] .post-content,
+  html[data-theme="dark"] .post-content p {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
