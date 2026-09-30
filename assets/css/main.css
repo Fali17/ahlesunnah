@@ -1560,3 +1560,31 @@ html[data-theme="dark"] .nav-button-wrapper:hover p,
 html[data-theme="dark"] .post-navigation-container a:hover .nav-title {
   color: #ffffff !important;
 }
+
+.post-navigation-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+  width: 100%;
+}
+
+/* If only one side exists, don't stretch an empty half */
+.nav-button-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 50%;
+}
+
+/* Only one button: let it use a sensible width */
+.post-navigation-container:has(.nav-button-wrapper:only-child) .nav-button-wrapper {
+  max-width: 100%;
+  flex: 1 1 auto;
+}
+
+.next-wrapper {
+  text-align: right;
+  margin-left: auto; /* pushes next to the right when previous is missing */
+}
