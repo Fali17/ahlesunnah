@@ -540,3 +540,33 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+
+<script>
+  function printAcademicArticle() {
+  var article = document.querySelector('.post-full');
+  if (!article) return;
+
+  var articleContent = article.innerHTML;
+  var originalBody = document.body.innerHTML;
+
+  document.body.innerHTML =
+    '<main class="post-full" style="background:#fff!important;color:#000!important;padding:0;margin:0;box-shadow:none;border:none;">' +
+      '<div class="post-content" style="background:#fff!important;color:#000!important;">' +
+        articleContent +
+      '</div>' +
+    '</main>';
+
+  // Force every text node container to black
+  document.querySelectorAll('.post-full, .post-full *').forEach(function (el) {
+    el.style.color = '#000';
+    el.style.background = 'transparent';
+  });
+  document.body.style.background = '#fff';
+  document.body.style.color = '#000';
+
+  window.print();
+
+  document.body.innerHTML = originalBody;
+  window.location.reload();
+  }
+</script>
