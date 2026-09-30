@@ -293,6 +293,19 @@ layout: default
     font-size: 0.9rem;
   }
   }
+  .post-navigation-container.has-both {
+  justify-content: space-between;
+}
+
+.post-navigation-container.has-one {
+  justify-content: center;
+}
+
+.post-navigation-container.has-one .nav-button-wrapper {
+  flex: 0 1 auto;
+  max-width: 420px;
+  width: 100%;
+}
 </style>
 
 <article class="post-full">
@@ -438,7 +451,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </article>
 
   {% if page.previous or page.next %}
-<div class="post-navigation-container">
+<div class="post-navigation-container{% if page.previous and page.next %} has-both{% else %} has-one{% endif %}">
+ 
 
   {% if page.previous %}
   <div class="nav-button-wrapper prev-wrapper">
