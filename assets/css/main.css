@@ -1588,3 +1588,51 @@ html[data-theme="dark"] .post-navigation-container a:hover .nav-title {
   text-align: right;
   margin-left: auto; /* pushes next to the right when previous is missing */
 }
+
+.post-navigation-container {
+  display: flex;
+  justify-content: center; /* default: center when one button */
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+  width: 100%;
+}
+
+.nav-button-wrapper {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 50%;
+}
+
+/* Two buttons: space them left and right */
+.post-navigation-container:has(.prev-wrapper):has(.next-wrapper) {
+  justify-content: space-between;
+}
+
+/* One button only: center it and give a nice width */
+.post-navigation-container:has(.nav-button-wrapper:only-child) {
+  justify-content: center;
+}
+
+.post-navigation-container:has(.nav-button-wrapper:only-child) .nav-button-wrapper {
+  flex: 0 1 auto;
+  max-width: 420px;
+  width: 100%;
+}
+
+.next-wrapper {
+  text-align: right;
+}
+
+/* Single next button: keep content left-aligned inside the card if you prefer */
+.post-navigation-container:has(.nav-button-wrapper:only-child) .next-wrapper {
+  text-align: left;
+}
+
+.post-navigation-container:has(.nav-button-wrapper:only-child) .next-wrapper .nav-direction-btn {
+  align-items: flex-start;
+  border-right: none;
+  border-left: 4px solid var(--accent);
+}
