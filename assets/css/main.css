@@ -8,6 +8,50 @@
   --muted: #3f4b5b;
   --border: #e7e5e4;
   --radius: 14px;
+  --header-text: #ffffff;
+  --header-muted: #e8f5e9;
+}
+
+html[data-theme="dark"] {
+  --primary: #1a6b45;
+  --primary-dark: #0f3d28;
+  --accent: #d4af37;
+  --bg: #0f1419;
+  --card: #1a2332;
+  --text: #e8eef4;
+  --muted: #9aa8b8;
+  --border: #2a3544;
+  --header-text: #ffffff;
+  --header-muted: #c8e6c9;
+}
+
+html[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .site-header {
+  background: var(--primary-dark);
+}
+
+html[data-theme="dark"] .post-card,
+html[data-theme="dark"] .post-full,
+html[data-theme="dark"] .report-modal-content {
+  background: var(--card);
+  color: var(--text);
+}
+
+html[data-theme="dark"] .search-results-dropdown {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .search-result-item:hover {
+  background: #243044;
+}
+
+html[data-theme="dark"] .share-btn {
+  background: var(--primary);
 }
 
 .excerpt {
