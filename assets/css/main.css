@@ -1405,3 +1405,8 @@ html[data-theme="dark"] .post-content a {
 html[data-theme="dark"] .post-content a:hover {
   color: #a8e6c1 !important;
 }
+
+html[data-theme="dark"] .post-full {
+  background: #1a2332;
+  color: #eef2f7;
+}
