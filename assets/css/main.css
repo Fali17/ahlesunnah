@@ -63,9 +63,13 @@ html[data-theme="dark"] .share-btn {
   background: var(--primary);
 }
 
-html[data-theme=”dark”] 
-.pagination-status,.site-intro,.hero { color: var(--accent); }
-
+html[data-theme="dark"] .pagination-status,
+html[data-theme="dark"] .hero,
+html[data-theme="dark"] .hero p,
+html[data-theme="dark"] .site-intro,
+html[data-theme="dark"] .site-intro p {
+  color: var(--accent, #c8a415) !important;
+}
 
 
 body {
