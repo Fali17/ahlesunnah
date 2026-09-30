@@ -42,6 +42,8 @@ html[data-theme="dark"] .report-modal-content {
   color: #ffffff;
 }
 
+html[data-theme="dark"] p { font-color:#ffffff}
+
 html[data-theme="dark"] .search-results-dropdown {
   background: var(--card);
   border-color: var(--border);
