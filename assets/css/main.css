@@ -1417,3 +1417,55 @@ html[data-theme="dark"] .post-full .meta time,
 html[data-theme="dark"] time {
   color: #ffffff !important;
 }
+
+@media print {
+  html,
+  body,
+  main,
+  .site-main,
+  .post-full,
+  .post-content,
+  article {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #000000 !important;
+  }
+
+  .post-full h1,
+  .post-full h2,
+  .post-full h3,
+  .post-content h1,
+  .post-content h2,
+  .post-content h3,
+  .post-content h4,
+  .post-content p,
+  .post-content li,
+  .post-content span,
+  .post-content blockquote,
+  .post-content [dir="rtl"],
+  .post-content .arabic,
+  time,
+  .meta {
+    color: #000000 !important;
+    background: transparent !important;
+  }
+
+  .post-content a {
+    color: #000000 !important;
+    text-decoration: underline !important;
+  }
+
+  /* Hide UI chrome when printing */
+  .site-header,
+  .site-footer,
+  .share-bar,
+  .reader-controls,
+  .theme-toggle-btn,
+  .print-essay-btn,
+  .report-abuse-wrap,
+  #backToTop,
+  .sidebar-nav,
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
