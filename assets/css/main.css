@@ -31,7 +31,7 @@ html[data-theme="dark"] body {
 }
 
 html[data-theme="dark"] .site-header {
-  background: var(--primary-dark);
+  background: #121212;
 }
 
 html[data-theme="dark"] .post-card,
