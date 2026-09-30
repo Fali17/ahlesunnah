@@ -63,6 +63,11 @@ html[data-theme="dark"] .share-btn {
   background: var(--primary);
 }
 
+html[data-theme=”dark”] 
+.pagination-status { background: var(--accent); }
+
+
+
 body {
   background: var(--bg);
   color: var(--text);
