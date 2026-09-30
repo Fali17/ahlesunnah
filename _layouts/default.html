@@ -564,6 +564,186 @@
 .theme-toggle-btn .theme-icon-dark { display: none; }
 html[data-theme="dark"] .theme-toggle-btn .theme-icon-light { display: none; }
 html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
+    /* ===== Header base ===== */
+.site-header {
+  background: var(--primary);
+  border-bottom: 4px solid var(--accent);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.menu-toggle-btn,
+.theme-toggle-btn {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1.1rem;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.logo-wrap {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.logo-wrap .site-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-text {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.site-brand-title {
+  font-family: 'Amiri', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 0.75rem;
+  color: #e8f5e9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-wrapper {
+  flex: 0 1 280px;
+  min-width: 120px;
+  max-width: 320px;
+}
+
+/* ===== Desktop ===== */
+@media (min-width: 769px) {
+  .header-container {
+    gap: 14px;
+    padding: 0 20px;
+  }
+
+  .site-brand-title {
+    font-size: 1.55rem;
+  }
+
+  .subtitle {
+    font-size: 0.8rem;
+    display: block;
+  }
+
+  .search-wrapper {
+    flex: 0 1 340px;
+    max-width: 380px;
+  }
+
+  .logo-wrap {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .site-header {
+    padding: 8px 0;
+  }
+
+  .header-container {
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
+  .menu-toggle-btn,
+  .theme-toggle-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .logo-wrap {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* Hide long subtitle on small screens so title isn’t crushed */
+  .subtitle {
+    display: none;
+  }
+
+  .site-brand-title {
+    font-size: 1.05rem;
+  }
+
+  /* Give search a fixed share of the row */
+  .header-inner {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 42%;
+  }
+
+  .search-wrapper {
+    flex: 1 1 auto;
+    min-width: 100px;
+    max-width: none;
+  }
+
+  .search-form-container {
+    height: 34px;
+  }
+}
+
+/* Very narrow phones: slightly smaller title */
+@media (max-width: 380px) {
+  .site-brand-title {
+    font-size: 0.95rem;
+  }
+
+  .header-inner {
+    max-width: 38%;
+  }
+}
+
     
   </style>
   
@@ -588,14 +768,14 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
 
     <div class="header-inner">
       <div class="logo-wrap">
-        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah Al Islam Logo" class="site-logo">
+        <img src="{{ 'assets/logo.png' | relative_url }}" alt="Ahle Sunnah" class="site-logo" width="40" height="40">
       </div>
-     <div class="brand-text">
-  <p class="site-brand-title">{{ site.title }}</p>
-  <p class="subtitle">{{ site.description }}</p>
-     </div>
+      <div class="brand-text">
+        <p class="site-brand-title">{{ site.title }}</p>
+        <p class="subtitle">{{ site.description }}</p>
+      </div>
     </div>
-
+    
     <div class="search-wrapper">
       <form id="searchForm" onsubmit="return false;" class="search-form-container" role="search">
         <button type="submit" class="search-icon-box" aria-label="Search">
