@@ -437,30 +437,29 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </article>
 
-  <!-- Chronological Post Navigation Row Framework -->
-{% if page.previous or page.next %}
+  {% if page.previous or page.next %}
 <div class="post-navigation-container">
-  
-  <!-- Left Side: Previous Post Button -->
+
+  {% if page.previous %}
   <div class="nav-button-wrapper prev-wrapper">
-    {% if page.previous %}
-      <a href="{{ page.previous.url | relative_url }}" class="nav-direction-btn">
-        <span class="nav-arrow">← Previous Post</span>
-        <span class="nav-post-title">{{ page.previous.title }}</span>
-      </a>
-    {% endif %}
+    <a href="{{ page.previous.url | relative_url }}" class="nav-direction-btn">
+      <span class="nav-arrow">← Previous Post</span>
+      <span class="nav-post-title">{{ page.previous.title }}</span>
+    </a>
   </div>
+  {% endif %}
 
-  <!-- Right Side: Next Post Button -->
+  {% if page.next %}
   <div class="nav-button-wrapper next-wrapper">
-    {% if page.next %}
-      <a href="{{ page.next.url | relative_url }}" class="nav-direction-btn">
-        <span class="nav-arrow">Next Post →</span>
-        <span class="nav-post-title">{{ page.next.title }}</span>
-      </a>
-    {% endif %}
+    <a href="{{ page.next.url | relative_url }}" class="nav-direction-btn">
+      <span class="nav-arrow">Next Post →</span>
+      <span class="nav-post-title">{{ page.next.title }}</span>
+    </a>
   </div>
+  {% endif %}
 
+</div>
+{% endif %}
 </div>
 {% endif %}
 
