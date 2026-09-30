@@ -293,18 +293,55 @@ layout: default
     font-size: 0.9rem;
   }
   }
-  .post-navigation-container.has-both {
+  .post-navigation-container {
+  display: flex;
+  align-items: stretch;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 2px solid var(--border);
+  width: 100%;
+}
+
+/* Both previous and next */
+.post-navigation-container.has-both {
   justify-content: space-between;
 }
 
+.post-navigation-container.has-both .nav-button-wrapper {
+  flex: 1 1 0;
+  max-width: 50%;
+}
+
+.post-navigation-container.has-both .next-wrapper {
+  text-align: right;
+}
+
+/* Only one button — center it */
 .post-navigation-container.has-one {
   justify-content: center;
 }
 
 .post-navigation-container.has-one .nav-button-wrapper {
   flex: 0 1 auto;
-  max-width: 420px;
   width: 100%;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-navigation-container.has-one .next-wrapper,
+.post-navigation-container.has-one .prev-wrapper {
+  text-align: left;
+}
+
+.post-navigation-container.has-one .next-wrapper .nav-direction-btn,
+.post-navigation-container.has-one .prev-wrapper .nav-direction-btn {
+  align-items: flex-start;
+  border-right: none;
+  border-left: 4px solid var(--accent);
+  width: 100%;
+  box-sizing: border-box;
 }
 </style>
 
@@ -450,9 +487,8 @@ document.addEventListener('DOMContentLoaded', function () {
   </div>
 </article>
 
-  {% if page.previous or page.next %}
+ {% if page.previous or page.next %}
 <div class="post-navigation-container{% if page.previous and page.next %} has-both{% else %} has-one{% endif %}">
- 
 
   {% if page.previous %}
   <div class="nav-button-wrapper prev-wrapper">
@@ -474,7 +510,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 </div>
 {% endif %}
-
 
   
 </article>
