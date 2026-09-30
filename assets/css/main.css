@@ -1410,3 +1410,10 @@ html[data-theme="dark"] .post-full {
   background: #1a2332;
   color: #eef2f7;
 }
+
+html[data-theme="dark"] .post-meta time,
+html[data-theme="dark"] .post-full .meta,
+html[data-theme="dark"] .post-full .meta time,
+html[data-theme="dark"] time {
+  color: #ffffff !important;
+}
