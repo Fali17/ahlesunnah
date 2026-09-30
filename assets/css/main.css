@@ -25,9 +25,10 @@ html[data-theme="dark"] {
   --header-muted: #c8e6c9;
 }
 
-html[data-theme="dark"] body {
+html[data-theme="dark"] body,p {
   background: var(--border);
   color: :#ffffff;
+  font-color:#ffffff;
 }
 
 html[data-theme="dark"] .site-header {
