@@ -49,6 +49,20 @@ html[data-theme="dark"] .site-brand-title {
 html[data-theme="dark"] .subtitle {
   color: #c8e6c9;
 }
+
+html[data-theme="dark"] .search-results-dropdown {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .search-result-item:hover {
+  background: #243044;
+}
+
+html[data-theme="dark"] .share-btn {
+  background: var(--primary);
+}
+
 body {
   background: var(--bg);
   color: var(--text);
