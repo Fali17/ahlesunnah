@@ -27,7 +27,7 @@ html[data-theme="dark"] {
 
 html[data-theme="dark"] body {
   background: var(--bg);
-  color: var(--text);
+  color: :#ffffff;
 }
 
 html[data-theme="dark"] .site-header {
@@ -38,7 +38,7 @@ html[data-theme="dark"] .post-card,
 html[data-theme="dark"] .post-full,
 html[data-theme="dark"] .report-modal-content {
   background: var(--card);
-  color: var(--text);
+  color: #ffffff;
 }
 
 html[data-theme="dark"] .search-results-dropdown {
