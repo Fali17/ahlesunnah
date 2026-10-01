@@ -844,6 +844,32 @@ html[data-theme="dark"] .theme-toggle-btn .theme-icon-dark { display: inline; }
     max-width: 100%;
   }
   }
+
+  @media (max-width: 768px) {
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1px;                 /* no extra gap */
+    min-width: 0;
+  }
+
+  .site-brand-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.1 !important;
+  }
+
+  .subtitle,
+  .brand-text .subtitle {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.15 !important;
+    font-size: 0.62rem !important;
+  }
+  }
   </style>
   
 </head>
