@@ -5,7 +5,7 @@ date: 2026-09-03 00:53:51 +0000
 tags: [Fiqh,Essay]
 ---
 
-The Shafi‘i Position on Shaving and Trimming the Beard
+# The Shafi‘i Position on Shaving and Trimming the Beard
 
 The relied-upon position of the later Shafi‘i madhhab is that growing and preserving the beard is Sunnah/mustahabb, while shaving it is makruh rather than haram. This is not a modern position and it is not an isolated statement of one late scholar; it is explicitly found throughout the authoritative Shafi‘i corpus.
 
