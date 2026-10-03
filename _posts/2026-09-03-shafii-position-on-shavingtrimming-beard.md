@@ -10,10 +10,10 @@ The relied-upon position of the later Shafi‘i madhhab is that growing and pres
 At the same time, a significant number of classical Shafi‘i authorities understood shaving as prohibited. The issue therefore represents a genuine internal disagreement within the madhhab, followed by a later process of tarjih through which the position of karahah rather than tahrim became the muʿtamad.
 
 < Imam al-Shafi‘i himself states in al-Umm:
-<
+
 «وَهُوَ وَإِنْ كَانَ فِي اللِّحْيَةِ لَا يَجُوزُ...»
-<
-< “And that, even though it concerns the  < beard, is not permissible...”
+
+ “And that, even though it concerns the beard, is not permissible...”
 
 This occurs in the discussion of shaving another person's beard without permission in Kitab al-Jirāḥ wa al-Diyāt (al-Umm 6/88). Ibn al-Rif‘ah and al-Isnawi understood this wording as evidence for prohibition, although the passage occurs within a discussion of injury and liability rather than as an independent chapter on beard grooming.
 
