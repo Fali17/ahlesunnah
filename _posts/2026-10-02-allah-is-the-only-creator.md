@@ -24,9 +24,9 @@ people of this religion. In other words, the one who believes in the Necessitati
 Causes, or the Necessitation Natures, is a disbeliever. This is for two reasons: 
 
 First, because it entails that Allah جل جلاله be unable to change the behavior of the world. For example: if fire necessarily caused burning, then it would be impossible for Allah جل جلاله to make
-fire not-burn. And this goes against an explicit Quranic passage, which informs of us of Allah جل جلاله‘s preventing the fire from burning Prophet Ibrahim (Quran al-Anbya 69):
+fire not-burn. And this goes against an explicit Quranic passage, which informs of us of Allah جل جلاله‘s preventing the fire from burning Prophet Ibrahim AS (**Quran al-Anbya 69**):
 
-We said: O fire, be cool and safe for Ibrahim. 
+< **We said: O fire, be cool and safe for < Ibrahim.** 
 
 Second, because this entails it to be rationally impossible for the world to not-exist. After all, the Philosopher believes that Allah جل جلاله Himself is a necessitating cause for the existence
 of the world. So long as He exists, the world will exist as well. And since it is impossible for Allah جل جلاله to not-exist, then it is impossible for the world to not-exist. 
@@ -44,8 +44,11 @@ Allah جل جلاله granted it the power to burn.
 Whoever believes in the Delegation of Creative Power, is an innovator. In other words, the one who believes in the Delegation of Creative Power is blameworthy, but his mistake is 
 not severe enough to take him out of the fold of Islam. 
 
-Belief in the Delegation of Creative Power is false, given Burhan al-Tamanu’. Also given the many scriptural passages which inform us of Allah جل جلاله‘s being the only creator. Passages like (al-Zumar 62): 
+Belief in the Delegation of Creative Power is false, given Burhan al-Tamanu’. Also given the many scriptural passages which inform us of Allah جل جلاله‘s being the only creator. Passages like (**al-Zumar 62**): 
 
-Allah is the creator of everything 
+<**Allah is the creator of everything**
+
 And if there was some other being that creates things, then Allah جل جلاله wouldn’t be the creator of everything.
+
+***Al-Kharida-Al-Bahia*** English commentary ***pg25-26***
 
