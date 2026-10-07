@@ -4,7 +4,7 @@ url: "https://fali17.github.io"
 baseurl: "/ahlesunnah"
 
 sitemap:
-  filename: /sitemap.xml
+  filename: "https://fali17.github.io/ahlesunnah/sitemap.xml"
 
 # Language & SEO settings
 lang: "en-GB"
