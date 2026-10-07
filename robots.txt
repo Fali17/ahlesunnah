@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-
-Sitemap: https://fali17.github.io/ahlesunnah/sitemap.xml
+Sitemap: https://github.io
