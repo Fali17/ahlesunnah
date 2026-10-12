@@ -108,4 +108,13 @@ Ibn Taymiyyah said:
 
  [![Ibn Taymiyyah said:‘Al Razi is ignorant of the positions of the Sahaba, Tabiʿin, the fuqaha, the muhaddithun, the Sufis, and even most of the earlier and later theologians.’Honestly when it comes to slandering Sahaba and scholars can anyone match the level of Ibn taymiyya?](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1ZZCqsL2rvOPeeLCHMbe_ec9ULrguCCYAZeFl21iDXMfzdbzB7y7foorDwezAMZ-OJchKYFRrFqESmVdeA-qMcx_jFeINZfNHftkTM6ZgQlUbhVd05phIfxM5WZeeWz2KYYjMya4KRdPqF0ibylN0WWZEBAqc0W5hUyif7T6FczxeurSkR23dGcJxmvQ/s1600/1000097375.jpg)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi1ZZCqsL2rvOPeeLCHMbe_ec9ULrguCCYAZeFl21iDXMfzdbzB7y7foorDwezAMZ-OJchKYFRrFqESmVdeA-qMcx_jFeINZfNHftkTM6ZgQlUbhVd05phIfxM5WZeeWz2KYYjMya4KRdPqF0ibylN0WWZEBAqc0W5hUyif7T6FczxeurSkR23dGcJxmvQ/s1600/1000097375.jpg)
 
- 
+ Ibn Taymiyyah said:
+
+"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."
+
+Jinn have phones?
+
+[!Ibn Taymiyyah said:"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."Jinn have phones?]
+("https://github.com/user-attachments/assets/673ec287-a237-444a-9455-2f65546dde23")]("https://github.com/user-attachments/assets/8af18f66-bbe6-4481-83af-6275eae2a9cf")
+
+
