@@ -114,7 +114,7 @@ Ibn Taymiyyah said:
 
 Jinn have phones?
 
-[![Ibn Taymiyyah said:"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."Jinn have phones?](https://lh3.googleusercontent.com/u/0/d/1VCVLUnKghSRBLIUffMlQiVuk3reKwLlY)](https://lh3.googleusercontent.com/u/0/d/1VCVLUnKghSRBLIUffMlQiVuk3reKwLlY)
+[![Ibn Taymiyyah said:"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."Jinn have phones?](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEji69Urrx3YeKkLefm87eYYTs201YSZM3ZY_29O2nVGvCmGd6u_dPbX1hbB-69BARp4tibnck7Ia5D9KK_Lzx505-VF9yQnhIUiWLVxJIVEVBmvn-ydeME4N6-WX4AArEZcJEhDJg2R9KwG-nKEQV43oBtdE0FATxxUo7UGVM3lRQlh3LYSOych_73QA34/s1600/52288.jpg)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEji69Urrx3YeKkLefm87eYYTs201YSZM3ZY_29O2nVGvCmGd6u_dPbX1hbB-69BARp4tibnck7Ia5D9KK_Lzx505-VF9yQnhIUiWLVxJIVEVBmvn-ydeME4N6-WX4AArEZcJEhDJg2R9KwG-nKEQV43oBtdE0FATxxUo7UGVM3lRQlh3LYSOych_73QA34/s1600/52288.jpg)
 
 
 
