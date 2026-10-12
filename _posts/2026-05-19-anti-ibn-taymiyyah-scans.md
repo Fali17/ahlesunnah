@@ -114,7 +114,7 @@ Ibn Taymiyyah said:
 
 Jinn have phones?
 
-[!Ibn Taymiyyah said:"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."Jinn have phones?]
-("https://github.com/user-attachments/assets/673ec287-a237-444a-9455-2f65546dde23")]("https://github.com/user-attachments/assets/8af18f66-bbe6-4481-83af-6275eae2a9cf")
+<img width="900" height="671" alt="HUda9Z8WAAAYgBE" src="https://github.com/user-attachments/assets/1990215c-8af0-43a7-9dfe-7479a69eaaab" />
+
 
 
