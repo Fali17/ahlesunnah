@@ -1645,3 +1645,10 @@ html[data-theme="dark"] .post-navigation-container a:hover .nav-title {
   border-right: none;
   border-left: 4px solid var(--accent);
 }
+
+blockquote {
+  /* Automatically detects text direction based on the first character of each paragraph */
+  direction: ltr; 
+  unicode-bidi: plaintext; 
+  text-align: start;
+}
