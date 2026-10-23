@@ -8,14 +8,15 @@ tags: [Essay , Fiqh , Aqeedah]
 Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see and he is not alive in his grave which is a grave sin and its kufr to say such things. And if someone lacks knowledge and says such things he is fine.
 
 >**The Prophet (ﷺ)** was indeed a martyr:
-**Imam Ibn Rajab (رحمه الله) in Fath Al Bari**:
+>
+>**Imam Ibn Rajab (رحمه الله) in Fath Al Bari**:
 
 >Prophet (ﷺ) said, "**I have been suffering from the effects of the food that I ate at Khaybar, and I will not die until I meet my Lord as a martyr.**"
 
 >"**The scholars are agreed that the Prophet (ﷺ) was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar.**"
 
 And if he is taking an Oath for this then its huge.
-The first saying of Hadrat Umar (RA) was taken from the Sealed Nectar.
+The first saying of Hadrat Umar (RA) was taken from the **Sealed Nectar**.
 
 And the second narration is the proof that the **Prophet (ﷺ)** can hear and Umar (RA) said that he would have heard if you were standing near his blessed grave.
 
