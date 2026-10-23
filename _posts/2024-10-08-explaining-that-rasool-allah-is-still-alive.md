@@ -5,15 +5,15 @@ date: 2024-10-08 22:02:00 +0000
 tags: [Essay , Fiqh , Aqeedah]
 ---
 
-Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see and he is not alive in his grave which is a grave sin and its kufr to say such things. And if someone lacks knowledge and says such things he is fine.
+<bdi>Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see and he is not alive in his grave which is a grave sin and its kufr to say such things. And if someone lacks knowledge and says such things he is fine.
 
->**The Prophet <bdi>(ﷺ)</bdi>** was indeed a martyr:
+>**The Prophet(ﷺ)** was indeed a martyr:
 >
->**Imam Ibn Rajab <bdi>(رحمه الله)</bdi> in Fath Al Bari**:
+>**Imam Ibn Rajab (رحمه الله) in Fath Al Bari**:
 
->Prophet <bdi>(ﷺ)</bdi> said, "**I have been suffering from the effects of the food that I ate at Khaybar, and I will not die until I meet my Lord as a martyr.**"
+>Prophet (ﷺ) said, "**I have been suffering from the effects of the food that I ate at Khaybar, and I will not die until I meet my Lord as a martyr.**"
 
->"**The scholars are agreed that the Prophet <bdi>(ﷺ)</bdi> was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar.**"
+>"**The scholars are agreed that the Prophet (ﷺ) was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar.**"
 
 And if he is taking an Oath for this then its huge.
 The first saying of Hadrat Umar (RA) was taken from the **Sealed Nectar**.
@@ -63,4 +63,4 @@ And Now about the explanation of the words of Hadrat Abu Bakar (RA) from the boo
  [![And Now about the explanation of the words of Hadrat Abu Bakar (RA) from the book of Imam Ibn Rajab (RA).](https://blogger.googleusercontent.com/img/a/AVvXsEgX1jfHlWbrv_3JiH3aKJXlzfIe4jJ6_ojVNyGGdWDFpyCE560t2G8oaYVPmBJG7ICyx0jKbHqipE1PCJ5LtF0Sa-KM8A_hl2hzoqHofsBEnw23bqQ4TiQZsnwdkP2ruacoSzGJfE1MhltvEwWN3mnEChEMTi2vPeJWwNjWfdQ4kgKJ86Do6YMFnQlrzFs)](https://blogger.googleusercontent.com/img/a/AVvXsEgX1jfHlWbrv_3JiH3aKJXlzfIe4jJ6_ojVNyGGdWDFpyCE560t2G8oaYVPmBJG7ICyx0jKbHqipE1PCJ5LtF0Sa-KM8A_hl2hzoqHofsBEnw23bqQ4TiQZsnwdkP2ruacoSzGJfE1MhltvEwWN3mnEChEMTi2vPeJWwNjWfdQ4kgKJ86Do6YMFnQlrzFs) 
 
 And the statement of Hadrat Abu Bakar (RA) had this reason behind this and he recited that verse because of some context which people who use his saying don't know about.
- [![And the statement of Hadrat Abu Bakar (RA) had this reason behind this and he recited that verse because of some context which people who use his saying don't know about.](https://blogger.googleusercontent.com/img/a/AVvXsEhhVK4uKWZoj3bT7j1sfsvHHG6Kh7MBD-uB57XNmf6YeA_J-i1zzK4XnfCGKmnrHTPmNK66n5dCl6PGMq1FJeENoXzkb2mKxbACwt7PRGenxJhIDd2E_x3krnSAOOgScW3fPrYbz6eZcXaM52LCssKGsQu_Ft5ulVyqXSYy1BeafYUuCa6LBC2h_MCRRio)](https://blogger.googleusercontent.com/img/a/AVvXsEhhVK4uKWZoj3bT7j1sfsvHHG6Kh7MBD-uB57XNmf6YeA_J-i1zzK4XnfCGKmnrHTPmNK66n5dCl6PGMq1FJeENoXzkb2mKxbACwt7PRGenxJhIDd2E_x3krnSAOOgScW3fPrYbz6eZcXaM52LCssKGsQu_Ft5ulVyqXSYy1BeafYUuCa6LBC2h_MCRRio)
+ [![And the statement of Hadrat Abu Bakar (RA) had this reason behind this and he recited that verse because of some context which people who use his saying don't know about.](https://blogger.googleusercontent.com/img/a/AVvXsEhhVK4uKWZoj3bT7j1sfsvHHG6Kh7MBD-uB57XNmf6YeA_J-i1zzK4XnfCGKmnrHTPmNK66n5dCl6PGMq1FJeENoXzkb2mKxbACwt7PRGenxJhIDd2E_x3krnSAOOgScW3fPrYbz6eZcXaM52LCssKGsQu_Ft5ulVyqXSYy1BeafYUuCa6LBC2h_MCRRio)](https://blogger.googleusercontent.com/img/a/AVvXsEhhVK4uKWZoj3bT7j1sfsvHHG6Kh7MBD-uB57XNmf6YeA_J-i1zzK4XnfCGKmnrHTPmNK66n5dCl6PGMq1FJeENoXzkb2mKxbACwt7PRGenxJhIDd2E_x3krnSAOOgScW3fPrYbz6eZcXaM52LCssKGsQu_Ft5ulVyqXSYy1BeafYUuCa6LBC2h_MCRRio)</bdi>
