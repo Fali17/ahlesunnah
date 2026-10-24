@@ -5,24 +5,28 @@ date: 2024-10-09 12:30:00 +0000
 tags: [Essay,Fiqh]
 ---
 
-The Messenger of God, (ﷺ), said : "Whoever bears witness that there is no god except Allah, and that Muhammad (ﷺ) is His servant and sincere Messenger, will enter Paradise."**(Mujam' Al Kabir)**
+The Messenger of God, (ﷺ), said : **"Whoever bears witness that there is no god except Allah, and that Muhammad (ﷺ) is His servant and sincere Messenger, will enter Paradise."** 
 
-The Messenger of God, ﷺ, said : There is nothing more honorable to Allah than the believer.
+**(Mujam' Al Kabir)**
+
+The Messenger of God, ﷺ, said : **There is nothing more honorable to Allah than the believer.**
+
 **(Majma of Al Haythami)**
 
-The Messenger of God, (ﷺ), said: The angels said: O our Lord, You have given the children of Adam the world, so they eat, drink, ride, and dress, and we glorify You with praise, and do not eat, drink, or play.
+The Messenger of God, (ﷺ), said: **The angels said: O our Lord, You have given the children of Adam the world, so they eat, drink, ride, and dress, and we glorify You with praise, and do not eat, drink, or play.**
 
-So just as you have given them the world, give us the Hereafter. He said: I will not make the offspring of one whom I have created with My hands like one to whom I said, “Be,” and he was."
+**So just as you have given them the world, give us the Hereafter. He said: I will not make the offspring of one whom I have created with My hands like one to whom I said, “Be,” and he was."**
+
 **(Narrated by Al Tabarani)**
 
-The Messenger of Allah (SAW) said "Actions are according to the Divine Decree, and the provision is guaranteed, and the term (of life) is fixed, and the repentance of the one who repents is accepted and the supplication of the one who supplicates is answered."
+The Messenger of Allah (SAW) said **"Actions are according to the Divine Decree, and the provision is guaranteed, and the term (of life) is fixed, and the repentance of the one who repents is accepted and the supplication of the one who supplicates is answered."**
 
 **(Sahih Bukhari)**
 
-The Messenger of Allah (ﷺ), said, "Verily, Allah has written the destinies of all creatures fifty thousand years before He created the heavens and the earth."
+The Messenger of Allah (ﷺ), said, **"Verily, Allah has written the destinies of all creatures fifty thousand years before He created the heavens and the earth."**
 **(Musnad Ahmad)**
 
-The Messenger of Allah (ﷺ). said: "When the people of Allah are in a situation in which they despair and are sad then He Laughs at them because he knows that he will bless them and what is written for them ahead."
+The Messenger of Allah (ﷺ). said: **"When the people of Allah are in a situation in which they despair and are sad then He Laughs at them because he knows that he will bless them and what is written for them ahead."**
 **(Musnad Ahmad)**
 
 This is the ost important thing that brings one Faith and believeing in all of them is a must inorder to acheive Faith.
@@ -42,7 +46,9 @@ Imam Ali (AS), said: **"Dua is the weapon of the Believer**."
 
 And in another saying: "**That a Muslim needs Dua more than hardwork**." This is because a man will be able to do hardwork but if he doesn't make dua then he doesn't know wether he will get the full reward of his hard work or not and Dua makes it better for him.
 
-And Imam Tajuddin Al Subki (rh) in his "taqibat Shafi" has a narration of Imam Ali (AS). "**A Man was making a sound but was nowhere to be seen then Imam Ali said bring that man who is giving a speech but is not seen, And that man was brought there and he was actually in such a condition that he couldn't stand up. Then He asked Imam Ali (AS) for prayer and he first asked him if his Father his happy with him and he narrated the story and then he told him that he was happy with me. Then Imam Ali (AS) prayed Nafl (Voulantary prayer) and then after he completed it he Said:****"Get Up" And that man got up and it was like that. N****othing had happened to him and he got up that he could even run, A man who couldn't stand up got in such a condition only because of him saying 'Get Up".**
+And Imam Tajuddin Al Subki (rh) in his **"taqibat Shafi"** has a narration of Imam Ali (AS). 
+
+**"A Man was making a sound but was nowhere to be seen then Imam Ali said bring that man who is giving a speech but is not seen, And that man was brought there and he was actually in such a condition that he couldn't stand up. Then He asked Imam Ali (AS) for prayer and he first asked him if his Father his happy with him and he narrated the story and then he told him that he was happy with me. Then Imam Ali (AS) prayed Nafl (voluntary prayer) and then after he completed it he Said:"Get Up" And that man got up and it was like that. Nothing had happened to him and he got up that he could even run, A man who couldn't stand up got in such a condition only because of him saying 'Get Up".**
 
 And this Miraclous Act of a Wali is also about dua and his words were not his but rather the words of Allah and when a Wali speaks he doesn't speak from his mouth rather its the word of Allah and then what he says gets fulfilled.
 
@@ -60,4 +66,4 @@ And if not then do not lose hope keep supplicating and pray more Nafl because wh
 
 And those who make dua and still get disappointed are on wrong because if you don't have Faith on Allah (SWT) that he will fulfill your need (the thing you are asking for) then your Dua won't get accepted and it won't be of use because Dua without faith is not a dua.
 
-Stay tuned for more posts!
+
