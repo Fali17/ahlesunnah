@@ -1646,14 +1646,6 @@ html[data-theme="dark"] .post-navigation-container a:hover .nav-title {
   border-left: 4px solid var(--accent);
 }
 
-blockquote {
-  text-align: start;
-}
-
-blockquote p {
-  display: block;
-  unicode-bidi: isolate;
-}
 
 /* 1. Reset the main blockquote wrapper to alignment-neutral */
 blockquote {
