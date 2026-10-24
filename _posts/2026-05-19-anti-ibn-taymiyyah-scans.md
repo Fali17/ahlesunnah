@@ -6,7 +6,7 @@ tags: [Scans,Reflection,Essay]
 ---
 Ibn Taymiyyah quoted Darimi:
 
- "If Allah willed He could have settled on the back of a mosquito, and it would have carried him."
+ **"If Allah willed He could have settled on the back of a mosquito, and it would have carried him."**
 
  But i thought his size was very big is he small now?
  
@@ -14,7 +14,7 @@ Ibn Taymiyyah quoted Darimi:
 
  Ibn Taymiyyah quoted Darimi:
 
- "Whoever claims that Allah has no limit has indeed rejected the Quran."
+ **"Whoever claims that Allah has no limit has indeed rejected the Quran."**
 
  So anyone who denies that Allah is confined or trapped in a place is a kafir?
 
@@ -22,8 +22,8 @@ Ibn Taymiyyah quoted Darimi:
 
  Ibn Taymiyyah quoted Darimi:
 
- "Allah has a limit and we leave it's knowledge to him and his makan (place) also has a limit so these are two limits."
-
+ **"Allah has a limit and we leave it's knowledge to him and his makan (place) also has a limit so these are two limits."**
+ 
  So the creator of all worlds is limited and trapped inside a place he himself created?
 
  [![Ibn Taymiyyah quoted Darimi: ‘Allah has a limit and we leave it's knowledge to him and his makan (place) also has a limit so these are two limits.’
@@ -31,7 +31,7 @@ So the creator of all worlds is limited and trapped inside a place he himself cr
 
 Kufr of Ibn Taymiyyah the 'Intelligent':
 
- "Hellfire is not eternal it is temporary and there is no definitive text in the Qur’an indicating that Hellfire will not perish."
+ **"Hellfire is not eternal it is temporary and there is no definitive text in the Qur’an indicating that Hellfire will not perish."**
 
  His beliefs made him so 'Intelligent' that he ended up denying the Quran because of his desires. 
 
@@ -39,14 +39,14 @@ Kufr of Ibn Taymiyyah the 'Intelligent':
 
  Shaytan Ibn Taymiyyah said:
 
- "Aisha asked the Prophet if Allah knows everything, and the Prophet ﷺ said 'Yes.' She was not a kafirah before knowing this despite her ignorance she was among those deserving blame for a sin, and it has become clear that her statement is kufr.” 
+ **"Aisha asked the Prophet if Allah knows everything, and the Prophet ﷺ said 'Yes.' She was not a kafirah before knowing this despite her ignorance she was among those deserving blame for a sin, and it has become clear that her statement is kufr.”** 
 
  [![Shaytan Ibn Taymiyyah said:‘Aisha asked the Prophet if Allah knows everything, and the Prophet ﷺ said 'Yes.' She was not a kafirah before knowing this despite her ignorance she was among those deserving blame for a sin, and it has become clear that her statement is kufr.’](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioTO2m_dN0WCaqULqoK9k8MPl8xoZ6TaDtKCklOVyVOTYXkN4UWYwdehk3464v0WEqbXQLA3E45-o6deE5XTathp86SgCJSrasd7j0y6lK2HyE1JKypsL3azOeXYx6AsnQ7rJuKM6UyfsMkgWOTkM0Ab3eM7VoCixJE-CUTXGG3AaXacqyHTUxGVlJYw4/s1600/1000097404.png)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEioTO2m_dN0WCaqULqoK9k8MPl8xoZ6TaDtKCklOVyVOTYXkN4UWYwdehk3464v0WEqbXQLA3E45-o6deE5XTathp86SgCJSrasd7j0y6lK2HyE1JKypsL3azOeXYx6AsnQ7rJuKM6UyfsMkgWOTkM0Ab3eM7VoCixJE-CUTXGG3AaXacqyHTUxGVlJYw4/s1600/1000097404.png)
 
 Mujjasim Ibn Taymiyyah said:
 
- "There remains on the Throne a space of 4 fingers upon which Allah does not sit. This is a strange meaning with no witness in any sahih narrations. It implies the Throne is greater than the Lord in (size)."
-
+ **"There remains on the Throne a space of 4 fingers upon which Allah does not sit. This is a strange meaning with no witness in any sahih narrations. It implies the Throne is greater than the Lord in (size)."**
+ 
  So literal that he said Allah has a size.
 
  [![Mujjasim Ibn Taymiyyah said: ‘There remains on the Throne a space of 4 fingers upon which Allah does not sit. This is a strange meaning with no witness in any sahih narrations. It implies the Throne is greater than the Lord in (size).’ So literal that he said Allah has a size💀](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgxSyFTFpNIBEP4XBaBST0x58YDtVf5qP9w2RdETBYixFH56YjNGM2M3W0dukzizuGhigT7rLdt5e46hBbSO5iaD78pyYrB54rtXcRjqSaeB7qSP3Eo8bAWmeYWEIHhcL8yqyUR068mUg9WjF5aWLH-gp8PlO0U2iZSxSBKz7R40D4BKv_tZO1XFZXbPjA/s1600/1000097405.png)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgxSyFTFpNIBEP4XBaBST0x58YDtVf5qP9w2RdETBYixFH56YjNGM2M3W0dukzizuGhigT7rLdt5e46hBbSO5iaD78pyYrB54rtXcRjqSaeB7qSP3Eo8bAWmeYWEIHhcL8yqyUR068mUg9WjF5aWLH-gp8PlO0U2iZSxSBKz7R40D4BKv_tZO1XFZXbPjA/s1600/1000097405.png)
@@ -54,7 +54,7 @@ Mujjasim Ibn Taymiyyah said:
 
 Ibn Taymiyyah said:
 
- "There is no Majaz(Metaphor) in the Quran rather all of it is literal."
+ **"There is no Majaz(Metaphor) in the Quran rather all of it is literal."**
 
  Is the verse "Everything will perish except His Face" also literal?
 
@@ -65,7 +65,7 @@ Ibn Taymiyyah said:
 
  Nasibi Ibn Taymiyyah said:
 
- "During the caliphate of Ali there were no conquests against kuffar, nor was Egypt conquered rather, the sword was drawn against the People of the Qibla.”
+ **"During the caliphate of Ali there were no conquests against kuffar, nor was Egypt conquered rather, the sword was drawn against the People of the Qibla.”**
 
  I don't think i even need to say anything about this it's just his habit of criticizing Sahaba.
  
@@ -74,18 +74,18 @@ Ibn Taymiyyah said:
 
 Ibn Taymiyyah quoted Al Juwayni:
 
- "Tafwid al ma'na is what the salaf used to do."
+ **"Tafwid al ma'na is what the salaf used to do."**
 
  After quoting him Ibn Taymiyyah said:
 
- "We should accept the truth from anyone even if its from a kafir." And Ibn Taymiyyah not disagree with Imam Al Haramayn and accepted what he said.
+**"We should accept the truth from anyone even if its from a kafir."** And Ibn Taymiyyah not disagree with Imam Al Haramayn and accepted what he said.
 
 
  [![ Ibn Taymiyyah quoted Al Juwayni:'Tafwid al ma'na is what the salaf used to do.'After quoting him Ibn Taymiyyah said: 'We should accept the truth from anyone even if its from a kafir.'  And Ibn Taymiyyah not disagree with Imam Al Haramayn and accepted what he said.](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKBeMzgl8N0dU11pBpVCD-LLlOLfSfBfozFHeFUqaqv8zNrN1mMqnNMXw7wPKoXlfFUQq-lFNHlK63f_HJxFe1xfJ8lv1QcqjnjHAetXpZeCMH-cUK_opFDw4YfrKg2rV3RlOVCjRXfLIx8ynYsObf1sUhuNhLEEvg9qU3oSgZGFcjRrRpeMHxEJ_Vamo/s1600/1000097408.png)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjKBeMzgl8N0dU11pBpVCD-LLlOLfSfBfozFHeFUqaqv8zNrN1mMqnNMXw7wPKoXlfFUQq-lFNHlK63f_HJxFe1xfJ8lv1QcqjnjHAetXpZeCMH-cUK_opFDw4YfrKg2rV3RlOVCjRXfLIx8ynYsObf1sUhuNhLEEvg9qU3oSgZGFcjRrRpeMHxEJ_Vamo/s1600/1000097408.png)
 
 Ibn Taymiyyah said:
 
- "Allah is a body unlike other bodies and there is nothing in the Quran nor in the Sunnah nor in the saying of anyone from the Salaf of the nation and it's Imams that He is not a body and that His attributes are not bodies."
+ **"Allah is a body unlike other bodies and there is nothing in the Quran nor in the Sunnah nor in the saying of anyone from the Salaf of the nation and it's Imams that He is not a body and that His attributes are not bodies."**
 
  So Allah is a body and has limbs?
 
@@ -96,13 +96,13 @@ that He is not a body and that His attributes are not bodies.](https://blogger.g
 
 Ibn Taymiyyah said:
 
- "Allah existed without a place and then He created the world and everything while being outside and it is also impossible that He created it while being outside and then entered into it."
+ **"Allah existed without a place and then He created the world and everything while being outside and it is also impossible that He created it while being outside and then entered into it."**
  
  [![Ibn Taymiyyah said: ‘Allah existed without a place and then He created the world and everything while being outside and it is also impossible that He created it while being outside and then entered into it.’](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6WSMWvXR6LfPW1HmnfWrMHfmKYZYjYMsOsDBUoyMImuxyNdPgPpiEwRAmE97SXBj3L1WN2LfjN3RAEQ-r-uBk-3DsFvNqidlxfU3LGO-qUSjA_ApGRty4WsCjd46pCtJgRdLj3m4jotWmcqgm7i85tVEfH9q2lefgQKPOkhpqvCLfFPSfqoFUXhLX05U/s1600/1000097410.png)](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi6WSMWvXR6LfPW1HmnfWrMHfmKYZYjYMsOsDBUoyMImuxyNdPgPpiEwRAmE97SXBj3L1WN2LfjN3RAEQ-r-uBk-3DsFvNqidlxfU3LGO-qUSjA_ApGRty4WsCjd46pCtJgRdLj3m4jotWmcqgm7i85tVEfH9q2lefgQKPOkhpqvCLfFPSfqoFUXhLX05U/s1600/1000097410.png)
 
 Ibn Taymiyyah said:
 
- "Al Razi is ignorant of the positions of the Sahaba, Tabiʿin, the fuqaha, the muhaddithun, the Sufis, and even most of the earlier and later theologians."
+ **"Al Razi is ignorant of the positions of the Sahaba, Tabiʿin, the fuqaha, the muhaddithun, the Sufis, and even most of the earlier and later theologians."**
 
  Honestly when it comes to slandering Sahaba and scholars can anyone match the level of Ibn Taymiyyah?
 
@@ -110,7 +110,7 @@ Ibn Taymiyyah said:
 
  Ibn Taymiyyah said:
 
-"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."
+**"Some Shaykhs have reported that Jinn look into some glass-type things and then inform them of some things by looking at that device, which is like water and glass, and send our words to others through it."**
 
 Jinn have phones?
 
