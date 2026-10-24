@@ -7,13 +7,13 @@ tags: [Qur'an,Tafsir,Reflection]
 
 
 
-“Have they not considered how the shadows of everything Allah has created incline to the right and the left, prostrating to Allah in humility?”
+>**“Have they not considered how the shadows of everything Allah has created incline to the right and the left, prostrating to Allah in humility?”**
 
 This verse literally describes a daily physical phenomenon: the movement of shadows across the Earth’s surface. Modern astronomy, geometry, and optics provided a detailed explanation of this process.
 
 When examined carefully, the wording corresponds totally with how shadows behave in reality
 
-### 1. The Physics of Shadow Formation
+**1. The Physics of Shadow Formation**
 
 A shadow forms when an opaque object blocks light from a source. In the case of Earth, the primary light source is the Sun.
 
@@ -29,7 +29,7 @@ When the Sun moves across the sky, the angle θ constantly changes, causing the 
 
 This stuff produces the observable phenomenon mentioned in the verse: shadows inclining from one side to another.
 
-### 2. Earth’s Rotation and Apparent Solar Motion
+**2. Earth’s Rotation and Apparent Solar Motion**
 
 Modern astronomy explains shadow movement through Earth’s rotation:
 
@@ -45,11 +45,11 @@ Thus, the shadow moves from one side to the other during the day.
 
 Scientists have long described this phenomenon. Like Galileo explained this stuff like this:
 
-“The daily turning of the Earth causes the Sun to appear to move across the sky, and the shadows of bodies upon the ground change their position accordingly.”
+>**“The daily turning of the Earth causes the Sun to appear to move across the sky, and the shadows of bodies upon the ground change their position accordingly.”**
 
 Isaac Newton also explained this stuff
 
-### 3. The Arc Like Motion of Shadows
+**3. The Arc Like Motion of Shadows**
 
 Shadows do not simply move in a straight line. Because the Earth is spherical and the Sun follows a curved path across the sky, shadows trace curved arcs across surfaces.
 
@@ -67,13 +67,13 @@ then lengthens in the opposite direction
 
 This arc like movement corresponds closely to the Quranic expression that shadows “incline to the right and the left.”
 
-### 4. Linguistic Precision of the Verse
+**4. Linguistic Precision of the Verse**
 
 The verse uses the Arabic expression describing shadows tilting or leaning toward both sides.
 
 “Ibn ʿAbbās said: it sways. The fay’ is the shadow after noon because it inclines from the side it was on to the opposite side.”
 
-Ibn ʿAdil: “من كل شيء له ظل من جبل وشجر وبناء وجسم قائم”
+Ibn ʿAdil: **“من كل شيء له ظل من جبل وشجر وبناء وجسم قائم”**
 
 everything with a shadow even a mountain
 
@@ -99,7 +99,7 @@ animals
 
 people
 
-### 5. Shadows as a Universal Natural Sign
+**5. Shadows as a Universal Natural Sign**
 
 Historically the study of shadows played a major role in science.
 
