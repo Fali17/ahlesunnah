@@ -9,17 +9,17 @@ As per shia belief giving power (Sultah) to someone who is not from Ahlul Bayt o
 
 “مشهورا بالعلم، والاجتهاد، والورع… ومنابذة أعداء الله الظالمين… والرأفة والرحمة… فإذا كان مشهورا بذلك… وجبت طاعته”
 
-(Majmūʿ al-Imām al-Qāsim b. Muḥammad 1/284)
+**(Majmūʿ al-Imām al-Qāsim b. Muḥammad 1/284)**
 
 “الجامع… الهادي… الناهض بنشر أعلام الشريعة”
 
-(Al-Imām al-Ṣādiq 1/64)
+**(Al-Imām al-Ṣādiq 1/64)**
 
-"If Muʿāwiyah were (God forbid) a kafir, sinful tyrant, or unjust usurper, then the blame would fall upon Imam Hasan for entrusting the affairs of the Muslims to such a person willingly and without compulsion."
+**"If Muʿāwiyah were (God forbid) a kafir, sinful tyrant, or unjust usurper, then the blame would fall upon Imam Hasan for entrusting the affairs of the Muslims to such a person willingly and without compulsion."**
 
 (IARK said this)
 
-hadith from bukhari: “This son of mine is a leader, and Allah will reconcile through him two great groups of Muslims.”
+hadith from bukhari: **“This son of mine is a leader, and Allah will reconcile through him two great groups of Muslims.”**
 
 If he was a tyrant or a kafir then this hadith is proving that rafidi belief wrong because the words are pretty clear here both groups are muslim groups And even as per sh'ites this would have been a great sin transfering power to Muawiiyah if he was wrong then Imam Hasan commited a grave sin by their own sources and handed over leadership to someone who is not from Ahlul Bayt.
 
