@@ -5,7 +5,7 @@ date: 2026-03-07 00:22:07 +0000
 tags: [Aqeedah,Fiqh]
 ---
 
-1. The Core Distinction: Creator vs. Acquirer
+**1. The Core Distinction: Creator vs. Acquirer**
 
 The first step is to establish that every action has two "facets." Allah is the Creator (Khāliq) of the action because only He can bring something from non-existence into existence. However, the human is the Acquirer (Kāsib).
 
@@ -13,7 +13,7 @@ The Analogy: When a slave expends their power and will toward an action, that is
 
 The Ruling: Praise, blame, reward, and punishment are attached to the Acquisition, not the creation. Allah creates the "movement," but the human provides the "intent" (e.g., the hand's movement is created by God, but the choice to use it for charity or theft belongs to the human).
 
-2. The "Partial Will": Where Freedom Lives
+**2. The "Partial Will": Where Freedom Lives**
 
 A common question is: "If God created my will, how am I free?" The answer lies in the Partial Will (al-irāda al-juz’iyya) or Sincere Resolve (‘azm muṣammam),
 
@@ -23,7 +23,7 @@ This "Partial Will" is considered a Relational State (amr i’tibārī) or a Sta
 
 Because this resolve is not a "thing" created by God, it is the one area where the human is truly independent and held responsible. It is the "trigger" that occasions God's creation of the act.
 
-3. Capacity (Istitā‘a): When are we able to act?
+**3. Capacity (Istitā‘a): When are we able to act?**
 
 To avoid contradiction, you must explain that there are two types of ability:
 
@@ -35,9 +35,9 @@ Allah creates the power to do good if the slave intends good, and the power to d
 
 Thus, the human "wastes" the potential for good by choosing the resolve for evil.
 
-4. Knowledge is not Compulsion
+**4. Knowledge is not Compulsion**
 
-The final hurdle is usually the argument: "If God knew eternally I would do this, I must do it."
+The final hurdle is usually the argument: **"If God knew eternally I would do this, I must do it."**
 
 In our theology, Knowledge is a Follower (tābi‘) of the thing known. God knows what will happen as it will happen,
 
