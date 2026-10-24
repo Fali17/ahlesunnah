@@ -13,7 +13,7 @@ Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see an
 
 **Prophet (ﷺ) said, "I have been suffering from the effects of the food that I ate at Khaybar, and I will not die until I meet my Lord as a martyr."**
 
-"The scholars are agreed that the Prophet (ﷺ) was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar."
+**"The scholars are agreed that the Prophet (ﷺ) was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar."**
 
 And if he is taking an Oath for this then its huge.The first saying of Hadrat Umar (RA) was taken from the **Sealed Nectar**.
 
