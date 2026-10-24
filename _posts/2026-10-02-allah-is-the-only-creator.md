@@ -24,7 +24,7 @@ Proclaiming belief in Necessitating Natures or Causes, is disbelief according to
 First, because it entails that Allah جل جلاله be unable to change the behavior of the world. For example: if fire necessarily caused burning, then it would be impossible for Allah جل جلاله to make
 fire not-burn. And this goes against an explicit Quranic passage, which informs of us of Allah جل جلاله‘s preventing the fire from burning Prophet Ibrahim AS (**Quran al-Anbya 69**):
 
->**We said: O fire, be cool and safe for Ibrahim.**
+>**We said: O fire, be cool and safe for Ibrahim**
 
 Second, because this entails it to be rationally impossible for the world to not-exist. After all, the Philosopher believes that Allah جل جلاله Himself is a necessitating cause for the existence
 of the world. So long as He exists, the world will exist as well. And since it is impossible for Allah جل جلاله to not-exist, then it is impossible for the world to not-exist. 
