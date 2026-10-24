@@ -1647,8 +1647,10 @@ html[data-theme="dark"] .post-navigation-container a:hover .nav-title {
 }
 
 blockquote {
-  /* Automatically detects text direction based on the first character of each paragraph */
-  direction: ltr; 
-  unicode-bidi: plaintext; 
   text-align: start;
+}
+
+blockquote p {
+  display: block;
+  unicode-bidi: isolate;
 }
