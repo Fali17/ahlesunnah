@@ -15,19 +15,19 @@ Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see an
 
 "The scholars are agreed that the Prophet (ﷺ) was a shaheed, because he died as a result of the effects of the poison that he was given by the Jews of Khaybar."
 
-And if he is taking an Oath for this then its huge.
-The first saying of Hadrat Umar (RA) was taken from the **Sealed Nectar**.
+And if he is taking an Oath for this then its huge.The first saying of Hadrat Umar (RA) was taken from the **Sealed Nectar**.
 
 And the second narration is the proof that the **Prophet (ﷺ)** can hear and Umar (RA) said that he would have heard if you were standing near his blessed grave.
 
  [![Umar (RA) said that he would have heard if you were standing near his blessed grave.](https://blogger.googleusercontent.com/img/a/AVvXsEjVYCiGgwbmvxD980u7IcU8jMNqYhoRoLMM9lKKQikS9ef80ARxfg2UvRhO8gMAdhXxYY-1ZBs7ctwiOH4t-mQ5QvGtPMXZ5t6NmM2wyV9tYPac08Olu17hcu6RL6uVxpiYd668HkrdqEIZOXzhfaYKXB9iTn2GOoARHTkiwBECeCgn1dZ2yFp6vDu621Q)](https://blogger.googleusercontent.com/img/a/AVvXsEjVYCiGgwbmvxD980u7IcU8jMNqYhoRoLMM9lKKQikS9ef80ARxfg2UvRhO8gMAdhXxYY-1ZBs7ctwiOH4t-mQ5QvGtPMXZ5t6NmM2wyV9tYPac08Olu17hcu6RL6uVxpiYd668HkrdqEIZOXzhfaYKXB9iTn2GOoARHTkiwBECeCgn1dZ2yFp6vDu621Q) 
 
-Imam Of the Salaf Imam Shafi said the person who says that the**Prophet (ﷺ)** can't hear or not alive in his grave is a kafir.
+Imam Of the Salaf Imam Shafi said the person who says that the **Prophet (ﷺ)** can't hear or not alive in his grave is a kafir.
 
  [![Imam Of the Salaf Imam Shafi said the person who says that the Prophet (ﷺ) can't hear or not alive in his grave is a kafir.](https://blogger.googleusercontent.com/img/a/AVvXsEheuxH7CpXYNjomOVZD0oujNsEVrwQekMfLfwKynBpWozNUNeZoOvnrdELFsj9_iBborrMLiumLQ_tl6iQg2nbMlG8Dkgp9U5pxxP7fQp8TlsDVhkF2s8YmQpxYJ421odSPwWudrktUpf2agi6X1ZfiYTr1ktwtnJfhcJxTnuWSLrVUcfXvRzphJImgmQI)](https://blogger.googleusercontent.com/img/a/AVvXsEheuxH7CpXYNjomOVZD0oujNsEVrwQekMfLfwKynBpWozNUNeZoOvnrdELFsj9_iBborrMLiumLQ_tl6iQg2nbMlG8Dkgp9U5pxxP7fQp8TlsDVhkF2s8YmQpxYJ421odSPwWudrktUpf2agi6X1ZfiYTr1ktwtnJfhcJxTnuWSLrVUcfXvRzphJImgmQI) 
 
 Ibn Rajab said that the Soul of the **Prophet (ﷺ )** is still with his body and he can intercede even before the day of judgment
 Which means one should ask him for it.
+
 And Ibn Tayimiyyah said whoever calls him dead is a kafir or deviant if he is not much knowledgeable about this.
  [![Ibn Rajab said that the Soul of the Prophet (ﷺ ) is still with his body and he can intercede even before the day of judgment Which means one should ask him for it. And Ibn Tayimiyyah said whoever calls him dead is a kafir or deviant if he is not much knowledgeable about this.](https://blogger.googleusercontent.com/img/a/AVvXsEgKKxN1yPiyyeS1VxKgjcLAfNS878KiW04gVprxox2KGPuKArOBojCYRe00LlU5lspD04TaL6az5e6jzmyurhmA6Hx4-pCqhn_N7IKMPYNuEwCTSzxdD_vphWq07h5r-yLXxUqz-yzKAXUUUpMdzoRZy6QeojQgJRLjNLMiDn08za8u4MFI_15OcYQ5oU4)](https://blogger.googleusercontent.com/img/a/AVvXsEgKKxN1yPiyyeS1VxKgjcLAfNS878KiW04gVprxox2KGPuKArOBojCYRe00LlU5lspD04TaL6az5e6jzmyurhmA6Hx4-pCqhn_N7IKMPYNuEwCTSzxdD_vphWq07h5r-yLXxUqz-yzKAXUUUpMdzoRZy6QeojQgJRLjNLMiDn08za8u4MFI_15OcYQ5oU4) 
 
