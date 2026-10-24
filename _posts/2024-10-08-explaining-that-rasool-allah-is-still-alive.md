@@ -9,7 +9,7 @@ Many people nowdays say that the Prophet ﷺ is dead and he can't hear or see an
 
 **The Prophet(ﷺ)** was indeed a martyr:
 
-**Imam Ibn Rajab (رحمه الله) in **Fath Al Bari**:
+**Imam Ibn Rajab (رحمه الله) in Fath Al Bari**:
 
 **Prophet (ﷺ) said, "I have been suffering from the effects of the food that I ate at Khaybar, and I will not die until I meet my Lord as a martyr."**
 
