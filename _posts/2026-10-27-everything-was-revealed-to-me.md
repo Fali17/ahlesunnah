@@ -1,7 +1,9 @@
+---
 layout: post
 title: "Everything was revealed to me properly"
 date: 2026-10-27 22:18:00 +0000
 tags: [Essay , Fiqh , Aqeedah]
+---
 
 **Sunan al-Tirmidhi, Hadith 3235**
 
