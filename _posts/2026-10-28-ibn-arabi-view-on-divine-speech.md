@@ -5,7 +5,9 @@ date: 2026-10-28 01:57:00 +0000
 tags: [Fiqh , Aqeedah]
 ---
 **Diagram 1-How The Quran Is Recieved And Recited**
-[![Diagram 1 -How The Quran Is Recieved And Recited]("How_The_Quran_is_received_and_recited_as_per_Ibn_Arabi.jpg")]("How_The_Quran_is_received_and_recited_as_per_Ibn_Arabi.jpg")
+
+[![Diagram 1 - How The Quran Is Recieved And Recited](How_The_Quran_is_received_and_recited_as_per_Ibn_Arabi.jpg)](How_The_Quran_is_received_and_recited_as_per_Ibn_Arabi.jpg)
+
 
 **Diagram-Divine Speech, Tajalli and It's Forms**
 [![Diagram - Divine Speech, Tajalli and It's Forms]("Divine_speech_and_tajjali.jpg")]("Divine_speech_and_tajjali.jpg")
