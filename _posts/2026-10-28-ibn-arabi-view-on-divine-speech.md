@@ -1,5 +1,5 @@
 ---
-layout:posts
+layout:post
 title:Ibn Arabi View On Divine Speech
 date:2026-10-28 01:38:00 +0000
 tags:[Fiqh,Aqeedah]
