@@ -1,3 +1,9 @@
+---
+layout:posts
+title:Ibn Arabi View On Divine Speech
+date:2026-10-28 01:38:00 +0000
+tags:[Fiqh,Aqeedah]
+---
 <img width="903" height="1024" alt="Image" src="https://github.com/user-attachments/assets/c209b037-3f30-4d77-a22c-bca061419bd0" />
 <img width="813" height="1024" alt="Image" src="https://github.com/user-attachments/assets/8a3807ae-6c30-4cd6-bbcc-d59c402a700a" />
 
