@@ -1,8 +1,8 @@
 ---
-layout:post
-title:"Ibn Arabi View On Divine Speech"
-date:2026-10-28 01:38:00 +0000
-tags:[Fiqh,Aqeedah]
+layout: post
+title: "Ibn Arabi View On Divine Speech"
+date: 2026-10-28 01:57:00 +0000
+tags: [Fiqh , Aqeedah]
 ---
 
 [![Diagram 1 -How The Quran Is Recieved And Recited](<img width="903" height="1024" alt="Image" src="https://github.com/user-attachments/assets/c209b037-3f30-4d77-a22c-bca061419bd0"/>)](<img width="903" height="1024" alt="Image" src="https://github.com/user-attachments/assets/c209b037-3f30-4d77-a22c-bca061419bd0"/>)
